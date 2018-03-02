@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CRM_CUSTOMER_BUS_HIS">
+
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CrmCustomerBusHis">
+        <id column="ID" property="id" jdbcType="DECIMAL"/>
+        <result column="USER_ID" property="userId" jdbcType="DECIMAL"/>
+        <result column="P_ID" property="pId" jdbcType="DECIMAL"/>
+        <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="LEV" property="level" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      ID, USER_ID, P_ID, START_TIME, END_TIME ,LEV
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from CRM_CUSTOMER_BUS_HIS
+        where ID = #{id,jdbcType=DECIMAL}
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from CRM_CUSTOMER_BUS_HIS
+        <where>
+            1=1
+            <if test="id != null">
+                and ID = #{id,jdbcType=DECIMAL}
+            </if>
+            <if test="userId != null">
+                and USER_ID = #{userId,jdbcType=DECIMAL}
+            </if>
+            <if test="pId != null">
+                and P_ID = #{pId,jdbcType=DECIMAL}
+            </if>
+            <if test="timeFlag != null and timeFlag='yes'">
+                and END_TIME is null
+            </if>
+        </where>
+        order by START_TIME desc
+    </select>
+
+    <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CrmCustomerBusHis">
+        <selectKey order="BEFORE" keyProperty="id" resultType="long">
+            SELECT SEQ_CRM_CUSTOMER_BUS_HIS.NEXTVAL as id FROM DUAL
+        </selectKey>
+        insert into CRM_CUSTOMER_BUS_HIS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="pId != null">
+                P_ID,
+            </if>
+            <if test="startTime != null">
+                START_TIME,
+            </if>
+            <if test="endTime != null">
+                END_TIME,
+            </if>
+            <if test="level != null">
+                LEV
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=DECIMAL},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=DECIMAL},
+            </if>
+            <if test="pId != null">
+                #{pId,jdbcType=DECIMAL},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CrmCustomerBusHis">
+        update CRM_CUSTOMER_BUS_HIS
+        <set>
+            <if test="startTime != null">
+                START_TIME = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                END_TIME = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="level != null">
+                LEV = #{level,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=DECIMAL}
+    </update>
+
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MOBILE_HISTORY" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.MobileHistory" >
+    <id column="HIS_ID" property="hisId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="BEFORE_NO" property="beforeNo" jdbcType="VARCHAR" />
+    <result column="AFTER_NO" property="afterNo" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_SOURCE" property="updateSource" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    HIS_ID, USER_ID, BEFORE_NO, AFTER_NO, UPDATE_TIME, UPDATE_SOURCE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MOBILE_HISTORY
+    where HIS_ID = #{hisId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from MOBILE_HISTORY
+    where HIS_ID = #{hisId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.MobileHistory" >
+  	<selectKey keyProperty="hisId" order="BEFORE" resultType="long">
+      SELECT SEQ_MOBILE_HISTORY.NEXTVAL as hisId FROM dual
+    </selectKey>
+    insert into MOBILE_HISTORY (HIS_ID, USER_ID, BEFORE_NO, 
+      AFTER_NO, UPDATE_TIME, UPDATE_SOURCE
+      )
+    values (#{hisId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{beforeNo,jdbcType=VARCHAR}, 
+      #{afterNo,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateSource,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.MobileHistory" >
+    insert into MOBILE_HISTORY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hisId != null" >
+        HIS_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="beforeNo != null" >
+        BEFORE_NO,
+      </if>
+      <if test="afterNo != null" >
+        AFTER_NO,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateSource != null" >
+        UPDATE_SOURCE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hisId != null" >
+        #{hisId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="beforeNo != null" >
+        #{beforeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="afterNo != null" >
+        #{afterNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateSource != null" >
+        #{updateSource,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.MobileHistory" >
+    update MOBILE_HISTORY
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="beforeNo != null" >
+        BEFORE_NO = #{beforeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="afterNo != null" >
+        AFTER_NO = #{afterNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateSource != null" >
+        UPDATE_SOURCE = #{updateSource,jdbcType=CHAR},
+      </if>
+    </set>
+    where HIS_ID = #{hisId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.MobileHistory" >
+    update MOBILE_HISTORY
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      BEFORE_NO = #{beforeNo,jdbcType=VARCHAR},
+      AFTER_NO = #{afterNo,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_SOURCE = #{updateSource,jdbcType=CHAR}
+    where HIS_ID = #{hisId,jdbcType=DECIMAL}
+  </update>
+</mapper>

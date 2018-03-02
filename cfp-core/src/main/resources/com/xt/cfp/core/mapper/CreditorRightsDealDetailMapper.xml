@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CREDITORRIGHT_DEAL_DETAIL" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CreditorRightsDealDetail" >
+    <id column="RIGHTS_TRANSFER_DETAIL_ID" property="rightsTransferDetailId" jdbcType="DECIMAL" />
+    <result column="CREDITOR_RIGHTS_APPLY_ID" property="creditorRightsApplyId" jdbcType="DECIMAL" />
+     <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+    <result column="CARRY_CR_ID" property="carryCrId" jdbcType="DECIMAL" />
+    <result column="CARRY_USER_ID" property="carryUserId" jdbcType="DECIMAL" />
+    <result column="BUY_BALANCE" property="buyBalance" jdbcType="DECIMAL" />
+    <result column="BUY_WORTH" property="buyWorth" jdbcType="DECIMAL" />
+    <result column="BUY_DATE" property="buyDate" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RIGHTS_TRANSFER_DETAIL_ID, CREDITOR_RIGHTS_APPLY_ID, CARRY_CR_ID, CARRY_USER_ID, BUY_BALANCE,
+    BUY_DATE, STATUS, BUY_WORTH, LEND_ORDER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CREDITORRIGHT_DEAL_DETAIL
+    where RIGHTS_TRANSFER_DETAIL_ID = #{rightsTransferDetailId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getCreditorRightsDetailByLendOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from CREDITORRIGHT_DEAL_DETAIL
+    where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getRemainingRightsPrice" resultType="java.math.BigDecimal" parameterType="java.lang.Long" >
+	SELECT NVL(SUM(BUY_BALANCE), 0) REMAININGRIGHTS
+	  FROM CREDITORRIGHT_DEAL_DETAIL D, CREDITORRIGHT_TRANSFER_APPLY C
+	 WHERE C.CREDITOR_RIGHTS_APPLY_ID = D.CREDITOR_RIGHTS_APPLY_ID
+	   AND C.BUS_STATUS in (0 , 1)
+	   AND D.STATUS = '1'
+	   AND C.CREDITOR_RIGHTS_APPLY_ID = #{creditorRightsApplyId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getCreditorRightsDealDetailByTransferApplyId" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from CREDITORRIGHT_DEAL_DETAIL
+    where CREDITOR_RIGHTS_APPLY_ID = #{creditorRightsApplyId,jdbcType=DECIMAL}
+
+    <if test=" states != null">
+      and STATUS = #{states}
+    </if>
+
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CREDITORRIGHT_DEAL_DETAIL
+    where RIGHTS_TRANSFER_DETAIL_ID = #{rightsTransferDetailId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CreditorRightsTransferApplication" >
+    insert into CREDITORRIGHT_DEAL_DETAIL ( RIGHTS_TRANSFER_DETAIL_ID, CREDITOR_RIGHTS_APPLY_ID, CARRY_CR_ID, CARRY_USER_ID, BUY_BALANCE,
+    BUY_DATE, STATUS, BUY_WORTH, LEND_ORDER_ID
+      )
+    values (#{rightsTransferDetailId,jdbcType=DECIMAL}, #{creditorRightsApplyId,jdbcType=DECIMAL},
+      #{carryCrId,jdbcType=DECIMAL}, #{carryUserId,jdbcType=DECIMAL},#{buyBalance,jdbcType=DECIMAL},#{buyDate,jdbcType=TIMESTAMP},
+      #{status,jdbcType=CHAR},BUY_WORTH=#{buyWorth,jdbcType=DECIMAL}, LEND_ORDER_ID=#{lendOrderId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CreditorRightsTransferApplication" >
+    <selectKey order="BEFORE" keyProperty="rightsTransferDetailId" resultType="long">
+      SELECT SEQ_CREDITORRIGHT_DEAL_DETAIL.NEXTVAL as rightsTransferDetailId FROM DUAL
+    </selectKey>
+    insert into CREDITORRIGHT_DEAL_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rightsTransferDetailId != null" >
+        RIGHTS_TRANSFER_DETAIL_ID,
+      </if>
+      <if test="creditorRightsApplyId != null" >
+        CREDITOR_RIGHTS_APPLY_ID,
+      </if>
+      <if test="carryCrId != null" >
+        CARRY_CR_ID,
+      </if>
+      <if test="carryUserId != null" >
+        CARRY_USER_ID,
+      </if>
+      <if test="buyBalance != null" >
+        BUY_BALANCE,
+      </if>
+      <if test="buyDate != null" >
+        BUY_DATE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="buyWorth != null">
+      	BUY_WORTH,
+      </if>
+      <if test="lendOrderId != null">
+      	LEND_ORDER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rightsTransferDetailId != null" >
+        #{rightsTransferDetailId,jdbcType=DECIMAL},
+      </if>
+      <if test="creditorRightsApplyId != null" >
+         #{creditorRightsApplyId,jdbcType=DECIMAL},
+      </if>
+      <if test="carryCrId != null" >
+        #{carryCrId,jdbcType=DECIMAL},
+      </if>
+      <if test="carryUserId != null" >
+         #{carryUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="buyBalance != null" >
+        #{buyBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="buyDate != null" >
+        #{buyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="buyWorth != null">
+      	#{buyWorth,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null">
+      	#{lendOrderId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CreditorRightsTransferApplication" >
+    update CREDITORRIGHT_DEAL_DETAIL
+    <set >
+      <if test="rightsTransferDetailId != null" >
+        RIGHTS_TRANSFER_DETAIL_ID = #{rightsTransferDetailId,jdbcType=DECIMAL},
+      </if>
+      <if test="creditorRightsApplyId != null" >
+        CREDITOR_RIGHTS_APPLY_ID = #{creditorRightsApplyId,jdbcType=DECIMAL},
+      </if>
+      <if test="carryCrId != null" >
+        CARRY_CR_ID = #{carryCrId,jdbcType=DECIMAL},
+      </if>
+      <if test="carryUserId != null" >
+        CARRY_USER_ID = #{carryUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="buyBalance != null" >
+        BUY_BALANCE = #{buyBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="buyDate != null" >
+        BUY_DATE = #{buyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="buyWorth != null">
+      	BUY_WORTH=#{buyWorth,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null">
+      	LEND_ORDER_ID=#{lendOrderId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where RIGHTS_TRANSFER_DETAIL_ID = #{rightsTransferDetailId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getCreditorRightsDealDetailByParam" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from CREDITORRIGHT_DEAL_DETAIL
+    <where>
+        <if test="carryCrId != null and carryCrId != ''">
+          AND CARRY_CR_ID = #{carryCrId,jdbcType=DECIMAL}
+        </if>
+        <if test="status != null and status != ''">
+          AND STATUS = #{status,jdbcType=CHAR}
+        </if>
+    </where>
+  </select>
+
+</mapper>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ENTERPRISE_CAR_LOAN_SNAPSHOT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.EnterpriseCarLoanSnapshot" >
+    <id column="ENTERPRISE_CAR_LOAN_ID" property="enterpriseCarLoanId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="PROVINCE" property="province" jdbcType="DECIMAL" />
+    <result column="CITY" property="city" jdbcType="DECIMAL" />
+    <result column="USE_DESCRIPTION" property="useDescription" jdbcType="VARCHAR" />
+    <result column="PROJECT_DESCRIPTION" property="projectDescription" jdbcType="VARCHAR" />
+    <result column="INTERNAL_RATING" property="internalRating" jdbcType="CHAR" />
+    <result column="RISK_CONTROL_INFORMATION" property="riskControlInformation" jdbcType="VARCHAR" />
+    <result column="TOTAL_MORTGAGE_VALUE" property="totalMortgageValue" jdbcType="DECIMAL" />
+    <result column="CREDIT_LIMIT" property="creditLimit" jdbcType="DECIMAL" />
+    <result column="MORTGAGE_DESCRIPTION" property="mortgageDescription" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ENTERPRISE_CAR_LOAN_ID, LOAN_APPLICATION_ID, PROVINCE, CITY, USE_DESCRIPTION, PROJECT_DESCRIPTION, 
+    INTERNAL_RATING, RISK_CONTROL_INFORMATION, TOTAL_MORTGAGE_VALUE, CREDIT_LIMIT, MORTGAGE_DESCRIPTION, 
+    CREATE_TIME, LAST_UPDATE_TIME, MAIN_LOAN_APPLICATION_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_CAR_LOAN_SNAPSHOT
+    where ENTERPRISE_CAR_LOAN_ID = #{enterpriseCarLoanId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ENTERPRISE_CAR_LOAN_SNAPSHOT
+    where ENTERPRISE_CAR_LOAN_ID = #{enterpriseCarLoanId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.EnterpriseCarLoanSnapshot" >
+  	<selectKey keyProperty="enterpriseCarLoanId" order="BEFORE" resultType="long">
+      SELECT SEQ_ENTERPRISE_CAR_LOAN.NEXTVAL as enterpriseCarLoanId FROM dual
+    </selectKey>
+    insert into ENTERPRISE_CAR_LOAN_SNAPSHOT (ENTERPRISE_CAR_LOAN_ID, LOAN_APPLICATION_ID, 
+      PROVINCE, CITY, USE_DESCRIPTION, 
+      PROJECT_DESCRIPTION, INTERNAL_RATING, RISK_CONTROL_INFORMATION, 
+      TOTAL_MORTGAGE_VALUE, CREDIT_LIMIT, MORTGAGE_DESCRIPTION, 
+      CREATE_TIME, LAST_UPDATE_TIME, MAIN_LOAN_APPLICATION_ID)
+    values (#{enterpriseCarLoanId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, 
+      #{province,jdbcType=DECIMAL}, #{city,jdbcType=DECIMAL}, #{useDescription,jdbcType=VARCHAR}, 
+      #{projectDescription,jdbcType=VARCHAR}, #{internalRating,jdbcType=CHAR}, #{riskControlInformation,jdbcType=VARCHAR}, 
+      #{totalMortgageValue,jdbcType=DECIMAL}, #{creditLimit,jdbcType=DECIMAL}, #{mortgageDescription,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{mainLoanApplicationId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.EnterpriseCarLoanSnapshot" >
+    insert into ENTERPRISE_CAR_LOAN_SNAPSHOT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enterpriseCarLoanId != null" >
+        ENTERPRISE_CAR_LOAN_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="useDescription != null" >
+        USE_DESCRIPTION,
+      </if>
+      <if test="projectDescription != null" >
+        PROJECT_DESCRIPTION,
+      </if>
+      <if test="internalRating != null" >
+        INTERNAL_RATING,
+      </if>
+      <if test="riskControlInformation != null" >
+        RISK_CONTROL_INFORMATION,
+      </if>
+      <if test="totalMortgageValue != null" >
+        TOTAL_MORTGAGE_VALUE,
+      </if>
+      <if test="creditLimit != null" >
+        CREDIT_LIMIT,
+      </if>
+      <if test="mortgageDescription != null" >
+        MORTGAGE_DESCRIPTION,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enterpriseCarLoanId != null" >
+        #{enterpriseCarLoanId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=DECIMAL},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=DECIMAL},
+      </if>
+      <if test="useDescription != null" >
+        #{useDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDescription != null" >
+        #{projectDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="internalRating != null" >
+        #{internalRating,jdbcType=CHAR},
+      </if>
+      <if test="riskControlInformation != null" >
+        #{riskControlInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMortgageValue != null" >
+        #{totalMortgageValue,jdbcType=DECIMAL},
+      </if>
+      <if test="creditLimit != null" >
+        #{creditLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="mortgageDescription != null" >
+        #{mortgageDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        #{mainLoanApplicationId,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.EnterpriseCarLoanSnapshot" >
+    update ENTERPRISE_CAR_LOAN_SNAPSHOT
+    <set >
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=DECIMAL},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=DECIMAL},
+      </if>
+      <if test="useDescription != null" >
+        USE_DESCRIPTION = #{useDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDescription != null" >
+        PROJECT_DESCRIPTION = #{projectDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="internalRating != null" >
+        INTERNAL_RATING = #{internalRating,jdbcType=CHAR},
+      </if>
+      <if test="riskControlInformation != null" >
+        RISK_CONTROL_INFORMATION = #{riskControlInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMortgageValue != null" >
+        TOTAL_MORTGAGE_VALUE = #{totalMortgageValue,jdbcType=DECIMAL},
+      </if>
+      <if test="creditLimit != null" >
+        CREDIT_LIMIT = #{creditLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="mortgageDescription != null" >
+        MORTGAGE_DESCRIPTION = #{mortgageDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ENTERPRISE_CAR_LOAN_ID = #{enterpriseCarLoanId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.EnterpriseCarLoanSnapshot" >
+    update ENTERPRISE_CAR_LOAN_SNAPSHOT
+    set LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      PROVINCE = #{province,jdbcType=DECIMAL},
+      CITY = #{city,jdbcType=DECIMAL},
+      USE_DESCRIPTION = #{useDescription,jdbcType=VARCHAR},
+      PROJECT_DESCRIPTION = #{projectDescription,jdbcType=VARCHAR},
+      INTERNAL_RATING = #{internalRating,jdbcType=CHAR},
+      RISK_CONTROL_INFORMATION = #{riskControlInformation,jdbcType=VARCHAR},
+      TOTAL_MORTGAGE_VALUE = #{totalMortgageValue,jdbcType=DECIMAL},
+      CREDIT_LIMIT = #{creditLimit,jdbcType=DECIMAL},
+      MORTGAGE_DESCRIPTION = #{mortgageDescription,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+    where ENTERPRISE_CAR_LOAN_ID = #{enterpriseCarLoanId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getByloanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_CAR_LOAN_SNAPSHOT
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getByMainLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_CAR_LOAN_SNAPSHOT
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </select>
+</mapper>

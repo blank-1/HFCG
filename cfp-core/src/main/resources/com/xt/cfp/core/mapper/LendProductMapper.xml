@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LEND_PRODUCT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LendProduct" >
+    <id column="LEND_PRODUCT_ID" property="lendProductId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="CHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CODE" property="productCode" jdbcType="VARCHAR" />
+    <result column="PROFIT_RATE" property="profitRate" jdbcType="DECIMAL" />
+    <result column="CLOSING_TYPE" property="closingType" jdbcType="CHAR" />
+    <result column="CLOSING_DATE" property="closingDate" jdbcType="DECIMAL" />
+    <result column="TIME_LIMIT_TYPE" property="timeLimitType" jdbcType="CHAR" />
+    <result column="TIME_LIMIT" property="timeLimit" jdbcType="DECIMAL" />
+    <result column="STARTS_AT" property="startsAt" jdbcType="DECIMAL" />
+    <result column="UP_AT" property="upAt" jdbcType="DECIMAL" />
+    <result column="TO_INTEREST_POINT" property="toInterestPoint" jdbcType="CHAR" />
+    <result column="RENEWAL_CYCLE_TYPE" property="renewalCycleType" jdbcType="CHAR" />
+    <result column="RENEWAL_TYPE" property="renewalType" jdbcType="CHAR" />
+    <result column="RENEWAL" property="renewal" jdbcType="DECIMAL" />
+    <result column="GUARANTEE_TYPE" property="guaranteeType" jdbcType="CHAR" />
+    <result column="VERSION_CODE" property="versionCode" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="LAST_MDF_TIME" property="lastMdfTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_STATE" property="productState" jdbcType="CHAR" />
+    <result column="PROFIT_RATE_MAX" property="profitRateMax" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="LpInfoWithAvailableBalance" type="com.xt.cfp.core.pojo.ext.LproductWithBalanceStatus" extends="BaseResultMap">
+      <result column="LEND_PRODUCT_PUBLISH_ID" property="lendProductPublishId" jdbcType="DECIMAL"/>
+      <result column="PUBLISH_BALANCE" property="publishBalance" jdbcType="DECIMAL"/>
+      <result column="SOLD_BALANCE" property="soldBalance" jdbcType="DECIMAL"/>
+      <result column="PUBLISH_CODE" property="publishCode" jdbcType="VARCHAR"/>
+      <result column="AVAILABLEBALANCE" property="availableBalance" jdbcType="DECIMAL"/>
+      <result column="DEADLINE" property="deadLine" jdbcType="VARCHAR"/>
+      <result column="PUBLISH_BALANCE_TYPE" property="publishBalanceType" jdbcType="VARCHAR"/>
+      <result column="PUBLISH_STATE" property="publishState" jdbcType="VARCHAR"/>
+      <result column="PUBLISH_NAME" property="publishName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="LendProductVOResultMap" type="com.xt.cfp.core.pojo.ext.LendProductVO" >
+    <id column="LEND_PRODUCT_ID" property="lendProductId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_TYPE" property="productType" jdbcType="CHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CODE" property="productCode" jdbcType="VARCHAR" />
+    <result column="PROFIT_RATE" property="profitRate" jdbcType="DECIMAL" />
+    <result column="PROFIT_RATE_MAX" property="profitRateMax" jdbcType="DECIMAL" />
+    <result column="CLOSING_TYPE" property="closingType" jdbcType="CHAR" />
+    <result column="CLOSING_DATE" property="closingDate" jdbcType="DECIMAL" />
+    <result column="TIME_LIMIT_TYPE" property="timeLimitType" jdbcType="CHAR" />
+    <result column="TIME_LIMIT" property="timeLimit" jdbcType="DECIMAL" />
+    <result column="STARTS_AT" property="startsAt" jdbcType="DECIMAL" />
+    <result column="UP_AT" property="upAt" jdbcType="DECIMAL" />
+    <result column="TO_INTEREST_POINT" property="toInterestPoint" jdbcType="CHAR" />
+    <result column="RENEWAL_CYCLE_TYPE" property="renewalCycleType" jdbcType="CHAR" />
+    <result column="RENEWAL_TYPE" property="renewalType" jdbcType="CHAR" />
+    <result column="RENEWAL" property="renewal" jdbcType="DECIMAL" />
+    <result column="GUARANTEE_TYPE" property="guaranteeType" jdbcType="CHAR" />
+    <result column="VERSION_CODE" property="versionCode" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="LAST_MDF_TIME" property="lastMdfTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_STATE" property="productState" jdbcType="CHAR" />
+    <result column="MAXPUBLISHCODE" property="maxPublishCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LEND_PRODUCT_ID, PRODUCT_TYPE, PRODUCT_NAME, PRODUCT_CODE, PROFIT_RATE,PROFIT_RATE_MAX, CLOSING_TYPE, 
+    CLOSING_DATE, TIME_LIMIT_TYPE, TIME_LIMIT, STARTS_AT, UP_AT, TO_INTEREST_POINT, RENEWAL_CYCLE_TYPE, 
+    RENEWAL_TYPE, RENEWAL, GUARANTEE_TYPE, VERSION_CODE, CREATE_TIME, PRODUCT_DESC, LAST_MDF_TIME, 
+    PRODUCT_STATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LEND_PRODUCT
+    where LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LEND_PRODUCT
+    where LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LendProduct" >
+  	<selectKey resultType="long" keyProperty="lendProductId" order="BEFORE">
+        select SEQ_LEND_PRODUCT.nextval as lendProductId from dual
+    </selectKey>
+    insert into LEND_PRODUCT (LEND_PRODUCT_ID, PRODUCT_TYPE, PRODUCT_NAME, 
+      PRODUCT_CODE, PROFIT_RATE,PROFIT_RATE_MAX, CLOSING_TYPE, 
+      CLOSING_DATE, TIME_LIMIT_TYPE, TIME_LIMIT, 
+      STARTS_AT, UP_AT, TO_INTEREST_POINT, 
+      RENEWAL_CYCLE_TYPE, RENEWAL_TYPE, RENEWAL, 
+      GUARANTEE_TYPE, VERSION_CODE, CREATE_TIME, 
+      PRODUCT_DESC, LAST_MDF_TIME, PRODUCT_STATE
+      )
+    values (#{lendProductId,jdbcType=DECIMAL}, #{productType,jdbcType=CHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{productCode,jdbcType=VARCHAR}, #{profitRate,jdbcType=DECIMAL}, #{profitRateMax,jdbcType=DECIMAL}, #{closingType,jdbcType=CHAR}, 
+      #{closingDate,jdbcType=DECIMAL}, #{timeLimitType,jdbcType=CHAR}, #{timeLimit,jdbcType=DECIMAL}, 
+      #{startsAt,jdbcType=DECIMAL}, #{upAt,jdbcType=DECIMAL}, #{toInterestPoint,jdbcType=CHAR}, 
+      #{renewalCycleType,jdbcType=CHAR}, #{renewalType,jdbcType=CHAR}, #{renewal,jdbcType=DECIMAL}, 
+      #{guaranteeType,jdbcType=CHAR}, #{versionCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{productDesc,jdbcType=VARCHAR}, #{lastMdfTime,jdbcType=TIMESTAMP}, #{productState,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LendProduct" >
+    insert into LEND_PRODUCT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID,
+      </if>
+      <if test="productType != null" >
+        PRODUCT_TYPE,
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME,
+      </if>
+      <if test="productCode != null" >
+        PRODUCT_CODE,
+      </if>
+      <if test="profitRate != null" >
+        PROFIT_RATE,
+      </if>
+      <if test="profitRate != null" >
+        PROFIT_RATE_MAX,
+      </if>
+      <if test="closingType != null" >
+        CLOSING_TYPE,
+      </if>
+      <if test="closingDate != null" >
+        CLOSING_DATE,
+      </if>
+      <if test="timeLimitType != null" >
+        TIME_LIMIT_TYPE,
+      </if>
+      <if test="timeLimit != null" >
+        TIME_LIMIT,
+      </if>
+      <if test="startsAt != null" >
+        STARTS_AT,
+      </if>
+      <if test="upAt != null" >
+        UP_AT,
+      </if>
+      <if test="toInterestPoint != null" >
+        TO_INTEREST_POINT,
+      </if>
+      <if test="renewalCycleType != null" >
+        RENEWAL_CYCLE_TYPE,
+      </if>
+      <if test="renewalType != null" >
+        RENEWAL_TYPE,
+      </if>
+      <if test="renewal != null" >
+        RENEWAL,
+      </if>
+      <if test="guaranteeType != null" >
+        GUARANTEE_TYPE,
+      </if>
+      <if test="versionCode != null" >
+        VERSION_CODE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="productDesc != null" >
+        PRODUCT_DESC,
+      </if>
+      <if test="lastMdfTime != null" >
+        LAST_MDF_TIME,
+      </if>
+      <if test="productState != null" >
+        PRODUCT_STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lendProductId != null" >
+        #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=CHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null" >
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="profitRate != null" >
+        #{profitRate,jdbcType=DECIMAL},
+      </if>
+      <if test="profitRateMax != null" >
+        #{profitRateMax,jdbcType=DECIMAL},
+      </if>
+      <if test="closingType != null" >
+        #{closingType,jdbcType=CHAR},
+      </if>
+      <if test="closingDate != null" >
+        #{closingDate,jdbcType=DECIMAL},
+      </if>
+      <if test="timeLimitType != null" >
+        #{timeLimitType,jdbcType=CHAR},
+      </if>
+      <if test="timeLimit != null" >
+        #{timeLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="startsAt != null" >
+        #{startsAt,jdbcType=DECIMAL},
+      </if>
+      <if test="upAt != null" >
+        #{upAt,jdbcType=DECIMAL},
+      </if>
+      <if test="toInterestPoint != null" >
+        #{toInterestPoint,jdbcType=CHAR},
+      </if>
+      <if test="renewalCycleType != null" >
+        #{renewalCycleType,jdbcType=CHAR},
+      </if>
+      <if test="renewalType != null" >
+        #{renewalType,jdbcType=CHAR},
+      </if>
+      <if test="renewal != null" >
+        #{renewal,jdbcType=DECIMAL},
+      </if>
+      <if test="guaranteeType != null" >
+        #{guaranteeType,jdbcType=CHAR},
+      </if>
+      <if test="versionCode != null" >
+        #{versionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productDesc != null" >
+        #{productDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="lastMdfTime != null" >
+        #{lastMdfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productState != null" >
+        #{productState,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LendProduct" >
+    update LEND_PRODUCT
+    <set >
+      <if test="productType != null" >
+        PRODUCT_TYPE = #{productType,jdbcType=CHAR},
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null" >
+        PRODUCT_CODE = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="profitRate != null" >
+        PROFIT_RATE = #{profitRate,jdbcType=DECIMAL},
+      </if>
+      <if test="profitRateMax != null" >
+        PROFIT_RATE_MAX = #{profitRateMax,jdbcType=DECIMAL},
+      </if>
+      <if test="closingType != null" >
+        CLOSING_TYPE = #{closingType,jdbcType=CHAR},
+      </if>
+      <if test="closingDate != null" >
+        CLOSING_DATE = #{closingDate,jdbcType=DECIMAL},
+      </if>
+      <if test="timeLimitType != null" >
+        TIME_LIMIT_TYPE = #{timeLimitType,jdbcType=CHAR},
+      </if>
+      <if test="timeLimit != null" >
+        TIME_LIMIT = #{timeLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="startsAt != null" >
+        STARTS_AT = #{startsAt,jdbcType=DECIMAL},
+      </if>
+      <if test="upAt != null" >
+        UP_AT = #{upAt,jdbcType=DECIMAL},
+      </if>
+      <if test="toInterestPoint != null" >
+        TO_INTEREST_POINT = #{toInterestPoint,jdbcType=CHAR},
+      </if>
+      <if test="renewalCycleType != null" >
+        RENEWAL_CYCLE_TYPE = #{renewalCycleType,jdbcType=CHAR},
+      </if>
+      <if test="renewalType != null" >
+        RENEWAL_TYPE = #{renewalType,jdbcType=CHAR},
+      </if>
+      <if test="renewal != null" >
+        RENEWAL = #{renewal,jdbcType=DECIMAL},
+      </if>
+      <if test="guaranteeType != null" >
+        GUARANTEE_TYPE = #{guaranteeType,jdbcType=CHAR},
+      </if>
+      <if test="versionCode != null" >
+        VERSION_CODE = #{versionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productDesc != null" >
+        PRODUCT_DESC = #{productDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="lastMdfTime != null" >
+        LAST_MDF_TIME = #{lastMdfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productState != null" >
+        PRODUCT_STATE = #{productState,jdbcType=CHAR},
+      </if>
+    </set>
+    where LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LendProduct" >
+    update LEND_PRODUCT
+    set PRODUCT_TYPE = #{productType,jdbcType=CHAR},
+      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      PRODUCT_CODE = #{productCode,jdbcType=VARCHAR},
+      PROFIT_RATE = #{profitRate,jdbcType=DECIMAL},
+      PROFIT_RATE_MAX = #{profitRateMax,jdbcType=DECIMAL},
+      CLOSING_TYPE = #{closingType,jdbcType=CHAR},
+      CLOSING_DATE = #{closingDate,jdbcType=DECIMAL},
+      TIME_LIMIT_TYPE = #{timeLimitType,jdbcType=CHAR},
+      TIME_LIMIT = #{timeLimit,jdbcType=DECIMAL},
+      STARTS_AT = #{startsAt,jdbcType=DECIMAL},
+      UP_AT = #{upAt,jdbcType=DECIMAL},
+      TO_INTEREST_POINT = #{toInterestPoint,jdbcType=CHAR},
+      RENEWAL_CYCLE_TYPE = #{renewalCycleType,jdbcType=CHAR},
+      RENEWAL_TYPE = #{renewalType,jdbcType=CHAR},
+      RENEWAL = #{renewal,jdbcType=DECIMAL},
+      GUARANTEE_TYPE = #{guaranteeType,jdbcType=CHAR},
+      VERSION_CODE = #{versionCode,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      PRODUCT_DESC = #{productDesc,jdbcType=VARCHAR},
+      LAST_MDF_TIME = #{lastMdfTime,jdbcType=TIMESTAMP},
+      PRODUCT_STATE = #{productState,jdbcType=CHAR}
+    where LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL}
+  </update>
+
+    <select id="findFinanceListForWeb" resultMap="LpInfoWithAvailableBalance" >
+    	<![CDATA[
+        SELECT lp.LEND_PRODUCT_ID,
+        		LPP.LEND_PRODUCT_PUBLISH_ID,
+               PRODUCT_TYPE,
+               PRODUCT_NAME,
+               PRODUCT_CODE,
+               PROFIT_RATE,
+               CLOSING_TYPE,
+               CLOSING_DATE,
+               TIME_LIMIT_TYPE,
+               TIME_LIMIT,
+               STARTS_AT,
+               UP_AT,
+               TO_INTEREST_POINT,
+               RENEWAL_CYCLE_TYPE,
+               RENEWAL_TYPE,
+               RENEWAL,
+               GUARANTEE_TYPE,
+               VERSION_CODE,
+               CREATE_TIME,
+               PRODUCT_DESC,
+               LAST_MDF_TIME,
+               PRODUCT_STATE,
+               LPP.PUBLISH_BALANCE,
+               LPP.SOLD_BALANCE,
+               LPP.PUBLISH_CODE,
+               CASE LPP.PUBLISH_BALANCE_TYPE
+		         WHEN '1' THEN
+		          '-1'
+		         WHEN '2' THEN
+		          CASE LPCD.PUBLISH_BALANCE_TYPE
+		            WHEN '1' THEN
+		             LPCD.PUBLISH_BALANCE - 
+				     (SELECT NVL(SUM(LOBD1.BUY_BALANCE), 0)
+		                FROM LEND_ORDER LO1, LEND_ORDER_BID_DETAIL LOBD1
+		               WHERE LO1.LEND_ORDER_ID = LOBD1.LEND_ORDER_ID
+		                 AND LOBD1.STATUS = 1
+		                 AND LO1.LEND_PRODUCT_PUBLISH_ID = LPP.LEND_PRODUCT_PUBLISH_ID) || ''
+		            WHEN '2' THEN
+		             LPCD.PUBLISH_BALANCE * LPP.PUBLISH_BALANCE - 
+		             (SELECT NVL(SUM(LOBD1.BUY_BALANCE), 0)
+		                FROM LEND_ORDER LO1, LEND_ORDER_BID_DETAIL LOBD1
+		               WHERE LO1.LEND_ORDER_ID = LOBD1.LEND_ORDER_ID
+		                 AND LOBD1.STATUS = 1
+		                 AND LO1.LEND_PRODUCT_PUBLISH_ID = LPP.LEND_PRODUCT_PUBLISH_ID) || ''
+		          END
+		       END AVAILABLEBALANCE,
+               TRUNC(LPP.END_DATE - SYSDATE) || '天' ||
+		       TRUNC(MOD((LPP.END_DATE - SYSDATE) * 24, 24)) || '时' ||
+		       TRUNC(MOD((LPP.END_DATE - SYSDATE) * 24 * 60, 60)) || '分' DEADLINE
+          FROM LEND_PRODUCT lp
+               INNER JOIN LEND_PRODUCT_PUBLISH lpp
+                  ON LP.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+               INNER JOIN LP_PUBLISH_CHANNEL_DETAIL lpcd
+                  ON LPP.LEND_PRODUCT_PUBLISH_ID = LPCD.LEND_PRODUCT_PUBLISH_ID
+         WHERE LPCD.CHANNEL = '0' AND LPP.PUBLISH_STATE = '2' and PRODUCT_TYPE ='2'
+         ORDER BY CLOSING_DATE
+         ]]>
+         <!--AND LPP.PREHEAT_TIME <= sysdate-->
+    </select>
+    
+    <select id="findFinanceProductDetailForWeb" resultMap="LpInfoWithAvailableBalance" parameterType="java.lang.Long" >
+        <![CDATA[
+        SELECT lp.LEND_PRODUCT_ID,
+        		LPP.LEND_PRODUCT_PUBLISH_ID,
+               PRODUCT_TYPE,
+               PRODUCT_NAME,
+               PRODUCT_CODE,
+               PROFIT_RATE,
+               PROFIT_RATE_MAX,
+               CLOSING_TYPE,
+               CLOSING_DATE,
+               TIME_LIMIT_TYPE,
+               TIME_LIMIT,
+               STARTS_AT,
+               UP_AT,
+               TO_INTEREST_POINT,
+               RENEWAL_CYCLE_TYPE,
+               RENEWAL_TYPE,
+               RENEWAL,
+               GUARANTEE_TYPE,
+               VERSION_CODE,
+               CREATE_TIME,
+               PRODUCT_DESC,
+               LAST_MDF_TIME,
+               PRODUCT_STATE,
+               LPP.PUBLISH_BALANCE,
+               LPP.SOLD_BALANCE,
+               LPP.PUBLISH_CODE,
+               LPP.publish_balance_type,
+               LPP.PUBLISH_STATE,
+               LPP.PUBLISH_NAME,
+               CASE LPP.PUBLISH_BALANCE_TYPE
+		         WHEN '1' THEN
+		          '-1'
+		         WHEN '2' THEN
+		          CASE LPCD.PUBLISH_BALANCE_TYPE
+		            WHEN '1' THEN
+		             LPCD.PUBLISH_BALANCE || ''
+		            WHEN '2' THEN
+		             LPCD.PUBLISH_BALANCE * LPP.PUBLISH_BALANCE || ''
+		          END
+		       END AVAILABLEBALANCE,
+               TRUNC(LPP.END_DATE - SYSDATE) || '天' ||
+		       TRUNC(MOD((LPP.END_DATE - SYSDATE) * 24, 24)) || '时' ||
+		       TRUNC(MOD((LPP.END_DATE - SYSDATE) * 24 * 60, 60)) || '分' DEADLINE
+          FROM LEND_PRODUCT lp
+               INNER JOIN LEND_PRODUCT_PUBLISH lpp
+                  ON LP.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+               INNER JOIN LP_PUBLISH_CHANNEL_DETAIL lpcd
+                  ON LPP.LEND_PRODUCT_PUBLISH_ID = LPCD.LEND_PRODUCT_PUBLISH_ID
+         WHERE LPP.LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId,jdbcType=DECIMAL}
+         ]]>
+    </select>
+
+    <select id="findAll" resultMap="LendProductVOResultMap" parameterType="lendProduct">
+        SELECT LP.LEND_PRODUCT_ID,
+                       PRODUCT_TYPE,
+                       PRODUCT_NAME,
+                       PROFIT_RATE,
+                       PROFIT_RATE_MAX,
+                       CLOSING_DATE,
+                       STARTS_AT,
+                       UP_AT,
+                       RENEWAL_CYCLE_TYPE,
+                       RENEWAL,
+                       RENEWAL_TYPE,
+                       VERSION_CODE,
+                       CREATE_TIME,
+                       TO_INTEREST_POINT,
+                       PRODUCT_DESC,
+                       PRODUCT_CODE,
+                       LAST_MDF_TIME,
+                       CLOSING_TYPE,
+                       PRODUCT_STATE,
+                       TIME_LIMIT_TYPE,
+                       TIME_LIMIT,
+                       MAX(LPP.PUBLISH_CODE) AS MAXPUBLISHCODE,
+                       SUM(LPP.SOLD_BALANCE) AS SUMSAIDBALANCE
+        FROM (SELECT * FROM LEND_PRODUCT LPD WHERE 1 = 1
+        <if test="productName != null">
+            and lpd.product_name like '%${productName}%'
+        </if>
+        <if test="profitRate != null">
+            <if test="profitRate != -1">
+                and lpd.PROFIT_RATE = #{profitRate}
+            </if>
+        </if>
+        <if test="searchTimeLimit != null">
+            <if test="searchTimeLimit != '-1'">
+                and TIME_LIMIT = #{timeLimit}
+                and TIME_LIMIT_TYPE = #{timeLimitType}
+            </if>
+        </if>
+        <if test="searchProductState != null">
+            <if test="searchProductState != -1">
+                and product_State = #{searchProductState}
+            </if>
+        </if>
+
+        ) LP LEFT JOIN LEND_PRODUCT_PUBLISH LPP
+                    ON LP.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+                 GROUP BY LP.LEND_PRODUCT_ID,
+                          PRODUCT_TYPE,
+                          PRODUCT_NAME,
+                          PROFIT_RATE,
+                          PROFIT_RATE_MAX,
+                          CLOSING_DATE,
+                          STARTS_AT,
+                          UP_AT,
+                          RENEWAL_CYCLE_TYPE,
+                          RENEWAL,
+                          RENEWAL_TYPE,
+                          VERSION_CODE,
+                          CREATE_TIME,
+                          TO_INTEREST_POINT,
+                          PRODUCT_DESC,
+                          PRODUCT_CODE,
+                          LAST_MDF_TIME,
+                          CLOSING_TYPE,
+                          PRODUCT_STATE,
+                          TIME_LIMIT_TYPE,
+                          TIME_LIMIT
+                 ORDER BY LP.CREATE_TIME DESC
+    </select>
+    
+    <select id="countFindAll" resultType="Integer" parameterType="lendProduct">
+        SELECT COUNT(1)
+		  FROM (SELECT LP.LEND_PRODUCT_ID,
+				       PRODUCT_TYPE,
+				       PRODUCT_NAME,
+				       PROFIT_RATE,
+				       CLOSING_DATE,
+				       STARTS_AT,
+				       UP_AT,
+				       RENEWAL_CYCLE_TYPE,
+				       RENEWAL,
+				       RENEWAL_TYPE,
+				       VERSION_CODE,
+				       CREATE_TIME,
+				       TO_INTEREST_POINT,
+				       PRODUCT_DESC,
+				       PRODUCT_CODE,
+				       LAST_MDF_TIME,
+				       CLOSING_TYPE,
+				       PRODUCT_STATE,
+				       TIME_LIMIT_TYPE,
+				       TIME_LIMIT,
+				       MAX(LPP.PUBLISH_CODE) AS MAXPUBLISHCODE,
+				       SUM(LPP.SOLD_BALANCE) AS SUMSAIDBALANCE
+		          FROM (SELECT * FROM LEND_PRODUCT LPD WHERE 1 = 1
+        <if test="productName != null">
+            and lpd.product_name like '%${productName}%'
+        </if>
+        <if test="profitRate != null">
+            <if test="profitRate != -1">
+                and lpd.PROFIT_RATE = #{profitRate}
+            </if>
+        </if>
+        <if test="searchTimeLimit != null">
+            <if test="searchTimeLimit != '-1'">
+                and TIME_LIMIT = #{timeLimit}
+                and TIME_LIMIT_TYPE = #{timeLimitType}
+            </if>
+        </if>
+        <if test="searchProductState != null">
+            <if test="searchProductState != -1">
+                and product_State = #{searchProductState}
+            </if>
+        </if>
+        ) LP
+	  LEFT JOIN LEND_PRODUCT_PUBLISH LPP
+	    ON LP.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+	 GROUP BY LP.LEND_PRODUCT_ID,
+              PRODUCT_TYPE,
+              PRODUCT_NAME,
+              PROFIT_RATE,
+              CLOSING_DATE,
+              STARTS_AT,
+              UP_AT,
+              RENEWAL_CYCLE_TYPE,
+              RENEWAL,
+              RENEWAL_TYPE,
+              VERSION_CODE,
+              CREATE_TIME,
+              TO_INTEREST_POINT,
+              PRODUCT_DESC,
+              PRODUCT_CODE,
+              LAST_MDF_TIME,
+              CLOSING_TYPE,
+              PRODUCT_STATE,
+              TIME_LIMIT_TYPE,
+              TIME_LIMIT)
+    </select>
+    
+    <select id="findTimeLimit" parameterType="lendProduct" resultMap="BaseResultMap">
+        SELECT DISTINCT(TIME_LIMIT) FROM LEND_PRODUCT WHERE  TIME_LIMIT_TYPE = #{timeLimitType,jdbcType=CHAR}
+        order by TIME_LIMIT asc
+    </select>
+    
+    <select id="findProfitRate" resultMap="BaseResultMap">
+        SELECT DISTINCT(PROFIT_RATE) FROM LEND_PRODUCT order by PROFIT_RATE asc
+    </select>
+    
+    <select id="findById" resultMap="BaseResultMap" parameterType="Long">
+        SELECT * FROM  LEND_PRODUCT
+        WHERE LEND_PRODUCT_ID=#{value}
+    </select>
+    
+    <!--查看出借产品费用详情-->
+    <select id="findLendProductAndFees" parameterType="Long" resultType="constantDefine">
+        SELECT A.CONSTANT_NAME || ':' || A.ITEM_NAME || ';' || A.RADICESTYPE || ';[' ||
+		       B.CONSTANT_NAME || ']' AS CONSTANTNAME,
+		       A.WORKFLOW_RATIO WORKFLOWRATIO,
+		       A.PARENT_CONSTANT AS PARENTCONSTANT,
+		       A.CONSTANT_VALUE AS CONSTANTVALUE,
+		       B.CHARGEPOINT AS CONSTANTDEFINEID
+		  FROM (SELECT FI.ITEM_NAME,
+		               FI.FEES_ITEM_ID,
+		               DECODE(FI.RADICES_TYPE,
+		                      '0',
+		                      FI.RADICE_NAME,
+		                      (SELECT CD.CONSTANT_NAME
+		                         FROM CONSTANT_DEFINE CD
+		                        WHERE CD.CONSTANT_TYPE_CODE = 'radicesType'
+		                          AND CD.CONSTANT_VALUE = FI.RADICES_TYPE)) || '*' ||
+		               FI.FEES_RATE || '%' AS RADICESTYPE,
+		               CD.CONSTANT_NAME,
+		               CD.CONSTANT_VALUE,
+		               CD.CONSTANT_TYPE,
+		               LPFI.WORKFLOW_RATIO,
+		               CD.PARENT_CONSTANT
+		          FROM LEND_PRODUCT_FEES_ITEM LPFI, FEES_ITEM FI, CONSTANT_DEFINE CD
+		         WHERE LPFI.FEES_ITEM_ID = FI.FEES_ITEM_ID
+		           AND FI.ITEM_TYPE = CD.CONSTANT_VALUE
+		           AND CD.CONSTANT_TYPE_CODE = 'itemChildType'
+		           AND LPFI.LEND_PRODUCT_ID = #{lendProductId}
+		         ORDER BY CD.PARENT_CONSTANT, CD.CONSTANT_VALUE ASC) A,
+		       (SELECT LPFI.FEES_ITEM_ID,
+		               CD.CONSTANT_NAME,
+		               CD.CONSTANT_VALUE AS CHARGEPOINT
+		          FROM LEND_PRODUCT_FEES_ITEM LPFI, CONSTANT_DEFINE CD
+		         WHERE LPFI.CHARGE_POINT = CD.CONSTANT_VALUE(+)
+		           AND CD.CONSTANT_TYPE_CODE = 'chargePoint'
+		           AND LPFI.LEND_PRODUCT_ID = #{lendProductId}) B
+		 WHERE A.FEES_ITEM_ID = B.FEES_ITEM_ID
+		 ORDER BY A.CONSTANT_VALUE, A.PARENT_CONSTANT ASC
+    </select>
+    
+    <update id="updateProductState" parameterType="lendProduct">
+        update lend_product
+        set product_State = #{productState}
+        where lend_product_id = #{lendProductId}
+    </update>
+    
+    <select id="findProductVersionByName" parameterType="lendProduct" resultMap="BaseResultMap">
+        select *
+          from lend_product a
+         where a.product_name = #{productName}
+           and a.version_code = #{versionCode}
+           and a.product_type = #{productType}
+    </select>
+    
+    <select id="disableLendProductFees" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.FeesItem">
+        select lp.*
+                  from LEND_PRODUCT_FEES_ITEM lpfi
+                  left join LEND_PRODUCT lp
+                    on lpfi.LEND_PRODUCT_ID = lp.LEND_PRODUCT_ID
+                 where lpfi.FEES_ITEM_ID = #{feesItemId}
+    </select>
+    
+    <!--更新出借产品-->
+    <update id="update" parameterType="lendProduct">
+        update lend_product
+        set product_type = #{productType},
+        product_name=#{productName},
+        profit_rate=#{profitRate},
+        profit_rate_max=#{profitRateMax},
+        closing_date=#{closingDate},
+        starts_at=#{startsAt},
+        up_at=#{upAt},
+        renewal_cycle_type=#{renewalCycleType,jdbcType=CHAR},
+        renewal=#{renewal,jdbcType=CHAR},
+        to_interest_point=#{toInterestPoint,jdbcType=CHAR},
+        version_code=#{versionCode},
+        product_desc=#{productDesc},
+        last_mdf_time=#{lastMdfTime,jdbcType=TIMESTAMP},
+        renewal_type=#{renewalType,jdbcType=CHAR},
+        closing_type=#{closingType,jdbcType=CHAR},
+        time_limit_type=#{timeLimitType,jdbcType=CHAR},
+        time_limit=#{timeLimit}
+        where lend_product_id = #{lendProductId}
+
+    </update>
+    
+	<select id="findLendProductByPublishState" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    	SELECT LP.*
+		  FROM LEND_PRODUCT_PUBLISH LPP, LEND_PRODUCT LP
+		 WHERE LPP.LEND_PRODUCT_ID = LP.LEND_PRODUCT_ID
+		   AND LPP.PUBLISH_STATE = #{publishState,jdbcType=CHAR}
+		   AND LP.PRODUCT_STATE = 0
+		   AND LP.PRODUCT_TYPE = 1
+    </select>
+    
+    <!-- 获取出借产品期限去重值列表，根据出借用户ID -->
+    <select id="getLendProductTimeLimitByLendUserId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    	select DISTINCT lp.TIME_LIMIT from LEND_ORDER lo left join LEND_PRODUCT lp 
+		on lo.LEND_PRODUCT_ID = lp.LEND_PRODUCT_ID 
+		where lo.LEND_USER_ID = #{lendUserId,jdbcType=DECIMAL} 
+		and lo.PRODUCT_TYPE = '2'
+    </select>
+    
+</mapper>

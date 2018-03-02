@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CUSTOMER_HOUSE_SNAPSHOT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CustomerHouseSnapshot" >
+    <id column="SNAPSHOT_ID" property="snapshotId" jdbcType="DECIMAL" />
+    <result column="HOUSE_ADDR" property="houseAddr" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="MORTGAGE_TYPE" property="mortgageType" jdbcType="CHAR" />
+    <result column="HOUSE_TYPE" property="houseType" jdbcType="CHAR" />
+    <result column="HOUSE_SIZE" property="houseSize" jdbcType="DECIMAL" />
+    <result column="BUY_DATE" property="buyDate" jdbcType="TIMESTAMP" />
+    <result column="BUY_VALUE" property="buyValue" jdbcType="DECIMAL" />
+    <result column="MARKET_VALUE" property="marketValue" jdbcType="DECIMAL" />
+    <result column="ASSESS_VALUE" property="assessValue" jdbcType="DECIMAL" />
+    <result column="DESC" property="desc" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+    <result column="HOUSE_CARD_NUMBER" property="houseCardNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SNAPSHOT_ID, HOUSE_ADDR, LOAN_APPLICATION_ID, MORTGAGE_TYPE, HOUSE_TYPE, HOUSE_SIZE, 
+    BUY_DATE, BUY_VALUE, MARKET_VALUE, ASSESS_VALUE, "DESC", STATUS, MAIN_LOAN_APPLICATION_ID, HOUSE_CARD_NUMBER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_HOUSE_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CUSTOMER_HOUSE_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CustomerHouseSnapshot" >
+  	<selectKey keyProperty="snapshotId" order="BEFORE" resultType="long">
+      SELECT SEQ_CUSTOMER_HOUSE_SNAPSHOT.NEXTVAL as snapshotId FROM dual
+    </selectKey>
+    insert into CUSTOMER_HOUSE_SNAPSHOT (SNAPSHOT_ID, HOUSE_ADDR, LOAN_APPLICATION_ID, 
+      MORTGAGE_TYPE, HOUSE_TYPE, HOUSE_SIZE, 
+      BUY_DATE, BUY_VALUE, MARKET_VALUE, 
+      ASSESS_VALUE, "DESC", STATUS, MAIN_LOAN_APPLICATION_ID, HOUSE_CARD_NUMBER
+      )
+    values (#{snapshotId,jdbcType=DECIMAL}, #{houseAddr,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, 
+      #{mortgageType,jdbcType=CHAR}, #{houseType,jdbcType=CHAR}, #{houseSize,jdbcType=DECIMAL}, 
+      #{buyDate,jdbcType=TIMESTAMP}, #{buyValue,jdbcType=DECIMAL}, #{marketValue,jdbcType=DECIMAL}, 
+      #{assessValue,jdbcType=DECIMAL}, #{desc,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{mainLoanApplicationId,jdbcType=DECIMAL}, #{houseCardNumber,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CustomerHouseSnapshot" >
+    insert into CUSTOMER_HOUSE_SNAPSHOT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        SNAPSHOT_ID,
+      </if>
+      <if test="houseAddr != null" >
+        HOUSE_ADDR,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="mortgageType != null" >
+        MORTGAGE_TYPE,
+      </if>
+      <if test="houseType != null" >
+        HOUSE_TYPE,
+      </if>
+      <if test="houseSize != null" >
+        HOUSE_SIZE,
+      </if>
+      <if test="buyDate != null" >
+        BUY_DATE,
+      </if>
+      <if test="buyValue != null" >
+        BUY_VALUE,
+      </if>
+      <if test="marketValue != null" >
+        MARKET_VALUE,
+      </if>
+      <if test="assessValue != null" >
+        ASSESS_VALUE,
+      </if>
+      <if test="desc != null" >
+        "DESC",
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID,
+      </if>
+      <if test="houseCardNumber != null" >
+        HOUSE_CARD_NUMBER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        #{snapshotId,jdbcType=DECIMAL},
+      </if>
+      <if test="houseAddr != null" >
+        #{houseAddr,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="mortgageType != null" >
+        #{mortgageType,jdbcType=CHAR},
+      </if>
+      <if test="houseType != null" >
+        #{houseType,jdbcType=CHAR},
+      </if>
+      <if test="houseSize != null" >
+        #{houseSize,jdbcType=DECIMAL},
+      </if>
+      <if test="buyDate != null" >
+        #{buyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyValue != null" >
+        #{buyValue,jdbcType=DECIMAL},
+      </if>
+      <if test="marketValue != null" >
+        #{marketValue,jdbcType=DECIMAL},
+      </if>
+      <if test="assessValue != null" >
+        #{assessValue,jdbcType=DECIMAL},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="houseCardNumber != null" >
+        #{houseCardNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CustomerHouseSnapshot" >
+    update CUSTOMER_HOUSE_SNAPSHOT
+    <set >
+      <if test="houseAddr != null" >
+        HOUSE_ADDR = #{houseAddr,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="mortgageType != null" >
+        MORTGAGE_TYPE = #{mortgageType,jdbcType=CHAR},
+      </if>
+      <if test="houseType != null" >
+        HOUSE_TYPE = #{houseType,jdbcType=CHAR},
+      </if>
+      <if test="houseSize != null" >
+        HOUSE_SIZE = #{houseSize,jdbcType=DECIMAL},
+      </if>
+      <if test="buyDate != null" >
+        BUY_DATE = #{buyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyValue != null" >
+        BUY_VALUE = #{buyValue,jdbcType=DECIMAL},
+      </if>
+      <if test="marketValue != null" >
+        MARKET_VALUE = #{marketValue,jdbcType=DECIMAL},
+      </if>
+      <if test="assessValue != null" >
+        ASSESS_VALUE = #{assessValue,jdbcType=DECIMAL},
+      </if>
+      <if test="desc != null" >
+        "DESC" = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="houseCardNumber != null" >
+        HOUSE_CARD_NUMBER = #{houseCardNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CustomerHouseSnapshot" >
+    update CUSTOMER_HOUSE_SNAPSHOT
+    set HOUSE_ADDR = #{houseAddr,jdbcType=DECIMAL},
+      LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      MORTGAGE_TYPE = #{mortgageType,jdbcType=CHAR},
+      HOUSE_TYPE = #{houseType,jdbcType=CHAR},
+      HOUSE_SIZE = #{houseSize,jdbcType=DECIMAL},
+      BUY_DATE = #{buyDate,jdbcType=TIMESTAMP},
+      BUY_VALUE = #{buyValue,jdbcType=DECIMAL},
+      MARKET_VALUE = #{marketValue,jdbcType=DECIMAL},
+      ASSESS_VALUE = #{assessValue,jdbcType=DECIMAL},
+      "DESC" = #{desc,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      HOUSE_CARD_NUMBER = #{houseCardNumber,jdbcType=VARCHAR}
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 根据申请ID加载一条抵押信息 -->
+  <select id="getHouseByLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_HOUSE_SNAPSHOT
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- by main -->
+  <select id="getHouseByMainLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_HOUSE_SNAPSHOT
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </select>
+</mapper>

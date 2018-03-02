@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TRADE_REPORT">
+	<resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.TradeReport">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="FILE_NUM" property="file_num" jdbcType="VARCHAR" />
+		<result column="REPORT_TYPE" property="report_type" jdbcType="VARCHAR" />
+		<result column="REPORT_STATUS" property="report_status"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="create_date" jdbcType="DATE" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID, FILE_NUM, REPORT_TYPE, REPORT_STATUS, CREATE_DATE
+	</sql>
+
+	<!-- 根据主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from TRADE_REPORT
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+
+	<!-- 根据主键删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		TRADE_REPORT
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="com.xt.cfp.core.pojo.TradeReport">
+		<selectKey keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_TRADE_REPORT.NEXTVAL as id FROM dual
+		</selectKey>
+		insert into TRADE_REPORT (ID, FILE_NUM, REPORT_TYPE, REPORT_STATUS,
+		CREATE_DATE)
+		values (#{id,jdbcType=DECIMAL},
+		#{file_num,jdbcType=VARCHAR},
+		#{report_type,jdbcType=VARCHAR},
+		#{report_status,jdbcType=VARCHAR}, #{create_date,jdbcType=DATE})
+	</insert>
+
+	<!-- 部分属性添加对象 -->
+	<insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.TradeReport">
+		insert into TRADE_REPORT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="file_num != null">
+				FILE_NUM,
+			</if>
+			<if test="report_type != null">
+				REPORT_TYPE,
+			</if>
+			<if test="report_status != null">
+				REPORT_STATUS,
+			</if>
+			<if test="create_date != null">
+				CREATE_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="file_num != null">
+				#{file_num,jdbcType=VARCHAR},
+			</if>
+			<if test="report_type != null">
+				#{report_type,jdbcType=VARCHAR},
+			</if>
+			<if test="report_status != null">
+				#{report_status,jdbcType=VARCHAR},
+			</if>
+			<if test="create_date != null">
+				#{create_date,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 部分属性更新对象 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.TradeReport">
+		update TRADE_REPORT
+		<set>
+			<if test="file_num != null">
+				FILE_NUM = #{file_num,jdbcType=VARCHAR},
+			</if>
+			<if test="report_type != null">
+				REPORT_TYPE = #{report_type,jdbcType=VARCHAR},
+			</if>
+			<if test="report_status != null">
+				REPORT_STATUS = #{report_status,jdbcType=VARCHAR},
+			</if>
+			<if test="create_date != null">
+				CREATE_DATE = #{create_date,jdbcType=DATE},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+
+	<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.TradeReport">
+		update
+		TRADE_REPORT
+		set FILE_NUM = #{file_num,jdbcType=VARCHAR},
+		REPORT_TYPE =
+		#{report_type,jdbcType=VARCHAR},
+		REPORT_STATUS =
+		#{report_status,jdbcType=VARCHAR},
+		CREATE_DATE =
+		#{create_date,jdbcType=DATE}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+
+	<!-- 根据报备类型、时间查询 -->
+	<select id="selectTradeReport" resultMap="BaseResultMap"
+		parameterType="com.xt.cfp.core.util.PageData">
+		select
+		<include refid="Base_Column_List" />
+		from TRADE_REPORT
+		where 1=1
+		<if test="report_type != null">
+			and REPORT_TYPE = #{report_type,jdbcType=VARCHAR}
+		</if>
+		<if test="create_date != null">
+			and TO_CHAR(CREATE_DATE,'yyyy-mm-dd') =
+			#{create_date,jdbcType=VARCHAR}
+		</if>
+		<if test="types != null">
+			and REPORT_TYPE in 
+			<foreach collection="types" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<!-- 查询个人开户，报备数据 -->
+	<select id="selectUser4Report" resultType="com.xt.cfp.core.util.PageData"
+		parameterType="com.xt.cfp.core.util.PageData">
+		select
+		trade.SERIAL_NUMBER,
+		trade.TRADE_DATE CREATE_DATE,
+		user1.LOGIN_NAME,
+		user1.MOBILE_NO PHONE,
+		ext.REAL_NAME,
+		ext.ID_CARD
+		CARD_NO
+		from TRADE trade
+		LEFT JOIN USER_INFO user1 ON trade.USER_ID =
+		user1.USER_ID
+		LEFT JOIN
+		USER_INFO_EXT ext ON user1.MOBILE_NO =
+		ext.MOBILE_NO
+		where 1=1
+		<if test="message_id != null">
+			and trade.MESSAGE_ID = #{message_id,jdbcType=DECIMAL}
+		</if>
+		<if test="trade_status != null">
+			and trade.TRADE_STATUS = #{trade_status,jdbcType=VARCHAR}
+		</if>
+		<if test="trade_date != null">
+			and TO_CHAR(trade.TRADE_DATE,'yyyy-mm-dd') =
+			#{trade_date,jdbcType=VARCHAR}
+		</if>
+		<if test="loginNames != null">
+			and user1.LOGIN_NAME in
+			<foreach collection="loginNames" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<!-- 查询法人开户，报备数据 -->
+	<select id="selectCorp4Report" resultType="com.xt.cfp.core.util.PageData"
+		parameterType="com.xt.cfp.core.util.PageData">
+		select
+		trade.SERIAL_NUMBER,
+		trade.TRADE_DATE CREATE_DATE,
+		user1.LOGIN_NAME,
+		user1.MOBILE_NO PHONE,
+		org.LEGAL_PERSON_NAME
+		REAL_NAME,
+		org.LEGAL_PERSON_CODE CARD_NO,
+		org.BUSINESS_REGISTRATION_NUMBER,
+		org.TAX_REGISTRATION_CODE
+		REGISTRATION_CODE,
+		org.ORGANIZATION_CODE,
+		org.ENTERPRISE_NAME
+		from TRADE
+		trade
+		LEFT JOIN USER_INFO user1 ON trade.USER_ID = user1.USER_ID
+		LEFT
+		JOIN
+		ENTERPRISE_INFO org ON org.USER_ID = user1.USER_ID
+		where 1=1
+		<if test="message_id != null">
+			and trade.MESSAGE_ID = #{message_id,jdbcType=DECIMAL}
+		</if>
+		<if test="trade_status != null">
+			and trade.TRADE_STATUS = #{trade_status,jdbcType=VARCHAR}
+		</if>
+		<if test="trade_date != null">
+			and TO_CHAR(trade.TRADE_DATE,'yyyy-mm-dd') =
+			#{trade_date,jdbcType=VARCHAR}
+		</if>
+		<if test="loginNameCGs != null">
+			and user1.MOBILE_NO in
+			<foreach collection="loginNameCGs" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<!-- 查询项目，报备数据 -->
+	<select id="selectLoan4Report" resultType="com.xt.cfp.core.util.PageData"
+		parameterType="com.xt.cfp.core.util.PageData">
+		select
+		loan.LOAN_APPLICATION_ID LOAN_ID,
+		cons.CONSTANT_NAME
+		LOAN_PURPOSE,
+		loan.LOAN_BALANCE,
+		loan.ANNUAL_RATE,
+		product.PRODUCT_NAME,
+		loan.CREATE_TIME,
+		user1.MOBILE_NO PHONE,
+		org.ENTERPRISE_NAME,
+		product.CYCLE_COUNTS PAYMENT_COUNT
+		from LOAN_APPLICATION loan
+		LEFT JOIN
+		LOAN_PRODUCT product ON product.LOAN_PRODUCT_ID =
+		loan.LOAN_PRODUCT_ID
+		LEFT JOIN USER_INFO user1 ON loan.USER_ID =
+		user1.USER_ID
+		LEFT JOIN
+		ENTERPRISE_INFO org ON org.USER_ID =
+		user1.USER_ID
+		LEFT JOIN
+		CONSTANT_DEFINE cons ON cons.constant_value =
+		loan.LOAN_USEAGE
+		where
+		cons.CONSTANT_TYPE_CODE = 'loanUseage'
+		<if test="create_time != null">
+			and TO_CHAR(loan.CREATE_TIME,'yyyy-mm-dd') =
+			#{create_time,jdbcType=VARCHAR}
+		</if>
+		<if test="states != null">
+			and loan.APPLICATION_STATE in 
+			<foreach collection="states" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="ids != null">
+			and loan.LOAN_APPLICATION_ID in 
+			<foreach collection="ids" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<!-- 查询交易流水，报备数据 -->
+	<select id="selectTrade4Report" resultType="com.xt.cfp.core.util.PageData"
+		parameterType="com.xt.cfp.core.util.PageData">
+		select
+		trade.SERIAL_NUMBER,
+		trade.MESSAGE_ID,
+		trade.TRADE_OPERATE,
+		trade.REQUEST_TRADING_ACCOUNT,
+		trade.REQUEST_ORGANIZATION,
+		trade.REQUEST_TRADING_AMOUNT,
+		trade.RESPONSE_TRADING_ACCOUNT,
+		trade.RESPONSE_ORGANIZATION,
+		trade.RESPONSE_TRADING_AMOUNT,
+		trade.TRADE_DATE,
+		loan.LOAN_APPLICATION_ID LOAN_ID
+		from TRADE trade LEFT
+		JOIN LOAN_APPLICATION loan
+		on trade.LOANID = loan.LOAN_APPLICATION_ID
+		where 1=1
+		<if test="message_id != null">
+			and trade.MESSAGE_ID = #{message_id,jdbcType=DECIMAL}
+		</if>
+		<if test="trade_status != null">
+			and trade.TRADE_STATUS = #{trade_status,jdbcType=VARCHAR}
+		</if>
+		<if test="trade_date != null">
+			and TO_CHAR(trade.TRADE_DATE,'yyyy-mm-dd') =
+			#{trade_date,jdbcType=VARCHAR}
+		</if>
+		<if test="serialNumbers != null">
+			and trade.SERIAL_NUMBER in
+			<foreach collection="serialNumbers" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+</mapper>

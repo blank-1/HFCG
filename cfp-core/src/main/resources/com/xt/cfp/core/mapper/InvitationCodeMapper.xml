@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="INVITATION_CODE">
+	<resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.InvitationCode">
+		<id column="INVITATION_ID" property="invitationId" jdbcType="DECIMAL" />
+		<result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+		<result column="FRANCHISE_ID" property="franchiseId" jdbcType="DECIMAL" />
+		<result column="countMoneny" property="countMoneny" jdbcType="DECIMAL" />
+		<result column="franchiseName" property="franchiseName" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		
+		<result column="amountArount" property="amountArount"   jdbcType="DECIMAL" />
+		<result column="amount" property="amount" jdbcType="DECIMAL" />
+		<result column="TYPE" property="type" jdbcType="CHAR" />
+		<result column="INVITATION_CODE" property="invitationCode"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		INVITATION_ID, USER_ID, TYPE,INVITATION_CODE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from INVITATION_CODE
+		where INVITATION_ID =
+		#{invitationId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		INVITATION_CODE
+		where INVITATION_ID = #{invitationId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.xt.cfp.core.pojo.InvitationCode">
+		<selectKey keyProperty="invitationId" order="BEFORE"
+			resultType="long">
+			SELECT SEQ_INVITATION_CODE.NEXTVAL as invitationId FROM
+			dual
+		</selectKey>
+		insert into INVITATION_CODE (INVITATION_ID, USER_ID,
+		TYPE,INVITATION_CODE
+		)
+		values (#{invitationId,jdbcType=DECIMAL},
+		#{userId,jdbcType=DECIMAL},
+		#{type,jdbcType=CHAR},#{invitationCode,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.InvitationCode">
+		insert into INVITATION_CODE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="invitationId != null">
+				INVITATION_ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="invitationCode != null">
+				INVITATION_CODE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="invitationId != null">
+				#{invitationId,jdbcType=DECIMAL},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=CHAR},
+			</if>
+			<if test="invitationCode != null">
+				#{invitationCode,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.InvitationCode">
+		update INVITATION_CODE
+		<set>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=CHAR},
+			</if>
+			<if test="invitationCode != null">
+				INVITATION_CODE = #{invitationCode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where INVITATION_ID = #{invitationId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.InvitationCode">
+		update
+		INVITATION_CODE
+		set USER_ID = #{userId,jdbcType=DECIMAL},
+		TYPE =
+		#{type,jdbcType=CHAR}
+		where INVITATION_ID =
+		#{invitationId,jdbcType=DECIMAL}
+	</update>
+
+	<select id="selectBy" resultMap="BaseResultMap"
+		parameterType="com.xt.cfp.core.pojo.InvitationCode">
+		select
+		<include refid="Base_Column_List" />
+		from INVITATION_CODE
+		where INVITATION_ID =
+		#{invitationId,jdbcType=DECIMAL}
+		<if test="type != null">
+			and TYPE = #{type,jdbcType=CHAR}
+		</if>
+	</select>
+
+	<select id="selectByUserId" resultMap="BaseResultMap"
+		parameterType="com.xt.cfp.core.pojo.InvitationCode">
+		select
+		<include refid="Base_Column_List" />
+		from INVITATION_CODE
+		where USER_ID = #{userId,jdbcType=DECIMAL}
+		<if test="type != null">
+			and TYPE = #{type,jdbcType=CHAR}
+		</if>
+	</select>
+	<select id="getInvitationCodeByCode" resultMap="BaseResultMap"
+		parameterType="String">
+		select
+		<include refid="Base_Column_List" />
+		from INVITATION_CODE
+		where INVITATION_CODE = #{value}
+	</select>
+
+	<select id="count_selectByPrimaryKeyByListCode" resultType="java.lang.Integer" parameterType="map">
+		 select count(1)
+ from crm_fran_emp e 
+ left join user_info_ext uie on e.user_id =uie.user_id
+ left join invitation_code ic on ic.user_id = e.user_id
+ left join crm_franchise cf on e.franchise_id =cf.franchise_id
+ left join user_info ui on e.user_id =ui.user_id
+ where exists (select  * from(
+ select o.org_id from crm_org o where o.org_code like #{code}||'%' ) a  where e.org_id =a.org_id )
+ and ic.invitation_id is not null  
+		<if test="realName != null">
+	       and  uie.real_name like '%'|| #{realName}||'%'    
+	    </if>
+	 	 <if test="franchise_name != null">
+	         and cf.franchise_id = #{franchise_name}  
+	    </if>
+	 	 <if test="invationCode != null">
+	         and ic.invitation_code    = #{invationCode}   
+	     </if>
+	</select>
+	<select id="selectByPrimaryKeyByListCode" resultMap="BaseResultMap" parameterType="map">
+		 	 select cf.franchise_name AS franchiseName,
+  	         cf.franchise_id AS	franchise_id,
+ 	          e.user_id,e.status,
+             uie.mobile_no as phone,
+             uie.real_name,
+             ic.invitation_code,
+             ic.invitation_id,
+             ui.create_time as create_date
+ from crm_fran_emp e 
+ left join user_info_ext uie on e.user_id =uie.user_id
+ left join invitation_code ic on ic.user_id = e.user_id
+ left join crm_franchise cf on e.franchise_id =cf.franchise_id
+ left join user_info ui on e.user_id =ui.user_id
+ where exists (select  * from(
+ select o.org_id from crm_org o where o.org_code like #{code}||'%' ) a  where e.org_id =a.org_id )
+ and ic.invitation_id is not null  
+			<if test="realName != null">
+	         and  uie.real_name like '%'|| #{realName}||'%'   
+	    </if>
+	 	 <if test="franchise_name != null">
+	         and cf.franchise_id = #{franchise_name}  
+	    </if>
+	 	 <if test="invationCode != null">
+	         and ic.invitation_code    = #{invationCode}   
+	     </if>
+	<!-- 	<if test=" realName != null">
+	         and  uie.real_name like '%'|| #{realName}||'%'   
+	    </if>
+	 	 <if test=" franchise_name != null">
+	          and cf.franchise_name  like '%'||#{franchise_name}||'%'  
+	    </if>
+	 	 <if test=" invationCode != null">
+	         and ic.invitation_code    like '%'||#{invationCode}||'%'    
+	     </if>
+	      <if test=" franchise_id != null">
+	         and cf.franchise_id = #{franchise_id}
+	     </if> -->
+		
+	</select>
+	<select id="selectByPrimaryKeyByCustomNum" resultMap="BaseResultMap" parameterType="list">
+	    select * from (
+  select  lp.cycle_counts AS amountArount, cr.buy_price AS amount,cr.channel_type,cr.lend_user_id from creditor_rights  cr 
+     left join loan_application la  on cr.loan_application_id = la.loan_application_id
+     left join  loan_product lp on lp.loan_product_id = la.loan_product_id) a
+     where a.channel_type=2 
+     	and  a.lend_user_id IN
+	   <foreach collection="list" item="userinfo" index="index" open="(" separator="," close=")">
+      		#{userinfo.userId}
+	   </foreach>
+	</select>
+	
+	
+		<select id="selectByPrimaryKeyByCustomNumByCurrentMonth" resultMap="BaseResultMap" parameterType="list">
+		      select * from (
+  select  lp.cycle_counts AS amountArount, cr.buy_price AS amount,cr.channel_type,cr.lend_user_id,cr.create_time from creditor_rights  cr 
+     left join loan_application la  on cr.loan_application_id = la.loan_application_id
+     left join  loan_product lp on lp.loan_product_id = la.loan_product_id) a
+     where a.channel_type=2 
+		and a.create_time>=( select trunc(sysdate,'MM') from dual) 
+    	and a.create_time &lt;=(select last_day(sysdate)   from dual) 
+		and cr.lend_user_id IN
+	   <foreach collection="list" item="userinfo" index="index" open="(" separator="," close=")">
+     		 #{userinfo.userId}
+		</foreach>
+	</select>
+	
+	
+	
+</mapper>

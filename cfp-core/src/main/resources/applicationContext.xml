@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!--	
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+    -->
+    
+    <!--	
+   	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<property name="driverClass" value="${jdbc.driverClass}" />
+	<property name="jdbcUrl" value="${jdbc.jdbcUrl}"/>
+	<property name="user" value="${jdbc.username}"/>
+	<property name="password" value="${jdbc.password}"/>
+	<property name="minPoolSize" value="${jdbc.miniPoolSize}" />
+	<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+	<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+	<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+	<property name="maxStatements" value="${jdbc.maxStatements}" />
+	<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
+	<property name="acquireRetryDelay" value="${jdbc.acquireRetryDelay}" />
+	<property name="testConnectionOnCheckin" value="${jdbc.testConnectionOnCheckin}" />
+	<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" />
+	<property name="acquireRetryAttempts" value="${jdbc.acquireRetryAttempts}" />
+	&lt;!&ndash;<property name="checkoutTimeout" value="${jdbc.checkoutTimeout}" />&ndash;&gt;
+	<property name="preferredTestQuery" value="${jdbc.preferredTestQuery}" />
+	</bean>
+	-->
+
+	<bean class="com.xt.cfp.core.util.AnnotationBeanPostProcessor">
+		<property name="locations">
+			<list>
+				<value>classpath*:jdbc.properties</value>
+				<value>classpath*:config.properties</value>
+				<value>classpath*:redis.properties</value>
+				<value>classpath*:sms.properties</value>
+				<value>classpath*:email.properties</value>
+				<value>classpath*:authentication.properties</value>
+				<value>classpath*:hf-config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 基本属性 url、user、password -->
+		<property name="url" value="${jdbc.jdbcUrl}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="15" />
+		<property name="minIdle" value="15" />
+		<property name="maxActive" value="200" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="6000" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="30000" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="150000" />
+
+		<property name="validationQuery" value="SELECT 'x' FROM DUAL" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="10" />
+
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:com/xt/cfp/core/mapper/*.xml" />
+	</bean>
+
+    <bean id="myBatisDao" class="com.xt.cfp.core.dao.MyBatisDao">
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+	
+	<!-- 【Read start】 -->
+	<bean id="dataSourceRead" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 基本属性 url、user、password -->
+		<property name="url" value="${jdbc2.jdbcUrl}" />
+		<property name="username" value="${jdbc2.username}" />
+		<property name="password" value="${jdbc2.password}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="15" />
+		<property name="minIdle" value="15" />
+		<property name="maxActive" value="200" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="6000" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="30000" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="150000" />
+
+		<property name="validationQuery" value="SELECT 'x' FROM DUAL" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="10" />
+
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+	</bean>
+	
+	<bean id="sqlSessionFactoryRead" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="dataSource" ref="dataSourceRead" />
+		<property name="mapperLocations" value="classpath:com/xt/cfp/core/mapper/*.xml" />
+	</bean>
+	
+	<bean id="myBatisDaoRead" class="com.xt.cfp.core.dao.MyBatisDao">
+    	<property name="sqlSessionFactory" ref="sqlSessionFactoryRead" />
+    </bean>
+	<!-- 【Read end】 -->
+    
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.xt.cfp.core.dao" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- velocity模板引擎-->
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<props>
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">
+					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				</prop>
+				<prop key="input.encoding">UTF-8</prop>
+				<prop key="output.encoding">UTF-8</prop>
+				<prop key="default.contentType">
+					text/html; charset=UTF-8
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.xt.cfp.core.service, com.xt.cfp.core.event.service, com.external.deposites, timer" />  <!-- 自动扫描所有注解该路径 -->
+	<!--<context:component-scan base-package="" />  &lt;!&ndash; 自动扫描所有注解该路径 &ndash;&gt;-->
+	<bean class="com.xt.cfp.core.util.ApplicationContextUtil" />
+
+    <!--<import resource="timer.xml" />-->
+	<import resource="applicationContext-redis.xml" />
+	<import resource="classpath*:shiro.xml"/>
+</beans>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ROLE_FUNCTION" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RoleFunction" >
+    <id column="ROLE_FUNCTION_ID" property="roleFunctionId" jdbcType="DECIMAL" />
+    <result column="FUNCTION_ID" property="functionId" jdbcType="DECIMAL" />
+    <result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_FUNCTION_ID, FUNCTION_ID, ROLE_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ROLE_FUNCTION
+    where ROLE_FUNCTION_ID = #{roleFunctionId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ROLE_FUNCTION
+    where ROLE_FUNCTION_ID = #{roleFunctionId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.RoleFunction" >
+     <selectKey keyProperty="roleFunctionId" order="BEFORE" resultType="long">
+      SELECT SEQ_ROLE_FUNCTION.NEXTVAL as roleFunctionId FROM dual
+    </selectKey>
+    insert into ROLE_FUNCTION (ROLE_FUNCTION_ID, FUNCTION_ID, ROLE_ID
+      )
+    values (#{roleFunctionId,jdbcType=DECIMAL}, #{functionId,jdbcType=DECIMAL}, #{roleId,jdbcType=DECIMAL}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.RoleFunction" >
+    insert into ROLE_FUNCTION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleFunctionId != null" >
+        ROLE_FUNCTION_ID,
+      </if>
+      <if test="functionId != null" >
+        FUNCTION_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleFunctionId != null" >
+        #{roleFunctionId,jdbcType=DECIMAL},
+      </if>
+      <if test="functionId != null" >
+        #{functionId,jdbcType=DECIMAL},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.RoleFunction" >
+    update ROLE_FUNCTION
+    <set >
+      <if test="functionId != null" >
+        FUNCTION_ID = #{functionId,jdbcType=DECIMAL},
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ROLE_FUNCTION_ID = #{roleFunctionId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RoleFunction" >
+    update ROLE_FUNCTION
+    set FUNCTION_ID = #{functionId,jdbcType=DECIMAL},
+      ROLE_ID = #{roleId,jdbcType=DECIMAL}
+    where ROLE_FUNCTION_ID = #{roleFunctionId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 根据角色ID查询角色权限关联列表 -->
+  <select id="getRoleFunctionByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ROLE_FUNCTION
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </select>
+</mapper>

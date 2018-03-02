@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SCHEDULE">
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.Schedule">
+        <id column="SCHEDULE_ID" property="scheduleId" jdbcType="DECIMAL"/>
+        <result column="BUSINESS_TYPE" property="businessType" jdbcType="DECIMAL"/>
+        <result column="DESC" property="desc" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="DECIMAL"/>
+        <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="BUSINESS_ID" property="businessId" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    SCHEDULE_ID, BUSINESS_TYPE, "DESC", STATUS, START_TIME, END_TIME, BUSINESS_ID
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from SCHEDULE
+        where SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from SCHEDULE
+        where SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL}
+    </delete>
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.Schedule">
+        <selectKey order="BEFORE" keyProperty="scheduleId" resultType="long">
+            SELECT SEQ_SCHUDULE.NEXTVAL as scheduleId FROM DUAL
+        </selectKey>
+        insert into SCHEDULE (SCHEDULE_ID, BUSINESS_TYPE,
+        "DESC", STATUS, START_TIME,
+        END_TIME, BUSINESS_ID)
+        values (#{scheduleId,jdbcType=DECIMAL}, #{businessType,jdbcType=DECIMAL},
+        #{desc,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP},
+        #{endTime,jdbcType=TIMESTAMP}, #{businessId,jdbcType=DECIMAL})
+    </insert>
+    <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.Schedule">
+        <selectKey order="BEFORE" keyProperty="scheduleId" resultType="long">
+            SELECT SEQ_SCHUDULE.NEXTVAL as scheduleId FROM DUAL
+        </selectKey>
+        insert into SCHEDULE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scheduleId != null">
+                SCHEDULE_ID,
+            </if>
+            <if test="businessType != null">
+                BUSINESS_TYPE,
+            </if>
+            <if test="desc != null">
+                "DESC",
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="startTime != null">
+                START_TIME,
+            </if>
+            <if test="endTime != null">
+                END_TIME,
+            </if>
+            <if test="businessId != null">
+                BUSINESS_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scheduleId != null">
+                #{scheduleId,jdbcType=DECIMAL},
+            </if>
+            <if test="businessType != null">
+                #{businessType,jdbcType=DECIMAL},
+            </if>
+            <if test="desc != null">
+                #{desc,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=DECIMAL},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="businessId != null">
+                #{businessId,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.Schedule">
+        update SCHEDULE
+        <set>
+            <if test="businessType != null">
+                BUSINESS_TYPE = #{businessType,jdbcType=DECIMAL},
+            </if>
+            <if test="desc != null">
+                "DESC" = #{desc,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=DECIMAL},
+            </if>
+            <if test="startTime != null">
+                START_TIME = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                END_TIME = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="businessId != null">
+                BUSINESS_ID = #{businessId,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.Schedule">
+        update SCHEDULE
+        set BUSINESS_TYPE = #{businessType,jdbcType=DECIMAL},
+          "DESC" = #{desc,jdbcType=VARCHAR},
+          STATUS = #{status,jdbcType=DECIMAL},
+          START_TIME = #{startTime,jdbcType=TIMESTAMP},
+          END_TIME = #{endTime,jdbcType=TIMESTAMP},
+          BUSINESS_ID = #{businessId,jdbcType=DECIMAL}
+        where SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL}
+    </update>
+    <select id="findByCondition" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from SCHEDULE
+        <where>
+            1=1
+            <if test="scheduleId != null">
+                and SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL}
+            </if>
+            <if test="businessType != null">
+                and BUSINESS_TYPE = #{businessType,jdbcType=DECIMAL}
+            </if>
+            <if test="desc != null">
+                and "DESC" = #{desc,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null">
+                and STATUS = #{status,jdbcType=DECIMAL}
+            </if>
+            <if test="startTime != null">
+                and START_TIME <![CDATA[<=]]> #{startTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null">
+                and END_TIME = #{endTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="businessId != null">
+                and BUSINESS_ID = #{businessId,jdbcType=DECIMAL}
+            </if>
+            <if test="num != null">
+                and rownum <![CDATA[<=]]> ${num}
+            </if>
+        </where>
+        order by SCHEDULE_ID
+    </select>
+
+</mapper>

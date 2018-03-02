@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/task
+                           http://www.springframework.org/schema/task/spring-task-3.1.xsd">
+
+    <import resource="classpath*:applicationContext.xml"/>
+
+    <!--<bean id="scheduler"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:quartz.properties"/>
+        <property name="applicationContextSchedulerContextKey"
+                  value="applicationContextKey"/>
+        <property name="autoStartup" value="true"/>
+        <property name="startupDelay" value="30"/>
+        <property name="transactionManager" ref="transactionManager"/>
+
+        <property name="triggers">
+            <list>
+                &lt;!&ndash; <ref local="testTrigger" />&ndash;&gt;
+
+                &lt;!&ndash;<ref local="contrastRechangeTrigger"/>
+                <ref local="withDrawTrigger"/>
+                <ref local="refreshUnRechargeOrderTrigger"/>
+                <ref local="voucherTrigger"/>
+                <ref local="wechatVoucherExpireMsgTrigger"/>
+                <ref local="overduePenltyTrigger"/>
+
+                <ref local="maintainCRMStaffCustomerTrigger"/>
+
+                <ref local="autoPublishTrigger"/>
+                <ref local="rateProductTrigger"/>
+                <ref local="expireRateMsgTrigger"/>
+                <ref local="financeAutoMatchTrigger"/>
+                <ref local="refreshFinanceBidTrigger"/>
+                <ref local="financeQuitTrigger"/>&ndash;&gt;
+
+                &lt;!&ndash;<ref local="userReport"/>&ndash;&gt;
+                &lt;!&ndash;<ref local="capitalFlowTrigger"/>&ndash;&gt;
+                &lt;!&ndash;<ref local="loanReport"/>
+                <ref local="tradeReport"/>&ndash;&gt;
+            </list>
+        </property>
+    </bean>-->
+
+    <!--触发器的bean的设置，要触发的jobDetail是overdueRecallTask-->
+    <!-- <bean id="testTrigger"
+           class="org.springframework.scheduling.quartz.CronTriggerBean">
+         <property name="jobDetail">
+             <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                 <property name="targetBean" value="bidTaskForTimerService" />
+                 <property name="targetMethod" value="failBidTask" />
+             </bean>
+         </property>
+         <property name="cronExpression">
+             <value>0 0 1 * * ?</value>
+         </property>
+     </bean>-->
+
+    <!--<bean id="capitalFlowTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="doCapitalFlowTask"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0/3 * * * * ?"/>
+    </bean>-->
+
+    <!-- 财富券有效期刷新 -->
+    <!--<bean id="voucherTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="voucherRefreshTask"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0 0 * * ?"/>&lt;!&ndash; 每天0点触发 &ndash;&gt;
+    </bean>
+
+    &lt;!&ndash; 充值单状态定时刷新 &ndash;&gt;
+    <bean id="contrastRechangeTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="contrastRechangeTask"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0 0/1 * * ?"/> &lt;!&ndash;每小时触发 &ndash;&gt;
+    </bean>
+
+    &lt;!&ndash; 提现单状态定时刷新(24小时未充值置为充值失败) &ndash;&gt;
+    <bean id="refreshUnRechargeOrderTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="refreshUnRechargeOrderTask"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0 0 * * ?"/>&lt;!&ndash; 每晚12点触发 &ndash;&gt;
+    </bean>
+
+    &lt;!&ndash; 提现单状态定时刷新 &ndash;&gt;
+    <bean id="withDrawTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="withDrawRefreshTask"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0 0/1 * * ?"/>&lt;!&ndash; 每小时触发 &ndash;&gt;
+    </bean>
+
+    &lt;!&ndash; 财富卷到期提醒(每天9点推送) &ndash;&gt;
+    <bean id="wechatVoucherExpireMsgTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="wechatVoucherExpireMsgTask"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0 9 * * ?"/>&lt;!&ndash; 每天9点触发 &ndash;&gt;
+    </bean>
+
+    &lt;!&ndash; 逾期还款定时刷新 &ndash;&gt;
+    <bean id="overduePenltyTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="overDuePenltyTask"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0 1 * * ?"/>&lt;!&ndash; 每晚1点触发 &ndash;&gt;
+    </bean>
+
+    &lt;!&ndash; crm员工客户关系维护 &ndash;&gt;
+    <bean id="maintainCRMStaffCustomerTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="maintainCRMStaffCustomerTask"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 30 0 * * ?"/>&lt;!&ndash; 每晚12点触发 &ndash;&gt;
+    </bean>
+
+    &lt;!&ndash; 执行自动发标 &ndash;&gt;
+    <bean id="autoPublishTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="autoPublishTask"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 */6 * * * ?"/>&lt;!&ndash; 每隔6分钟触发 &ndash;&gt;
+    </bean>
+    &lt;!&ndash; 加息券有效期刷新 &ndash;&gt;
+    <bean id="rateProductTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="rateProductfreshTask"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0 0 * * ?"/>&lt;!&ndash; 每晚12点触发 &ndash;&gt;
+    </bean>
+
+    &lt;!&ndash; 加息券到期提醒(每天9点推送) &ndash;&gt;
+    <bean id="expireRateMsgTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="expireRateMsgTask"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0 9 * * ?"/>&lt;!&ndash; 每天9点触发 &ndash;&gt;&lt;!&ndash; "0 0 9 * * ?" &ndash;&gt;&lt;!&ndash; 测试用"0 */3 * * * ?" &ndash;&gt;
+    </bean>
+
+    &lt;!&ndash; 省心计划定时匹配 &ndash;&gt;
+    <bean id="financeAutoMatchTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="autoMatchFinanceOrder"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 */10 * * * ?"/>&lt;!&ndash; 每10分钟触发 &ndash;&gt;
+    </bean>
+    &lt;!&ndash; 省心计划退出 &ndash;&gt;
+    <bean id="financeQuitTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="financeQuit"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0 2 * * ?"/>&lt;!&ndash; 每晚2点触发 &ndash;&gt;
+    </bean>
+    &lt;!&ndash; 刷新省心计划产品状态 &ndash;&gt;
+    <bean id="refreshFinanceBidTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="refreshFinanceBidStatus"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0 1 * * ?"/>&lt;!&ndash; 每晚1点触发 &ndash;&gt;
+    </bean>
+
+    &lt;!&ndash; 新开用户报备文件上传、核检  start &ndash;&gt;
+    <bean id="userReport" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="userReportTask"/>
+                <property name="targetMethod" value="excute"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0/30 1-8 * * ?"/>
+    </bean>-->
+
+    <!-- 新增项目报备文件上传、核检 start -->
+      <!--<bean id="loanReport" class="org.springframework.scheduling.quartz.CronTriggerBean">
+         <property name="jobDetail">
+             <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                 <property name="targetBean" value="loanReportTask"/>
+                 <property name="targetMethod" value="excute"/>
+             </bean>
+         </property>
+         <property name="cronExpression" value="0 0/30 2-8 * * ?"/>
+     </bean>-->
+
+    <!-- 商户交易报备文件上传、核检 start -->
+     <!--<bean id="tradeReport" class="org.springframework.scheduling.quartz.CronTriggerBean">
+         <property name="jobDetail">
+             <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                 <property name="targetBean" value="tradeReportTask"/>
+                 <property name="targetMethod" value="excute"/>
+             </bean>
+         </property>
+         <property name="cronExpression" value="0 0/30 3-8 * * ?"/>
+     </bean>-->
+
+    <!-- 开启定时任务 -->
+    <task:annotation-driven />
+</beans>

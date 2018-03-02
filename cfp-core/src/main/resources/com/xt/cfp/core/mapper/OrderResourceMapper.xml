@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ORDERRESOURCE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.OrderResource" >
+    <id column="RESOURCE_ID" property="resourceId" jdbcType="DECIMAL" />
+    <result column="RESOURCE_TYPE" property="resourceType" jdbcType="VARCHAR" />
+    <result column="RESOURCE_DESC" property="resourceDesc" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="IS_VALID" property="valid" jdbcType="DECIMAL" />
+    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    RESOURCE_ID, RESOURCE_TYPE, RESOURCE_DESC, CREATE_TIME, END_TIME, IS_VALID, PARENT_ID
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ORDER_RESOURCE
+    where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </select>
+
+  <insert id="insertWithId" parameterType="com.xt.cfp.core.pojo.OrderResource">
+    insert into ORDER_RESOURCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        RESOURCE_ID,
+      </if>
+      <if test="resourceType != null" >
+        RESOURCE_TYPE,
+      </if>
+      <if test="resourceDesc != null" >
+        RESOURCE_DESC,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="valid != null" >
+        IS_VALID,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceDesc != null" >
+        #{resourceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="valid != null" >
+        #{valid,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.OrderResource" >
+    <selectKey keyProperty="resourceId" order="BEFORE" resultType="long">
+      SELECT SEQ_ORDER_RESOURCE.NEXTVAL as resourceId FROM dual
+    </selectKey>
+    insert into ORDER_RESOURCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        RESOURCE_ID,
+      </if>
+      <if test="resourceType != null" >
+        RESOURCE_TYPE,
+      </if>
+      <if test="resourceDesc != null" >
+        RESOURCE_DESC,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="valid != null" >
+        IS_VALID,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceDesc != null" >
+        #{resourceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="valid != null" >
+        #{valid,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.OrderResource" >
+    update ORDER_RESOURCE
+    <set>
+      <if test="resourceType != null" >
+        RESOURCE_TYPE = #{resourceType,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceDesc != null" >
+        RESOURCE_DESC = #{resourceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="valid != null" >
+        IS_VALID = #{valid,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.UserInfo" >
+    update ORDER_RESOURCE
+    set RESOURCE_TYPE = #{resourceType,jdbcType=DECIMAL},
+      RESOURCE_DESC = #{resourceDesc,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      IS_VALID = #{valid,jdbcType=DECIMAL},
+      PARENT_ID = #{parentId,jdbcType=DECIMAL},
+    where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="getOrderResourceByCondition" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List" />
+    from ORDER_RESOURCE
+    <where>
+    	1=1
+        <if test="resourceType != null">
+          AND RESOURCE_TYPE = #{resourceType,jdbcType=DECIMAL}
+        </if>
+        <if test="resourceDesc != null">
+          AND RESOURCE_DESC like '%${resourceDesc}%'
+        </if>
+        <if test="createTime != null">
+          AND CREATE_TIME <![CDATA[>=]]> #{createTime}
+        </if>
+        <if test="endTime != null">
+          AND END_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="valid != null">
+          AND IS_VALID = #{valid,jdbcType=DECIMAL}
+        </if>
+        <if test="parentId != null">
+          AND PARENT_ID = #{parentId,jdbcType=DECIMALs}
+        </if>
+    </where>
+    ORDER BY RESOURCE_ID DESC
+  </select>
+
+
+  <select id="getOrderResourcePaging" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List" />
+    from ORDER_RESOURCE
+    <where>
+    	1=1
+        <if test="resourceType != null">
+          AND RESOURCE_TYPE = #{resourceType,jdbcType=DECIMAL}
+        </if>
+        <if test="resourceDesc != null">
+          AND RESOURCE_DESC like '%${resourceDesc}%'
+        </if>
+        <if test="createTime != null">
+          AND CREATE_TIME <![CDATA[>=]]> #{createTime}
+        </if>
+        <if test="endTime != null">
+          AND END_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="valid != null">
+          AND IS_VALID = #{valid,jdbcType=DECIMAL}
+        </if>
+        <if test="parentId != null">
+          AND PARENT_ID = #{parentId,jdbcType=DECIMALs}
+        </if>
+    </where>
+    ORDER BY RESOURCE_ID DESC
+  </select>
+  
+  <select id="count_getOrderResourcePaging" resultType="int" parameterType="map">
+    SELECT  count(1)  from ORDER_RESOURCE
+    <where>
+      1=1
+        <if test="resourceType != null">
+          AND RESOURCE_TYPE = #{resourceType,jdbcType=DECIMAL}
+        </if>
+        <if test="resourceDesc != null">
+          AND RESOURCE_DESC like '%${resourceDesc}%'
+        </if>
+        <if test="createTime != null">
+          AND CREATE_TIME <![CDATA[>=]]> #{createTime}
+        </if>
+        <if test="endTime != null">
+          AND END_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="valid != null">
+          AND IS_VALID = #{valid,jdbcType=DECIMAL}
+        </if>
+        <if test="parentId != null">
+          AND PARENT_ID = #{parentId,jdbcType=DECIMALs}
+        </if>
+    </where>
+  </select>
+
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SUPPLEMENTARY_DIFFERENCE" >
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.SupplementaryDifference" >
+        <id column="MAKE_UP_ID" property="makeUpId" jdbcType="DECIMAL" />
+        <result column="REPAYMENT_RECORD_ID" property="repaymentRecordId" jdbcType="DECIMAL" />
+        <result column="ACC_ID" property="accId" jdbcType="DECIMAL" />
+        <result column="HIS_ID" property="hisId" jdbcType="DECIMAL" />
+        <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+        <result column="TYPE" property="type" jdbcType="DECIMAL" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        MAKE_UP_ID,REPAYMENT_RECORD_ID ,ACC_ID ,HIS_ID ,AMOUNT, TYPE, CREATE_TIME
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from SUPPLEMENTARY_DIFFERENCE
+        where MAKE_UP_ID = #{makeUpId,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from SUPPLEMENTARY_DIFFERENCE
+        where MAKE_UP_ID = #{makeUpId,jdbcType=DECIMAL}
+    </delete>
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.SupplementaryDifference" >
+        <selectKey keyProperty="makeUpId" order="BEFORE" resultType="long">
+            SELECT SEQ_SUPPLEMENTARY_DIFFERENCE.NEXTVAL as makeUpId FROM dual
+        </selectKey>
+        insert into SUPPLEMENTARY_DIFFERENCE (MAKE_UP_ID,REPAYMENT_RECORD_ID ,ACC_ID ,HIS_ID ,AMOUNT, TYPE, CREATE_TIME)
+        values (#{makeUpId,jdbcType=DECIMAL}, #{repaymentRecordId,jdbcType=DECIMAL}, #{accId,jdbcType=DECIMAL},
+        #{hisId,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL},#{type,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.SupplementaryDifference" >
+        update SUPPLEMENTARY_DIFFERENCE
+        <set >
+            <if test="repaymentRecordId != null" >
+                REPAYMENT_RECORD_ID = #{repaymentRecordId,jdbcType=DECIMAL},
+            </if>
+            <if test="accId != null" >
+                ACC_ID = #{accId,jdbcType=DECIMAL},
+            </if>
+            <if test="hisId != null" >
+                HIS_ID = #{hisId,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null" >
+                AMOUNT = #{amount,jdbcType=VARCHAR},
+            </if>
+
+            <if test="type != null" >
+                TYPE = #{type,jdbcType=VARCHAR},
+            </if>
+
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where MAKE_UP_ID = #{makeUpId,jdbcType=DECIMAL}
+    </update>
+</mapper>

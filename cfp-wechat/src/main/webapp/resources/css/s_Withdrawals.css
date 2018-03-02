@@ -1,0 +1,289 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/*
+.clear_0{clear:both;}
+.clear_5{clear:both; height:5px;}
+.clear_15{clear:both; height:15px;}
+.bodyBj{background:#f5f5f5; position:relative;}
+.yinhBox{width:94%; height:auto; background:#fff; margin:0 auto; box-shadow: 0 2px 3px #ccc; border-radius:0 0 4px 4px ;}
+.yinkBox_top{height:3.5rem; line-height:3.5rem; color:#fff; background:#ff5e61; text-indent:1rem; border-radius:4px 4px 0 0;}
+.yinkBox_bot{height:4.5rem; line-height:4.5rem; background:#fff; border-radius:0 0 4px 4px;}
+.yinkBox_bot span img{width:10rem; margin:1.5rem 0 0 1rem;}
+.yinkBox_botRi{float:right; padding-right:1rem;}
+
+.tiXianbox{width:100%; height:auto; background:#fff; box-shadow: 0 2px 3px #ccc;position: relative;}
+.tiXianbox p{width:94%; height:4rem; line-height:4rem; margin:0 auto;}
+.tiXianbox p .tiXianLe{float:left; text-align:left; color:#ff5e61; font-size:1.4rem;}
+.tiXianbox p .tiXianRi{position:absolute;height:100%;right: 1rem;}
+.tiXianRi input{color:#ff5e61; font-size:1.4rem; border:none; text-align:right;line-height: 4rem;background: #fff;}
+.tixianJl{width:94%; margin:0 auto; text-align:right;}
+.tixianJl a{color:#ff5e61;}
+.tiXianinput{width:100%; background:#fff; border-top:1px #e6e6e6 solid; border-bottom:1px #e6e6e6 solid;}
+.txMoney{width:94%; margin:0 auto; font-size:1.2rem;}
+.txMoney input{border:none; line-height:4rem;}
+.tiXiantip{width:100%; height:3.5rem; line-height:3rem; background:#fff; border-bottom:1px #e6e6e6 solid; font-size:1.2rem;}
+.tiXiantip p{width:94%; margin:0 auto; color:#ff5e61;}
+.headFee{width:100%; height:4rem; line-height:4rem; background:#fff; border-top:1px #e6e6e6 solid; border-bottom:1px #e6e6e6 solid;}
+.headFee p{width:94%; margin:0 auto; font-size: 1.2rem;}
+.feeLe{float:left; text-align:left; color:#333;}
+.feeRi{float:right; text-align:right; color:#333;}
+.feeRi .feeRinum{color:#ff5e61;}
+
+.checked{background:url(../images/icon/icon_check.png) center no-repeat; background-size:.8rem;}
+.bkNochecked{width:1rem; height:1rem; border:1px #fc5f65 solid; border-radius:2px; position:absolute; right:12px; top:1.4rem; }
+.phoneNum{width:100%; height:4rem; line-height:4rem; font-size:1.2rem;}
+.phoneNum p{width:94%; margin:0 auto;}
+.jiaoYtip{width:100%; height:3rem; line-height:3rem;}
+.jiaoYtip p{width:94%; margin:0 auto;}
+.jiaoYtipLe{float:left;}
+.jiaoYtipLe i{color:#ff5e61;}
+.jiaoYtipRi{float:right; text-align:right;color:#8ab1f7;}
+.tiXianbtn{width:94%; height:3rem; line-height:3rem; background:#ff5e61; color:#fff; font-size:1.4rem; border-radius:4px; display:block; margin:1.2rem auto;}
+.yzCode{position:absolute; width:7rem; height:2rem; line-height:2rem; text-align:center; color:#fff; background:#ff5e61; right:0; top:.85rem; border-radius:4px;}
+
+.swal2-modal h2 {font-size: 1.4rem!important;}
+!*-------遮罩层-------*!
+.Maskbox{width:100%; height:100%; background:#000; position:fixed; z-index:0; display:none; opacity:0.5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50); top:0;}
+.cardHelp{width:80%; height:auto; background:#fff; position:fixed; z-index:999; display:none; border-radius:6px;}
+.helpTitle{font-size:1.4rem; color:#333; text-align:center; margin:1.5rem 0 1rem;}
+.helpInfo{font-size:1.1rem; color:#666; text-align:center; margin:0 1.6rem; text-align:left;}
+.helpInfo a{color:#3EB4EA;}
+.cardHelp button{width:100%; height:3rem; line-height:3rem; border:none; background:#ff5e61; color:#fff; font-size:1.4rem; border-radius: 0 0 4px 4px; 
+margin-top:2rem;}
+
+
+@media (max-width:320px){
+	.yinkBox_bot span img{width:8rem;}
+    .txMoney{font-size:1.1rem;}
+}*/
+
+
+@charset "utf-8";
+/* CSS Document */
+/*
+.clear_0{clear:both;}
+.clear_5{clear:both; height:5px;}
+.clear_15{clear:both; height:15px;}
+.bodyBj{background:#f5f5f5; position:relative;}
+.yinhBox{width:94%; height:auto; background:#fff; margin:0 auto; box-shadow: 0 2px 3px #ccc; border-radius:0 0 4px 4px ;}
+.yinkBox_top{height:3.5rem; line-height:3.5rem; color:#fff; background:#ff5e61; text-indent:1rem; border-radius:4px 4px 0 0;}
+.yinkBox_bot{height:4.5rem; line-height:4.5rem; background:#fff; border-radius:0 0 4px 4px;}
+.yinkBox_bot span img{width:10rem; margin:1.5rem 0 0 1rem;}
+.yinkBox_botRi{float:right; padding-right:1rem;}
+
+.tiXianbox{width:100%; height:auto; background:#fff; box-shadow: 0 2px 3px #ccc;position: relative;}
+.tiXianbox p{width:94%; height:4rem; line-height:4rem; margin:0 auto;}
+.tiXianbox p .tiXianLe{float:left; text-align:left; color:#ff5e61; font-size:1.4rem;}
+.tiXianbox p .tiXianRi{position:absolute;height:100%;right: 1rem;}
+.tiXianRi input{color:#ff5e61; font-size:1.4rem; border:none; text-align:right;line-height: 4rem;background: #fff;}
+.tixianJl{width:94%; margin:0 auto; text-align:right;}
+.tixianJl a{color:#ff5e61;}
+.tiXianinput{width:100%; background:#fff; border-top:1px #e6e6e6 solid; border-bottom:1px #e6e6e6 solid;}
+.txMoney{width:94%; margin:0 auto; font-size:1.2rem;}
+.txMoney input{border:none; line-height:4rem;}
+.tiXiantip{width:100%; height:3.5rem; line-height:3rem; background:#fff; border-bottom:1px #e6e6e6 solid; font-size:1.2rem;}
+.tiXiantip p{width:94%; margin:0 auto; color:#ff5e61;}
+.headFee{width:100%; height:4rem; line-height:4rem; background:#fff; border-top:1px #e6e6e6 solid; border-bottom:1px #e6e6e6 solid;}
+.headFee p{width:94%; margin:0 auto; font-size: 1.2rem;}
+.feeLe{float:left; text-align:left; color:#333;}
+.feeRi{float:right; text-align:right; color:#333;}
+.feeRi .feeRinum{color:#ff5e61;}
+
+.checked{background:url(../images/icon/icon_check.png) center no-repeat; background-size:.8rem;}
+.bkNochecked{width:1rem; height:1rem; border:1px #fc5f65 solid; border-radius:2px; position:absolute; right:12px; top:1.4rem; }
+.phoneNum{width:100%; height:4rem; line-height:4rem; font-size:1.2rem;}
+.phoneNum p{width:94%; margin:0 auto;}
+.jiaoYtip{width:100%; height:3rem; line-height:3rem;}
+.jiaoYtip p{width:94%; margin:0 auto;}
+.jiaoYtipLe{float:left;}
+.jiaoYtipLe i{color:#ff5e61;}
+.jiaoYtipRi{float:right; text-align:right;color:#8ab1f7;}
+.tiXianbtn{width:94%; height:3rem; line-height:3rem; background:#ff5e61; color:#fff; font-size:1.4rem; border-radius:4px; display:block; margin:1.2rem auto;}
+.yzCode{position:absolute; width:7rem; height:2rem; line-height:2rem; text-align:center; color:#fff; background:#ff5e61; right:0; top:.85rem; border-radius:4px;}
+
+.swal2-modal h2 {font-size: 1.4rem!important;}
+!*-------遮罩层-------*!
+.Maskbox{width:100%; height:100%; background:#000; position:fixed; z-index:0; display:none; opacity:0.5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50); top:0;}
+.cardHelp{width:80%; height:auto; background:#fff; position:fixed; z-index:999; display:none; border-radius:6px;}
+.helpTitle{font-size:1.4rem; color:#333; text-align:center; margin:1.5rem 0 1rem;}
+.helpInfo{font-size:1.1rem; color:#666; text-align:center; margin:0 1.6rem; text-align:left;}
+.helpInfo a{color:#3EB4EA;}
+.cardHelp button{width:100%; height:3rem; line-height:3rem; border:none; background:#ff5e61; color:#fff; font-size:1.4rem; border-radius: 0 0 4px 4px;
+margin-top:2rem;}
+
+
+@media (max-width:320px){
+	.yinkBox_bot span img{width:8rem;}
+    .txMoney{font-size:1.1rem;}
+}*/
+
+
+@charset "utf-8";
+/* CSS Document */
+/*
+.clear_0{clear:both;}
+.clear_5{clear:both; height:5px;}
+.clear_15{clear:both; height:15px;}
+.bodyBj{background:#f5f5f5; position:relative;}
+.yinhBox{width:94%; height:auto; background:#fff; margin:0 auto; box-shadow: 0 2px 3px #ccc; border-radius:0 0 4px 4px ;}
+.yinkBox_top{height:3.5rem; line-height:3.5rem; color:#fff; background:#ff5e61; text-indent:1rem; border-radius:4px 4px 0 0;}
+.yinkBox_bot{height:4.5rem; line-height:4.5rem; background:#fff; border-radius:0 0 4px 4px;}
+.yinkBox_bot span img{width:10rem; margin:1.5rem 0 0 1rem;}
+.yinkBox_botRi{float:right; padding-right:1rem;}
+
+.tiXianbox{width:100%; height:auto; background:#fff; box-shadow: 0 2px 3px #ccc;position: relative;}
+.tiXianbox p{width:94%; height:4rem; line-height:4rem; margin:0 auto;}
+.tiXianbox p .tiXianLe{float:left; text-align:left; color:#ff5e61; font-size:1.4rem;}
+.tiXianbox p .tiXianRi{position:absolute;height:100%;right: 1rem;}
+.tiXianRi input{color:#ff5e61; font-size:1.4rem; border:none; text-align:right;line-height: 4rem;background: #fff;}
+.tixianJl{width:94%; margin:0 auto; text-align:right;}
+.tixianJl a{color:#ff5e61;}
+.tiXianinput{width:100%; background:#fff; border-top:1px #e6e6e6 solid; border-bottom:1px #e6e6e6 solid;}
+.txMoney{width:94%; margin:0 auto; font-size:1.2rem;}
+.txMoney input{border:none; line-height:4rem;}
+.tiXiantip{width:100%; height:3.5rem; line-height:3rem; background:#fff; border-bottom:1px #e6e6e6 solid; font-size:1.2rem;}
+.tiXiantip p{width:94%; margin:0 auto; color:#ff5e61;}
+.headFee{width:100%; height:4rem; line-height:4rem; background:#fff; border-top:1px #e6e6e6 solid; border-bottom:1px #e6e6e6 solid;}
+.headFee p{width:94%; margin:0 auto; font-size: 1.2rem;}
+.feeLe{float:left; text-align:left; color:#333;}
+.feeRi{float:right; text-align:right; color:#333;}
+.feeRi .feeRinum{color:#ff5e61;}
+
+.checked{background:url(../images/icon/icon_check.png) center no-repeat; background-size:.8rem;}
+.bkNochecked{width:1rem; height:1rem; border:1px #fc5f65 solid; border-radius:2px; position:absolute; right:12px; top:1.4rem; }
+.phoneNum{width:100%; height:4rem; line-height:4rem; font-size:1.2rem;}
+.phoneNum p{width:94%; margin:0 auto;}
+.jiaoYtip{width:100%; height:3rem; line-height:3rem;}
+.jiaoYtip p{width:94%; margin:0 auto;}
+.jiaoYtipLe{float:left;}
+.jiaoYtipLe i{color:#ff5e61;}
+.jiaoYtipRi{float:right; text-align:right;color:#8ab1f7;}
+.tiXianbtn{width:94%; height:3rem; line-height:3rem; background:#ff5e61; color:#fff; font-size:1.4rem; border-radius:4px; display:block; margin:1.2rem auto;}
+.yzCode{position:absolute; width:7rem; height:2rem; line-height:2rem; text-align:center; color:#fff; background:#ff5e61; right:0; top:.85rem; border-radius:4px;}
+
+.swal2-modal h2 {font-size: 1.4rem!important;}
+!*-------遮罩层-------*!
+.Maskbox{width:100%; height:100%; background:#000; position:fixed; z-index:0; display:none; opacity:0.5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50); top:0;}
+.cardHelp{width:80%; height:auto; background:#fff; position:fixed; z-index:999; display:none; border-radius:6px;}
+.helpTitle{font-size:1.4rem; color:#333; text-align:center; margin:1.5rem 0 1rem;}
+.helpInfo{font-size:1.1rem; color:#666; text-align:center; margin:0 1.6rem; text-align:left;}
+.helpInfo a{color:#3EB4EA;}
+.cardHelp button{width:100%; height:3rem; line-height:3rem; border:none; background:#ff5e61; color:#fff; font-size:1.4rem; border-radius: 0 0 4px 4px;
+margin-top:2rem;}
+
+
+@media (max-width:320px){
+	.yinkBox_bot span img{width:8rem;}
+    .txMoney{font-size:1.1rem;}
+}*/
+
+
+@charset "utf-8";
+/* CSS Document */
+/*
+.clear_0{clear:both;}
+.clear_5{clear:both; height:5px;}
+.clear_15{clear:both; height:15px;}
+.bodyBj{background:#f5f5f5; position:relative;}
+.yinhBox{width:94%; height:auto; background:#fff; margin:0 auto; box-shadow: 0 2px 3px #ccc; border-radius:0 0 4px 4px ;}
+.yinkBox_top{height:3.5rem; line-height:3.5rem; color:#fff; background:#ff5e61; text-indent:1rem; border-radius:4px 4px 0 0;}
+.yinkBox_bot{height:4.5rem; line-height:4.5rem; background:#fff; border-radius:0 0 4px 4px;}
+.yinkBox_bot span img{width:10rem; margin:1.5rem 0 0 1rem;}
+.yinkBox_botRi{float:right; padding-right:1rem;}
+
+.tiXianbox{width:100%; height:auto; background:#fff; box-shadow: 0 2px 3px #ccc;position: relative;}
+.tiXianbox p{width:94%; height:4rem; line-height:4rem; margin:0 auto;}
+.tiXianbox p .tiXianLe{float:left; text-align:left; color:#ff5e61; font-size:1.4rem;}
+.tiXianbox p .tiXianRi{position:absolute;height:100%;right: 1rem;}
+.tiXianRi input{color:#ff5e61; font-size:1.4rem; border:none; text-align:right;line-height: 4rem;background: #fff;}
+.tixianJl{width:94%; margin:0 auto; text-align:right;}
+.tixianJl a{color:#ff5e61;}
+.tiXianinput{width:100%; background:#fff; border-top:1px #e6e6e6 solid; border-bottom:1px #e6e6e6 solid;}
+.txMoney{width:94%; margin:0 auto; font-size:1.2rem;}
+.txMoney input{border:none; line-height:4rem;}
+.tiXiantip{width:100%; height:3.5rem; line-height:3rem; background:#fff; border-bottom:1px #e6e6e6 solid; font-size:1.2rem;}
+.tiXiantip p{width:94%; margin:0 auto; color:#ff5e61;}
+.headFee{width:100%; height:4rem; line-height:4rem; background:#fff; border-top:1px #e6e6e6 solid; border-bottom:1px #e6e6e6 solid;}
+.headFee p{width:94%; margin:0 auto; font-size: 1.2rem;}
+.feeLe{float:left; text-align:left; color:#333;}
+.feeRi{float:right; text-align:right; color:#333;}
+.feeRi .feeRinum{color:#ff5e61;}
+
+.checked{background:url(../images/icon/icon_check.png) center no-repeat; background-size:.8rem;}
+.bkNochecked{width:1rem; height:1rem; border:1px #fc5f65 solid; border-radius:2px; position:absolute; right:12px; top:1.4rem; }
+.phoneNum{width:100%; height:4rem; line-height:4rem; font-size:1.2rem;}
+.phoneNum p{width:94%; margin:0 auto;}
+.jiaoYtip{width:100%; height:3rem; line-height:3rem;}
+.jiaoYtip p{width:94%; margin:0 auto;}
+.jiaoYtipLe{float:left;}
+.jiaoYtipLe i{color:#ff5e61;}
+.jiaoYtipRi{float:right; text-align:right;color:#8ab1f7;}
+.tiXianbtn{width:94%; height:3rem; line-height:3rem; background:#ff5e61; color:#fff; font-size:1.4rem; border-radius:4px; display:block; margin:1.2rem auto;}
+.yzCode{position:absolute; width:7rem; height:2rem; line-height:2rem; text-align:center; color:#fff; background:#ff5e61; right:0; top:.85rem; border-radius:4px;}
+
+.swal2-modal h2 {font-size: 1.4rem!important;}
+!*-------遮罩层-------*!
+.Maskbox{width:100%; height:100%; background:#000; position:fixed; z-index:0; display:none; opacity:0.5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50); top:0;}
+.cardHelp{width:80%; height:auto; background:#fff; position:fixed; z-index:999; display:none; border-radius:6px;}
+.helpTitle{font-size:1.4rem; color:#333; text-align:center; margin:1.5rem 0 1rem;}
+.helpInfo{font-size:1.1rem; color:#666; text-align:center; margin:0 1.6rem; text-align:left;}
+.helpInfo a{color:#3EB4EA;}
+.cardHelp button{width:100%; height:3rem; line-height:3rem; border:none; background:#ff5e61; color:#fff; font-size:1.4rem; border-radius: 0 0 4px 4px;
+margin-top:2rem;}
+
+
+@media (max-width:320px){
+	.yinkBox_bot span img{width:8rem;}
+    .txMoney{font-size:1.1rem;}
+}*/
+
+
+body,html{width: 100%;height: 100%;position: relative;color: #333;}
+.container{width: 100%;height: 100%;background: #f5f5f5;overflow: hidden;}
+.header{width: 100%;height: 3rem;margin-top: 1.5rem;background: #fff;display: -webkit-box;-moz-box-shadow:0px 1px 8px #ccc; -webkit-box-shadow:0px 1px 8px #ccc; box-shadow:0px 1px 8px #ccc;}
+.imgBox{width: 30%;height: auto;}
+.imgBox img{width: 100%;height: 100%;margin: .4rem 0 0 1rem;}
+.bankCard{width: 67%;text-align: right;line-height: 3rem;color: #999;font-size: 1.2rem;}
+.wrapper{width: 100%;height: auto;margin: 0 0 1.5rem 0;background: #fff;}
+.title{width: 100%;height: 2.5rem;line-height: 2.5rem;text-indent: 1rem;color: #333;font-size: 1.2rem;}
+.liner{width: 93%;height: 1px;background: #e6e6e6;margin: 0 auto;}
+.moneyBox{width: 100%;height: 4rem;line-height: 4rem;text-indent: 1rem;display: -webkit-box;}
+.moneyBox span{font-size: 1.2rem;margin-top: .5rem;display: block;}
+.moeny{width: 80%;height: 98%;display: block;border: none;outline: none;font-size: 3.6rem;text-indent: .5rem;font-weight: bold;}
+.balance{width: 100%;height: 3rem;line-height: 3rem;display: -webkit-box;border-bottom: 1px solid #e6e6e6;text-indent: 1rem;position: relative;font-size: 1rem;}
+.errorPrompt{width: 100%;}
+.prompt{color: #ff5e61;}
+.allOut{position: absolute;right: 1rem;top: 0;color: #8ab1f7;}
+.PunchClock{width: 100%;height: 3rem;line-height: 3rem;display: -webkit-box;}
+.PunchClock p:nth-child(1){width: 40%;text-indent: 1rem;}
+.PunchClock p:nth-child(2){width: 57%;text-align: right;font-size: 1.4rem;color: #ff5e61;}
+.pwd_container{border:1px solid #e6e6e6;border-right: none;border-left: none;width: 100%;height: 3rem;line-height: 3rem;background: #fff;}
+.pwd_frame{width: 100%;height: 98%;border:none;outline: none;font-size: 1rem;}
+.button_pack{width: 90%;height: auto;margin: 2rem auto;}
+.sure_Button{width: 100%;line-height: 3rem;border-radius: 3px;background: #999;color: #fff;font-size: 1.2rem;display: block;}
+.adopt{background:#ff5e61;}
+.button_pack span{display: block;text-align: center;font-size: 1rem;color: #999;margin-top: .5rem;}
+.CounteFee{text-decoration:line-through;}
+
+/*虚拟键盘样式*/
+.mask{width: 100%;height: 100%;position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.4);z-index: 9;display: none;}
+.l_broadBG{width: 100%;height: 32rem;position: absolute;left: 0;bottom:-32rem;background: url(../images/icon/loading.gif) center no-repeat #fff;background-size: 4rem;overflow: hidden;}
+.l_broadBG>ul{width: 100%;height: 16rem;position: relative;overflow: hidden;background: #fff;}
+.l_topInfo>li{position: absolute;}
+.l_topInfo>li:nth-of-type(1){width: 3rem;height: 3rem;top: .5rem;left: 5%;background: url(../images/close.png) center no-repeat;background-size: 1.5rem;z-index: 99;}
+.l_topInfo>li:nth-of-type(2){width: 100%;height: 2rem;top: 2rem;left: 0;text-align: center;font-size: 1.4rem;line-height: 2rem;color: #333;}
+.l_topInfo>li:nth-of-type(3){width: 100%;height: 2rem;top: 4rem;left: 0;text-align: center;font-size: 1.2rem;line-height: 2rem;color: #999;}
+.l_topInfo>li:nth-of-type(4){width: 24rem;height: 4rem;top: 7rem;left:50%;margin-left: -12rem;border: solid 1px #e6e6e6;overflow: visible;}
+.l_topInfo>li:nth-of-type(4) span{float:left;display: block;width: 4rem;height: 4rem;border-left: solid 1px #e6e6e6;text-align: center;line-height: 4rem;font-size: 1.6rem;color: #333;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+.l_topInfo>li:nth-of-type(4) span:first-of-type{border: none;}
+#errTip{position: absolute;width: 60%;height: 2rem;line-height: 2rem;bottom: -3rem;left:0;display: none;}
+.l_checkCodeBtn{position: absolute;width: 7rem;height: 2rem;line-height: 2rem;bottom: -3rem;right: 0;font-size: 1rem;text-align: right;color: #8ab1f7;z-index: 10;border: none;background: #fff;}
+.l_btmInfo{border: solid 1px #e5e5e5;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+.l_btmInfo>li{width: 33.33%;height: 4rem;text-align: center;line-height: 4rem;font-size: 2rem;color: #485c65;float: left;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;border-right:solid 1px #e5e5e5;border-bottom:solid 1px #e5e5e5; }
+.l_btmInfo>li:nth-of-type(3),.l_btmInfo>li:nth-of-type(6),.l_btmInfo>li:nth-of-type(9),.l_btmInfo>li:nth-of-type(12){border-right: none;}
+.l_btmInfo>li:nth-of-type(10),.l_btmInfo>li:nth-of-type(11),.l_btmInfo>li:nth-of-type(12){border-bottom: none;}
+.l_btmInfo>li:nth-of-type(12){background: url(../images/icon/unRealBroad_icon01.png) 50% 50% no-repeat;background-size: 2rem;}
+.l_touchShadow{background:rgb(235,235,235); }
+.l_disable{color: #999;}
+.colose{color: #999;}
+.balanceBox{width: 100%;height:3rem;line-height:3rem;text-indent: 1rem;color:#333;}

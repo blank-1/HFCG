@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="COMMI_PROFIT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CommiProfit" >
+    <id column="COMI_PRO_ID" property="comiProId" jdbcType="DECIMAL" />
+    <result column="RULES_ID" property="rulesId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+    <result column="FACT_PROFIT" property="factProfit" jdbcType="DECIMAL" />
+    <result column="SHOUL_PROFIT" property="shoulProfit" jdbcType="DECIMAL" />
+    <result column="ORIGIN_PROFIT" property="originProfit" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="commitVOResultMap" type="com.xt.cfp.core.pojo.ext.CommitProfitVO" >
+    <id column="COMI_PRO_ID" property="comiProId" jdbcType="DECIMAL" />
+    <result column="RULES_ID" property="rulesId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+    <result column="FACT_PROFIT" property="factProfit" jdbcType="DECIMAL" />
+    <result column="SHOUL_PROFIT" property="shoulProfit" jdbcType="DECIMAL" />
+    <result column="FIRST_RATE" property="firstRate" jdbcType="DECIMAL" />
+    <result column="SECOND_RATE" property="secondRate" jdbcType="DECIMAL" />
+    <result column="THIRD_RATE" property="thirdRate" jdbcType="DECIMAL" />
+    <result column="COMMI_RATIO_TYPE" property="commiRatioType" jdbcType="CHAR" />
+    <result column="DIS_LEVEL" property="disLevel" jdbcType="CHAR" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="COMMI_PAID_NODE" property="commiPaidNode" jdbcType="CHAR" />
+  </resultMap>
+  
+  
+   <resultMap id="commitProfitVOResultMap" type="com.xt.cfp.core.pojo.ext.CommitProfitVO" >
+    <id column="COMI_PRO_ID" property="comiProId" jdbcType="DECIMAL" />
+    <result column="RULES_ID" property="rulesId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+    <result column="FACT_PROFIT" property="factProfit" jdbcType="DECIMAL" />
+    <result column="SHOUL_PROFIT" property="shoulProfit" jdbcType="DECIMAL" />
+    <result column="FIRST_RATE" property="firstRate" jdbcType="DECIMAL" />
+    <result column="SECOND_RATE" property="secondRate" jdbcType="DECIMAL" />
+    <result column="THIRD_RATE" property="thirdRate" jdbcType="DECIMAL" />
+    <result column="COMMI_RATIO_TYPE" property="commiRatioType" jdbcType="CHAR" />
+    <result column="DIS_LEVEL" property="level" jdbcType="VARCHAR" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="MOBILE_NO" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="BUY_TIME" property="turnTime" jdbcType="VARCHAR" />
+    <result column="BUY_BALANCE" property="wasCommit" jdbcType="VARCHAR" />
+    <result column="REAL_NAME_CUSTOM" property="realNameCustom" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    COMI_PRO_ID, RULES_ID, USER_ID, LEND_ORDER_ID, FACT_PROFIT, SHOUL_PROFIT,ORIGIN_PROFIT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from COMMI_PROFIT
+    where COMI_PRO_ID = #{comiProId,jdbcType=DECIMAL}
+  </select>
+  
+    <select id="selectByPrimaryKeyById" resultMap="commitProfitVOResultMap"  parameterType="map" >
+	select     *
+    from ( 
+        select row_.* , rownum rownum_  from (   select cp.user_id pid ,di.user_id subUser_id, cp.fact_profit,cp.shoul_profit,lo.buy_balance
+          ,cp.lend_order_id,lo.lend_user_id,di.dis_level,ui.login_name,ui.mobile_no,uie1.real_name   ,
+          lo.buy_time,uie.real_name REAL_NAME_CUSTOM
+                              from COMMI_PROFIT cp 
+                              inner join lend_order lo     on lo.lend_order_id=cp.lend_order_id
+                              inner join distribution_invite di
+                               on cp.user_id = di.user_pid
+                             inner join user_info ui on ui.user_id=cp.user_id
+                             inner join user_info_ext uie on uie.user_id=di.user_id
+                             inner join user_info_ext uie1 on uie1.user_id=cp.user_id
+                             where cp.rules_id in
+                                   (select drr.rules_id
+                                      from DIS_ACTIVITY_RULES drr
+                                     where drr.lend_product_id =  #{productId,jdbcType=VARCHAR}) 
+                            and lo.order_state in (5,2,1) and lo.product_type=1
+                             AND LO.LEND_USER_ID=UIE.USER_ID
+                                <if test="mobileNo != null ">
+			 			and ui.mobile_no like '%${mobileNo}%'
+					  </if>
+			 		 <if test="custName != null ">
+					 and uie1.real_name like  '%${custName}%'
+			 		</if>
+                   
+                 ) row_
+        )
+         <!--   customParams.put("pageNo",   rowBounds.getLimit());
+		   customParams.put("pageSize",  rowBounds.getOffset()); -->
+ where rownum_ > #{pageSize,jdbcType=VARCHAR}
+   and rownum_ &lt;= #{pageNo,jdbcType=VARCHAR}
+ 
+			
+  </select>
+  
+    <select id="selectByPrimaryKeyCountById" resultType="int"  parameterType="map" >
+		  select count(1)
+                              from COMMI_PROFIT cp 
+                              inner join lend_order lo     on lo.lend_order_id=cp.lend_order_id
+                              inner join distribution_invite di
+                               on cp.user_id = di.user_pid
+                             inner join user_info ui on ui.user_id=cp.user_id
+                             inner join user_info_ext uie on uie.user_id=di.user_id
+                             inner join user_info_ext uie1 on uie1.user_id=cp.user_id
+                             where cp.rules_id in
+                                   (select drr.rules_id
+                                      from DIS_ACTIVITY_RULES drr
+                                     where drr.lend_product_id =  #{productId,jdbcType=VARCHAR}) 
+                            and lo.order_state in (5,2,1) and lo.product_type=1 
+                            AND LO.LEND_USER_ID=UIE.USER_ID
+                                <if test="mobileNo != null ">
+			 			and ui.mobile_no like '%${mobileNo}%'
+					  </if>
+			 		 <if test="custName != null ">
+					 and uie1.real_name like  '%${custName}%'
+			 		</if>
+			
+  </select>
+
+  
+      <select id="selectByPrimaryKeyByIdForExportCommitProfit" resultType="java.util.LinkedHashMap"  parameterType="map" >
+					  		 select 
+					  		  uie1.real_name    AS 姓名,
+					  		  ui.login_name     AS 用户名  ,
+					  		  ui.mobile_no      AS 手机号,
+							  cp.fact_profit    as 已得佣金 ,
+							  cp.shoul_profit   as 预期佣金 ,
+							  lo.buy_balance    as 投资金额 ,
+							  uie.real_name     AS 被邀请人姓名,
+							   lo.buy_time       AS 订单时间,
+							  di.dis_level      as 邀请层级
+							
+						
+							
+							
+							
+                              from COMMI_PROFIT cp 
+                              inner join lend_order lo     on lo.lend_order_id=cp.lend_order_id
+                              inner join distribution_invite di
+                               on cp.user_id = di.user_pid
+                             inner join user_info ui on ui.user_id=cp.user_id
+                             inner join user_info_ext uie on uie.user_id=di.user_id
+                             inner join user_info_ext uie1 on uie1.user_id=cp.user_id
+                             where cp.rules_id in
+                                   (select drr.rules_id
+                                      from DIS_ACTIVITY_RULES drr
+                                     where drr.lend_product_id =  #{productId,jdbcType=VARCHAR}) 
+                            and lo.order_state in (5,2,1) and lo.product_type=1 
+                            AND LO.LEND_USER_ID=UIE.USER_ID
+                      	<if test="mobileNo != null ">
+			 			and ui.mobile_no like '%${mobileNo}%'
+					  	</if>
+			 		 	<if test="custName != null ">
+					    and uie1.real_name like  '%${custName}%'
+			 			</if>
+ 
+			
+  </select>
+  
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from COMMI_PROFIT
+    where COMI_PRO_ID = #{comiProId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CommiProfit" >
+    <selectKey keyProperty="comiProId" order="BEFORE" resultType="long">
+      SELECT SEQ_COMMI_PROFIT.NEXTVAL as comiProId FROM dual
+    </selectKey>
+    insert into COMMI_PROFIT (COMI_PRO_ID, RULES_ID, USER_ID, 
+      LEND_ORDER_ID, FACT_PROFIT, SHOUL_PROFIT,ORIGIN_PROFIT
+      )
+    values (#{comiProId,jdbcType=DECIMAL}, #{rulesId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{lendOrderId,jdbcType=DECIMAL}, #{factProfit,jdbcType=DECIMAL}, #{shoulProfit,jdbcType=DECIMAL},#{originProfit,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CommiProfit" >
+    insert into COMMI_PROFIT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="comiProId != null" >
+        COMI_PRO_ID,
+      </if>
+      <if test="rulesId != null" >
+        RULES_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID,
+      </if>
+      <if test="factProfit != null" >
+        FACT_PROFIT,
+      </if>
+      <if test="shoulProfit != null" >
+        SHOUL_PROFIT,
+      </if>
+      <if test="originProfit != null" >
+        ORIGIN_PROFIT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="comiProId != null" >
+        #{comiProId,jdbcType=DECIMAL},
+      </if>
+      <if test="rulesId != null" >
+        #{rulesId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null" >
+        #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="factProfit != null" >
+        #{factProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="shoulProfit != null" >
+        #{shoulProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="originProfit != null" >
+        #{originProfit,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CommiProfit" >
+    update COMMI_PROFIT
+    <set >
+      <if test="rulesId != null" >
+        RULES_ID = #{rulesId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="factProfit != null" >
+        FACT_PROFIT = #{factProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="shoulProfit != null" >
+        SHOUL_PROFIT = #{shoulProfit,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where COMI_PRO_ID = #{comiProId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CommiProfit" >
+    update COMMI_PROFIT
+    set RULES_ID = #{rulesId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      FACT_PROFIT = #{factProfit,jdbcType=DECIMAL},
+      SHOUL_PROFIT = #{shoulProfit,jdbcType=DECIMAL}
+    where COMI_PRO_ID = #{comiProId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="accountProfitByUserId" parameterType="java.lang.Long" resultType="java.math.BigDecimal">
+    select nvl(sum(cr.fact_profit),0) account from COMMI_PROFIT cr
+	where cr.user_id = #{userId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="calUserAccountShouldProfit" parameterType="java.lang.Long" resultType="java.math.BigDecimal">
+    select nvl(sum(cr.SHOUL_PROFIT),0) account from COMMI_PROFIT cr
+	where cr.user_id = #{userId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getCommiProfitByLendOrderId" resultMap ="commitVOResultMap" parameterType="map">
+  		select CP.*,
+		       DAR.COMMI_PAID_NODE,
+		       DAR.FIRST_RATE,
+		       DAR.SECOND_RATE,
+		       DAR.THIRD_RATE,
+		       DAR.COMMI_RATIO_TYPE,
+		       DAR.COMMI_PAID_NODE,
+		       DI.DIS_LEVEL,
+		       UI.LOGIN_NAME
+		  from COMMI_PROFIT CP
+		
+		  left join DIS_ACTIVITY_RULES DAR on DAR.RULES_ID = CP.RULES_ID
+		  left join DISTRIBUTION_INVITE DI on di.user_pid = CP.USER_ID
+		  left join USER_INFO UI ON UI.USER_ID = CP.USER_ID
+		 where CP.LEND_ORDER_ID =  #{lendOrderId}   
+		  <![CDATA[ and CP.FACT_PROFIT < CP.SHOUL_PROFIT ]]>
+		 AND DI.USER_ID = #{lendUserId}  
+  </select>
+  <select id="getCommiProfitByParams" resultMap ="BaseResultMap" parameterType="map">
+  		select CP.* 
+		  from COMMI_PROFIT CP
+		 	<where> 
+			  <if test="comiProId != null" >
+		        AND COMI_PRO_ID = #{comiProId} 
+		      </if>
+		      <if test="rulesId != null" >
+		        AND RULES_ID = #{rulesId}  
+		      </if>
+		      <if test="userId != null" >
+		        AND USER_ID = #{userId}  
+		      </if>
+		      <if test="lendOrderId != null" >
+		        AND LEND_ORDER_ID = #{lendOrderId}  
+		      </if>
+	      </where>
+  </select>
+</mapper>

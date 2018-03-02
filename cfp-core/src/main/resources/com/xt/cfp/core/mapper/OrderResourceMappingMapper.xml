@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ORDERRESOURCEMAPPING" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.OrderResourceMapping" >
+    <id column="ORDER_RESOURCE_ID" property="orderResourceId" jdbcType="DECIMAL" />
+    <result column="RESOURCE_ID" property="resourceId" jdbcType="DECIMAL" />
+    <result column="RESOURCE_TYPE" property="resourceType" jdbcType="DECIMAL" />
+    <result column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ORDER_RESOURCE_ID, RESOURCE_ID, RESOURCE_TYPE, ORDER_ID, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ORDER_RESOURCE_MAPPING
+    where ORDER_RESOURCE_ID = #{orderResourceId,jdbcType=DECIMAL}
+  </select>
+
+  <insert id="insertWithId" parameterType="com.xt.cfp.core.pojo.OrderResourceMapping">
+    insert into ORDER_RESOURCE_MAPPING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderResourceId != null" >
+        ORDER_RESOURCE_ID,
+      </if>
+      <if test="resourceId != null" >
+        RESOURCE_ID,
+      </if>
+      <if test="resourceType != null" >
+        RESOURCE_TYPE,
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderResourceId != null" >
+        #{orderResourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.OrderResourceMapping" >
+    <selectKey keyProperty="orderResourceId" order="BEFORE" resultType="long">
+      SELECT SEQ_ORDER_RESOURCE_MAPPING.NEXTVAL as resourceId FROM dual
+    </selectKey>
+    insert into ORDER_RESOURCE_MAPPING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderResourceId != null" >
+        ORDER_RESOURCE_ID,
+      </if>
+      <if test="resourceId != null" >
+        RESOURCE_ID,
+      </if>
+      <if test="resourceType != null" >
+        RESOURCE_TYPE,
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderResourceId != null" >
+        #{orderResourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.OrderResourceMapping" >
+    update ORDER_RESOURCE_MAPPING
+    <set>
+      <if test="resourceId != null" >
+        RESOURCE_ID = #{resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceType != null" >
+        RESOURCE_TYPE = #{resourceType,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID = #{orderId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ORDER_RESOURCE_ID = #{orderResourceId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.UserInfo" >
+    update ORDER_RESOURCE_MAPPING
+    set RESOURCE_TYPE = #{resourceType,jdbcType=DECIMAL},
+      RESOURCE_ID = #{resourceId,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      ORDER_ID = #{orderId,jdbcType=DECIMAL},
+    where ORDER_RESOURCE_ID = #{orderResourceId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="getOrderResourceMappingByCondition" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List" />
+    from ORDER_RESOURCE_MAPPING
+    <where>
+    	1=1
+        <if test="resourceType != null">
+          AND RESOURCE_TYPE = #{resourceType,jdbcType=DECIMAL}
+        </if>
+        <if test="resourceId != null">
+          AND RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+        </if>
+        <if test="createTime != null">
+          AND CREATE_TIME <![CDATA[>=]]> #{createTime}
+        </if>
+        <if test="orderId != null">
+          AND ORDER_ID = #{orderId,jdbcType=DECIMAL}
+        </if>
+    </where>
+    ORDER BY ORDER_RESOURCE_ID DESC
+  </select>
+
+
+  <select id="getOrderResourceMappingPaging" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List" />
+    from ORDER_RESOURCE_MAPPING
+    <where>
+    	1=1
+        <if test="resourceType != null">
+          AND RESOURCE_TYPE = #{resourceType,jdbcType=DECIMAL}
+        </if>
+        <if test="resourceId != null">
+          AND RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+        </if>
+        <if test="createTime != null">
+          AND CREATE_TIME <![CDATA[>=]]> #{createTime}
+        </if>
+        <if test="orderId != null">
+          AND ORDER_ID = #{orderId,jdbcType=DECIMAL}
+        </if>
+    </where>
+    ORDER BY ORDER_RESOURCE_ID DESC
+  </select>
+  
+  <select id="count_getOrderResourceMappingPaging" resultType="int" parameterType="map">
+    SELECT  count(1)  from ORDER_RESOURCE_MAPPING
+    <where>
+      1=1
+        <if test="resourceType != null">
+          AND RESOURCE_TYPE = #{resourceType,jdbcType=DECIMAL}
+        </if>
+        <if test="resourceId != null">
+          AND RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+        </if>
+        <if test="createTime != null">
+          AND CREATE_TIME <![CDATA[>=]]> #{createTime}
+        </if>
+        <if test="orderId != null">
+          AND ORDER_ID = #{orderId,jdbcType=DECIMAL}
+        </if>
+    </where>
+  </select>
+
+</mapper>

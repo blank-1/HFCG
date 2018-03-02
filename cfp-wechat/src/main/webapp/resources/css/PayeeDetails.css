@@ -1,0 +1,66 @@
+html,body {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #f5f5f5;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif,微软雅黑;
+    font-size: 14px;
+    color:#000;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.w_wrppaer{
+  width: 100%;
+  height: auto;
+  position: relative;
+  padding-top: 2rem;
+  background: #fff;
+}
+.w_explain{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.w_explain dd{
+  width: 100%;
+  height: 2.5rem;
+  margin: 0rem 0 1.5rem 0;
+  line-height: 2.5rem;
+  font-size: 1.2rem;
+  text-indent: 2rem;
+  color: #363636;
+}
+.w_explain dt p:nth-child(1){
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #ff6060;
+}
+.w_explain dt p span {
+  font-weight: normal;
+  font-size: 1.2rem;
+}
+.w_explain dt p:nth-child(2){
+  color: #818181;
+  padding: 1rem 0;
+}
+.w_details{
+  width: 100%;
+}
+.w_details li{
+  border-top:1px solid #f2f2f2;
+  padding: 1.5rem 0;
+  color: #999;
+  display: -webkit-box;
+}
+.w_details li p{
+  -webkit-box-flex:1;
+  text-align: left;
+  margin: 0 1.5rem;
+}
+.w_details li p:nth-child(2){
+  text-align: right;
+}
+.w_record{
+  color: #ff5c65;
+}

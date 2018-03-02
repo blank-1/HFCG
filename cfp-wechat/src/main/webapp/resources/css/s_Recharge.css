@@ -1,0 +1,67 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.clear_0{clear:both;}
+.clear_5{clear:both; height:5px;}
+.clear_20{clear:both; height:20px;}
+.bodyBj{background:#f5f5f5;}
+.yinhBox{width:94%; height:auto; background:#fff; margin:0 auto; box-shadow: 0 3px 3px #ccc; border-radius:0 0 4px 4px ;}
+.yinkBox_top{height:3.5rem; line-height:3.5rem; color:#fff; background:#ff5e61; text-indent:1rem; border-radius:4px 4px 0 0;}
+.yinkBox_bot{height:4.5rem; line-height:4.5rem; background:#fff; border-radius:0 0 4px 4px;}
+.yinkBox_bot span img{width:10rem; margin:1.5rem 0 0 1rem;}
+.yinkBox_botRi{float:right; padding-right:1rem;}
+.czjeBox{height:4rem; background:#fff; text-indent:1rem;border-top:1px #e6e6e6 solid; border-bottom:1px #e6e6e6 solid; font-size:1.1rem;}
+.czjeBox input{border:none; height:4rem; line-height:4rem; text-align:left;}
+.czjeBox_bot{width:94%; margin:1rem auto;}
+.czjeBox_bot a{color:#8ab1f7;}
+.nextBtn{width:94%; height:3rem; line-height:3rem; background:#ff5e61; color:#fff; font-size:1.4rem; border-radius:4px; display:block;
+margin:1rem auto; position:fixed; left:3%; bottom:4rem;}
+.swal2-modal h2 {font-size: 1.4rem!important;}
+@media (max-width:320px){
+    .yinkBox_bot span img{width:8rem;}
+}
+
+/*-----支付限额页面-----*/
+.limitBox{width:100%; height:auto; background:#fff; padding:1rem 0;}
+.limitBoxTitle{width:93%; margin:0 auto;}
+.limitBoxTitle span{font-size: 1.3rem; margin-left:1rem; color:#333;}
+.limitBoxTitle img{width:11rem; vertical-align:middle; margin-top:-.6rem;}
+.limitForm{width:90%; margin:1rem auto 0;}
+.limitForm table{width:100%; text-align:center; border-bottom:1px #e5e5e5 solid; border-right:1px #e5e5e5 solid; position:relative;
+display:inline-block;}
+.limitForm table th, .limitForm table td{width:14%; height:2.4rem; vertical-align:middle; border-top:1px #e5e5e5 solid; border-left:1px #e5e5e5 solid;}
+.limitForm table th:nth-child(1), .limitForm table td:nth-child(1){width:20%;}
+.limitForm table .tableTr{background:#f2f2f2; color:#ff5e61;}
+.limitForm table th{color:#4b4b4b;}
+.limitForm table .limitTip{color:#4b4b4b; text-align:left; padding:1rem 1rem 0; border-bottom:none; line-height:1.5rem;}
+.limitForm table .limitTip2{color:#ff5e61; text-align:left; padding:0 1rem 1rem; border-top:none; line-height:1.5rem;}
+.limitTip3{width:90%; margin:.6rem auto 2.5rem; color:#ff5e61;}
+.limitTip3 i{font-size:1.4rem;}
+
+/*------充值记录------*/
+.recordList{width:100%; height:auto; display:inline-block;}
+.recordListBox{width:100%; height:auto; background:#fff; padding:.3rem 0; box-shadow:0 3px 3px #ccc; margin-top:1rem;}
+.recordListBox p{width:92%; height:2rem; line-height:2rem; margin:0 auto;}
+.recordListBox p .recordLe{width:50%; float:left; text-align:left;}
+.recordListBox p .recordLe font{color:#666;}
+.recordListBox p .recordLe img{width:2rem; vertical-align:middle; margin-top:-.3rem;}
+.recordListBox p .recordLe i{margin-left:.8rem; color:#333;}
+.recordListBox p .recordRi{width:50%; float:right; text-align:right; color:#666;}
+.recordListBox p .recordsLe{width:50%; float:left; text-align:left; font-size:1.4rem; color:#333; text-indent:2.8rem;}
+.recordListBox p .recordsLe i{font-size:1rem; color:#666;}
+.recordListBox p .recordsRi{width:50%; float:right; text-align:right; color:#333;}
+.recordListBox p .failRed{color:#ff5c60;}
+
+/*---------新加无卡支付样式----------*/
+.l_noCard .yinhBox{display: none;}
+.l_cardNum{display: none;}
+.l_noCard .l_cardNum{display: block; border-bottom: none;}
+
+.w_empty{
+    width: 100%;
+    height: auto;
+    margin: 10rem auto 5rem auto;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #999;
+}
+.l_scrBox{width: 100%;height:auto;display: inline-block;}

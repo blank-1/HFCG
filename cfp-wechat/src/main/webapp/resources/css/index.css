@@ -1,0 +1,121 @@
+@charset "utf-8";
+/* CSS Document */
+/*公共css*/
+.pjred{color: #fc5f65;}
+.pjBred{background: #fc5f65;color: #fff;border-radius: 4px;}
+.pjTip{color: #b0d3fb;}
+.pjWrong{color: #ff982b;}
+/*首页css*/
+body,html{width:100%;height:100%;position:relative;overflow:hidden;background: #f3f3f3;}
+.wrapper,.content{width:100%;height:100%;position:relative}
+header{height:auto}
+header .swiper-container, header .swiper-wrapper,header .swiper-slide{height:auto;background:#d5dee0 url(../images/icon/icon_Logo3.png) no-repeat center center;background-size:20% auto}
+header .swiper-container img, header .swiper-wrapper img, header .swiper-slide img{width:100%;height:100%;display: block;}
+header .title{width: 100%;height: 3rem;line-height: 3rem;text-align: center;border-top: solid 1px #dde7ee;display: -webkit-box;display: -moz-box;display: box;overflow: hidden;border-bottom: solid 1px #dde7ee;background:#fff;}
+header .title p{color: #929da0;position: relative;font-size: 1.2rem;text-indent: 1.6rem;width: auto;margin: 0 auto;display: block;text-align: left;}
+header .title p::before{content: "";position: absolute;width: 1.4rem;height: 1.4rem;top: 50%;left: 0;display: inline-block;background: url(../images/icon/icon_info.png) center no-repeat;background-size: contain;margin-top: -.7rem;}
+header .title span{color: #767d89;text-indent: 1rem;}
+/*首页公告*/
+header .title .title_bj{color: #929da0;position: relative;font-size: 1.2rem;text-indent: 1.6rem;width: auto;margin: 0 auto;display: block;text-align: left;}
+header .title .title_bj::before{content: "";position:absolute; width:1.4rem; height:1.4rem; top:50%; left:0; display:inline-block; 
+background: url(../images/icon/news_09.png) center no-repeat;background-size: contain;margin-top: -.7rem;}
+
+.groom{background: #f3f3f3;/* overflow-y:scroll; */position:relative;z-index:1;width:100%;height: auto;/* background:#f2f2f2; */display:-webkit-box;display:-moz-box;display:-ms-box;display:-o-box;display:box;}
+.scroller{/* position:absolute; */z-index:1;width:100%;padding-bottom: 5rem;height:auto;/* top:0; *//* left:0; */}
+.scroller li[dataType=amount]{-webkit-box-shadow:0 0 5px #ccc;-moz-box-shadow:0 0 5px #ccc;-ms-box-shadow:0 0 5px #ccc;-o-box-shadow:0 0 5px #ccc;box-shadow:0 0 5px #ccc;width:90%;display:block;margin:1.5rem auto;border-radius:5px;background:#fff;overflow:hidden;position:relative;/* padding:0 .5rem */}
+.scroller li[dataType=amount] font{width:100px;padding:.5rem;background:#ff5e61;position:absolute;top:1.1rem;right:-2.5rem;display:block;text-align:center;font-style:normal;font-size:1rem;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);transform:rotate(45deg);color:#fff;z-index:9999}
+.scroller li[dataType=amount] h2{width:90%;height:2.5rem;display:block;border-bottom:1px solid #edeff0;line-height:2.5rem;color:#767c88;margin:0 auto;position: relative;line-height: 2.5rem;font-size: 1.2rem;text-indent: 2rem;}
+/*.scroller li[dataType=amount] h2{-webkit-box-flex:1;-moz-box-flex:1;-ms-box-flex:1;-o-box-flex:1;box-flex:1;width:100%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;font-size:1.4rem}
+.scroller li[dataType=amount] h2 p img{width:7%;height:100%;padding:.3rem;margin-right:.5rem}*/
+.scroller li[dataType=amount] h2 p:nth-child(2){font-weight:normal;text-align:right}
+.scroller li[dataType=amount] .list{width:100%;display:-webkit-box;display:-moz-box;display:-ms-box;display:-o-box;display:box;margin:1rem 0}
+.scroller li[dataType=amount] .list li{text-align:center;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-pack:center;-webkit-box-align:center}
+.scroller li[dataType=amount] .list li:nth-of-type(1){width: 40%;}
+.scroller li[dataType=amount] .list li:nth-of-type(2){width: 30%;}
+.scroller li[dataType=amount] .list li:nth-of-type(3){width: 30%;}
+.scroller li[dataType=amount] .list li div{color:#adb7b7;font-size:1.2rem}
+.scroller li[dataType=amount] .list li div p{color:#ff5e61}
+.scroller li[dataType=amount] .list li div p span{font-size:2.4rem;font-weight:bold}
+.scroller li[dataType=amount] .list li:nth-child(2) p{color:#767c88}
+.scroller li[dataType=amount] .list li:nth-child(2) p span:nth-child(2){color:#ccc}
+.scroller li[dataType=amount] .list li:nth-child(3){-webkit-box-orient:vertical;-moz-box-orient:vertical;-ms-box-orient:vertical;-o-box-orient:vertical;box-orient:vertical}
+.scroller li[dataType=amount] .list li:nth-child(3) .schedule{width:4rem;height: 4rem;margin:1rem auto;position:relative}
+.scroller li[dataType=amount] .list li:nth-child(3) .schedule canvas{width:100%;height:100%}
+.scroller li[dataType=amount] .list li:nth-child(3) .filled{position:relative;width: 4rem;height: 4rem;margin:1rem auto;}
+.scroller li[dataType=amount] .list li:nth-child(3) .preheat{position:relative;width:35%;margin:1rem auto;}
+.scroller li[dataType=amount] .timer{width:83%;margin:-2rem 0 2rem 0;text-align:right;color:#ff5e61}
+.scroller li[dataType=amount]:nth-of-type(1){border:1px solid #ff5e62;padding: 1.2rem 0  0;}
+.scroller li[dataType=amount]:nth-of-type(1) h2{width:90%;height:2.5rem;display:block;border-bottom:1px solid #edeff0;line-height:2.5rem;color:#767c88;margin:0 auto;font-size: 1.2rem;text-indent: 2rem;position: relative;}
+.l_titleIcon h2::before{position: absolute;width: 1.2rem;height: 1.2rem;border: solid 1px #fc5f65;background: #fc5f65;color: #fff;font-weight: normal;text-indent: 0;line-height: 1.2rem;font-size: 1rem;text-align: center;border-radius: 2px;top: 50%;left: 0.2rem;margin-top: -.8rem;}
+.l_titleIcon_shengxin h2::before{content: "省";}
+.l_titleIcon_person h2::before{content: "个";}
+.l_titleIcon_company h2::before{content: "企";}
+.l_titleIcon_shan h2::before{content: "闪";}
+/*.scroller li[dataType=amount]:nth-child(1) h2 p{font-size:1.4rem;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}*/
+.scroller li[dataType=amount]:nth-of-type(1) .record{width:90%;margin: 0 auto 0 auto;padding: 1rem 0;display:-webkit-box;display:-moz-box;display:-ms-box;display:-o-box;display:box;}
+.scroller li[dataType=amount]:nth-of-type(1) .record .interest{-webkit-box-flex: 1;-moz-box-flex:1;-ms-box-flex:1;-o-box-flex:1;box-flex:1;text-align:center;margin: 0 1.5rem 0 0;color:#a1acad;font-size: 1rem;border-right:1px solid #edeff0;}
+.scroller li[dataType=amount]:nth-of-type(1) .record .interest p{color:#ff5e61;font-size: 2rem;font-weight:bold;line-height: 1.5;}
+.scroller li[dataType=amount]:nth-of-type(1) .record .interest p span{font-size:1.2rem}
+.scroller li[dataType=amount]:nth-of-type(1) .record .snatch{-webkit-box-flex:1;-moz-box-flex:1;-ms-box-flex:1;-o-box-flex:1;box-flex:1;text-align:center}
+.scroller li[dataType=amount]:nth-of-type(1) .record .snatch dl dd{display:-webkit-box;display:-moz-box;display:-ms-box;display:-o-box;display:box}
+.scroller li[dataType=amount]:nth-of-type(1) .record .snatch dl dd div{-webkit-box-flex:1;-moz-box-flex:1;-ms-box-flex:1;-o-box-flex:1;box-flex:1}
+.scroller li[dataType=amount]:nth-of-type(1) .record .snatch dl dd div p{text-align:center;color:#a8b2b3;font-size: 1rem;}
+.scroller li[dataType=amount]:nth-of-type(1) .record .snatch dl dd div p span{font-size:2rem;color:#767d89}
+.scroller li[dataType=amount]:nth-of-type(1) .record .snatch dl dt{width:100%}
+.scroller li[dataType=amount]:nth-of-type(1) .record .snatch dl dt a{width:100%;display:block;background:#ff5e62;text-align:center;/* padding:1.4rem 0; */height: 3rem;border-radius:3px;color:#fff;font-size: 1.2rem;margin: 2rem auto 1rem;/* font-size:1.2rem */line-height: 3rem;}
+.load-more{width:100%;padding: 1rem 0 1rem;}.wrapper .content .groom .scroller .load-more a{width:40%;padding: .2rem 0;text-align:center;margin:0 auto;background:#ff5e62;border-radius:15px;display:block;color:#fff;font-size:1.2rem;}
+.l_newer{position: fixed;width: 5rem;height: 7rem;background: url(../images/index_img01.png) center no-repeat;background-size: contain;top: 60%;right: 0;z-index: 999;}
+/*.content::after{content: "";position: absolute;width: 40%;height: 40%;margin-left: 30%;background: url(../images/index_img02.png) center no-repeat;background-size: contain;bottom: -140%;z-index: 999;}*/
+/*.wrapper .w_footer{width:100%;height:5rem;border-top:1px solid #ccc;position:fixed;bottom:0;left:0;z-index:999;display:-webkit-box;display:-moz-box;display:-ms-box;display:-o-box;display:box;background:#fff}.wrapper .w_footer a{display:block;-webkit-box-flex:1;-moz-box-flex:1;-ms-box-flex:1;-o-box-flex:1;box-flex:1;line-height:7rem;text-align:center;-webkit-box-orient:vertical;-moz-box-orient:vertical;-ms-box-orient:vertical;-o-box-orient:vertical;box-orient:vertical;color:#6e7075;font-size:1rem;margin-top:.2rem}
+.wrapper .w_footer a:nth-child(1){background:url(../img/home_2.png) no-repeat center .2rem;background-size:25% auto}
+.wrapper .w_footer a:nth-child(2){background:url(../img/money_2.png) no-repeat center .2rem;background-size:25% auto}
+.wrapper .w_footer a:nth-child(3){background:url(../img/position_2.png) no-repeat center .2rem;background-size:25% auto}
+.wrapper .w_footer a:nth-child(4){background:url(../img/person_2.png) no-repeat center .2rem;background-size:25% auto}
+.wrapper .w_footer a:nth-child(1).home{color:#ff5e62;background:url(../img/home_1.png) no-repeat center .2rem;background-size:25% auto}
+.wrapper .w_footer a:nth-child(2).money{color:#ff5e62;background:url(../img/money_1.png) no-repeat center .2rem;background-size:25% auto}
+.wrapper .w_footer a:nth-child(3).position{color:#ff5e62;background:url(../img/position_1.png) no-repeat center .2rem;background-size:25% auto}
+.wrapper .w_footer a:nth-child(4).person{color:#ff5e62;background:url(../img/person_1.png) no-repeat center .2rem;background-size:25% auto}*/
+.wrapper .content .groom::-webkit-scrollbar { display: none; }
+.schedule,.filled{margin: 0rem auto;position: relative;color: #adb7b7;font-size: 1.2rem;padding: 0 2rem}
+.schedule:after{content: "投资";position: absolute;top: 50%;left: 50%;margin: -2rem 0 0 -2rem;color: #ff5e61;font-size: 1rem;width: 4rem;height: 4rem;line-height: 4rem;}
+.filled:after{content:"满标";position:absolute;top:50%;left:50%;margin: -2rem 0 0 -2rem;color: #ff5e61;font-size: 1rem;width: 4rem;height: 4rem;line-height: 4rem;}
+.indicatorContainer canvas{width: 4rem!important;}
+.l_mask{position: fixed;top:0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.6);z-index: 999;display: none;}
+.l_newerWin{width: 80%;height: 18rem;background: #ff5c5d;position: absolute;top:-18rem ;left: 10%;border-radius: 4px;transition: top .5s ease-in-out;}
+.l_newerWin::before{content: "";position: absolute;width: 100%;height: 10rem;top: -9.4rem;left: 0;background: url(../images/index_newerWin.png) center no-repeat;background-size: contain;}
+.l_in{top:25%; }
+.l_newerWin p:first-child{width: 100%;line-height: 3rem;font-size:1.8rem;margin: 2rem 0 1rem;color: #fdf75f;font-weight: 600;text-align: center;text-shadow: 0px 4px 4px  rgba(228, 72, 73, 0.7);}
+.l_newerWin p:nth-child(2){width: 80%;line-height: 3rem;font-size: 1.4rem;color: #fff;margin-left: 10%;}
+.l_newerWin p:nth-child(3),.l_newerWin p:nth-child(4){width: 40%;height: 3rem;position: absolute;bottom: 2rem;text-align: center;line-height: 3rem;border-radius: 4px;text-align: center;}
+.l_newerWin p:nth-child(3){left: 5%;border: solid 1px #d44343;color: #fff;letter-spacing: .4rem;text-indent: .4rem;}
+.l_newerWin p:nth-child(4){right: 5%;border: solid 1px #fddd5f;background: #fddd5f;box-shadow: 2px 2px 2px 2px rgba(210,50,50,0.7);color: #ff5c5d;}
+.l_banner2nd{width: 100%;height: auto;display: block;font-size: 0;margin: 1.4rem 0;}
+.l_banner2nd img{width: 100%;}
+.l_title_shengxin{position: relative;width:8rem;height: 1.4rem;line-height: 1.4rem;font-size: 1.4rem;text-indent: 2rem;color: #fc5f65;margin-left: 5%;background: url(../images/icon/icon_heart.png) left center no-repeat;background-size: contain;}
+.l_title_shengxin::after{content: "优先投资，循环出借";position: absolute;width: 10rem;text-indent: 0;top: 50%;right: -130%;margin-top: -.5rem;font-size:1rem;line-height: 1.2rem;background: #fc5f65;color: #fff;text-align: center;padding: 0 .2rem;border-radius:2rem;}
+.l_title_shengxin2{background: url(../images/icon/icon_goodspj.png) left center no-repeat;background-size: contain;}
+.l_title_shengxin2::after{content: "优质债权，期限灵活";}
+
+.schedule:after{content: "投资";position: absolute;top: 50%;left: 50%;color: #ff5e61;font-size: 1rem;}
+.filled:after{content:"满额";position:absolute;top:50%;left:50%;color: #666;font-size: 1rem;}
+.backing:after{content:"还款中";position:absolute;top:50%;left:50%;color: #666;font-size: 1rem;}
+.done:after{content:"已结清";position:absolute;top:50%;left:50%;color: #666;font-size: 1rem;}
+.preheat:after{content:"预热";position:absolute;top:50%;left:50%;color:#ff5e61;font-size:1rem}
+.Speed canvas{width: 4.5rem;}
+.hasdone:after{content:"已完成";position:absolute;top:50%;left:50%;color: #666;font-size: 1rem;}
+
+.l_titleIcon h2:before{position: absolute;width: 1.2rem;height: 1.2rem;border: solid 1px #fc5f65;background: #fc5f65;color: #fff;font-weight: normal;text-indent: 0;line-height: 1.2rem;font-size: 1rem;text-align: center;border-radius: 2px;top: 50%;left: 0.2rem;margin-top: -.8rem;}
+.l_titleIcon_shengxin h2:before{content: "省";}
+.l_titleIcon_person h2:before{content: "个";}
+.l_titleIcon_company h2:before{content: "企";}
+.l_titleIcon_belive h2:before{content: "信";}
+.l_titleIcon_apartment h2:before{content: "房";}
+.l_titleIcon_car h2:before{content: "车";}
+.l_titleIcon_baoli h2:before{content: "保理";}
+.l_titleIcon_invest h2:before{content: "基金";}
+
+/* 消息间歇式滚动样式 */
+.notice{height:35px;overflow:hidden;}
+.noticTipTxt{height:35px;line-height:36px;overflow:hidden;}
+.noticTipTxt li{height:35px;line-height:36px;text-indent:2rem;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:1;overflow:hidden;white-space: normal;}
+.noticTipTxt a{color:#666;font-size:1.1rem;text-decoration:none;display:block;width:100%;}

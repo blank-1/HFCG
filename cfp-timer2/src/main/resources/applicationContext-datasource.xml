@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+<bean class="com.xt.cfp.core.util.AnnotationBeanPostProcessor">
+		<property name="locations">
+			<list>
+				<value>classpath*:jdbc.properties</value>
+				<value>classpath*:config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+
+
+
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<context:annotation-config />
+	<!--<context:component-scan base-package="" />  &lt;!&ndash; 自动扫描所有注解该路径 &ndash;&gt;-->
+	<bean class="com.xt.cfp.core.util.ApplicationContextUtil"></bean>
+
+<!--     <import resource="timer.xml" /> -->
+
+	
+	<bean id="dataSourceYongYou" destroy-method="close"  
+        class="${jdbcYongYouDataSource}">  
+        <property name="driverClass"  
+            value="${jdbcYongYou.driverClass}" />  
+        <property name="jdbcUrl" value="${jdbcYongYou.jdbcUrl}" />  
+        <property name="user" value="${jdbcYongYou.username}" />  
+        <property name="password" value="${jdbcYongYou.password}" />  
+    </bean> 
+    <bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceYongYou" />
+	</bean>
+	<bean id="sqlSessionFactoryYongYou" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceYongYou" />
+		<property name="mapperLocations"
+			value="classpath:com/external/yongyou/mapper/*.xml" />
+	</bean>
+
+    <bean id="myBatisYongYouDao" class="com.external.yongyou.dao.MyBatisYongYouDao">
+    	<property name="sqlSessionFactory" ref="sqlSessionFactoryYongYou" />
+    </bean>
+    
+     <!-- mybatis Dao -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.external.yongyou.dao" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.xt.cfp.core.service, com.external.yongyou.service" />  <!-- 自动扫描所有注解该路径 -->
+	<!--<context:component-scan base-package="" />  &lt;!&ndash; 自动扫描所有注解该路径 &ndash;&gt;-->
+	<bean class="com.xt.cfp.core.util.ApplicationContextUtil"></bean>
+	<!-- <import resource="applicationContext-redis.xml" /> -->
+	
+</beans>

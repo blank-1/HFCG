@@ -1,0 +1,830 @@
+$(function(){
+	var userList=ajaxUserInfo.crfUser;
+	// 手机号
+	var phoneReserve=userList.mobilePhone;
+	// console.log(phoneReserve)
+	if(phoneReserve){
+		$(".title_phone").html(phoneReserve);
+	}else{
+		
+	}
+	fuiouInfo();
+
+	// 开户协议
+	getProtocol('.clause_text','open_protocol');
+
+	//限额说明
+	checkBanklist();
+	$(".input_tips,.input_tips_text").click(function(){
+		$(".my_shade,.bank_box").show();
+	});
+	$(".btn_closeTips").click(function(){
+		$(".my_shade,.bank_box").hide();
+	});
+
+	// 姓名
+	$(".real_name").blur(function(){
+		var userVal=$.trim($(this).val());
+		if(!userVal){
+			$(".j_real_name").html("请输入姓名");
+			return;
+		} else {
+			$(".j_real_name").html("");
+		}
+		return userVal;
+	});
+
+	// 身份证
+	$(".user_id").blur(function(){
+		var userVal=$(this).val();
+		userVal=$.trim(userVal).toUpperCase();
+		if(!userVal){
+			$(".j_user_id").html("请输入身份证号码");
+			return;
+		}
+		var checkuserVal=checkIdNo(userVal);
+		if(!checkuserVal){
+			$(".j_user_id").html("请输入正确的身份证号码");
+			return;
+		}else{
+			$(".j_user_id").html("");
+		}
+		return userVal;
+	});
+	$(".icon_help").hover(function(){
+		$(".help_box").toggleClass("help_show");
+	});
+
+	// 银行卡号
+	$("#bank_no").blur(function(){
+		var userVal=$(this).val();
+		userVal=$.trim(userVal);
+		if(!userVal){
+			$("#j_bank_no").html("请输入银行卡号");
+			return;
+		}
+		if(userVal.length<16){
+			$("#j_bank_no").html("请输入正确的银行卡号");
+			return;
+		}
+		var checkCard=checkCardInfo(userVal);
+		if(!checkCard){
+			return;
+		}
+		$("#j_bank_no").html("");
+		// $("#bank_no").keyup();
+		return userVal;
+	});
+
+	// 开户行
+	$("#bank_no").keyup(function(){
+		var baneNo=$(this).val();
+		if(baneNo.length<6){
+			$("#j_bank_no").html("");
+			$("#bank_name").val("");
+		}else if(baneNo.length>=6){
+			var sixStr=baneNo.substr(0,6);
+			var bankFlag,bankCode;
+			for(var i=0;i<bankCodeArr.length;i++){
+				if(bankCodeArr[i].card_bin.indexOf(sixStr) != -1){
+                    bankFlag=true;
+                    bankCode=bankCodeArr[i].bank_code;
+                    $("#bank_name").val(bankCodeArr[i].bank_name);
+                    $("#bank_name").attr("bankcode",bankCode);
+                    return;
+                }
+			}
+			// if(!bankFlag){
+			// 	$("#j_bank_no").html("对不起，暂不支持您的卡种，请更换银行卡");
+			// }
+		}
+	});
+
+	// 开户城市
+	$("#bank_adr,.icon_adr").click(function(){
+		$(".adr_box").toggle();
+	});
+	for(var i=0;i<cityAddressArr.length;i++){
+		var newProLi='<li proCode="'+cityAddressArr[i].code+'">'+cityAddressArr[i].name+'</li>';
+		$(".province_list").append(newProLi);
+	}
+	$(".province_list").find("li").eq(0).addClass("province_current");
+	for(var i=0;i<cityAddressArr[0].area.length;i++){
+		var newCityLi='<li citycode="'+cityAddressArr[0].area[i].code+'">'+cityAddressArr[0].area[i].name+'</li>';
+		$(".city_list").append(newCityLi);
+	}
+	// $(".city_list").find("li").eq(0).addClass("city_current");
+	$(".province_list li").click(function(){
+		$(this).addClass("province_current").siblings().removeClass("province_current");
+		var proCode=$(this).attr("proCode");
+		$(".city_list").empty();
+		for(var i=0;i<cityAddressArr.length;i++){
+			var proCodeJson=cityAddressArr[i].code;
+			if(proCode==proCodeJson){
+				for(var j=0;j<cityAddressArr[i].area.length;j++){
+					var newCityLi='<li citycode="'+cityAddressArr[i].area[j].code+'">'+cityAddressArr[i].area[j].name+'</li>';
+					$(".city_list").append(newCityLi);
+				}
+				break;
+			}
+		}
+	});
+	$(".city_list").on("click","li",function(){
+		$(this).addClass("city_current").siblings().removeClass("city_current");
+		var cityCode=$(this).attr("citycode");
+		var cityVal=$(this).html();
+		var proVal=$(".province_list li[class='province_current']").html();
+		$("#bank_adr").val(proVal+' '+cityVal);
+		$("#bank_adr").attr("citycode",cityCode);
+		$("#j_bank_adr").html("");
+		$(".adr_box").hide();
+	});
+
+
+	$("#user_phone").attr("userphone",phoneReserve);
+	$("#user_phone").val(phoneReserveHide);
+	$(".btn_change_phone").click(function(){
+		$("#new_userPhone").val('');
+		$("#regCode").val('');
+		$("#j_new_userPhone,#j_regCode").html('');
+		$(".my_shade,.changePhone_box").show();
+	});
+	$(".btn_closeChange").click(function(){
+		$(".my_shade,.changePhone_box").hide();
+	});
+
+	// 获取验证码
+	$(".btn_verification").bind("click",getCode);
+	function getCode(){
+		var telValue=$.trim($("#new_userPhone").val());
+		var myreg = /^1\d{10}$/;
+		if(!telValue) {
+		    $("#j_new_userPhone").html("手机号码不能为空");
+		    return;
+		}
+		if(!myreg.test(telValue)) {
+		    $("#j_new_userPhone").html("请输入正确的手机号码");
+		    return;
+		}
+
+		// 获取验证码接口
+		var ifSent=sentCode(telValue,null);
+		if(ifSent==true){
+			// 短信发送中
+		    $(".btn_verification").addClass("wait_times").html("60s");
+	        // 倒计时
+	    	var allTime=59;
+	    	var timer=setInterval(function(){
+	    		$(".btn_verification").html(allTime+'s');
+	    		$(".btn_verification").unbind("click");
+	    		if(allTime<=0){
+	    			clearInterval(timer);
+	    			$(".btn_verification").removeClass("wait_times");
+	    			$(".btn_verification").html("重新获取");
+	    			$(".btn_verification").bind("click",getCode);
+	    		}
+	    		allTime--;
+	    	},1000);
+		}
+	}
+
+	// 图片验证码鼠标移动
+	$(".codepic_box").hover(
+		function(){
+			$(".pic_shade").show();
+		},function(){
+			$(".pic_shade").hide();
+		}
+	);
+	// 换一换图片
+	$(".pic_shade").click(function(){
+		var tel=$.trim($("#new_userPhone").val());
+		if(!tel){
+			$("#j_new_userPhone").html("请输入手机号");
+			return;
+		}
+		var checkuserVal=checkPhone(tel);
+		if(!checkuserVal){
+			$("#j_new_userPhone").html("请输入正确的手机号");
+			return;
+		}else{
+			$("#j_new_userPhone").html("");
+		}
+		$("#regCodePic").val("");
+		$("#j_regCodePic").html("请输入验证码");
+		// 更换图片接口
+		switchCode();
+	});
+
+	// 更换手机号
+	$(".btn_changePhone").click(function(){
+		// 手机号
+		var tel=$.trim($("#new_userPhone").val());
+		if(!tel){
+			$("#j_new_userPhone").html("请输入手机号");
+			return;
+		}
+		var checkuserVal=checkPhone(tel);
+		if(!checkuserVal){
+			$("#j_new_userPhone").html("请输入正确的手机号");
+			$(".show_picCode").show();
+			return;
+		}else{
+			$("#j_new_userPhone").html("");
+		}
+		// 图片验证码
+		if($(".show_picCode").is(":hidden")){
+
+		}else{
+			var regCodepic=$.trim($("#regCodePic").val());
+			if(!regCodepic){
+				$("#j_regCodePic").html("请输入图形验证码");
+				return;
+			}
+			if(regCodepic.length!=4) {
+				$("#j_regCodePic").html("请输入正确的图形验证码");
+				return;
+			}
+			$("#j_regCodePic").html("");
+		}
+		// 验证码
+		var regCode=$.trim($("#regCode").val());
+		var codereg = /^\d{6}$/;
+		if(!regCode) {
+		    $("#j_regCode").html("请输入验证码");
+		    return;
+		}
+		if(!codereg.test(regCode)) {
+		    $("#j_regCode").html("请输入正确的验证码");
+		    return;
+		}else{
+			$("#j_regCode").html("");
+		}
+		// 修改号码
+		var accessToken=$.cookie('accessToken');
+		var deviceno="CRF_OFFICIAL_WEBSITE";
+		var packageName="com.crfchina.webP2p";
+		var mobileOs="officialWebsite";
+		var param = {
+			mobilePhone: tel,
+			verifyCode: regCode
+		}
+		$.ajax({
+	        url:'/webp2p_interface_mysql/account/verify/phone',
+	        type:'post',
+	        data:JSON.stringify(param),
+	        dataType:'json',
+	        async:false,
+	        cache: false,
+	        contentType: "application/json;charset=UTF-8",
+	        headers: {
+		        'accessToken': accessToken,
+		        'deviceno': deviceno,
+		        'packageName': packageName,
+		        'mobileOs': mobileOs
+	        },
+	        success:function(data){
+				// console.log(data);
+				if(data.result==="0000"){
+					// 成功
+					$(".my_shade,.changePhone_box").hide();
+					$("#user_phone").val(tel.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2'));
+					$("#user_phone").attr("userphone",tel);
+					var checkTel=fuiouInfo(tel);
+					if(checkTel){
+						$(".title_phone").html(tel);
+					}
+				}else{
+					var errorMsg=data.message;
+					$("#j_regCode").html(errorMsg);
+				}
+	        },
+	        error:function(xhr){
+	        	// console.log(xhr);
+	        	var errorCode=JSON.parse(xhr.responseText).code;
+	        	var errorMsg=JSON.parse(xhr.responseText).message;
+	        	if(errorCode==="FAPP_1111"){
+	        		// 失败
+					$("#j_regCode").html(errorMsg);
+				}else if(errorCode==="FAPP_1010"){
+					// 验证码失效
+					$("#j_regCode").html("验证码失效，请重新输入");
+				}else if(errorCode==="FAPP_1011"){
+					// 验证码错误
+					$("#j_regCode").html("验证码错误，请重新输入");
+				}else{
+					$("#j_regCode").html(errorMsg);
+					return;
+				}
+				var errorCodeArr=["FUS_2000","FUS_2001","FUS_2002","FUS_2004","FUS_2005","FUS_2006","FUS_2007","FUS_2008","FUS_2009","FAPP_9999","FAPP_9997"];
+	        	for(var i=0;i<errorCodeArr.length;i++){
+	        		if(errorCodeArr[i].indexOf(errorCode)!= -1){
+	        			var timenow = new Date().getTime();
+						window.location.href="/?_="+timenow;
+	        		}
+	        	}
+	        }
+	    });
+	});
+
+	// 开户
+	$(".btn_open").click(function(){
+		// 姓名
+		var real_name=$("#real_name").triggerHandler('blur');
+		if(!real_name){
+			return;
+		}
+		// 身份证
+		var user_id=$("#user_id").triggerHandler('blur');
+		if(!user_id){
+			return;
+		}
+		// 卡号
+		var bank_no=$("#bank_no").triggerHandler('blur');
+		if(!bank_no){
+			return;
+		}
+		// 银行code
+		var bank_code=$("#bank_name").attr("bankcode");
+		// 地址
+		var bank_adr=$("#bank_adr").attr("citycode");
+		if(!bank_adr){
+			$("#j_bank_adr").html("请选择开户行所在地");
+			return;
+		}else{
+			$("#j_bank_adr").html("");
+		}
+		// 手机号
+		var user_phone=$("#user_phone").attr("userphone");
+		// 协议
+		if(!$("#clause_agree").is(":checked")){
+			$("#j_clause_agree").html("请阅读开户协议并勾选");
+		    return;
+		}else{
+			$("#j_clause_agree").html("");
+		}
+
+		// 开户
+		openAccount(real_name,user_id,bank_no,bank_code,bank_adr,user_phone);
+	});
+//	验证并关联
+	$(".btn_associate").click(function(){
+		// 姓名
+		var real_name=$("#real_name2").triggerHandler('blur');
+		if(!real_name){
+			return;
+		}
+		// 身份证
+		var user_id=$("#user_id2").triggerHandler('blur');
+		if(!user_id){
+			return;
+		}
+		// 手机号
+		var user_phone=$("#user_phone").attr("userphone");
+
+		associate(real_name,user_id,user_phone)
+
+	});
+	$('.association_success .btn_sure').click(function(){
+		$('.my_shade').hide()
+		$('.association').hide();
+		window.location.href="/homeInit.html";
+	});
+	$(".success_box .btn_tiptext").click(function(){
+		window.location.href="/homeInit.html";
+	});
+
+});
+
+//根据手机号查询富友是否开户
+function fuiouInfo(checkTel){
+	var flag;
+	if(checkTel){
+		tel=checkTel;
+	}else{
+		var tel = $.trim($(".title_phone").html());
+	}
+	var accessToken="";
+	var deviceno="CRF_OFFICIAL_WEBSITE";
+	var packageName="com.crfchina.webP2p";
+	var mobileOs="officialWebsite";
+	var param = {
+		phoneNo:tel
+	}
+	$.ajax({
+        url:'/webp2p_interface_mysql/account/fuiou/userinfo',
+        type:'post',
+        dataType:'json',
+        data:JSON.stringify(param),
+        async:false,
+        cache: false,
+        contentType: "application/json;charset=UTF-8",
+        headers: {
+	        'accessToken': accessToken,
+	        'deviceno': deviceno,
+	        'packageName': packageName,
+	        'mobileOs': mobileOs
+        },
+        success:function(data){
+			// console.log(data);
+			if(data.result==="0000"){
+				var hasAccount = data.data.hasAccount; // 0 富友有开户信息 1 富友没有开户信息
+				if(hasAccount == 1){
+					$('.right_two').css('display','none');
+					$('.right_one').css('display','inline-block');
+				}else{
+					$('.right_one').css('display','none');
+					$('.right_two').css('display','inline-block');
+					flag=true;
+				}
+			}else{
+        		var errorMsg=data.message;
+        		crfErrAlert('errorInfo',"错误",errorMsg+",请稍后再试",0,"");
+			}
+        },
+        error:function(xhr){
+        	// console.log(xhr);
+        	var errorCode=JSON.parse(xhr.responseText).code;
+        	var errorMsg=JSON.parse(xhr.responseText).message;
+        	crfErrAlert('errorInfo',"错误",errorMsg+",请稍后再试",0,"");
+        	var errorCodeArr=["FUS_2000","FUS_2001","FUS_2002","FUS_2004","FUS_2005","FUS_2006","FUS_2007","FUS_2008","FUS_2009","FAPP_9999","FAPP_9997"];
+        	for(var i=0;i<errorCodeArr.length;i++){
+        		if(errorCodeArr[i].indexOf(errorCode)!= -1){
+        			var timenow = new Date().getTime();
+					window.location.href="/?_="+timenow;
+        		}
+        	}
+        }
+    });
+    return flag;
+}
+// 账户关联
+function associate(userName,idNo,phoneNo){
+	var accessToken=$.cookie('accessToken');
+	var uuid=$.cookie('uuid');
+	var deviceno="CRF_OFFICIAL_WEBSITE";
+	var packageName="com.crfchina.webP2p";
+	var mobileOs="officialWebsite";
+	var param = {
+		userName: userName,
+		idNo: idNo,
+		phoneNo: phoneNo
+	}
+	$('.btn_associate').html('验证并关联中...').css('background','#93afce')
+	$.ajax({
+        url:'/webp2p_interface_mysql/account/link/'+uuid,
+        type:'post',
+        data:JSON.stringify(param),
+        dataType:'json',
+        async:false,
+        cache: false,
+        contentType: "application/json;charset=UTF-8",
+        headers: {
+	        'accessToken': accessToken,
+	        'deviceno': deviceno,
+	        'packageName': packageName,
+	        'mobileOs': mobileOs
+        },
+        success:function(data){
+			// console.log(data);
+			$('.btn_associate').html('验证并关联').css('background','#2f65a0');
+			if(data.result==="0000"){
+				$('.my_shade').show();
+				$('.association_success').show();
+			}else{
+				var errorMsg=data.message;
+				$("#j_user_id2").html(errorMsg);
+			}
+
+        },
+        error:function(xhr){
+        	// console.log(xhr);
+        	var errorCode=JSON.parse(xhr.responseText).code;
+        	var errorMsg=JSON.parse(xhr.responseText).message;
+        	$("#j_user_id2").html(errorMsg);
+        	$('.btn_associate').html('验证并关联').css('background','#2f65a0');
+
+			var errorCodeArr=["FUS_2000","FUS_2001","FUS_2002","FUS_2004","FUS_2005","FUS_2006","FUS_2007","FUS_2008","FUS_2009","FAPP_9999","FAPP_9997"];
+        	for(var i=0;i<errorCodeArr.length;i++){
+        		if(errorCodeArr[i].indexOf(errorCode)!= -1){
+        			var timenow = new Date().getTime();
+					window.location.href="/?_="+timenow;
+        		}
+        	}
+        }
+   });
+}
+
+
+// 开户
+function openAccount(userName,idNo,openBankCardNo,openBankCode,openAccountCityNo,openMobilePhone){
+	var flag;
+	var accessToken=$.cookie('accessToken');
+	var uuid=$.cookie('uuid');
+	var deviceno="CRF_OFFICIAL_WEBSITE";
+	var packageName="com.crfchina.webP2p";
+	var mobileOs="officialWebsite";
+	var param = {
+		userName: userName,
+		idNo: idNo,
+		openBankCardNo: openBankCardNo,
+		openBankCode: openBankCode,
+		openAccountCityNo: openAccountCityNo,
+		openMobilePhone: openMobilePhone
+	}
+	$.ajax({
+        url:'/webp2p_interface_mysql/account/open/'+uuid,
+        type:'post',
+        data:JSON.stringify(param),
+        dataType:'json',
+        async:false,
+        cache: false,
+        contentType: "application/json;charset=UTF-8",
+        headers: {
+	        'accessToken': accessToken,
+	        'deviceno': deviceno,
+	        'packageName': packageName,
+	        'mobileOs': mobileOs
+        },
+        success:function(data){
+			// console.log(data);
+			if(data.result==="0000"){
+				// 开户成功
+				$(".my_shade,.success_box").show();
+				ajaxUserInfo.crfUser.accountStatus=2;
+				//更新cookie
+				$.cookie('ajaxUserInfo', JSON.stringify(ajaxUserInfo), { path: '/' });
+			}else{
+				var errorMsg=data.message;
+				$("#j_btn_open").html(errorMsg);
+			}
+        },
+        error:function(xhr){
+        	// console.log(xhr);
+        	var errorCode=JSON.parse(xhr.responseText).code;
+        	var errorMsg=JSON.parse(xhr.responseText).message;
+        	$("#j_btn_open").html(errorMsg);
+        	if(errorCode==="FUS_4000"){
+				// 未查询到对应的客户信息
+
+			}else if(errorCode==="FUS_4001"){
+				// 该卡已经绑定
+
+			}else if(errorCode==="FUS_4002"){
+				// 您的发卡行与卡号不匹配，请重新填写
+
+			}else if(errorCode==="FUS_4003"){
+				// 该身份证号已注册
+
+			}else if(errorCode==="FUS_4004"){
+				// 错误次数超限,请核对卡信息稍后再试
+
+			}else if(errorCode==="FUS_4007"){
+				// 该卡为信用卡，请用储蓄卡
+
+			}else if(errorCode==="FUS_4008"){
+				// 无此用户
+
+			}else if(errorCode==="FUS_4009"){
+				// 用户已开户
+
+			}else if(errorCode==="FUS_4010"){
+				// 该手机号绑定银行卡数量超限
+
+			}else if(errorCode==="FUS_4011"){
+				// 协议库验证日期超过期限
+
+			}else if(errorCode==="FUS_4012"){
+				// 持卡人身份信息或手机号输入不正确
+
+			}else if(errorCode==="FUS_4013"){
+				// 系统异常
+
+			}else{
+
+			}
+			var errorCodeArr=["FUS_2000","FUS_2001","FUS_2002","FUS_2004","FUS_2005","FUS_2006","FUS_2007","FUS_2008","FUS_2009","FAPP_9999","FAPP_9997"];
+        	for(var i=0;i<errorCodeArr.length;i++){
+        		if(errorCodeArr[i].indexOf(errorCode)!= -1){
+        			var timenow = new Date().getTime();
+					window.location.href="/?_="+timenow;
+        		}
+        	}
+        }
+    });
+    return flag;
+}
+
+//限额说明
+function checkBanklist(){
+	$.ajax({
+        url:'/webp2p_interface_mysql/account/support/banklist',
+        type:'post',
+        dataType:'json',
+        // async:false,
+        cache: false,
+        contentType: "application/json;charset=UTF-8",
+        success:function(data){
+			// console.log(data);
+			if(data.result==="0000"){
+				// 成功
+				var bankList=data.data.supportbanks;
+				for(var i=0;i<bankList.length;i++){
+					var bankName=bankList[i].bankName;
+					var quotaMap=bankList[i].quotaMap.appSignWithholdQuata;
+					var quotaOnce=quotaMap[0];
+					var quotaDay=quotaMap[1];
+					var quotaMonth=quotaMap[2];
+					quotaOnce=quotaOnce==-1?"无":quotaOnce+"元";
+					quotaDay=quotaDay==-1?"无":quotaDay+"元";
+					quotaMonth=quotaMonth==-1?"无":quotaMonth+"元";
+					var newTd=	'<tr>'
+							+		'<td>'+bankName+'</td>'
+							+		'<td>'+quotaOnce+'</td>'
+							+		'<td>'+quotaDay+'</td>'
+							+		'<td>'+quotaMonth+'</td>'
+							+	'</tr>';
+					$(".table_box_body").append(newTd);
+				}
+			}else{
+        		var errorMsg=data.message;
+			}
+        },
+        error:function(xhr){
+        	// console.log(xhr);
+        	var errorCode=JSON.parse(xhr.responseText).code;
+        	var errorMsg=JSON.parse(xhr.responseText).message;
+        	var errorCodeArr=["FUS_2000","FUS_2001","FUS_2002","FUS_2004","FUS_2005","FUS_2006","FUS_2007","FUS_2008","FUS_2009","FAPP_9999","FAPP_9997"];
+        	for(var i=0;i<errorCodeArr.length;i++){
+        		if(errorCodeArr[i].indexOf(errorCode)!= -1){
+        			var timenow = new Date().getTime();
+					window.location.href="/?_="+timenow;
+        		}
+        	}
+        }
+    });
+}
+
+//卡bin识别
+function checkCardInfo(bankCardNo){
+	var cardFlag;
+	var param = {
+		bankCardNo: bankCardNo
+	}
+	$.ajax({
+        url:'/webp2p_interface_mysql/account/cardinfo',
+        type:'post',
+        data:JSON.stringify(param),
+        dataType:'json',
+        async:false,
+        cache: false,
+        contentType: "application/json;charset=UTF-8",
+        success:function(data){
+			console.log(data);
+			if(data.result==="0000"){
+				// 成功
+				var businessSupport=data.data.businessSupport;
+				var failReason=data.data.failReason;
+				var bankName=data.data.bankName;
+				var bankCode=data.data.bankCode;
+				if(businessSupport=="0"){
+					cardFlag=true;
+					$("#bank_name").val(bankName);
+                    $("#bank_name").attr("bankcode",bankCode);
+				}else{
+					$("#j_bank_no").html(failReason);
+				}
+			}else{
+        		var errorMsg=data.message;
+			}
+        },
+        error:function(xhr){
+        	// console.log(xhr);
+        	var errorCode=JSON.parse(xhr.responseText).code;
+        	var errorMsg=JSON.parse(xhr.responseText).message;
+        	var errorCodeArr=["FUS_2000","FUS_2001","FUS_2002","FUS_2004","FUS_2005","FUS_2006","FUS_2007","FUS_2008","FUS_2009","FAPP_9999","FAPP_9997"];
+        	for(var i=0;i<errorCodeArr.length;i++){
+        		if(errorCodeArr[i].indexOf(errorCode)!= -1){
+        			var timenow = new Date().getTime();
+					window.location.href="/?_="+timenow;
+        		}
+        	}
+        }
+    });
+    return cardFlag;
+}
+
+// 发送短信验证码
+function sentCode(str,code){
+	var flag;
+	var accessToken=$.cookie('accessToken');
+	var uuid=$.cookie('uuid');
+	var deviceno="CRF_OFFICIAL_WEBSITE";
+	var packageName="com.crfchina.webP2p";
+	var mobileOs="officialWebsite";
+	var param = {
+		mobilePhone: str,
+		intent:"9",	 //修改开户预留手机号
+		type:"0",
+		picCode:code
+	}
+	$.ajax({
+        url:'/webp2p_interface_mysql/sms/verifycode/'+uuid+'/token',
+        type:'put',
+        data:JSON.stringify(param),
+        dataType:'json',
+        async:false,
+        cache: false,
+        contentType: "application/json;charset=UTF-8",
+        headers: {
+	        'accessToken': accessToken,
+	        'deviceno': deviceno,
+	        'packageName': packageName,
+	        'mobileOs': mobileOs
+        },
+        success:function(data){
+			// console.log(data);
+			if(data.result==="0000"){
+				// 发送成功
+				$("#j_regCode").html("");
+				flag=true;
+			}else{
+				var errorMsg=data.message;
+				$("#j_regCode").html(errorMsg);
+				return;
+			}
+        },
+        error:function(xhr){
+        	// console.log(xhr);
+        	var errorCode=JSON.parse(xhr.responseText).code;
+        	var errorMsg=JSON.parse(xhr.responseText).message;
+        	if(errorCode==="FAPP_1001"){
+				// 需要输入图形验证码
+				$("#regCodePic").val("");
+				$("#j_regCodePic").html("请输入图形验证码");
+				switchCode();
+				$(".show_picCode").show();
+			}else if(errorCode==="FAPP_1003"){
+				// 图片验证码失效
+				$("#regCodePic").val("");
+				$("#j_regCodePic").html("图形验证码失效，请重新输入");
+				switchCode();
+				$(".show_picCode").show();
+			}else if(errorCode==="FAPP_1004"){
+				// 图片验证码错误
+				$("#regCodePic").val("");
+				$("#j_regCodePic").html("图形验证码错误，请重新输入");
+				$(".show_picCode").show();
+			}else{
+				$("#j_regCode").html(errorMsg);
+				return;
+			}
+			var errorCodeArr=["FUS_2000","FUS_2001","FUS_2002","FUS_2004","FUS_2005","FUS_2006","FUS_2007","FUS_2008","FUS_2009","FAPP_9999","FAPP_9997"];
+        	for(var i=0;i<errorCodeArr.length;i++){
+        		if(errorCodeArr[i].indexOf(errorCode)!= -1){
+        			var timenow = new Date().getTime();
+					window.location.href="/?_="+timenow;
+        		}
+        	}
+        }
+    });
+    return flag;
+}
+
+// 更换图片验证码
+function switchCode(){
+	var timenow = new Date().getTime();
+	var tel=$.trim($("#new_userPhone").val());
+	$(".codepic_box img").attr("src","/webp2p_interface_mysql/sms/graphicCaptcha/"+tel+"?d="+timenow);
+}
+
+// 手机号格式验证
+function checkPhone(tel){
+	var myreg = /^1\d{10}$/;
+	if(!myreg.test(tel)) {
+	    // alert('请输入正确的手机号码');
+	    return false;
+	}
+	return true;
+}
+
+// 身份证基本验证
+function checkIdNo(card){
+   // 身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X
+    var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X)$)/;
+    if(reg.test(card) === false) {
+        // alert("身份证输入不合法");
+        return false;
+    }
+    return true;
+}
+
+//获取链接参数
+function GetString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return r[2];
+    }
+    return null;
+}

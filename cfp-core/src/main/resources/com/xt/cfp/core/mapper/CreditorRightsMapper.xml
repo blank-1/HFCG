@@ -1,0 +1,1553 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CREDITORRIGHTS" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CreditorRights" >
+    <id column="CREDITOR_RIGHTS_ID" property="creditorRightsId" jdbcType="DECIMAL" />
+    <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="LOAN_ACCOUNT_ID" property="loanAccountId" jdbcType="DECIMAL" />
+    <result column="REPAYMENT_ACCOUNT_ID" property="repaymentAccountId" jdbcType="DECIMAL" />
+    <result column="LEND_ACCOUNT_ID" property="lendAccountId" jdbcType="DECIMAL" />
+    <result column="LEND_USER_ID" property="lendUserId" jdbcType="DECIMAL" />
+    <result column="LOAN_USER_ID" property="loanUserId" jdbcType="DECIMAL" />
+    <result column="LENDER_TYPE" property="lenderType" jdbcType="CHAR" />
+    <result column="CREDITOR_RIGHTS_CODE" property="creditorRightsCode" jdbcType="VARCHAR" />
+    <result column="LEND_TIME" property="lendTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="APPLY_ROLL_OUT_TIME" property="applyRollOutTime" jdbcType="TIMESTAMP" />
+    <result column="AGREEMENT_START_DATE" property="agreementStartDate" jdbcType="TIMESTAMP" />
+    <result column="COMPLETE_TIME" property="completeTime" jdbcType="TIMESTAMP" />
+    <result column="FIRST_REPAYMENT_DATE" property="firstRepaymentDate" jdbcType="TIMESTAMP" />
+    <result column="LAST_REPAYMENT_DATE" property="lastRepaymentDate" jdbcType="TIMESTAMP" />
+    <result column="RIGHTS_WORTH" property="rightsWorth" jdbcType="DECIMAL" />
+    <result column="LEND_PRICE" property="lendPrice" jdbcType="DECIMAL" />
+    <result column="BUY_PRICE" property="buyPrice" jdbcType="DECIMAL" />
+    <result column="ANNUAL_RATE" property="annualRate" jdbcType="DECIMAL" />
+    <result column="REPAYMENT_CYCLE" property="repaymentCycle" jdbcType="DECIMAL" />
+    <result column="RIGHTS_STATE" property="rightsState" jdbcType="CHAR" />
+    <result column="TRANSFER_STATE" property="transferState" jdbcType="CHAR" />
+    <result column="TURN_STATE" property="turnState" jdbcType="CHAR" />
+    <result column="FROM_WHERE" property="fromWhere" jdbcType="CHAR" />
+    <result column="CHANNEL_TYPE" property="channelType" jdbcType="CHAR" />
+    <result column="IS_DELAY" property="isDelay" jdbcType="CHAR" />
+    <result column="DISPLAY_STATE" property="displayState" jdbcType="CHAR" />
+    <result column="CURRENT_PAY_DATE" property="currentPayDate" jdbcType="TIMESTAMP" />
+    <result column="CURRENT_CYCLE" property="currentCycle" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="LenderRecordVO" type="com.xt.cfp.core.pojo.ext.LenderRecordVO" >
+    <id column="lenderName" property="lenderName" jdbcType="VARCHAR" />
+    <result column="lendAmount" property="lendAmount" jdbcType="DECIMAL" />
+    <result column="lendTime" property="lendTime" jdbcType="TIMESTAMP" />
+    <result column="userId" property="userId" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <resultMap type="com.xt.cfp.core.pojo.ext.CreditorRightsExtVo" id="creditorRightsExtVoResultMap" extends="BaseResultMap">
+  	<result column="due_time_type" property="dueTimeType" jdbcType="CHAR" />
+  	<result column="due_time" property="dueTime" jdbcType="CHAR" />
+  	<result column="fact_balance" property="factBalance" jdbcType="DECIMAL" />
+    <result column="login_name" property="lenderLoginName" jdbcType="VARCHAR" />
+    <result column="loan_login_name" property="loanLoginName" jdbcType="VARCHAR" />
+    <result column="real_name" property="lenderRealName" jdbcType="VARCHAR" />
+    <result column="loan_application_code" property="loanApplicationCode" jdbcType="VARCHAR" />
+    <result column="loan_application_name" property="loanApplicationName" jdbcType="VARCHAR" />
+    <result column="should_balance" property="shouldBalance" jdbcType="DECIMAL" />
+    <result column="fact_balance" property="factBalance" jdbcType="DECIMAL" />
+    <result column="creditorRightsName" property="creditorRightsName" jdbcType="VARCHAR" />
+    <result column="timeLimitType" property="timeLimitType" jdbcType="VARCHAR" />
+    <result column="timeLimit" property="timeLimit" jdbcType="DECIMAL" />
+    <result column="BUY_DATE" property="buyDate" jdbcType="TIMESTAMP" />
+    <result column="buy_balance" property="buyBalance" jdbcType="DECIMAL" />
+    <result column="annual_rate" property="annualRate" jdbcType="DECIMAL" />
+    <result column="AWARD_POINT" property="awardPoint" jdbcType="VARCHAR" />
+    <result column="AWARD_RATE" property="awardRate" jdbcType="VARCHAR" />
+    <result column="SURPLUS_CALITAL" property="surplusCalital" jdbcType="DECIMAL" />
+    <result column="RATE_FLAG" property="rateFlag" jdbcType="VARCHAR" />
+    <result column="RATE_TYPE" property="rateType" jdbcType="VARCHAR" />
+    <result column="NEW_RATE_VALUE" property="newRateValue" jdbcType="DECIMAL" />
+    <result column="zr" property="zr" jdbcType="VARCHAR" />
+    <result column="LOAN_TYPE" property="loanType" jdbcType="VARCHAR" />
+    <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+    <result column="lenderRealName" property="lenderRealName" jdbcType="VARCHAR" />  
+    <result column="loanRealName" property="loanRealName" jdbcType="VARCHAR" />  
+    <result column="bus_status" property="busStatus" jdbcType="VARCHAR" />
+    <result column="repaymentType" property="repaymentType" jdbcType="VARCHAR" />   
+    <result column="loanProductId" property="loanProductId" jdbcType="DECIMAL" />
+    <result column="waitBackBalance" property="waitBackBalance" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <resultMap type="com.xt.cfp.core.pojo.ext.LenderVO" id="lender">
+    <result column="factBalance" property="factBalance" jdbcType="DECIMAL" />
+    <result column="lenderLoginName" property="lenderLoginName" jdbcType="VARCHAR" />
+    <result column="lenderRealName" property="lenderRealName" jdbcType="VARCHAR" />
+    <result column="rightsState" property="rightState" jdbcType="VARCHAR" />
+    <result column="buyPrice" property="buyPrice" jdbcType="DECIMAL" />
+    <result column="waitTotalpayMent" property="waitTotalpayMent" jdbcType="DECIMAL" />
+    <result column="lendTime" property="lendTime" jdbcType="TIMESTAMP" />
+    <result column="completeTime" property="completeTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="CreditorRightsCount" type="com.xt.cfp.core.pojo.ext.CreditorRightsCount" >
+    <result column="countNum" property="countNum" jdbcType="DECIMAL" />
+    <result column="capital" property="capital" jdbcType="DECIMAL" />
+    <result column="interest" property="interest" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    CREDITOR_RIGHTS_ID, LEND_ORDER_ID, LOAN_APPLICATION_ID, LOAN_ACCOUNT_ID, REPAYMENT_ACCOUNT_ID,
+    LEND_ACCOUNT_ID, LEND_USER_ID, LOAN_USER_ID, LENDER_TYPE, CREDITOR_RIGHTS_CODE, LEND_TIME,
+    CREATE_TIME, APPLY_ROLL_OUT_TIME, AGREEMENT_START_DATE, COMPLETE_TIME, FIRST_REPAYMENT_DATE, 
+    LAST_REPAYMENT_DATE, RIGHTS_WORTH, LEND_PRICE, BUY_PRICE, ANNUAL_RATE, REPAYMENT_CYCLE, 
+    RIGHTS_STATE, TRANSFER_STATE, TURN_STATE, FROM_WHERE, CHANNEL_TYPE, IS_DELAY, DISPLAY_STATE,CURRENT_PAY_DATE,CURRENT_CYCLE
+  </sql>
+	
+  <select id="selectUserRightsByDaiHui" resultMap="CreditorRightsCount" parameterType="map">
+    	<!-- 用户待会本金和利息级债权数量 -->
+    	select(
+		       select count(1) from CREDITOR_RIGHTS cs 
+		       left join USER_ACCOUNT ua on cs.lend_account_id=ua.acc_id
+		       where cs.lend_user_id=#{userId} and cs.rights_state in ('0', '1') and cs.channel_type='2' and ua.acc_type_code='2'
+		) countNum,
+		(
+		       select sum(rrd.should_capital2)-sum(rrd.fact_calital)  from rights_repayment_detail rrd 
+		       where rrd.creditor_rights_id in(
+		         select cs.creditor_rights_id from CREDITOR_RIGHTS cs 
+		         left join USER_ACCOUNT ua on cs.lend_account_id=ua.acc_id
+		         where cs.lend_user_id=#{userId} and cs.rights_state in ('0', '1') and cs.channel_type='2' and ua.acc_type_code='2'
+		       ) 
+		) capital,
+		(
+		       select sum(rrd.should_interest2)-sum(rrd.fact_interest)  from rights_repayment_detail rrd 
+		       where rrd.creditor_rights_id in(
+		         select cs.creditor_rights_id from CREDITOR_RIGHTS cs 
+		         left join USER_ACCOUNT ua on cs.lend_account_id=ua.acc_id
+		         where cs.lend_user_id=#{userId} and cs.rights_state in ('0', '1') and cs.channel_type='2' and ua.acc_type_code='2'
+		       ) 
+		) interest
+		from dual
+  </select>
+  
+  <select id="bugfix_getCreditorRightsByRs" resultMap="BaseResultMap" parameterType="map">
+    SELECT * FROM CREDITOR_RIGHTS cr WHERE cr.CREDITOR_RIGHTS_ID 
+    <foreach collection="crIds" item="crId" open=" in(" close=")" separator=",">
+      #{crId}
+    </foreach>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CREDITOR_RIGHTS
+    where CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CREDITOR_RIGHTS
+    where CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CreditorRights" >
+    <selectKey order="BEFORE" keyProperty="creditorRightsId" resultType="long">
+      SELECT SEQ_CREDITOR_RIGHTS.NEXTVAL as creditorRightsId FROM DUAL
+    </selectKey>
+    insert into CREDITOR_RIGHTS (CREDITOR_RIGHTS_ID, LEND_ORDER_ID, LOAN_APPLICATION_ID, 
+      LOAN_ACCOUNT_ID, REPAYMENT_ACCOUNT_ID, LEND_ACCOUNT_ID, 
+      LEND_USER_ID, LOAN_USER_ID, LENDER_TYPE, 
+      CREDITOR_RIGHTS_CODE, LEND_TIME, CREATE_TIME, 
+      APPLY_ROLL_OUT_TIME, AGREEMENT_START_DATE, 
+      COMPLETE_TIME, FIRST_REPAYMENT_DATE, LAST_REPAYMENT_DATE, 
+      RIGHTS_WORTH, LEND_PRICE, BUY_PRICE, 
+      ANNUAL_RATE, REPAYMENT_CYCLE, RIGHTS_STATE, 
+      TRANSFER_STATE, TURN_STATE, FROM_WHERE, 
+      CHANNEL_TYPE, IS_DELAY, DISPLAY_STATE,CURRENT_PAY_DATE,CURRENT_CYCLE
+      )
+    values (#{creditorRightsId,jdbcType=DECIMAL}, #{lendOrderId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, 
+      #{loanAccountId,jdbcType=DECIMAL}, #{repaymentAccountId,jdbcType=DECIMAL}, #{lendAccountId,jdbcType=DECIMAL}, 
+      #{lendUserId,jdbcType=DECIMAL}, #{loanUserId,jdbcType=DECIMAL}, #{lenderType,jdbcType=CHAR}, 
+      #{creditorRightsCode,jdbcType=VARCHAR}, #{lendTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{applyRollOutTime,jdbcType=TIMESTAMP}, #{agreementStartDate,jdbcType=TIMESTAMP}, 
+      #{completeTime,jdbcType=TIMESTAMP}, #{firstRepaymentDate,jdbcType=TIMESTAMP}, #{lastRepaymentDate,jdbcType=TIMESTAMP}, 
+      #{rightsWorth,jdbcType=DECIMAL}, #{lendPrice,jdbcType=DECIMAL}, #{buyPrice,jdbcType=DECIMAL}, 
+      #{annualRate,jdbcType=DECIMAL}, #{repaymentCycle,jdbcType=DECIMAL}, #{rightsState,jdbcType=CHAR}, 
+      #{transferState,jdbcType=CHAR}, #{turnState,jdbcType=CHAR}, #{fromWhere,jdbcType=CHAR}, 
+      #{channelType,jdbcType=CHAR}, #{isDelay,jdbcType=CHAR}, #{displayState,jdbcType=CHAR},#{currentPayDate,jdbcType=TIMESTAMP},
+    #{currentCycle,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CreditorRights" >
+    insert into CREDITOR_RIGHTS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="creditorRightsId != null" >
+        CREDITOR_RIGHTS_ID,
+      </if>
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="loanAccountId != null" >
+        LOAN_ACCOUNT_ID,
+      </if>
+      <if test="repaymentAccountId != null" >
+        REPAYMENT_ACCOUNT_ID,
+      </if>
+      <if test="lendAccountId != null" >
+        LEND_ACCOUNT_ID,
+      </if>
+      <if test="lendUserId != null" >
+        LEND_USER_ID,
+      </if>
+      <if test="loanUserId != null" >
+        LOAN_USER_ID,
+      </if>
+      <if test="lenderType != null" >
+        LENDER_TYPE,
+      </if>
+      <if test="creditorRightsCode != null" >
+        CREDITOR_RIGHTS_CODE,
+      </if>
+      <if test="lendTime != null" >
+        LEND_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="applyRollOutTime != null" >
+        APPLY_ROLL_OUT_TIME,
+      </if>
+      <if test="agreementStartDate != null" >
+        AGREEMENT_START_DATE,
+      </if>
+      <if test="completeTime != null" >
+        COMPLETE_TIME,
+      </if>
+      <if test="firstRepaymentDate != null" >
+        FIRST_REPAYMENT_DATE,
+      </if>
+      <if test="lastRepaymentDate != null" >
+        LAST_REPAYMENT_DATE,
+      </if>
+      <if test="rightsWorth != null" >
+        RIGHTS_WORTH,
+      </if>
+      <if test="lendPrice != null" >
+        LEND_PRICE,
+      </if>
+      <if test="buyPrice != null" >
+        BUY_PRICE,
+      </if>
+      <if test="annualRate != null" >
+        ANNUAL_RATE,
+      </if>
+      <if test="repaymentCycle != null" >
+        REPAYMENT_CYCLE,
+      </if>
+      <if test="rightsState != null" >
+        RIGHTS_STATE,
+      </if>
+      <if test="transferState != null" >
+        TRANSFER_STATE,
+      </if>
+      <if test="turnState != null" >
+        TURN_STATE,
+      </if>
+      <if test="fromWhere != null" >
+        FROM_WHERE,
+      </if>
+      <if test="channelType != null" >
+        CHANNEL_TYPE,
+      </if>
+      <if test="isDelay != null" >
+        IS_DELAY,
+      </if>
+      <if test="displayState != null" >
+        DISPLAY_STATE,
+      </if>
+      <if test="currentPayDate != null" >
+        CURRENT_PAY_DATE,
+      </if>
+      <if test="currentCycle != null" >
+        CURRENT_CYCLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="creditorRightsId != null" >
+        #{creditorRightsId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null" >
+        #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanAccountId != null" >
+        #{loanAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentAccountId != null" >
+        #{repaymentAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendAccountId != null" >
+        #{lendAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendUserId != null" >
+        #{lendUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanUserId != null" >
+        #{loanUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="lenderType != null" >
+        #{lenderType,jdbcType=CHAR},
+      </if>
+      <if test="creditorRightsCode != null" >
+        #{creditorRightsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lendTime != null" >
+        #{lendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyRollOutTime != null" >
+        #{applyRollOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agreementStartDate != null" >
+        #{agreementStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completeTime != null" >
+        #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstRepaymentDate != null" >
+        #{firstRepaymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastRepaymentDate != null" >
+        #{lastRepaymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rightsWorth != null" >
+        #{rightsWorth,jdbcType=DECIMAL},
+      </if>
+      <if test="lendPrice != null" >
+        #{lendPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="buyPrice != null" >
+        #{buyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="annualRate != null" >
+        #{annualRate,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentCycle != null" >
+        #{repaymentCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="rightsState != null" >
+        #{rightsState,jdbcType=CHAR},
+      </if>
+      <if test="transferState != null" >
+        #{transferState,jdbcType=CHAR},
+      </if>
+      <if test="turnState != null" >
+        #{turnState,jdbcType=CHAR},
+      </if>
+      <if test="fromWhere != null" >
+        #{fromWhere,jdbcType=CHAR},
+      </if>
+      <if test="channelType != null" >
+        #{channelType,jdbcType=CHAR},
+      </if>
+      <if test="isDelay != null" >
+        #{isDelay,jdbcType=CHAR},
+      </if>
+      <if test="displayState != null" >
+        #{displayState,jdbcType=CHAR},
+      </if>
+      <if test="currentPayDate != null" >
+        #{currentPayDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="currentCycle != null" >
+        #{currentCycle}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CreditorRights" >
+    update CREDITOR_RIGHTS
+    <set >
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanAccountId != null" >
+        LOAN_ACCOUNT_ID = #{loanAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentAccountId != null" >
+        REPAYMENT_ACCOUNT_ID = #{repaymentAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendAccountId != null" >
+        LEND_ACCOUNT_ID = #{lendAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendUserId != null" >
+        LEND_USER_ID = #{lendUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanUserId != null" >
+        LOAN_USER_ID = #{loanUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="lenderType != null" >
+        LENDER_TYPE = #{lenderType,jdbcType=CHAR},
+      </if>
+      <if test="creditorRightsCode != null" >
+        CREDITOR_RIGHTS_CODE = #{creditorRightsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lendTime != null" >
+        LEND_TIME = #{lendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyRollOutTime != null" >
+        APPLY_ROLL_OUT_TIME = #{applyRollOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agreementStartDate != null" >
+        AGREEMENT_START_DATE = #{agreementStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completeTime != null" >
+        COMPLETE_TIME = #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstRepaymentDate != null" >
+        FIRST_REPAYMENT_DATE = #{firstRepaymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastRepaymentDate != null" >
+        LAST_REPAYMENT_DATE = #{lastRepaymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rightsWorth != null" >
+        RIGHTS_WORTH = #{rightsWorth,jdbcType=DECIMAL},
+      </if>
+      <if test="lendPrice != null" >
+        LEND_PRICE = #{lendPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="buyPrice != null" >
+        BUY_PRICE = #{buyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="annualRate != null" >
+        ANNUAL_RATE = #{annualRate,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentCycle != null" >
+        REPAYMENT_CYCLE = #{repaymentCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="rightsState != null" >
+        RIGHTS_STATE = #{rightsState,jdbcType=CHAR},
+      </if>
+      <if test="transferState != null" >
+        TRANSFER_STATE = #{transferState,jdbcType=CHAR},
+      </if>
+      <if test="turnState != null" >
+        TURN_STATE = #{turnState,jdbcType=CHAR},
+      </if>
+      <if test="fromWhere != null" >
+        FROM_WHERE = #{fromWhere,jdbcType=CHAR},
+      </if>
+      <if test="channelType != null" >
+        CHANNEL_TYPE = #{channelType,jdbcType=CHAR},
+      </if>
+      <if test="isDelay != null" >
+        IS_DELAY = #{isDelay,jdbcType=CHAR},
+      </if>
+      <if test="displayState != null" >
+        DISPLAY_STATE = #{displayState,jdbcType=CHAR},
+      </if>
+      <if test="currentPayDate != null" >
+        CURRENT_PAY_DATE = #{currentPayDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentCycle != null" >
+        CURRENT_CYCLE = #{currentCycle},
+      </if>
+    </set>
+    where CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CreditorRights" >
+    update CREDITOR_RIGHTS
+    set LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      LOAN_ACCOUNT_ID = #{loanAccountId,jdbcType=DECIMAL},
+      REPAYMENT_ACCOUNT_ID = #{repaymentAccountId,jdbcType=DECIMAL},
+      LEND_ACCOUNT_ID = #{lendAccountId,jdbcType=DECIMAL},
+      LEND_USER_ID = #{lendUserId,jdbcType=DECIMAL},
+      LOAN_USER_ID = #{loanUserId,jdbcType=DECIMAL},
+      LENDER_TYPE = #{lenderType,jdbcType=CHAR},
+      CREDITOR_RIGHTS_CODE = #{creditorRightsCode,jdbcType=VARCHAR},
+      LEND_TIME = #{lendTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      APPLY_ROLL_OUT_TIME = #{applyRollOutTime,jdbcType=TIMESTAMP},
+      AGREEMENT_START_DATE = #{agreementStartDate,jdbcType=TIMESTAMP},
+      COMPLETE_TIME = #{completeTime,jdbcType=TIMESTAMP},
+      FIRST_REPAYMENT_DATE = #{firstRepaymentDate,jdbcType=TIMESTAMP},
+      LAST_REPAYMENT_DATE = #{lastRepaymentDate,jdbcType=TIMESTAMP},
+      RIGHTS_WORTH = #{rightsWorth,jdbcType=DECIMAL},
+      LEND_PRICE = #{lendPrice,jdbcType=DECIMAL},
+      BUY_PRICE = #{buyPrice,jdbcType=DECIMAL},
+      ANNUAL_RATE = #{annualRate,jdbcType=DECIMAL},
+      REPAYMENT_CYCLE = #{repaymentCycle,jdbcType=DECIMAL},
+      RIGHTS_STATE = #{rightsState,jdbcType=CHAR},
+      TRANSFER_STATE = #{transferState,jdbcType=CHAR},
+      TURN_STATE = #{turnState,jdbcType=CHAR},
+      FROM_WHERE = #{fromWhere,jdbcType=CHAR},
+      CHANNEL_TYPE = #{channelType,jdbcType=CHAR},
+      IS_DELAY = #{isDelay,jdbcType=CHAR},
+      DISPLAY_STATE = #{displayState,jdbcType=CHAR}
+      , CURRENT_PAY_DATE = #{currentPayDate,jdbcType=TIMESTAMP},
+      CURRENT_CYCLE = #{currentCycle}
+    where CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL}
+  </update>
+    <update id="updateByMap" parameterType="java.util.Map">
+        update CREDITOR_RIGHTS
+        <set>
+            <if test="_parameter.containsKey('rightsState')">
+                RIGHTS_STATE = #{rightsState,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('channelType')">
+                CHANNEL_TYPE = #{channelType,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('transferState')">
+                TRANSFER_STATE = #{transferState,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('turnState')">
+                TURN_STATE = #{turnState,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('isDelay')">
+                IS_DELAY = #{isDelay,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('rightsWorth')">
+                RIGHTS_WORTH = #{rightsWorth,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('lendPrice')">
+                LEND_PRICE = #{lendPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('applyRollOutTime')">
+                APPLY_ROLL_OUT_TIME = #{applyRollOutTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('completeTime')">
+                COMPLETE_TIME = #{completeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="currentPayDate != null" >
+              CURRENT_PAY_DATE = #{currentPayDate,jdbcType=TIMESTAMP},
+            </if>
+          <if test="currentCycle != null" >
+            CURRENT_CYCLE = #{currentCycle},
+          </if>
+        </set>
+        where
+        CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL}
+    </update>
+  
+  <!-- 分页查询-列表 -->
+  <select id="findAllCreditorRightsByPage" resultMap="creditorRightsExtVoResultMap" parameterType="java.util.HashMap">
+  select cr.*,
+  rrd.sum_shouldCapital2,
+  rrd.sum_factBalance,
+  rrd.sum_shouldBalance2_factBalance,
+  rrd.shouldBalance2,
+  la.LOAN_APPLICATION_NAME,
+  la.ORIGINAL_USER_ID,
+  la.loan_type, 
+  lo.order_code, 
+  leuie.real_name, 
+  louie.real_name loanRealName, 
+  leuie.real_name lenderRealName, 
+  cta.BUS_STATUS bus_status,
+  lo.time_limit_type timeLimitType, 
+  lo.time_limit timeLimit,
+  la.loan_product_id loanProductId,
+  lp.repayment_type  repaymentType,
+  lor1.waitBackBalance,
+  lobd1.buyBalance
+
+  from CREDITOR_RIGHTS cr
+  left join (select r.CREDITOR_RIGHTS_ID, 
+            sum(r.SHOULD_CAPITAL2) as sum_shouldCapital2, 
+            sum(r.FACT_BALANCE) as sum_factBalance, 
+            sum(r.SHOULD_BALANCE2 - FACT_BALANCE) as sum_shouldBalance2_factBalance, 
+            sum(r.SHOULD_BALANCE2) as shouldBalance2
+  from RIGHTS_REPAYMENT_DETAIL r group by r.CREDITOR_RIGHTS_ID) rrd on cr.CREDITOR_RIGHTS_ID = rrd.CREDITOR_RIGHTS_ID
+  left join LOAN_APPLICATION la on cr.LOAN_APPLICATION_ID = la.LOAN_APPLICATION_ID
+  left join loan_product lp on lp.loan_product_id = la.loan_product_id
+  left join lend_order lo on cr.lend_order_id = lo.lend_order_id
+  left join (select lor.lend_order_id,(sum(lor.should_capital2) + sum(lor.should_interest2) - sum(lor.fact_capital) - sum(lor.fact_interest)) waitBackBalance
+               from lend_order_receive lor group by lor.lend_order_id ) lor1 on lo.lend_order_id = lor1.lend_order_id
+  left join (select lobd.lend_order_id,sum(lobd.buy_balance) buyBalance from lend_order_bid_detail lobd where  lobd.status = 1 group by lobd.lend_order_id) lobd1
+     on lo.lend_order_id = lobd1.lend_order_id
+  left join user_info_ext leuie on cr.lend_user_id = leuie.user_id 
+  left join user_info_ext louie on cr.loan_user_id = louie.user_id
+  left join creditorright_transfer_apply cta on cr.creditor_rights_id = cta.apply_cr_id 
+  where 1=1
+
+	<include refid="where_findAllCreditorRightsByPage"/>
+	
+	order by cr.CREDITOR_RIGHTS_ID desc
+  </select>
+  
+  <!-- 分页查询-数量 -->
+  <select id="count_findAllCreditorRightsByPage" resultType="int" parameterType="java.util.HashMap">
+  select count(1)
+  from CREDITOR_RIGHTS cr
+  left join (select r.CREDITOR_RIGHTS_ID, 
+            sum(r.SHOULD_CAPITAL2) as sum_shouldCapital2, 
+            sum(r.FACT_BALANCE) as sum_factBalance, 
+            sum(r.SHOULD_BALANCE2 - FACT_BALANCE) as sum_shouldBalance2_factBalance, 
+            sum(r.SHOULD_BALANCE2) as shouldBalance2
+  from RIGHTS_REPAYMENT_DETAIL r group by r.CREDITOR_RIGHTS_ID) rrd on cr.CREDITOR_RIGHTS_ID = rrd.CREDITOR_RIGHTS_ID
+  left join LOAN_APPLICATION la on cr.LOAN_APPLICATION_ID = la.LOAN_APPLICATION_ID
+  left join loan_product lp on lp.loan_product_id = la.loan_product_id
+  left join lend_order lo on cr.lend_order_id = lo.lend_order_id
+  left join (select lor.lend_order_id,(sum(lor.should_capital2) + sum(lor.should_interest2) - sum(lor.fact_capital) - sum(lor.fact_interest)) waitBackBalance
+               from lend_order_receive lor group by lor.lend_order_id ) lor1 on lo.lend_order_id = lor1.lend_order_id
+  left join (select lobd.lend_order_id,sum(lobd.buy_balance) buyBalance from lend_order_bid_detail lobd where  lobd.status = 1 group by lobd.lend_order_id) lobd1
+     on lo.lend_order_id = lobd1.lend_order_id
+  left join user_info_ext leuie on cr.lend_user_id = leuie.user_id 
+  left join user_info_ext louie on cr.loan_user_id = louie.user_id
+  left join creditorright_transfer_apply cta on cr.creditor_rights_id = cta.apply_cr_id 
+  where 1=1
+	
+	<include refid="where_findAllCreditorRightsByPage"/>
+	  
+  </select>
+  
+  <!-- 分页查询公用where语句 -->
+  <sql id="where_findAllCreditorRightsByPage">
+  	  <if test="searchLoanName != null" >
+  	  	<if test="searchLoanName != ''" >
+  	  		and la.LOAN_APPLICATION_NAME like '%${searchLoanName}%'
+  	  	</if>
+      </if>
+      
+      <if test="searchLoanUserName != null" >
+  	  	<if test="searchLoanUserName != ''" >
+  	  		and louie.real_name like '%${searchLoanUserName}%'
+  	  	</if>
+      </if>
+      
+      <if test="searchLeanUserName != null" >
+  	  	<if test="searchLeanUserName != ''" >
+  	  		and leuie.real_name like '%${searchLeanUserName}%'
+  	  	</if>
+      </if>
+      
+      <if test="searchState != null" >
+      	and cr.RIGHTS_STATE = #{searchState}
+      </if>
+      
+      <if test="userId != null" >
+      	<if test="userId != ''" >
+      		and cr.lend_user_id = #{userId}
+      	</if>
+      </if>
+      
+      <if test="searchBeginTime != null" >
+      	<if test="searchBeginTime != ''" >
+	      	<![CDATA[
+	      	and cr.LEND_TIME >= to_date(#{searchBeginTime},'yyyy-MM-dd')
+	    	]]>
+      	</if>
+      </if>
+      <if test="searchEndTime != null" >
+      	<if test="searchEndTime != ''" >
+      		<![CDATA[
+      		and cr.LEND_TIME <= to_date(#{searchEndTime},'yyyy-MM-dd')
+      		]]>
+      	</if>
+      </if>
+      
+      <if test="searchT != null" >
+      	<if test="searchT != ''" >
+      		<choose>  
+				<when test="searchT == 'T_1'">  
+					<![CDATA[
+      					and to_char(cr.LEND_TIME,'yyyy-MM-dd') >= to_char(sysdate,'yyyy-MM-dd')
+      				]]>
+				</when> 
+				<when test="searchT == 'T_7'">  
+					<![CDATA[
+      					and to_char(cr.LEND_TIME,'yyyy-MM-dd') >= to_char(sysdate - interval '7' day,'yyyy-MM-dd')
+      				]]>
+				</when>
+				<when test="searchT == 'T_3'">  
+					<![CDATA[
+      					and to_char(cr.LEND_TIME,'yyyy-MM-dd') >= to_char(sysdate - interval '3' month,'yyyy-MM-dd')
+      				]]>
+				</when> 
+				<when test="searchT == 'T_6'">  
+					<![CDATA[
+      					and to_char(cr.LEND_TIME,'yyyy-MM-dd') >= to_char(sysdate - interval '6' month,'yyyy-MM-dd')
+      				]]>
+				</when> 
+				<when test="searchT == 'T_12'">  
+					<![CDATA[
+      					and to_char(cr.LEND_TIME,'yyyy-MM-dd') >= to_char(sysdate - interval '12' month,'yyyy-MM-dd')
+      				]]>
+				</when> 
+			</choose>
+      	</if>
+      </if>
+      
+  </sql>
+  
+  <!-- 根据id加载一条数据 -->
+  <select id="findById" resultMap="BaseResultMap" parameterType="map" >
+    select *
+    from CREDITOR_RIGHTS
+    where CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL}
+    <if test="lock != null">
+      for update
+    </if>
+  </select>
+  <!-- 还原老版本 -->
+  <select id="getByLoanApplicationId1" parameterType="java.util.Map" resultMap="BaseResultMap" >
+    select *
+    from CREDITOR_RIGHTS
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    <if test=" _parameter.containsKey('channelTypeEnum')">
+	    <if test="channelTypeEnum != null">
+	      <foreach collection="channelTypeEnum" open=" AND CHANNEL_TYPE IN(" separator="," close=")" item="channelType">
+	        #{channelType}
+	      </foreach>
+	      </if>
+    </if>
+  </select>
+  
+  <!-- 改之后 -->
+   <select id="getByLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select *
+    from CREDITOR_RIGHTS
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- 债权转让生产合同 -->
+   <select id="getTurnRightsAvailByLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select *
+    from CREDITOR_RIGHTS
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    AND RIGHTS_STATE = '0' 
+  </select>
+  
+    <select id="getSubjectRights" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select *
+    from CREDITOR_RIGHTS
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    and CHANNEL_TYPE = '1'
+  </select>
+
+    <select id="findAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from CREDITOR_RIGHTS
+        where CHANNEL_TYPE = #{value}
+    </select>
+  
+	<select id="findBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+	    select * from CREDITOR_RIGHTS
+	    where (1=1)
+	    <if test=" _parameter.containsKey('lendProductId')">
+	        <if test=" lendProductId != 0">
+	            and LEND_ORDER_ID in (select LEND_ORDER_ID from LEND_ORDER where LEND_PRODUCT_ID = #{lendProductId})
+	        </if>
+	    </if>
+	    <if test=" _parameter.containsKey('lendOrderId')">
+	        <if test=" lendOrderId != 0">
+	            and LEND_ORDER_ID = #{lendOrderId}
+	        </if>
+	    </if>
+	    and RIGHTS_STATE != '7'
+	</select>
+	
+  	<select id="findCreditorRightsByDetailList" resultMap="creditorRightsExtVoResultMap" parameterType="Long">
+                                   
+	     with lendorder as(select lo1.* from lend_order lo1,lend_order lo2  where lo1.lend_order_pid = lo2.lend_order_id )
+	    select 
+	        la.loan_application_code,
+	        la.loan_application_name,
+	        la.annual_rate,
+	        lp.due_time,
+	        lp.due_time_type,
+	        lobd.buy_balance,
+	        cs.rights_state,
+	        cs.lend_order_id,
+            cs.lend_user_id,
+	        
+	        (select sum(FACT_BALANCE) fact_balance
+	           from rights_repayment_detail rrd
+	          where rrd.creditor_rights_id = lobd.creditor_rights_id) fact_balance,
+	        (select sum(SHOULD_BALANCE) should_balance
+	           from rights_repayment_detail rrd
+	          where rrd.creditor_rights_id = lobd.creditor_rights_id) should_balance
+	 
+	   from (select led.* from LEND_ORDER_BID_DETAIL led, lendorder where led.lend_order_id = lendorder.lend_order_id and lendorder.lend_order_pid = #{lendOrderId} ) lobd
+	   left join loan_application la on lobd.loan_application_id =
+	                                    la.loan_application_id
+	   left join loan_product lp on la.loan_product_id = lp.loan_product_id
+	
+	   left join creditor_rights cs on lobd.creditor_rights_id =
+	                                   cs.creditor_rights_id  
+  	</select>
+
+
+    <select id="getLenderListByApplicationId" resultMap="lender" parameterType="map">
+      SELECT o.PAY_TIME lendTime,cs.RIGHTS_STATE rightsState
+      ,cs.COMPLETE_TIME completeTime,cs.BUY_PRICE buyPrice,
+      (
+      SELECT NVL(SUM (SHOULD_CAPITAL),0)-NVL(SUM (FACT_CALITAL),0)    <!--未还本金-->
+      FROM rights_repayment_detail rrd
+      WHERE rrd.creditor_rights_id = cs.creditor_rights_id
+      ) waitTotalpayMent ,
+      (SELECT SUM (FACT_CALITAL) fact_balance   <!--实还本金-->
+      FROM rights_repayment_detail rrd
+      WHERE rrd.creditor_rights_id = cs.creditor_rights_id)
+      factBalance,
+      UE.REAL_NAME lenderRealName,
+      U.LOGIN_NAME lenderLoginName
+      FROM creditor_rights cs
+      LEFT JOIN loan_application la
+      ON cs.loan_application_id = la.loan_application_id
+      LEFT JOIN USER_INFO u ON CS.LEND_USER_ID = U.USER_ID
+      LEFT JOIN USER_INFO_EXT ue ON CS.LEND_USER_ID = UE.USER_ID
+      left join LEND_ORDER o on Cs.LEND_ORDER_ID = O.LEND_ORDER_ID
+  		where CS.LOAN_APPLICATION_ID = #{loanApplicationId}
+        <if test="statusList != null">
+          <foreach collection="statusList" open="AND cs.RIGHTS_STATE IN (" close=")" item="status" separator=", ">
+            #{status}
+          </foreach>
+        </if>
+  	</select>
+    <select id="count_getLenderListByApplicationId" resultType="int" parameterType="map">
+      SELECT count(1)
+      FROM creditor_rights cs
+      LEFT JOIN loan_application la
+      ON cs.loan_application_id = la.loan_application_id
+      LEFT JOIN USER_INFO u ON CS.LEND_USER_ID = U.USER_ID
+      LEFT JOIN USER_INFO_EXT ue ON CS.LEND_USER_ID = UE.USER_ID
+      left join LEND_ORDER o on Cs.LEND_ORDER_ID = O.LEND_ORDER_ID
+      where CS.LOAN_APPLICATION_ID = #{loanApplicationId}
+      <if test="statusList != null">
+        <foreach collection="statusList" open="AND cs.RIGHTS_STATE IN (" close=")" item="status" separator=", ">
+          #{status}
+        </foreach>
+      </if>
+    </select>
+  	
+  	<select id="count_findCreditorRightsByDetailList" resultType="int" parameterType="Long">
+  	
+   	with lo as(select lo1.* from lend_order lo1,lend_order lo2  where lo1.lend_order_pid = lo2.lend_order_id )
+	select  count(1)
+    from creditor_rights cs
+    left join loan_application la on cs.loan_application_id =
+                                     la.loan_application_id
+    left join loan_product lp on la.loan_product_id = lp.lend_product_id
+    left join lo on lo.lend_order_id = cs.lend_order_id
+   where lo.LEND_ORDER_PID = #{lendOrderId}  
+   	
+  	</select>
+
+
+    <select id="findRollOutRights" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select crs.CREDITOR_RIGHTS_ID,lapp.LOAN_APPLICATION_ID,crs.LEND_ORDER_ID,
+        (nvl(crs.RIGHTS_WORTH,0)) as rightsWorth,
+        crs.lend_Price
+        from CREDITOR_RIGHTS crs left join LOAN_APPLICATION lapp on crs.LOAN_APPLICATION_ID = lapp.LOAN_APPLICATION_ID
+        left join LEND_ORDER lo on crs.LEND_ORDER_ID = lo.LEND_ORDER_ID
+        left join LOAN_PUBLISH lp on lapp.LOAN_APPLICATION_ID = lp.LOAN_APPLICATION_ID
+        where crs.RIGHTS_STATE = #{rightsState}
+        and crs.RIGHTS_WORTH > 0
+        <if test=" _parameter.containsKey('loanProductId')">
+            <if test=" loanProductId != 0">
+                and lapp.LOAN_PRODUCT_ID = #{loanProductId}
+            </if>
+        </if>
+        <if test=" _parameter.containsKey('lenderType')">
+            <if test=" lenderType != 0">
+                and crs.LENDER_TYPE = #{lenderType}
+            </if>
+        </if>
+        <if test=" _parameter.containsKey('lendProductType')">
+            <if test=" lendProductType != 0">
+                and lo.PRODUCT_TYPE = #{lendProductType}
+            </if>
+        </if>
+
+        <if test=" _parameter.containsKey('openTime')">
+            <if test=" openTime != null">
+                <![CDATA[
+      					and lp.OPEN_TIME <= #{openTime,jdbcType=TIMESTAMP}
+      				]]>
+
+            </if>
+        </if>
+        <if test=" _parameter.containsKey('publishRule')">
+            <if test=" publishRule != '' ">
+                and lp.PUBLISH_RULE  in 
+            </if>
+              <foreach collection="publishRule" item="rules" open="(" separator="," close=")">
+	          #{rules}
+	        </foreach>
+        </if>
+        order by
+        <if test=" _parameter.containsKey('applyRollOutTime') ">
+            crs.APPLY_ROLL_OUT_TIME asc,
+        </if>
+        <if test=" _parameter.containsKey('rightsWorth') ">
+            crs.lend_Price asc,
+        </if>
+        <if test=" _parameter.containsKey('annualRate') ">
+            crs.ANNUAL_RATE asc,
+        </if>
+        crs.RIGHTS_STATE asc
+    </select>
+
+    <select id="getSumCreByOrderAndLoanPdt" parameterType="java.util.Map"
+            resultType="java.math.BigDecimal">
+        select sum(rightsWorth) from CreditorRights
+        where (1=1)
+        <if test=" lendOrderId !=0">
+            and lendOrderId = #{lendOrderId}
+        </if>
+        <if test=" loanProductId != 0">
+            and loanApplicationId in
+            (select loanApplicationId from LoanApplication lApp where lApp.loadProductId=#{loanProductId})
+        </if>
+        and rightsState != '4'
+    </select>
+
+
+
+
+
+
+  <select id="getCreditorRightsPaging" resultMap="creditorRightsExtVoResultMap"  parameterType="map">
+	SELECT CS.*,
+	       LP.AWARD_POINT,
+	       LA.loan_type,
+	       to_char(LP.AWARD_RATE,'fm9990.0') AWARD_RATE,
+	       LP.LOAN_TITLE CREDITORRIGHTSNAME,
+	       (SELECT SUM(FACT_BALANCE) FACT_BALANCE
+	          FROM RIGHTS_REPAYMENT_DETAIL RRD
+	         WHERE RRD.CREDITOR_RIGHTS_ID = CS.CREDITOR_RIGHTS_ID) FACT_BALANCE,
+	       U.LOGIN_NAME LOAN_LOGIN_NAME,
+	       (select uie.real_name from user_info_ext uie where uie.user_id = u.user_id) loanRealName,
+	       LO.TIME_LIMIT_TYPE TIMELIMITTYPE,
+	       LO.TIME_LIMIT TIMELIMIT,
+	       LOBD.BUY_DATE 
+    <if test="customParams.rightsflag!=null">
+			,RIGHTSCOUNT.SURPLUS_CALITAL SURPLUSCALITAL
+    </if>
+    	  FROM CREDITOR_RIGHTS CS
+		  LEFT JOIN LOAN_PUBLISH LP
+		    ON CS.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+		  LEFT JOIN USER_INFO U
+		    ON CS.LOAN_USER_ID = U.USER_ID
+		  LEFT JOIN USER_ACCOUNT UA
+		    ON CS.LEND_ACCOUNT_ID = UA.ACC_ID
+		  LEFT JOIN LEND_ORDER LO
+		    ON LO.LEND_ORDER_ID = CS.LEND_ORDER_ID
+		  LEFT JOIN LEND_ORDER_BID_DETAIL LOBD
+		    ON LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+		  LEFT JOIN LOAN_APPLICATION LA
+		    ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+    <if test="customParams.rightsflag!=null">
+		INNER JOIN (SELECT A1.CREDITOR_RIGHTS_ID, B1.SURPLUS_CALITAL
+                              FROM RIGHTS_REPAYMENT_DETAIL A1,
+                                   (SELECT MIN(A.RIGHTS_REPAYMENT_DETAIL_ID) RIGHTS_REPAYMENT_DETAIL_ID,
+                                           SUM(SHOULD_CAPITAL2) -
+                                           SUM(FACT_CALITAL) SURPLUS_CALITAL
+                                      FROM RIGHTS_REPAYMENT_DETAIL A,
+                                           (SELECT CREDITOR_RIGHTS_ID
+                                              FROM RIGHTS_REPAYMENT_DETAIL
+                                             GROUP BY CREDITOR_RIGHTS_ID
+                                            HAVING COUNT(0) > 1 AND SUM(SHOULD_CAPITAL2) - SUM(FACT_CALITAL) >= 100) B
+                                     WHERE A.CREDITOR_RIGHTS_ID =
+                                           B.CREDITOR_RIGHTS_ID
+                                       AND A.IS_DELAY != '1'
+                                       AND A.IS_PAY_OFF = '0'    
+                                     GROUP BY A.CREDITOR_RIGHTS_ID) B1
+                             WHERE A1.RIGHTS_REPAYMENT_DETAIL_ID =
+                                   B1.RIGHTS_REPAYMENT_DETAIL_ID
+                               AND TO_DATE(TO_CHAR(A1.REPAYMENT_DAY_PLANNED, 'yyyy-MM-dd'), 'yyyy-MM-dd') -
+                                   #{customParams.newDate,jdbcType=DATE} >= 5) RIGHTSCOUNT
+    	ON CS.CREDITOR_RIGHTS_ID = RIGHTSCOUNT.CREDITOR_RIGHTS_ID
+    </if>
+    <where>
+      UA.ACC_TYPE_CODE = 2
+      <if test="creditorRights != null">
+        <if test="creditorRights.rightsState !=null and creditorRights.rightsState !=''">
+          and RIGHTS_STATE = #{creditorRights.rightsState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.channelType !=null and creditorRights.channelType !=''">
+          and CHANNEL_TYPE = #{creditorRights.channelType,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.fromWhere !=null and creditorRights.fromWhere !=''">
+          and FROM_WHERE = #{creditorRights.fromWhere,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.transferState !=null and creditorRights.transferState !=''">
+          and TRANSFER_STATE = #{creditorRights.transferState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.turnState !=null and creditorRights.turnState !=''">
+          and  TURN_STATE = #{creditorRights.turnState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.isDelay !=null and creditorRights.isDelay !=''">
+          and IS_DELAY = #{creditorRights.isDelay,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.rightsWorth !=null and creditorRights.rightsWorth !=''">
+          and RIGHTS_WORTH = #{creditorRights.rightsWorth,jdbcType=DECIMAL}
+        </if>
+        <if test="creditorRights.lendPrice !=null and creditorRights.lendPrice !=''">
+          and LEND_PRICE = #{creditorRights.lendPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="creditorRights.applyRollOutTime !=null and creditorRights.applyRollOutTime !=''">
+          and APPLY_ROLL_OUT_TIME = #{creditorRights.applyRollOutTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="creditorRights.completeTime !=null and creditorRights.completeTime!=''">
+          and  COMPLETE_TIME = #{creditorRights.completeTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="creditorRights.lendUserId !=null and creditorRights.lendUserId!=''">
+          and cs.LEND_USER_ID = #{creditorRights.lendUserId,jdbcType=TIMESTAMP}
+        </if>
+      </if>
+      <if test="customParams != null">
+	      <if test="customParams.queryStatus!=null">
+	        and RIGHTS_STATE in
+	        <foreach collection="customParams.queryStatus" item="status" open="(" separator="," close=")">
+	          #{status,jdbcType=CHAR}
+	        </foreach>
+	      </if>
+	      <if test="customParams.fromWhere!=null">
+	        and FROM_WHERE = #{customParams.fromWhere,jdbcType=CHAR}
+	      </if>
+	   </if>
+	   <if test="customParams.rightsflag!=null">
+      		AND #{customParams.newDate,jdbcType=DATE} - TO_DATE(TO_CHAR(CS.CREATE_TIME, 'yyyy-MM-dd'), 'yyyy-MM-dd') > 30
+		</if>
+    </where>
+
+
+    <if test="customParams.orderBy!=null and customParams.orderBy!=''">
+      ORDER BY ${customParams.orderBy}
+    </if>
+
+
+    <if test="customParams.orderBy==''">
+          ORDER BY LOBD.BUY_DATE desc
+    </if>
+
+  </select>
+  
+  <!-- 根据债权ID，获取一条扩展信息 -->  
+  <select id="getCreditorRightsDetailById" resultMap="creditorRightsExtVoResultMap" parameterType="java.lang.Long">
+    SELECT cs.*,
+    LP.LOAN_TITLE creditorRightsName,
+    (SELECT SUM (FACT_BALANCE) fact_balance
+    FROM rights_repayment_detail rrd
+    WHERE rrd.creditor_rights_id = cs.creditor_rights_id)
+    fact_balance,
+    U.LOGIN_NAME loan_login_name,
+    lo.TIME_LIMIT_TYPE timeLimitType,
+    lo.TIME_LIMIT timeLimit,to_char(lp.AWARD_RATE,'fm9990.0') AWARD_RATE,lp.award_point,
+    LOBD.BUY_DATE
+    FROM creditor_rights cs
+    LEFT JOIN LOAN_PUBLISH lp ON CS.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+    LEFT JOIN USER_INFO u ON CS.LOAN_USER_ID = U.USER_ID
+    LEFT JOIN LEND_ORDER lo ON lo.LEND_ORDER_ID = cs.LEND_ORDER_ID
+    LEFT JOIN LEND_ORDER_BID_DETAIL LOBD ON LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+    where cs.CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="count_getCreditorRightsPaging" resultType="int" parameterType="map">
+    SELECT COUNT(1)
+	  FROM CREDITOR_RIGHTS CS
+	  LEFT JOIN LOAN_PUBLISH LP
+	    ON CS.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+	  LEFT JOIN USER_INFO U
+	    ON CS.LOAN_USER_ID = U.USER_ID
+	  LEFT JOIN USER_ACCOUNT UA
+	    ON CS.LEND_ACCOUNT_ID = UA.ACC_ID
+	  LEFT JOIN LEND_ORDER LO
+	    ON LO.LEND_ORDER_ID = CS.LEND_ORDER_ID
+	  LEFT JOIN LEND_ORDER_BID_DETAIL LOBD
+	    ON LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+    <if test="customParams.rightsflag!=null">
+	   INNER JOIN (SELECT A1.CREDITOR_RIGHTS_ID, B1.SURPLUS_CALITAL
+                              FROM RIGHTS_REPAYMENT_DETAIL A1,
+                                   (SELECT MIN(A.RIGHTS_REPAYMENT_DETAIL_ID) RIGHTS_REPAYMENT_DETAIL_ID,
+                                           SUM(SHOULD_CAPITAL2) -
+                                           SUM(FACT_CALITAL) SURPLUS_CALITAL
+                                      FROM RIGHTS_REPAYMENT_DETAIL A,
+                                           (SELECT CREDITOR_RIGHTS_ID
+                                              FROM RIGHTS_REPAYMENT_DETAIL
+                                             GROUP BY CREDITOR_RIGHTS_ID
+                                            HAVING COUNT(0) > 1 AND SUM(SHOULD_CAPITAL2) - SUM(FACT_CALITAL) >= 100) B
+                                     WHERE A.CREDITOR_RIGHTS_ID =
+                                           B.CREDITOR_RIGHTS_ID
+                                       AND A.IS_DELAY != '1'
+                                       AND A.IS_PAY_OFF = '0'    
+                                     GROUP BY A.CREDITOR_RIGHTS_ID) B1
+                             WHERE A1.RIGHTS_REPAYMENT_DETAIL_ID =
+                                   B1.RIGHTS_REPAYMENT_DETAIL_ID
+                               AND TO_DATE(TO_CHAR(A1.REPAYMENT_DAY_PLANNED, 'yyyy-MM-dd'), 'yyyy-MM-dd') -
+                                   #{customParams.newDate,jdbcType=DATE} >= 5) RIGHTSCOUNT
+    	ON CS.CREDITOR_RIGHTS_ID = RIGHTSCOUNT.CREDITOR_RIGHTS_ID
+    </if>
+    <where>
+      UA.ACC_TYPE_CODE = 2
+      <if test="creditorRights != null">
+        <if test="creditorRights.rightsState !=null and creditorRights.rightsState !=''">
+          and RIGHTS_STATE = #{creditorRights.rightsState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.channelType !=null and creditorRights.channelType !=''">
+          and CHANNEL_TYPE = #{creditorRights.channelType,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.fromWhere !=null and creditorRights.fromWhere !=''">
+          and FROM_WHERE = #{creditorRights.fromWhere,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.transferState !=null and creditorRights.transferState !=''">
+          and TRANSFER_STATE = #{creditorRights.transferState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.turnState !=null and creditorRights.turnState !=''">
+          and  TURN_STATE = #{creditorRights.turnState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.isDelay !=null and creditorRights.isDelay !=''">
+          and IS_DELAY = #{creditorRights.isDelay,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.rightsWorth !=null and creditorRights.rightsWorth !=''">
+          and RIGHTS_WORTH = #{creditorRights.rightsWorth,jdbcType=DECIMAL}
+        </if>
+        <if test="creditorRights.lendPrice !=null and creditorRights.lendPrice !=''">
+          and LEND_PRICE = #{creditorRights.lendPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="creditorRights.applyRollOutTime !=null and creditorRights.applyRollOutTime !=''">
+          and APPLY_ROLL_OUT_TIME = #{creditorRights.applyRollOutTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="creditorRights.completeTime !=null and creditorRights.completeTime!=''">
+          and  COMPLETE_TIME = #{creditorRights.completeTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="creditorRights.lendUserId !=null and creditorRights.lendUserId!=''">
+          and cs.LEND_USER_ID = #{creditorRights.lendUserId,jdbcType=TIMESTAMP}
+        </if>
+      </if>
+      <if test="customParams != null">
+        <if test="customParams.queryStatus!=null">
+          and RIGHTS_STATE in
+          <foreach collection="customParams.queryStatus" item="status" open="(" separator="," close=")">
+            #{status,jdbcType=CHAR}
+          </foreach>
+        </if>
+        <if test="customParams.fromWhere!=null">
+	        and FROM_WHERE = #{customParams.fromWhere,jdbcType=CHAR}
+	    </if>
+      </if>
+      <if test="customParams.rightsflag!=null">
+      		AND #{customParams.newDate,jdbcType=DATE} - TO_DATE(TO_CHAR(CS.CREATE_TIME, 'yyyy-MM-dd'), 'yyyy-MM-dd') > 30
+		</if>
+    </where>
+  </select>
+
+  <select id="getByLendOrderId" parameterType="map" resultMap="BaseResultMap">
+      SELECT * FROM CREDITOR_RIGHTS CR WHERE CR.LEND_ORDER_ID = #{lendOrderId}
+      <if test="statusEnum != null">
+        <foreach collection="statusEnum" open=" AND CR.RIGHTS_STATE IN(" separator="," close=")" index="index" item="state">
+          #{state}
+        </foreach>
+      </if>
+  </select>
+
+  <!--投标记录 前台使用-->
+  <select id="getLendOrderDetailPaging" resultMap="LenderRecordVO" parameterType="map">
+    select  cr.BUY_PRICE lendAmount,u.login_name lenderName,u.USER_ID userId
+    ,o.PAY_TIME lendTime
+    from CREDITOR_RIGHTS cr left join USER_INFO
+    u on CR.LEND_USER_ID = U.USER_ID
+    left join LEND_ORDER o on CR.LEND_ORDER_ID = O.LEND_ORDER_ID
+   where CR.LOAN_APPLICATION_ID = #{loanApplicationId}
+    <if test="statusList != null">
+      <foreach collection="statusList" open="AND cr.RIGHTS_STATE IN (" close=")" item="status" separator=", ">
+        #{status}
+      </foreach>
+    </if>
+    order by lendTime desc
+  </select>
+  <select id="count_getLendOrderDetailPaging" resultType="int" parameterType="map">
+    select  count(1)
+    from CREDITOR_RIGHTS cr left join USER_INFO
+    u on CR.LEND_USER_ID = U.USER_ID
+    where CR.LOAN_APPLICATION_ID = #{loanApplicationId}
+    <if test="statusList != null">
+      <foreach collection="statusList" open="AND cr.RIGHTS_STATE IN (" close=")" item="status" separator=", ">
+        #{status}
+      </foreach>
+    </if>
+  </select>
+  
+   <select id="getCreditorRightsPagingByWeiXin" resultMap="creditorRightsExtVoResultMap"  parameterType="map">
+	<if test="customParams.creditorRightsStatus== 3">
+		SELECT CS.*,'r' zr,
+		LP.AWARD_POINT,
+		LP.AWARD_RATE,
+		LP.LOAN_TITLE CREDITORRIGHTSNAME,
+		(SELECT SUM(FACT_BALANCE) FACT_BALANCE
+		FROM RIGHTS_REPAYMENT_DETAIL RRD
+		WHERE RRD.CREDITOR_RIGHTS_ID = CS.CREDITOR_RIGHTS_ID) FACT_BALANCE,
+		U.LOGIN_NAME LOAN_LOGIN_NAME,
+		LO.TIME_LIMIT_TYPE TIMELIMITTYPE,
+		LO.TIME_LIMIT TIMELIMIT,
+		LOBD.BUY_DATE
+		FROM CREDITOR_RIGHTS CS
+		LEFT JOIN LOAN_PUBLISH LP
+		ON CS.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+		LEFT JOIN USER_INFO U
+		ON CS.LOAN_USER_ID = U.USER_ID
+		LEFT JOIN USER_ACCOUNT UA
+		ON CS.LEND_ACCOUNT_ID = UA.ACC_ID
+		LEFT JOIN LEND_ORDER LO
+		ON LO.LEND_ORDER_ID = CS.LEND_ORDER_ID
+		LEFT JOIN LEND_ORDER_BID_DETAIL LOBD
+		ON LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+		INNER JOIN (SELECT A1.CREDITOR_RIGHTS_ID, B1.SURPLUS_CALITAL
+		FROM RIGHTS_REPAYMENT_DETAIL A1,
+		(SELECT MIN(A.RIGHTS_REPAYMENT_DETAIL_ID) RIGHTS_REPAYMENT_DETAIL_ID,
+		SUM(SHOULD_CAPITAL2) - SUM(FACT_CALITAL) SURPLUS_CALITAL
+		FROM RIGHTS_REPAYMENT_DETAIL A,
+		(SELECT CREDITOR_RIGHTS_ID
+		FROM RIGHTS_REPAYMENT_DETAIL
+		GROUP BY CREDITOR_RIGHTS_ID
+		HAVING COUNT(0) > 1 AND SUM(SHOULD_CAPITAL2) - SUM(FACT_CALITAL) >= 100) B
+		WHERE A.CREDITOR_RIGHTS_ID = B.CREDITOR_RIGHTS_ID
+		AND A.IS_DELAY != '1'
+		AND A.IS_PAY_OFF = '0'
+		GROUP BY A.CREDITOR_RIGHTS_ID) B1
+		WHERE A1.RIGHTS_REPAYMENT_DETAIL_ID =
+		B1.RIGHTS_REPAYMENT_DETAIL_ID
+		AND TO_DATE(TO_CHAR(A1.REPAYMENT_DAY_PLANNED, 'yyyy-MM-dd'),
+		'yyyy-MM-dd') -
+		#{customParams.newDate,jdbcType=DATE} >= 5) RIGHTSCOUNT
+		ON CS.CREDITOR_RIGHTS_ID = RIGHTSCOUNT.CREDITOR_RIGHTS_ID
+		WHERE UA.ACC_TYPE_CODE = 2
+		and CHANNEL_TYPE = 2
+		and cs.LEND_USER_ID = #{creditorRights.lendUserId,jdbcType=TIMESTAMP}
+		and RIGHTS_STATE in ('0')
+		AND #{customParams.newDate,jdbcType=DATE} -
+		TO_DATE(TO_CHAR(CS.CREATE_TIME, 'yyyy-MM-dd'), 'yyyy-MM-dd') > 30
+	</if>
+	<if test="customParams.creditorRightsStatus== 8 || customParams.creditorRightsStatus== 2 ">
+	
+	SELECT CS.*,'z' zr,
+	LP.AWARD_POINT,
+	LP.AWARD_RATE,
+	LP.LOAN_TITLE CREDITORRIGHTSNAME,
+	(SELECT SUM(FACT_BALANCE) FACT_BALANCE
+	FROM RIGHTS_REPAYMENT_DETAIL RRD
+	WHERE RRD.CREDITOR_RIGHTS_ID = CS.CREDITOR_RIGHTS_ID) FACT_BALANCE,
+	U.LOGIN_NAME LOAN_LOGIN_NAME,
+	LO.TIME_LIMIT_TYPE TIMELIMITTYPE,
+	LO.TIME_LIMIT TIMELIMIT,
+	LOBD.BUY_DATE
+	FROM CREDITOR_RIGHTS CS
+	LEFT JOIN LOAN_PUBLISH LP
+	ON CS.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+	LEFT JOIN USER_INFO U
+	ON CS.LOAN_USER_ID = U.USER_ID
+	LEFT JOIN USER_ACCOUNT UA
+	ON CS.LEND_ACCOUNT_ID = UA.ACC_ID
+	LEFT JOIN LEND_ORDER LO
+	ON LO.LEND_ORDER_ID = CS.LEND_ORDER_ID
+	LEFT JOIN LEND_ORDER_BID_DETAIL LOBD
+	ON LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+	WHERE UA.ACC_TYPE_CODE = 2
+	and CHANNEL_TYPE = 2
+	and cs.LEND_USER_ID = #{creditorRights.lendUserId,jdbcType=TIMESTAMP}
+	and RIGHTS_STATE = #{customParams.creditorRightsStatus}
+	</if>
+	 
+
+	
+	<if test="customParams.creditorRightsStatus== 1">
+	SELECT CS.*, 'zr' zr,
+	LP.AWARD_POINT,
+	LP.AWARD_RATE,
+	LP.LOAN_TITLE CREDITORRIGHTSNAME,
+	(SELECT SUM(FACT_BALANCE) FACT_BALANCE
+	FROM RIGHTS_REPAYMENT_DETAIL RRD
+	WHERE RRD.CREDITOR_RIGHTS_ID = CS.CREDITOR_RIGHTS_ID) FACT_BALANCE,
+	U.LOGIN_NAME LOAN_LOGIN_NAME,
+	LO.TIME_LIMIT_TYPE TIMELIMITTYPE,
+	LO.TIME_LIMIT TIMELIMIT,
+	LOBD.BUY_DATE
+	FROM CREDITOR_RIGHTS CS
+	LEFT JOIN LOAN_PUBLISH LP
+	ON CS.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+	LEFT JOIN USER_INFO U
+	ON CS.LOAN_USER_ID = U.USER_ID
+	LEFT JOIN USER_ACCOUNT UA
+	ON CS.LEND_ACCOUNT_ID = UA.ACC_ID
+	LEFT JOIN LEND_ORDER LO
+	ON LO.LEND_ORDER_ID = CS.LEND_ORDER_ID
+	LEFT JOIN LEND_ORDER_BID_DETAIL LOBD
+	ON LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+	WHERE UA.ACC_TYPE_CODE = 2
+	and CHANNEL_TYPE = 2
+	and cs.LEND_USER_ID = #{creditorRights.lendUserId,jdbcType=TIMESTAMP}
+	and FROM_WHERE = 2
+	</if>
+
+	
+
+  </select>
+  
+  <select id="count_getCreditorRightsPagingByWeiXin" resultType="int" parameterType="map">
+ 
+
+select  sum(cou)    from  (
+<if test="customParams.creditorRightsStatus== 3">
+SELECT  count(1) cou
+  FROM CREDITOR_RIGHTS CS
+  LEFT JOIN LOAN_PUBLISH LP
+    ON CS.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+  LEFT JOIN USER_INFO U
+    ON CS.LOAN_USER_ID = U.USER_ID
+  LEFT JOIN USER_ACCOUNT UA
+    ON CS.LEND_ACCOUNT_ID = UA.ACC_ID
+  LEFT JOIN LEND_ORDER LO
+    ON LO.LEND_ORDER_ID = CS.LEND_ORDER_ID
+  LEFT JOIN LEND_ORDER_BID_DETAIL LOBD
+    ON LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+ INNER JOIN (SELECT A1.CREDITOR_RIGHTS_ID, B1.SURPLUS_CALITAL
+               FROM RIGHTS_REPAYMENT_DETAIL A1,
+                    (SELECT MIN(A.RIGHTS_REPAYMENT_DETAIL_ID) RIGHTS_REPAYMENT_DETAIL_ID,
+                            SUM(SHOULD_CAPITAL2) - SUM(FACT_CALITAL) SURPLUS_CALITAL
+                       FROM RIGHTS_REPAYMENT_DETAIL A,
+                            (SELECT CREDITOR_RIGHTS_ID
+                               FROM RIGHTS_REPAYMENT_DETAIL
+                              GROUP BY CREDITOR_RIGHTS_ID
+                             HAVING COUNT(0) > 1 AND SUM(SHOULD_CAPITAL2) - SUM(FACT_CALITAL) >= 100) B
+                      WHERE A.CREDITOR_RIGHTS_ID = B.CREDITOR_RIGHTS_ID
+                        AND A.IS_DELAY != '1'
+                        AND A.IS_PAY_OFF = '0'
+                      GROUP BY A.CREDITOR_RIGHTS_ID) B1
+              WHERE A1.RIGHTS_REPAYMENT_DETAIL_ID =
+                    B1.RIGHTS_REPAYMENT_DETAIL_ID
+                AND    TO_DATE(TO_CHAR(A1.REPAYMENT_DAY_PLANNED, 'yyyy-MM-dd'), 'yyyy-MM-dd') -
+                                   #{customParams.newDate,jdbcType=DATE} >= 5) RIGHTSCOUNT
+    ON CS.CREDITOR_RIGHTS_ID = RIGHTSCOUNT.CREDITOR_RIGHTS_ID
+ WHERE UA.ACC_TYPE_CODE = 2
+  and CHANNEL_TYPE = 2
+  and cs.LEND_USER_ID = #{creditorRights.lendUserId,jdbcType=TIMESTAMP}
+  and RIGHTS_STATE in ('0')
+  AND #{customParams.newDate,jdbcType=DATE} - TO_DATE(TO_CHAR(CS.CREATE_TIME, 'yyyy-MM-dd'), 'yyyy-MM-dd') > 30
+ 
+</if>
+	<if test="customParams.creditorRightsStatus== 8 || customParams.creditorRightsStatus== 2 ">
+SELECT    count(1)  cou
+  FROM CREDITOR_RIGHTS CS
+  LEFT JOIN LOAN_PUBLISH LP
+    ON CS.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+  LEFT JOIN USER_INFO U
+    ON CS.LOAN_USER_ID = U.USER_ID
+  LEFT JOIN USER_ACCOUNT UA
+    ON CS.LEND_ACCOUNT_ID = UA.ACC_ID
+  LEFT JOIN LEND_ORDER LO
+    ON LO.LEND_ORDER_ID = CS.LEND_ORDER_ID
+  LEFT JOIN LEND_ORDER_BID_DETAIL LOBD
+    ON LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+ WHERE UA.ACC_TYPE_CODE = 2
+   and CHANNEL_TYPE = 2
+  and cs.LEND_USER_ID = #{creditorRights.lendUserId,jdbcType=TIMESTAMP}
+  and RIGHTS_STATE = #{customParams.creditorRightsStatus}
+</if>
+ 	<if test="customParams.creditorRightsStatus== 1">
+SELECT    count(1)  cou
+  FROM CREDITOR_RIGHTS CS
+  LEFT JOIN LOAN_PUBLISH LP
+    ON CS.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+  LEFT JOIN USER_INFO U
+    ON CS.LOAN_USER_ID = U.USER_ID
+  LEFT JOIN USER_ACCOUNT UA
+    ON CS.LEND_ACCOUNT_ID = UA.ACC_ID
+  LEFT JOIN LEND_ORDER LO
+    ON LO.LEND_ORDER_ID = CS.LEND_ORDER_ID
+  LEFT JOIN LEND_ORDER_BID_DETAIL LOBD
+    ON LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+ WHERE UA.ACC_TYPE_CODE = 2
+   and CHANNEL_TYPE = 2
+    and cs.LEND_USER_ID = #{creditorRights.lendUserId,jdbcType=TIMESTAMP}
+   and FROM_WHERE = 2 
+   </if>
+)
+
+  </select>
+  
+  
+  <!-- 我的理财-省心计划-出借明细 列表 【开始】 -->
+  <select id="getSXJHCreditorRightsDetailPaging" resultMap="creditorRightsExtVoResultMap"  parameterType="map">
+	SELECT CS.*,
+	       LP.AWARD_POINT,
+	       to_char(LP.AWARD_RATE ,'fm9990.0') AWARD_RATE,
+	       LP.LOAN_TITLE CREDITORRIGHTSNAME,
+	       (SELECT SUM(FACT_BALANCE) FACT_BALANCE
+	          FROM RIGHTS_REPAYMENT_DETAIL RRD
+	         WHERE RRD.CREDITOR_RIGHTS_ID = CS.CREDITOR_RIGHTS_ID) FACT_BALANCE,
+	       U.LOGIN_NAME LOAN_LOGIN_NAME,
+	       (select uie.real_name from user_info_ext uie where uie.user_id = u.user_id) loanRealName,
+	       LO.TIME_LIMIT_TYPE TIMELIMITTYPE,
+	       LO.TIME_LIMIT TIMELIMIT,
+	       LOBD.BUY_DATE
+
+    	  FROM LEND_ORDER LO
+        
+      LEFT JOIN CREDITOR_RIGHTS CS
+        ON LO.LEND_ORDER_ID = CS.LEND_ORDER_ID
+		  LEFT JOIN LOAN_PUBLISH LP
+		    ON CS.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+		  LEFT JOIN USER_INFO U
+		    ON CS.LOAN_USER_ID = U.USER_ID
+		  LEFT JOIN USER_ACCOUNT UA
+		    ON CS.LEND_ACCOUNT_ID = UA.ACC_ID
+		  LEFT JOIN LEND_ORDER_BID_DETAIL LOBD
+		    ON LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+          
+    <where>
+    	LO.LEND_ORDER_PID = #{customParams.lendOrderPid,jdbcType=DECIMAL}
+      	and UA.ACC_TYPE_CODE = 5 <!-- 省心计划账户类型为5 -->
+      	
+      <if test="creditorRights != null">
+        <if test="creditorRights.rightsState !=null and creditorRights.rightsState !=''">
+          and RIGHTS_STATE = #{creditorRights.rightsState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.channelType !=null and creditorRights.channelType !=''">
+          and CHANNEL_TYPE = #{creditorRights.channelType,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.fromWhere !=null and creditorRights.fromWhere !=''">
+          and FROM_WHERE = #{creditorRights.fromWhere,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.transferState !=null and creditorRights.transferState !=''">
+          and TRANSFER_STATE = #{creditorRights.transferState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.turnState !=null and creditorRights.turnState !=''">
+          and  TURN_STATE = #{creditorRights.turnState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.isDelay !=null and creditorRights.isDelay !=''">
+          and IS_DELAY = #{creditorRights.isDelay,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.rightsWorth !=null and creditorRights.rightsWorth !=''">
+          and RIGHTS_WORTH = #{creditorRights.rightsWorth,jdbcType=DECIMAL}
+        </if>
+        <if test="creditorRights.lendPrice !=null and creditorRights.lendPrice !=''">
+          and LEND_PRICE = #{creditorRights.lendPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="creditorRights.applyRollOutTime !=null and creditorRights.applyRollOutTime !=''">
+          and APPLY_ROLL_OUT_TIME = #{creditorRights.applyRollOutTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="creditorRights.completeTime !=null and creditorRights.completeTime!=''">
+          and  COMPLETE_TIME = #{creditorRights.completeTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="creditorRights.lendUserId !=null and creditorRights.lendUserId!=''">
+          and cs.LEND_USER_ID = #{creditorRights.lendUserId,jdbcType=TIMESTAMP}
+        </if>
+      </if>
+      <if test="customParams != null">
+	      <if test="customParams.queryStatus!=null">
+	        and RIGHTS_STATE in
+	        <foreach collection="customParams.queryStatus" item="status" open="(" separator="," close=")">
+	          #{status,jdbcType=CHAR}
+	        </foreach>
+	      </if>
+	      <if test="customParams.fromWhere!=null">
+	        and FROM_WHERE = #{customParams.fromWhere,jdbcType=CHAR}
+	      </if>
+	   </if>
+    </where>
+    <if test="customParams.orderBy!=null and customParams.orderBy!=''">
+      	ORDER BY ${customParams.orderBy}
+    </if>
+    <if test="customParams.orderBy==''">
+        ORDER BY LOBD.BUY_DATE desc
+    </if>
+
+  </select>
+  <!-- 我的理财-省心计划-出借明细 列表 【结束】 -->
+  
+  <!-- 我的理财-省心计划-出借明细 条数 【开始】 -->
+  <select id="count_getSXJHCreditorRightsDetailPaging" resultType="int" parameterType="map">
+    SELECT COUNT(1)
+      FROM LEND_ORDER LO
+      LEFT JOIN CREDITOR_RIGHTS CS
+        ON LO.LEND_ORDER_ID = CS.LEND_ORDER_ID
+		  LEFT JOIN LOAN_PUBLISH LP
+		    ON CS.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+		  LEFT JOIN USER_INFO U
+		    ON CS.LOAN_USER_ID = U.USER_ID
+		  LEFT JOIN USER_ACCOUNT UA
+		    ON CS.LEND_ACCOUNT_ID = UA.ACC_ID
+		  LEFT JOIN LEND_ORDER_BID_DETAIL LOBD
+		    ON LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+          
+    <where>
+    	LO.LEND_ORDER_PID = #{customParams.lendOrderPid,jdbcType=DECIMAL}
+      	and UA.ACC_TYPE_CODE = 5 <!-- 省心计划账户类型为5 -->
+      	
+      <if test="creditorRights != null">
+        <if test="creditorRights.rightsState !=null and creditorRights.rightsState !=''">
+          and RIGHTS_STATE = #{creditorRights.rightsState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.channelType !=null and creditorRights.channelType !=''">
+          and CHANNEL_TYPE = #{creditorRights.channelType,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.fromWhere !=null and creditorRights.fromWhere !=''">
+          and FROM_WHERE = #{creditorRights.fromWhere,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.transferState !=null and creditorRights.transferState !=''">
+          and TRANSFER_STATE = #{creditorRights.transferState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.turnState !=null and creditorRights.turnState !=''">
+          and  TURN_STATE = #{creditorRights.turnState,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.isDelay !=null and creditorRights.isDelay !=''">
+          and IS_DELAY = #{creditorRights.isDelay,jdbcType=CHAR}
+        </if>
+        <if test="creditorRights.rightsWorth !=null and creditorRights.rightsWorth !=''">
+          and RIGHTS_WORTH = #{creditorRights.rightsWorth,jdbcType=DECIMAL}
+        </if>
+        <if test="creditorRights.lendPrice !=null and creditorRights.lendPrice !=''">
+          and LEND_PRICE = #{creditorRights.lendPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="creditorRights.applyRollOutTime !=null and creditorRights.applyRollOutTime !=''">
+          and APPLY_ROLL_OUT_TIME = #{creditorRights.applyRollOutTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="creditorRights.completeTime !=null and creditorRights.completeTime!=''">
+          and  COMPLETE_TIME = #{creditorRights.completeTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="creditorRights.lendUserId !=null and creditorRights.lendUserId!=''">
+          and cs.LEND_USER_ID = #{creditorRights.lendUserId,jdbcType=TIMESTAMP}
+        </if>
+      </if>
+      <if test="customParams != null">
+	      <if test="customParams.queryStatus!=null">
+	        and RIGHTS_STATE in
+	        <foreach collection="customParams.queryStatus" item="status" open="(" separator="," close=")">
+	          #{status,jdbcType=CHAR}
+	        </foreach>
+	      </if>
+	      <if test="customParams.fromWhere!=null">
+	        and FROM_WHERE = #{customParams.fromWhere,jdbcType=CHAR}
+	      </if>
+	   </if>
+    </where>
+    
+  </select>
+  <!-- 我的理财-省心计划-出借明细 条数 【结束】 -->
+  
+   <!-- 【省心计划】根据省心计划主出借订单ID，查询已经匹配到子标的债权列表 -->
+   <select id="getCreditorRightsByLendOrderPid" resultMap="BaseResultMap" parameterType="long">
+	   	select cr.*
+		from LEND_ORDER lo 
+		inner join CREDITOR_RIGHTS cr on cr.LEND_ORDER_ID = lo.LEND_ORDER_ID 
+		where lo.LEND_ORDER_PID = #{lendOrderPId,jdbcType=DECIMAL}
+   </select>
+   <!-- 【省心计划】根据用户ID，查询已经匹配到子标的债权列表 -->
+   <select id="getCreditorRightsByUserId" resultMap="BaseResultMap" parameterType="long">
+	   	select cr.*
+		from LEND_ORDER lo 
+		inner join CREDITOR_RIGHTS cr on cr.LEND_ORDER_ID = lo.LEND_ORDER_ID 
+		where lo.LEND_ORDER_PID in  (
+			select financeorder.lend_order_id from lend_order financeorder where financeorder.lend_user_id = #{userId}
+                    and financeorder.product_type = '2' and financeorder.order_state in ('1','2','5','6') 
+		) 
+   </select>
+
+</mapper>

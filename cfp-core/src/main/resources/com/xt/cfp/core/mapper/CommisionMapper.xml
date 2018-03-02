@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="COMMISION" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.Commision" >
+    <id column="COMMISION_ID" property="commisionId" jdbcType="DECIMAL" />
+    <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="RULES_ID" property="rulesId" jdbcType="DECIMAL" />
+    <result column="LEND_PRODUCT_ID" property="lendProductId" jdbcType="DECIMAL" />
+    <result column="BALANCE" property="balance" jdbcType="DECIMAL" />
+    <result column="CHANGE_DATE" property="changeDate" jdbcType="TIMESTAMP" />
+    <result column="USER_LEVEL" property="userLevel" jdbcType="CHAR" />
+    <result column="COMI_RATE" property="comiRate" jdbcType="DECIMAL" />
+    <result column="COMI_RATIO_TYPE" property="comiRatioType" jdbcType="CHAR" />
+    <result column="COMI_RATIO_BALANCE" property="comiRatioBalance" jdbcType="DECIMAL" />
+    <result column="LEND_ORDER_NAME" property="lendOrderName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    COMMISION_ID, LEND_ORDER_ID, USER_ID, RULES_ID, LEND_PRODUCT_ID, BALANCE, CHANGE_DATE, 
+    USER_LEVEL, COMI_RATE, COMI_RATIO_TYPE, COMI_RATIO_BALANCE,LEND_ORDER_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from COMMISION
+    where COMMISION_ID = #{commisionId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from COMMISION
+    where COMMISION_ID = #{commisionId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.Commision" >
+  	<selectKey keyProperty="commisionId" resultType="long" order="BEFORE">
+           select SEQ_COMMISION.nextval as commisionId from dual  
+      </selectKey>
+    insert into COMMISION (COMMISION_ID, LEND_ORDER_ID, USER_ID, 
+      RULES_ID, LEND_PRODUCT_ID, BALANCE, 
+      CHANGE_DATE, USER_LEVEL, COMI_RATE, 
+      COMI_RATIO_TYPE, COMI_RATIO_BALANCE,
+      LEND_ORDER_NAME)
+    values (#{commisionId,jdbcType=DECIMAL}, #{lendOrderId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{rulesId,jdbcType=DECIMAL}, #{lendProductId,jdbcType=DECIMAL}, #{balance,jdbcType=DECIMAL}, 
+      #{changeDate,jdbcType=TIMESTAMP}, #{userLevel,jdbcType=CHAR}, #{comiRate,jdbcType=DECIMAL}, 
+      #{comiRatioType,jdbcType=CHAR}, #{comiRatioBalance,jdbcType=DECIMAL},#{lendOrderName})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.Commision" >
+    insert into COMMISION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commisionId != null" >
+        COMMISION_ID,
+      </if>
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="rulesId != null" >
+        RULES_ID,
+      </if>
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID,
+      </if>
+      <if test="balance != null" >
+        BALANCE,
+      </if>
+      <if test="changeDate != null" >
+        CHANGE_DATE,
+      </if>
+      <if test="userLevel != null" >
+        USER_LEVEL,
+      </if>
+      <if test="comiRate != null" >
+        COMI_RATE,
+      </if>
+      <if test="comiRatioType != null" >
+        COMI_RATIO_TYPE,
+      </if>
+      <if test="comiRatioBalance != null" >
+        COMI_RATIO_BALANCE,
+      </if>
+      <if test="lendOrderName != null" >
+        LEND_ORDER_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commisionId != null" >
+        #{commisionId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null" >
+        #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="rulesId != null" >
+        #{rulesId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendProductId != null" >
+        #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="changeDate != null" >
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLevel != null" >
+        #{userLevel,jdbcType=CHAR},
+      </if>
+      <if test="comiRate != null" >
+        #{comiRate,jdbcType=DECIMAL},
+      </if>
+      <if test="comiRatioType != null" >
+        #{comiRatioType,jdbcType=CHAR},
+      </if>
+      <if test="comiRatioBalance != null" >
+        #{comiRatioBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderName != null" >
+        #{lendOrderName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.Commision" >
+    update COMMISION
+    <set >
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="rulesId != null" >
+        RULES_ID = #{rulesId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        BALANCE = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="changeDate != null" >
+        CHANGE_DATE = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLevel != null" >
+        USER_LEVEL = #{userLevel,jdbcType=CHAR},
+      </if>
+      <if test="comiRate != null" >
+        COMI_RATE = #{comiRate,jdbcType=DECIMAL},
+      </if>
+      <if test="comiRatioType != null" >
+        COMI_RATIO_TYPE = #{comiRatioType,jdbcType=CHAR},
+      </if>
+      <if test="comiRatioBalance != null" >
+        COMI_RATIO_BALANCE = #{comiRatioBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderName != null" >
+        LEND_ORDER_NAME = #{lendOrderName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where COMMISION_ID = #{commisionId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.Commision" >
+    update COMMISION
+    set LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      RULES_ID = #{rulesId,jdbcType=DECIMAL},
+      LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      BALANCE = #{balance,jdbcType=DECIMAL},
+      CHANGE_DATE = #{changeDate,jdbcType=TIMESTAMP},
+      USER_LEVEL = #{userLevel,jdbcType=CHAR},
+      COMI_RATE = #{comiRate,jdbcType=DECIMAL},
+      COMI_RATIO_TYPE = #{comiRatioType,jdbcType=CHAR},
+      COMI_RATIO_BALANCE = #{comiRatioBalance,jdbcType=DECIMAL},
+      LEND_ORDER_NAME = #{lendOrderName,jdbcType=VARCHAR}
+    where COMMISION_ID = #{commisionId,jdbcType=DECIMAL}
+  </update>
+  <select id="accountUserLevelProfit" parameterType="map" resultType="java.math.BigDecimal">
+  		select nvl(sum(c.balance),0) account from commision c
+  		<where>
+  			1=1
+  			<if test="userId != null">
+  				and c.user_id=#{userId,jdbcType=DECIMAL}
+  			</if>
+  			<if test="level != null">
+  				and c.user_level=#{level,jdbcType=VARCHAR}
+  			</if>
+  		</where>
+  </select>
+  <select id="findAllCommisionByPage" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+	  	select 
+	    <include refid="Base_Column_List" />
+	    from COMMISION c
+	    <where>
+	    	1=1
+	    	<if test="userId != null">
+				and c.user_id=#{userId,jdbcType=DECIMAL}    	
+	    	</if>
+	    	<if test="userLevel != null">
+				and c.USER_LEVEL=#{userLevel,jdbcType=VARCHAR}    	
+	    	</if>
+	    </where>
+  </select>
+  <select id="count_findAllCommisionByPage" resultType="int" parameterType="java.util.HashMap">
+  		select count(1)
+	    from COMMISION c
+	    <where>
+	    	1=1
+	    	<if test="userId != null">
+				and c.user_id=#{userId,jdbcType=DECIMAL}    	
+	    	</if>
+	    	<if test="userLevel != null">
+				and c.USER_LEVEL=#{userLevel,jdbcType=VARCHAR}    	
+	    	</if>
+	    </where>
+  </select>
+</mapper>

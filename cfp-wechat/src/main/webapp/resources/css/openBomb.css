@@ -1,0 +1,33 @@
+
+/*!
+ * about_us.css v1.0.0
+ * producer:bayaby
+ * Date: 2016-12-01 18:25;
+ * Modification personnel：~
+ * Modified time：~
+ */
+
+body,html{width: 100%;height: 100%;overflow: hidden;position: relative;}
+.bombMask{width: 100%;height: 100%;position: fixed;top: 0;left: 0;background: rgba(0,0,0,.5);}
+.bombBox{width: 90%;height: auto;position:absolute;top: 50%;left: 50%;margin-left: -45%;border-radius: 5px;overflow: hidden;}
+.bombHead{width: 100%;height: auto;position: relative;background: #2072d5;padding: 2rem 0;}
+.bombClose{width: 1.5rem;height: 1.5rem;background: url(../images/white_close.png) no-repeat;background-size: cover;position: absolute;right: 1rem;top: 1rem;z-index: 999;}
+.bombHead{width: 100%;text-align: center}
+.bombContent{width: 80%;height: 3rem;line-height: 3rem;border:1px solid #999;position: relative;margin: 0rem auto;border-radius: 3px;text-align: center;font-size: 1.2rem;color: #ff5c5d;}
+.bombContent span{display: block;background: #fff;width: 80%;font-size:.8rem;color:#999;position: absolute;left: 50%;margin-left: -40%;height: 2rem;line-height: 2rem;top: 2rem;}
+.bombContent span::before{content: "";width: 4px;height: 4px;background: #999;border-radius: 50%;position: absolute;left: 0;top: 50%;margin-top: -2px;}
+.bombContent span::after{content: "";width: 4px;height: 4px;background: #999;border-radius: 50%;position: absolute;right: 0;top: 50%;margin-top: -2px;}
+.bombBtn{width: 100%;height: 3rem;line-height: 3rem;display: -webkit-box;overflow: hidden;margin-top:-5px;}
+.bombBtn button{width: 50%;display: block;border:none;outline: none;font-size: 1.2rem;}
+.Temporarily{color: #ababab;background: #fff;}
+.immediately{background:#2072d5;color: #fff;}
+
+
+
+
+
+
+
+
+
+

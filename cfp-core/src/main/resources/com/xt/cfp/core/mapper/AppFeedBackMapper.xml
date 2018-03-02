@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="APP_FEED_BACK" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.AppFeedBack" >
+    <id column="FEEDBACK_ID" property="feedbackId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="CONTACT_INFO" property="contactInfo" jdbcType="VARCHAR" />
+    <result column="FEEDBACK_INFO" property="feedbackInfo" jdbcType="VARCHAR" />
+    <result column="FEEDBACK_SOURCE" property="feedbackSource" jdbcType="CHAR" />
+    <result column="SYSTEM_VERSION" property="systemVersion" jdbcType="VARCHAR" />
+    <result column="APP_VERSION" property="appVersion" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FEEDBACK_ID, USER_ID, CONTACT_INFO, FEEDBACK_INFO, FEEDBACK_SOURCE, SYSTEM_VERSION, 
+    APP_VERSION, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from APP_FEED_BACK
+    where FEEDBACK_ID = #{feedbackId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from APP_FEED_BACK
+    where FEEDBACK_ID = #{feedbackId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.AppFeedBack" >
+  	<selectKey keyProperty="feedbackId" order="BEFORE" resultType="long">
+      SELECT SEQ_APP_FEED_BACK.NEXTVAL as feedbackId FROM dual
+    </selectKey>
+    insert into APP_FEED_BACK (FEEDBACK_ID, USER_ID, CONTACT_INFO, 
+      FEEDBACK_INFO, FEEDBACK_SOURCE, SYSTEM_VERSION, 
+      APP_VERSION, CREATE_TIME)
+    values (#{feedbackId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{contactInfo,jdbcType=VARCHAR}, 
+      #{feedbackInfo,jdbcType=VARCHAR}, #{feedbackSource,jdbcType=CHAR}, #{systemVersion,jdbcType=VARCHAR}, 
+      #{appVersion,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.AppFeedBack" >
+    insert into APP_FEED_BACK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feedbackId != null" >
+        FEEDBACK_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="contactInfo != null" >
+        CONTACT_INFO,
+      </if>
+      <if test="feedbackInfo != null" >
+        FEEDBACK_INFO,
+      </if>
+      <if test="feedbackSource != null" >
+        FEEDBACK_SOURCE,
+      </if>
+      <if test="systemVersion != null" >
+        SYSTEM_VERSION,
+      </if>
+      <if test="appVersion != null" >
+        APP_VERSION,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feedbackId != null" >
+        #{feedbackId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="contactInfo != null" >
+        #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackInfo != null" >
+        #{feedbackInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackSource != null" >
+        #{feedbackSource,jdbcType=CHAR},
+      </if>
+      <if test="systemVersion != null" >
+        #{systemVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersion != null" >
+        #{appVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.AppFeedBack" >
+    update APP_FEED_BACK
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="contactInfo != null" >
+        CONTACT_INFO = #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackInfo != null" >
+        FEEDBACK_INFO = #{feedbackInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackSource != null" >
+        FEEDBACK_SOURCE = #{feedbackSource,jdbcType=CHAR},
+      </if>
+      <if test="systemVersion != null" >
+        SYSTEM_VERSION = #{systemVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersion != null" >
+        APP_VERSION = #{appVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FEEDBACK_ID = #{feedbackId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.AppFeedBack" >
+    update APP_FEED_BACK
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      CONTACT_INFO = #{contactInfo,jdbcType=VARCHAR},
+      FEEDBACK_INFO = #{feedbackInfo,jdbcType=VARCHAR},
+      FEEDBACK_SOURCE = #{feedbackSource,jdbcType=CHAR},
+      SYSTEM_VERSION = #{systemVersion,jdbcType=VARCHAR},
+      APP_VERSION = #{appVersion,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where FEEDBACK_ID = #{feedbackId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 根据用户名和创建时间获取反馈信息 -->
+  <select id="getAppFeedBackByUserIdAndCreateTime" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.AppFeedBack" >
+    select 
+    <include refid="Base_Column_List" />
+    from APP_FEED_BACK
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+    <![CDATA[ and CREATE_TIME = TO_DATE(#{createTime,jdbcType=TIMESTAMP}, 'yyyy-MM-dd') ]]>
+  </select>
+</mapper>

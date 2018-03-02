@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LOAN_APPLICATION_LOG" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LoanApplicationLog" >
+    <id column="LOG_ID" property="logId" jdbcType="DECIMAL" />
+    <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+    <result column="LOG_DESC" property="logDesc" jdbcType="VARCHAR" />
+    <result column="EXEC_TIME" property="execTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LOG_ID, TYPE_NAME, LOG_DESC, EXEC_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LOAN_APPLICATION_LOG
+    where LOG_ID = #{logId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LOAN_APPLICATION_LOG
+    where LOG_ID = #{logId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LoanApplicationLog" >
+    <selectKey keyProperty="logId" order="BEFORE" resultType="long">
+      SELECT SEQ_LOAN_APPLICATION_LOG.nextval FROM dual
+    </selectKey>
+    insert into LOAN_APPLICATION_LOG (LOG_ID, TYPE_NAME, LOG_DESC, EXEC_TIME)
+    values (#{logId,jdbcType=DECIMAL}, #{typeName,jdbcType=VARCHAR}, #{logDesc,jdbcType=VARCHAR},  #{execTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LoanApplicationLog" >
+    insert into LOAN_APPLICATION_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="typeName != null" >
+        TYPE_NAME,
+      </if>
+      <if test="logDesc != null" >
+        LOG_DESC,
+      </if>
+      <if test="execTime != null" >
+        EXEC_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=DECIMAL},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="logDesc != null" >
+        #{logDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="execTime != null" >
+        #{execTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LoanApplicationLog" >
+    update LOAN_APPLICATION_LOG
+    <set >
+      <if test="typeName != null" >
+        TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="logDesc != null" >
+        LOG_DESC = #{logDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="execTime != null" >
+        EXEC_TIME = #{execTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where LOG_ID = #{logId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LoanApplicationLog" >
+    update LOAN_APPLICATION_LOG
+    set TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      LOG_DESC = #{logDesc,jdbcType=VARCHAR},
+      EXEC_TIME = #{execTime,jdbcType=TIMESTAMP}
+    where LOG_ID = #{logId,jdbcType=DECIMAL}
+  </update>
+</mapper>

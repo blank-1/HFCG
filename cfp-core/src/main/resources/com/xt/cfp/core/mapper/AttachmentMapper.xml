@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ATTACHMENT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.Attachment" >
+    <id column="ATTACH_ID" property="attachId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="PHYSICAL_ADDRESS" property="physicalAddress" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="THUMBNAIL_URL" property="thumbnailUrl" jdbcType="VARCHAR" />
+    <result column="IS_CODE" property="isCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ATTACH_ID, USER_ID, TYPE, URL, PHYSICAL_ADDRESS, FILE_NAME, CREATE_TIME, THUMBNAIL_URL, IS_CODE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ATTACHMENT
+    where ATTACH_ID = #{attachId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getAttachmentBycusId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List"/>
+    from attachment where attach_id = 
+    (select attach_id from customer_upload_snapshot where snapshot_id = #{cusId,jdbcType=DECIMAL})
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ATTACHMENT
+    where ATTACH_ID = #{attachId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.Attachment" >
+  	<selectKey keyProperty="attachId" order="BEFORE" resultType="long">
+      SELECT SEQ_ATTACHMENT.NEXTVAL as resId FROM dual
+    </selectKey>
+    insert into ATTACHMENT (ATTACH_ID, USER_ID, TYPE, 
+      URL, PHYSICAL_ADDRESS, FILE_NAME, 
+      CREATE_TIME, THUMBNAIL_URL,IS_CODE)
+    values (#{attachId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{type,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{physicalAddress,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{thumbnailUrl,jdbcType=VARCHAR},#{isCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.Attachment" >
+    insert into ATTACHMENT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attachId != null" >
+        ATTACH_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="physicalAddress != null" >
+        PHYSICAL_ADDRESS,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="thumbnailUrl != null">
+      	THUMBNAIL_URL,
+      </if>
+      <if test="isCode != null">
+      	IS_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attachId != null" >
+        #{attachId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="physicalAddress != null" >
+        #{physicalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thumbnailUrl != null">
+      	#{thumbnailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isCode != null">
+      	#{isCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.Attachment" >
+    update ATTACHMENT
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="physicalAddress != null" >
+        PHYSICAL_ADDRESS = #{physicalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thumbnailUrl != null">
+      	THUMBNAIL_URL = #{thumbnailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isCode != null">
+      	IS_CODE = #{isCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ATTACH_ID = #{attachId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.Attachment" >
+    update ATTACHMENT
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      TYPE = #{type,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      PHYSICAL_ADDRESS = #{physicalAddress,jdbcType=VARCHAR},
+      FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      THUMBNAIL_URL = #{thumbnailUrl,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      IS_CODE = #{isCode,jdbcType=VARCHAR}
+    where ATTACH_ID = #{attachId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getAttachmentByentId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List"/>
+    from attachment where attach_id = 
+    (select attach_id from ENTERPRISE_UPLOAD_SNAPSHOT where snapshot_id = #{cusId,jdbcType=DECIMAL})
+  </select>
+</mapper>

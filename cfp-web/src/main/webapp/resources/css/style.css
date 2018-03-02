@@ -1,0 +1,2285 @@
+@charset "utf-8";
+/* CSS Document */
+
+.clear{clear:both;}
+.clear_0{height:0px;clear:both;}
+.clear_5{height:5px;clear:both;}
+.clear_10{height:10px;clear:both;}
+.clear_15{height:15px;clear:both;}
+.clear_20{height:20px;clear:both;}
+.clear_25{height:25px;clear:both;}
+.clear_30{height:30px;clear:both;}
+.clear_50{height:50px;clear:both;}
+.clear_60{height:60px;clear:both;}
+.clear_70{height:70px;clear:both;}
+.clear_80{height:80px;clear:both;}
+.clear_90{height:90px;clear:both;}
+.clear_100{height:100px;clear:both;}
+.pRight{margin-top:0px!important;}
+.p-nav-g ul li b{margin-right:10px;}
+/*--- apple ipad mini 横屏---*/
+@media (max-width:768px){
+	.dSidebar{display:none;}
+}
+
+/* ---- news center ---- */
+/* ---- news.css ---- */
+.news_con{width:100%;height:50px;background:#333;}
+.news_column{width:100%;margin-top:25px;}
+.i-bg i{width:26px;height:26px;background:url(../images/news_icon/news_icon.png) 0 0;float:left;margin-top:6px;margin-right:5px;}
+.i-bg2 i{width:26px;height:26px;background:url(../images/news_icon/news_icon.png) 0 -45px;float:left;margin-top:6px;margin-right:5px;}
+.i-bg3 i{width:26px;height:26px;background:url(../images/news_icon/news_icon.png) 0 -90px;float:left;margin-top:6px;margin-right:5px;}
+.i-bg4 i{width:26px;height:26px;background:url(../images/news_icon/news_icon.png) 0 -135px;float:left;margin-top:6px;margin-right:5px;}
+.news_column span{font-size:25px;color:#333;}
+.news_column a{float:right;line-height:35px;}
+.news_content{width:100%;margin-top:25px;}
+.news_main hr{width:100%;float:left;color:#ccc;margin:30px 0 25px 0;}
+.col-md-3{width:23%;float:left;margin:0 1%;}
+.col-md-3 p{font-size:12px;line-height:25px;}
+.news-titles a{font-size:14px;color:#ff3333;margin-bottom:20px;display:block;}
+.news_crumbs .loanlist_i{color:#ff6666;}
+.news_crumbs{width:1170px;height:50px;line-height:50px;text-align:left;font-size:12px;color:#fff;margin:0 auto;padding:0 15px;font-family:"MicroSoft YaHei";}
+.news_crumbs a{color:#fff!important;}
+.news_banner{width:100%;height:128px;background:url(../images/news_icon/news_banner.jpg) no-repeat center;}
+.news_bn_title{width:1170px;margin:0 auto;padding:0 15px;text-align:left;font-size:30px;line-height:128px;color:#fff;font-family:"MicroSoft YaHei";}
+.news_main{width:1170px;padding:0 15px;margin:0 auto;}
+
+@media (max-width:1200px) and (min-width:1024px){
+	.news_crumbs{width:1024px;height:50px;line-height:50px;text-align:left;font-size:12px;color:#fff;margin:0 auto;padding:0 15px;font-family:"MicroSoft YaHei";}
+	.news_banner{width:100%;height:;background:url(../images/news_icon/news_banner.jpg) no-repeat center;}
+	.news_bn_title{width:1024px;margin:0 auto;padding:0 15px;text-align:left;font-size:20px;line-height:70px;color:#fff;font-family:"MicroSoft YaHei";}
+	.news_main{width:1024px;padding:0 15px;margin:0 auto;}
+}
+@media (max-width:1024px) and (min-width:950px){
+	.news_crumbs{width:950px;height:50px;line-height:50px;text-align:left;font-size:12px;color:#fff;margin:0 auto;padding:0 15px;font-family:"MicroSoft YaHei";}
+	.news_banner{max-width:100%;height:;background:url(../images/news_icon/news_banner.jpg) no-repeat center;}
+	.news_bn_title{width:950px;margin:0 auto;padding:0 15px;text-align:left;font-size:14px;color:#fff;font-family:"MicroSoft YaHei";}
+	.news_main{width:950px;padding:0 15px;margin:0 auto;}
+}
+@media (max-width:992px) and (min-width:768px){
+	.news_crumbs{width:768px;height:50px;line-height:50px;text-align:left;font-size:12px;color:#fff;margin:0 auto;padding:0 15px;font-family:"MicroSoft YaHei";}
+	.news_banner{max-width:100%;height:;background:url(../images/news_icon/news_banner.jpg) no-repeat center;}
+	.news_bn_title{width:768px;margin:0 auto;padding:0 15px;text-align:left;font-size:14px;line-height:53px;color:#fff;font-family:"MicroSoft YaHei";}
+	.news_main{width:768px;padding:0 15px;margin:0 auto;}
+} 
+@media (max-width:768px) and (min-width:567px){
+	.news_crumbs{width:740px;height:50px;line-height:50px;text-align:left;font-size:12px;color:#fff;margin:0 auto;padding:0 15px;font-family:"MicroSoft YaHei";}
+	.news_bn_title{display:none;}
+	.news_main{width:567px;padding:0 15px;margin:0 auto;}
+	.news_column{width:567px;margin-top:25px;}
+	.col-md-3{width:48%;float:left;margin:0 1%;}
+}
+/*--- apple iphone6 plus---*/
+@media (max-width:567px) and (min-width:414px){
+	.news_crumbs{width:384px;height:50px;line-height:50px;text-align:left;font-size:12px;color:#fff;margin:0 auto;padding:0 15px;font-family:"MicroSoft YaHei";}
+	.news_bn_title{display:none;}
+	.news_main{width:384px;padding:0 15px;margin:0 auto;}
+	.news_column{margin-top:25px;}
+	.col-md-3{width:98%;float:left;margin:0 1%;}
+}
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.news_crumbs{width:345px;height:50px;line-height:50px;text-align:left;font-size:12px;color:#fff;margin:0 auto;padding:0 15px;font-family:"MicroSoft YaHei";}
+	.news_bn_title{display:none;}
+	.news_more_title{display:none;}
+	.span_ri{display:none;}
+	.news_main{width:345px;padding:0 15px;margin:0 auto;}
+	.news_column{margin-top:25px;}
+	.col-md-3{width:98%;float:left;margin:0 1%;}
+}
+/*--- apple iphone5 and apple iphone4---*/
+@media (max-width:320px){
+	.news_crumbs{width:290px;height:50px;line-height:50px;text-align:left;font-size:12px;color:#fff;margin:0 auto;padding:0 15px;font-family:"MicroSoft YaHei";}
+	.news_bn_title{display:none;}
+	.news_more_title{display:none;}
+	.news_more_titles .span_le a{font-size:18px!important;}
+	.news_main{width:290px;padding:0 15px;margin:20px auto 0;}
+	.news_column{margin-top:25px;}
+	.col-md-3{width:98%;float:left;margin:0 1%;}
+}
+
+/* ---- news_more.css ---- */
+.news_more_titles .span_le a{float:left;font-size:24px;color:#ff3333;display:block;}
+.news_more_titles .span_ri{float:right;font-size:12px;color:#999;}
+@media (min-width:1200px){   
+	.news_more_title{width:1170px;padding:0 15px;margin:25px auto;text-align:left;font-size:30px;color:#333;}
+	.news_more{width:1200px;}
+	.news_more .news_more_main{width:1200px;float:left;font-size:12px;color:#333;margin-top:30px;}
+	.news_more_titles{width:1200px;}
+}
+@media (max-width:1200px) and (min-width:1024px){
+	.news_more_title{width:1000px;padding:0 15px;margin:25px auto;text-align:left;font-size:30px;color:#333;}
+	.news_more{width:1000px;}
+	.news_more .news_more_main{width:1000px;float:left;font-size:12px;color:#333;margin-top:30px;}
+	.news_more_titles{width:1000px;}
+}
+@media (max-width:1024px) and (min-width:992px){
+	.news_more_title{width:950px;padding:0 15px;margin:25px auto;text-align:left;font-size:30px;color:#333;}
+	.news_more{width:950px;}
+	.news_more .news_more_main{width:950px;float:left;font-size:12px;color:#333;margin-top:30px;}
+	.news_more_titles{width:950px;}
+}
+@media (max-width:992px) and (min-width:768px){
+	.news_more_title{width:768px;padding:0 15px;margin:25px auto;text-align:left;font-size:30px;color:#333;}
+	.news_more{width:768px;}
+	.news_more .news_more_main{width:768px;float:left;font-size:12px;color:#333;margin-top:30px;}
+	.news_more_titles{width:768px;}
+}
+@media (max-width:768px) and (min-width:567px){
+	.news_more_title{width:500px;padding:0 15px;margin:25px auto;text-align:left;font-size:30px;color:#333;}
+	.news_more{width:500px;}
+	.news_more .news_more_main{width:500px;float:left;font-size:12px;color:#333;margin-top:30px;}
+	.news_more_titles{width:500px;}
+}
+@media (max-width:567px) and (min-width:414px){
+	.news_more_title{padding:0 15px;margin:25px auto;text-align:left;font-size:30px;color:#333;}
+	.news_more .news_more_main{float:left;font-size:12px;color:#333;margin-top:30px;}
+	.news_more_titles .span_ri{display:none;}
+}
+
+
+
+/* ---- loanlist( cjlb ).css ---- */
+.content{width:1172px;height:auto;margin:0 auto;}
+.loanlist{border:1px #e4e1dc solid;margin-top:25px;}
+.loanlist-top{height:50px;line-height:50px;border-bottom:1px #e4e1dc solid;}
+.loanlist-top-le{float:left;padding-left:30px;font-size:20px;color:#333;}
+.loanlist-top-le font{margin-left:10px;}
+.loanlist-top-ri{float:right;padding-right:30px;}
+.loanlist-top-ri .loanlist_xieyi{display:block;margin-right:20px;float:left;}
+.loanlist-top-ri a{font-size:12px;color:#999;}
+.loanlist-bot-le{width:689px;float:left;height:auto;margin:30px 0;padding-bottom:30px;border-right:1px #e4e1dc solid;}
+.loanlist-bot-div{width:28%;height:auto;float:left;padding-left:30px;margin-top:30px;padding-bottom:30px;font-size:16px;color:#333;border-right:1px dashed #e4e1dc;}
+.loanlist-bot-div big{font-size:30px;color:#333;}
+.loanlist-bot-div big small{font-size:14px;color:#333;}
+/*ldy*/
+.loanlist-bot-div1{width:20%;height:auto;float:left;padding-left:30px;margin-top:30px;padding-bottom:30px;font-size:16px;color:#333;border-right:1px dashed #e4e1dc;}
+.loanlist-bot-div1 big{font-size:30px;color:#333;}
+.loanlist-bot-div1 big small{font-size:14px;color:#333;}
+.loanlist-bot-div1 .loanlist-bot-div1-big-zcjg{color:#f66;}
+
+.loanlist-bot-div2{width:14%;height:auto;float:left;padding-left:30px;margin-top:30px;padding-bottom:30px;font-size:16px;color:#333;border-right:1px dashed #e4e1dc;}
+.loanlist-bot-div2 big{font-size:30px;color:#333;}
+.loanlist-bot-div2 big small{font-size:14px;color:#333;}
+/*ldy end*/
+.lb-br-none{border-right:none;}
+.loanlist-bot-div .lb-jdt{width:100%;}
+.loanlist-bot-div .lb-jdt .lb-word{float:left;}
+.loanlist-bot-div .lb-jdt .lb-prored{width:40%;float:left;height:5px;margin:9px 5px 0 5px;background:#ccc;}
+.loanlist-bot-div .lb-jdt .lb-prored .prored{width:33%;height:5px;background:#ff6666;}
+.loanlist-bot-le-bt-le{width:37%;float:left;}
+.loanlist-bot-le-bt-le p{padding-left:30px;line-height:30px;}
+.list-bot-icon1{width:20px;height:15px;display:block;float:left;margin-top:9px;background:url(../images/news_icon/loanlist_icon.png) 0 0;}
+.list-bot-icon2{width:20px;height:15px;display:block;float:left;margin-top:8px;background:url(../images/news_icon/loanlist_icon.png) 0 -59px;}
+.list-bot-icon3{width:20px;height:15px;display:block;float:left;margin-top:8px;background:url(../images/news_icon/loanlist_icon.png) 0 -27px;}
+.list-bot-icon4{width:20px;height:15px;display:block;float:left;margin-top:8px;background:url(../images/news_icon/loanlist_icon.png) 0 -89px;}
+.list-bot-icon5{width:20px;height:15px;display:block;float:left;margin-top:8px;background:url(../images/news_icon/loanlist_icon_1.png) no-repeat;}
+.list-bot-word{color:#ff6666;}
+.loanlist-bot-le-bt-ri{width:50%;float:left;}
+.loanlist-bot-le-bt-ri p{line-height:30px;}
+.loanlist-bot-ri{width:480px;float:left;height:auto; position: relative;}
+.loanlist-bot-ri .list-tip{height:25px;line-height:25px;font-size:12px;color:red;}
+.loanlist-bot-ri .list-tip img{vertical-align:middle; margin-right:5px;margin-bottom:2px;}
+.loanlist-bot-ri .hui{height:25px;line-height:25px;font-size:12px;color:#999;}
+.loanlist-bot-ri p{margin-left:20px;font-size:14px;color:#333;line-height:25px;}
+.loanlist-bot-ri p i{color:#999;}
+.loanlist-bot-ri .biao,.recommendR .biao{ display: inline-block; height: 120px; width: 145px; position: absolute; top: 70px; left: 28%; z-index: 99;}
+.loanlist-bot-ri .biao1{ background: url(../images/writeying/dxb_icon.png) no-repeat;}/*定向标*/
+.loanlist-bot-ri .biao2{ background: url(../images/writeying/payback1.png) no-repeat;}/*还款中*/
+.loanlist-bot-ri .biao3{ background: url(../images/writeying/payback2.png) no-repeat;}/*满标*/
+.loanlist-bot-ri .biao4{ background: url(../images/writeying/payback3.png) no-repeat;}/*已结清*/
+.loanlist-bot-ri .biao5{ background: url(../images/writeying/payback4.png) no-repeat;}/*预热中*/
+.loanlist-bot-ri .biao6{ background: url(../images/fdetail/sq_icon.png) no-repeat;}/*已售罄*/
+.recommendR .biao7{ background: url(../images/shengxin/l_fullMoney.png) no-repeat;}/*已售罄*/
+.recommendR .biao8{ background: url(../images/shengxin/biao_finance_ywc.png) no-repeat;}/*已完结*/
+.recommendR .biao9{  background: url(../images/writeying/payback4.png) no-repeat;}/*省心预热中*/
+
+
+/*定向标-定向密码页面 */
+.loanlist-bot-ri{position:relative;}
+.detail-dxb{position:absolute;z-index:9999;top:50px;left:20px;width:357px;height:auto;background:#F7F7F7;border:1px #ddd solid;text-align:center;padding:50px 40px 41px;}
+.detail-dxb-title{font-size:16px;color:#333366;font-family:"MicroSoft YaHei";margin-top:10px;}
+.detail-dxb-tip{font-size:12px;color:#333;}
+.detail-dxb-tip span{color:#333366;}
+.detail-dxb-tip span a{color:#333366;}
+.phonevacs .pipt{width:40px!important;margin-left:-5px;height:30px;line-height:30px;border:1px solid #ccc;margin-top:15px;margin-bottom:5px;text-align:center;font-size:20px;padding-left:0!important;}
+.phonevacs #piptime{margin-left:3px;}
+.phonevacs #piptime4{margin-left:-6px}
+.detail-dxb em{height:20px;display:block;float:left;margin-left:56px;color:red;}
+.detail-dxb em img{vertical-align:middle;margin-top:-3px;}
+
+.yue-color{color:#ff6666;}
+.list-cfq{width:200px;height:25px;line-height:25px;text-indent:5px;font-size:12px;float:left;border:1px #e4e1dc solid;display:block;border-radius:3px;}
+.list-cfq font{color:#f66;}
+.list-cfq em{float:right;}
+.list-cfq .shang{float:right;padding-right:5px;width:13px;height:13px;margin-left:5px;margin-top:6px;background:url(../images/news_icon/shang.png) no-repeat;cursor:pointer;}
+.list-cfq .xia{float:right;padding-right:5px;width:13px;height:13px;margin-left:5px;margin-top:6px;background:url(../images/news_icon/xia.png) no-repeat;cursor:pointer;}
+.list-cfq-main{height:25px;line-height:25px;display:block;float:left;font-size:12px;color:#999;margin-left:10px;}
+.list-cfq-xl{width:200px;z-index:999;position:relative;margin-left:20px;border-top:0;display:none;}
+.list-cfq-je{width:200px;z-index:9999;position:absolute;background:#fff;border-top:0;border:1px solid #e4e1dc;border-top:0;border-radius:0 0 3px 3px;}
+.list-cfq-img{width:202px;position: absolute; top:20px; z-index: 9999; border:none;}
+.list-cfq-img .list-img-ile img{float:left;margin-left:-1px;}
+.list-cfq-img .list-img-iri img{float:right;}
+.list-cfq-je p{width:200px;float:left;border-bottom:1px dashed #e4e1dc;margin-left:0;font-size:12px;text-indent:5px;}
+.list-cfq-je .list-p-bor-none{border-bottom:none;}
+.list-cfq-je p em{float:left;}
+.list-cfq-je p i{float:right;margin-right:5px;}
+.list-cfq-je p i a{font-size:12px;color:#999;}
+.clear_50{height:50px;}
+.mt-20{margin-top:20px!important;}
+.list-inpit{position:relative;width:200px;height:50px;display:block;float:left;}
+.list-inpit em{position:absolute;right:10px;line-height:48px;font-size:20px;color:#ff6666;cursor:pointer;}
+.list-inpit input{width:200px;height:48px;line-height:48px;text-indent:5px;border:1px #e4e1dc solid;display:block;float:left;border-radius:5px;}
+.list-btn{width:200px;height:50px;display:block;float:left;}
+.list-btn button{width:200px;height:50px;border:0;background:#ff6666;display:block;float:left;margin-left:8px;border-radius:5px;font-size:16px;color:#fff;cursor:pointer;}
+.list-btn button[disabled]{background:pink;}
+/*.list-btn button:hover{background:#FE3859;}*/
+.list-toub{width:200px;height:25px;line-height:25px;display:block;float:left;}
+.list-toub .btn-big{width:70px;height:23px;line-height:23px;background:#EEEEEE;border:0;cursor:pointer;border-radius:3px;font-size:12px;font-family: 'MicroSoft YaHei';}
+.list-toub .btn-small{width:70px;height:23px;line-height:23px;background:#EEEEEE;border:0;cursor:pointer;margin-left:5px;border-radius:3px;font-size:12px;font-family: 'MicroSoft YaHei';}
+.list-shouy{width:200px;height:25px;line-height:25px;display:block;float:left;margin-left:10px;}
+.list-shouy em{color:#ff6666;}
+.list_tab{width:1172px; margin:25px auto 0;}
+.list_tab h6{font-size:16px; border:1px solid #E4E1DC;height:55px;line-height:55px;color:#333;}
+.list_tab h6 span{float:left; width:15%; height:55px; line-height:55px; text-align:center; display:inline; cursor:pointer; border:1px solid #E4E1DC; border-top:none; border-left:0;position:relative; margin-bottom:-2px;}
+/*ldy*/
+.list_tab h6 em{float:left; width:135px; height:55px; line-height:55px; text-align:center; display:inline; cursor:pointer; font-style:normal; color:#333; font-size:18px;}
+/*ldy end*/
+.current{ color:red; position:relative; z-index:999; border-bottom:1px solid #fff; background:#F7F7F7;}
+.list_tab .div{clear:both; display:none; height:auto; border:1px solid #E4E1DC; border-top:none; }
+.list_tab .block{display:block;border:1px solid #E4E1DC; border-top:0; }
+.list_tab .block .list-box-main{height:auto;margin:0 30px;padding-bottom:15px;border-bottom:1px dashed #e4e1dc;word-break: break-all;}
+.list_tab .block .box-mb-none{border-bottom:0;}
+.list_tab .block .list-box-main p{line-height:30px;font-size:12px;color:#333;}
+.list_tab .block .list-box-main dl dd{line-height:30px;font-size:12px;color:#333;}
+.list_tab .block .list-box-main ul{width:33.3%;float:left;}
+.list_tab .block .list-box-main ul li{width:100%;line-height:30px;font-size:12px;color:#333;float:left;}
+.list_tab .block .list-box-main ul li em{width:12px;height:12px;display: inline-block;margin-bottom:-1px;margin-right:5px;background:url(../images/news_icon/loanlist_icon.png) 0 -317px;}
+.list_tab .block .list-box-main .list-box-title{padding-top:20px;font-size:16px;color:#333;}
+.list_tab .block .list-box-main p .list-i-1{width:16px;height:16px;display:inline-block;margin-bottom:-3px;margin-right:10px;background:url(../images/news_icon/loanlist_icon.png) 0 -118px;}
+.list_tab .block .list-box-main p .list-i-2{width:16px;height:16px;display:inline-block;margin-bottom:-3px;margin-right:10px;background:url(../images/news_icon/loanlist_icon.png) 0 -151px;}
+.list_tab .block .list-box-main p .list-i-3{width:16px;height:16px;display:inline-block;margin-bottom:-3px;margin-right:10px;background:url(../images/news_icon/loanlist_icon.png) 0 -183px;}
+.list_tab .block .list-box-main p .list-i-4{width:16px;height:16px;display:inline-block;margin-bottom:-3px;margin-right:10px;background:url(../images/news_icon/loanlist_icon.png) 0 -216px;}
+.list_tab .block .list-box-main p .list-i-5{width:16px;height:16px;display:inline-block;margin-bottom:-3px;margin-right:10px;background:url(../images/news_icon/loanlist_icon.png) 0 -249px;}
+.list_tab .block .list-box-main p .list-i-6{width:16px;height:16px;display:inline-block;margin-bottom:-3px;margin-right:10px;background:url(../images/news_icon/loanlist_icon.png) 0 -280px;}
+.list_tab .block .list-box-main p .list-i-wyd{width:16px;height:16px;display:inline-block;margin-bottom:-3px;margin-right:10px;background:url(../images/index_new/car.png) no-repeat;background-size: cover}
+.list-ul{padding:0 30px;}
+.list-ul li ul li{float:left;height:50px;line-height:50px;width:33.3%;text-align:center;}
+.list-ul li{height:50px;line-height:50px;}
+.list-ul .list-ul-first{border-bottom:1px dashed #e4e1dc;}
+.list-ul .list-ul-li-bg{background:#F7F7F7;}
+
+/*企业标信息*/
+.list_tab .div .list-box-main{height:auto;margin:0 30px;padding-bottom:15px;border-bottom:1px dashed #e4e1dc;}
+.list_tab .div .list-box-main p{line-height:30px;font-size:12px;color:#333;}
+.list_tab .div .list-box-main .list-box-title{padding-top:20px;font-size:16px;color:#333;}
+.list_tab .div .box-mb-none{border-bottom:0;}
+.list_tab .div .list-box-main ul{width:33.3%;float:left;}
+.list_tab .div .list-box-main ul li{width:100%;line-height:30px;font-size:12px;color:#333;float:left;}
+.list_tab .div .list-box-main p .list-i-qy{width:16px;height:16px;display:inline-block;margin-bottom:-3px;margin-right:10px;background:url(../images/news_icon/qy_icon.png) 0 0px;}
+.list_tab .div .list-box-main p .list-i-qy2{width:16px;height:16px;display:inline-block;margin-bottom:-3px;margin-right:10px;background:url(../images/news_icon/qy_icon.png) 0 -47px;}
+#wangsitu .ftable{ margin:15px 0; border:1px solid #999999; width:100%; text-align:center; line-height:30px;}
+#wangsitu .ftable tr{ border-top:1px solid #999999;}
+#wangsitu .ftable .ttitle{border-top:none;}
+
+/*图片滚动样式*/
+#photo {width:1050px; margin: 0 auto;float:left;}
+#photo .Cont {width:1050px;margin: 0 auto; overflow: hidden;clear: both;}
+#photo .ScrCont {float: left;width: 100000px;}
+#photo .List1, .List2 {float: left;}
+#photo .List1 div, #photo .List2 div {width:184px;margin:5px 13px;float:left;}
+#photo .List1 div img, #photo .List2 div img {width:184px;height:148px;display: block;}
+.main_lunbo{width:;margin:0 auto;}
+.leftbtn,.rightbtn{ width:12px;height:17px; display:inline-block; float:left; margin-top:65px; cursor:pointer;}
+.leftbtn{background:url(../images/img/left_icon.png) no-repeat;}
+.rightbtn{background:url(../images/img/right_icon.png) no-repeat;}
+.list-pic-p{position:relative;}
+.list-pic-p p{position:absolute;width:184px;text-align:center;height:30px;line-height:30px;margin-top:-30px;z-index:999;opacity:0.5;background:#333;color:#fff!important;}
+
+/*--- 基金项目详情 ----*/
+.projectDetail,.usrallyQuest{ margin:0px 40px 30px 40px; padding-top:40px;}
+.projectDetail .prl{ line-height:45px;}
+.projectDetail .prl span{ display:inline-block;}
+.projectDetail .pryhui{ background:#fafafa}
+.projectDetail .prybai{background:#fff}
+.projectDetail .prl .prl1{ width:240px; text-align:right; margin-right:20px;}
+.projectDetail .proa{ text-decoration:underline; color:#03004D; cursor:pointer}
+.usrallyQuest h2{ background:url(../images/fdetail/usuallyQuest_03.png) 0px center no-repeat; height:50px; line-height:50px; padding-left:30px; font-size:16px; color:#333;}
+.usrallyQuest p{ margin-left:30px; color:#999}
+
+/*--- 弹窗 ----*/
+.masklayer{width:600px!important;}
+.masklayer .groupbtn button.btn{height:40px;}
+.list-xieyi{color:#00ccff!important;}
+.list-xieyi2{margin-left:113px;}
+.masklayer .groupbtn button.btn{width:120px!important;}
+.agreenment2{margin:10px auto;}
+
+.ipt-check{float:left;}
+.ahui{float:left;line-height:12px;}
+
+
+/* 借款详情help-tip */
+.help-tips{position:relative;text-align:center;width:24px;font-size:14px;line-height:26px;cursor:default}
+/*.help-tips p{display:block;transform-origin:100% 0%;-webkit-animation:fadeIn 0.3s ease-in-out;animation:fadeIn 0.3s ease-in-out;filter:alpha(opacity=80);-moz-opacity:0.8;opacity:0.8;}*/
+.help-tips p{display:block;text-align:center;background-color:#525252;padding:5px 3px;width:190px;position:absolute;border-radius:3px;box-shadow:1px 1px 1px rgba(0, 0, 0, 0.2);left: -30px;color:#FFF;font-size:12px;line-height:1.4;z-index:9999;top:43px;}
+.help-tips p img{vertical-align:middle;margin:-3px 5px 0;}
+.help-tips p:before{position:absolute;content:'';width:0;height:0;border:6px solid transparent;border-bottom-color:#525252;right:45%;top:-12px;}
+.help-tips p:after{width:100%;height:40px;content:'';position:absolute;top:-40px;left:0;}
+@-webkit-keyframes fadeIn {
+	0% { 
+		opacity:0; 
+		transform:scale(0.6);
+	}
+
+	100% {
+		opacity:100%;
+		transform:scale(1);
+	}
+}
+@keyframes fadeIn {
+	0% { opacity:0; }
+	100% { opacity:100%; }
+}
+
+/*--- 提交后弹窗 ----*/
+.flbuy{ line-height:35px; width:465px; margin:0 auto; margin-top:20px; color:#333333;}
+.flbuy span{ display:inline-block; float:left; }
+.flbuy span.fsp1{ width:90px;}
+
+/*---- 合同弹窗 ----*/
+.agreenment{ width:700px; margin:0 auto; font-family:'SimSun'; color:#333333; line-height:30px;}
+.agreenment>h2{ font-size:18px; font-weight:bold; text-align:center;}
+.agreenment p,.agreenment h4{ text-indent:2em;}
+.agreenment h3,.agreenment h4{ font-weight:bold;}
+.agreenment .atable{ color:#333333; line-height:30px; margin:20px 0; width:100%; text-align:center; border-top:1px solid #333333; border-left:1px solid #333333;}
+.agreenment .atable tr td{ border-bottom:1px solid #333333; border-right:1px solid #333333;}
+.agreenment2{ width:93%; margin:10px auto; height:400px; overflow-y:scroll;}
+.width103{ width:103px; display:inline-block;margin:0 auto;}
+.agreen2{ position:relative;}
+.agreen2 .zhang{ position:absolute; width:180px; height:180px; background:url(../images/credibility/argreen.png) center center no-repeat; left:180px; top:100px;}
+.lb-jdt2{display:none;}
+
+/*--- apple ipad mini ---*/
+@media (max-width:1024px) and (min-width:992px){
+	.content{width:950px;}
+	.loanlist-bot-le{width:500px;padding-left:20px;}
+	.loanlist-bot-div big{font-size:20px;}
+	.loanlist-bot-ri{width:400px;}
+	.loanlist-bot-div ,.loanlist-bot-le-bt-le p {padding-left:10px;}
+	.list-inpit em{font-size:14px;line-height:40px;}
+	.list-cfq-img{width:152px;}
+	.list-cfq ,.list-cfq-xl ,.list-cfq-je ,.list-cfq-je p{width:150px;}
+	.list-btn ,.list-btn button ,.list-inpit ,.list-shouy{width:150px;height:38px;line-height:38px;font-size:14px;font-family: 'MicroSoft YaHei';}
+	.list-inpit input{width:150px;height:36px;line-height:36px;}
+	.clear_50{height:15px;}
+	.list_tab{width:950px;}
+	#photo ,#photo .Cont{width:850px;}
+	.lb-jdt2{display:none;}
+	.loanlist-bot-div1{padding-left:10px;}
+}
+@media (max-width:992px) and (min-width:768px){
+	.content{width:766px;}
+	.loanlist-top-le{padding-left:10px;}
+	.loanlist-bot-le{width:347px;padding-left:0px;}
+	.loanlist-bot-div big{font-size:16px;}
+	.loanlist-bot-ri{width:400px;}
+	.loanlist-bot-div ,.loanlist-bot-le-bt-le p {padding-left:10px;}
+	.loanlist-bot-le-bt-le{width:50%;}
+	.list-inpit em{font-size:14px;line-height:40px;}
+	.list-cfq-img{width:152px;}
+	.list-cfq ,.list-cfq-xl ,.list-cfq-je ,.list-cfq-je p{width:150px;}
+	.list-btn ,.list-btn button ,.list-inpit ,.list-shouy{width:150px;height:38px;line-height:38px;font-size:14px;font-family: 'MicroSoft YaHei';}
+	.list-inpit input{width:150px;height:36px;line-height:36px;}
+	.clear_50{height:15px;}
+	.list_tab{width:768px;}
+	#photo ,#photo .Cont{width:680px;}
+	#photo .List1 div, #photo .List2 div{margin: 5px 20px;}
+	.loanlist-bot-div .lb-jdt .lb-word{font-size:10px;}
+	.lb-jdt2{display:none;}
+}
+@media (max-width:768px) and (min-width:567px){
+	.content{width:740px;}
+	.loanlist-top-le{padding-left:10px;}
+	.loanlist-bot-le{width:100%;padding-left:0px;}
+	.loanlist-bot-div big{font-size:16px;}
+	.loanlist-top-ri a{width:400px;display:none!important;}
+	.loanlist-bot-div ,.loanlist-bot-le-bt-le p {padding-left:10px;}
+	.loanlist-bot-le-bt-le{width:50%;}
+	.list-inpit em{font-size:14px;line-height:40px;}
+	.list-cfq-img{width:152px;}
+	.list-cfq ,.list-cfq-xl ,.list-cfq-je ,.list-cfq-je p{width:150px;}
+	.list-btn ,.list-btn button ,.list-inpit ,.list-shouy{width:150px;height:38px;line-height:38px;font-size:14px;font-family: 'MicroSoft YaHei';}
+	.list-inpit input{width:150px;height:36px;line-height:36px;}
+	.clear_50{height:15px;}
+	.list_tab{width:740px;}
+	.list-box-bnone-last{border-bottom:none!important;}
+	.box-mb-none{display:none;}
+	.lb-jdt2{display:none;}
+	.loanlist-bot-div1{padding-left:10px;}
+}
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px) {
+	.content{width:95%;}
+	.loanlist-top-le{font-size:12px;font-family: 'MicroSoft YaHei';padding-left:5px;}
+	.loanlist-bot-le ,.loanlist-bot-ri{width:393px;border-right:none;margin:0;}
+	.list-cfq-main{margin-left:0px;}
+	.loanlist-bot-div big{font-size:18px;}
+	.loanlist-bot-div{padding-bottom:0px;}
+	.loanlist-bot-le{padding-bottom:0px;}
+	.list-cfq-xl{margin-left:5px;top:-25px;}
+	.loanlist-top-ri{display:none;}
+	.loanlist-bot-le-bt-le ,.loanlist-bot-le-bt-ri{width:50%;}
+	.loanlist-bot-le-bt-le p ,.loanlist-bot-le-bt-ri p{font-size:12px;}
+	.loanlist-bot-le-bt-le p{padding-left:5px;}
+	.loanlist-bot-div{padding-left:5px;font-size:14px;}
+	.clear_50{height:0px;}
+	.loanlist-bot-ri p{margin-left:5px;}
+	.loanlist-bot-ri .mt-20{margin-top:5px!important;}
+	.list-bot-word{width:100px;display:block;float:right;margin-right:10px;}
+	.list-inpit em{font-size:14px;line-height:40px;}
+	.list-inpit input{width:150px;height:36px;line-height:36px;font-size:14px;font-family: 'MicroSoft YaHei';}
+	.list-btn ,.list-btn button ,.list-inpit ,.list-shouy{width:150px;height:38px;line-height:38px;font-size:14px;font-family: 'MicroSoft YaHei';}
+	.list-btn{float:right;margin-right:16px;}
+	.list_tab{width:393px;}
+	/* .list_tab .block .box-mb-none{display:none;} */
+	.loanlist-bot-div .lb-jdt .lb-word{font-size:12px;}
+	.list-box-bnone-last{border-bottom:none!important;}
+	.list_tab .block .list-box-main ul{width:100%;}
+	.list_tab .block .list-box-main ul li{font-size:12px;}
+	.list-ul li ul li{font-size:12px;}
+	.list-ul{padding:0;}
+	.masklayer{width:393px!important;}
+	.flbuy span.fsp1{text-align:right;}
+	.ahui{float:left!important;}
+	/*---轮播图缩小---*/
+	#photo{width:300px;}
+	#photo .Cont{width:300px;}
+	#photo .List1 div, #photo .List2 div{margin: 5px 55px;}
+	.thumbWrap{display:none!important;}
+	.successlunbo{width:400px!important;}
+	.control{width:400px!important;height:400px!important;}
+	.masklayer1{left:0px!important;}
+	.change li img{max-width:400px!important;max-height:345px!important;}
+	.change li .imgWrap{width:400px!important;height:345px!important;}
+	.ssprev ,.ssnext{top:150px;}
+	.successlunbo i.close{top:0px!important;}
+	.lb-jdt{display:none;}
+	.lb-jdt2{width:98%;padding-left:2%;display:block;}
+	.lb-jdt2 .lb-word2{float:left;}
+	.lb-jdt2 .lb-prored2{width:40%;float:left;height:5px;margin:9px 5px 0 5px;background:#ccc;}
+	.lb-jdt2 .lb-prored2 .prored2{width:33%;height:5px;background:#ff6666;}
+	.list_tab h6{font-size:12px;}
+	.list_tab h6 span{width:19%;}
+	.projectDetail, .usrallyQuest{margin:0px 10px 20px 10px;padding:5px;}
+	.usrallyQuest h2{line-height:25px;background: url(../images/fdetail/usuallyQuest_03.png) 0px 5px no-repeat;}
+}
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.loanlist-bot-le ,.loanlist-bot-ri{width:354px;border-right:none;margin:0;}
+	.list_tab{width:354px;}
+	.list-ul-line-height{line-height:25px!important;width:31%!important;}
+	.loanlist-bot-div big{font-size:14px;}
+	.list-bot-word{width:80px;display:block;float:right;margin-right:10px;}
+	.loanlist-bot-div{padding-left:5px;font-size:10px;}
+	.list-cfq{width:100%;}
+	.list-cfq-je{width:343px;}
+	.list-cfq-img{width:291px;}
+	.list-cfq-xl{width:293px;}
+	.loanlist-bot-ri p{width:343px;}
+	.list-cfq-je p i{margin-right:15px;}
+	.list-btn{width:100%;}
+	.list-btn button{width:100%;margin-left:17px;margin-top:10px;}
+	.loanlist-bot-ri .list-tip{margin-top:20px;}
+	.list-inpit input ,.list-inpit{width:100%;}
+	.list-toub ,.list-shouy{width:100%;text-align:center;}
+	.list-shouy{margin-left:0;} 
+	#photo{width:265px;}
+	#photo .Cont{width:265px;}
+	#photo .List1 div, #photo .List2 div{margin: 5px 40px;}
+	.thumbWrap{display:none!important;}
+	.successlunbo{width:360px!important;}
+	.control{width:360px!important;height:320px!important;}
+	.masklayer1{left:0px!important;}
+	.change li img{max-width:360px!important;max-height:245px!important;}
+	.change li .imgWrap{width:360px!important;height:285px!important;}
+	.ssprev ,.ssnext{top:100px;}
+	.successlunbo i.close{top:0px!important;right:0px!important;}
+	.lb-jdt{display:none;}
+	.lb-jdt2{width:98%;padding-left:2%;}
+	.lb-jdt2 .lb-word2{float:left;}
+	.lb-jdt2 .lb-prored2{width:40%;float:left;height:5px;margin:9px 5px 0 5px;background:#ccc;}
+	.lb-jdt2 .lb-prored2 .prored2{width:33%;height:5px;background:#ff6666;}
+	.loanlist-bot-div1 ,.loanlist-bot-div2{padding-left:10px;font-size:12px;}
+	.list_tab h6{font-size:12px;}
+	.list_tab h6 span{width:19%;}
+	.loanlist-bot-div1 big ,.loanlist-bot-div2 big{font-size:12px;}
+	.projectDetail, .usrallyQuest{margin:0px 10px 20px 10px;padding:5px;}
+	.usrallyQuest h2{line-height:25px;background: url(../images/fdetail/usuallyQuest_03.png) 0px 5px no-repeat;}
+	
+}
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.list-bot-word{width:50px;display:block;float:right;margin-right:10px;}
+	.loanlist-bot-div big small {font-size:10px;}
+	.loanlist-bot-le{padding-bottom:0px;}
+	.list-cfq{width:100%;}
+	.list-cfq-je{width:289px;}
+	.list-cfq-img{width:291px;}
+	.list-cfq-xl{width:293px;}
+	.loanlist-bot-ri p{width:289px;}
+	.list-cfq-je p i{margin-right:15px;}
+	.list-btn{width:100%;}
+	.list-btn button{width:100%;margin-left:17px;margin-top:10px;}
+	.loanlist-bot-ri .list-tip{margin-top:20px;}
+	.list-inpit input ,.list-inpit{width:100%;}
+	.loanlist-bot-le ,.loanlist-bot-ri{width:300.5px;border-right:none;margin:0;}
+	.list_tab{width:304px;}
+	.border-right-none{border-right:none!important;}
+	.loanlist-bot-div big{font-size:12px;}
+	.list_tab h6 span{width:19%;}
+	.list-toub ,.list-shouy{width:100%;text-align:center;} 
+	.list-shouy{margin-left:0;} 
+	.list-ul-line-height{line-height:25px!important;}
+	.loanlist-bot-ri p i{display:block;font-size:12px;}
+	.masklayer{width:320px!important;}
+	.masklayer .groupbtn button.btn{width:100px!important;}
+	#photo{width:215px;}
+	#photo .Cont{width:215px;}
+	#photo .List1 div, #photo .List2 div{margin: 5px 16px;}
+	.thumbWrap{display:none!important;}
+	.successlunbo{width:308px!important;}
+	.control{width:308px!important;height:300px!important;}
+	.masklayer1{left:0px!important;}
+	.change li img{max-width:300px!important;max-height:245px!important;}
+	.change li .imgWrap{width:308px!important;height:260px!important;}
+	.ssprev ,.ssnext{top:100px;}
+	.successlunbo i.close{top:0px!important;right:0px!important;}
+	.lb-jdt{display:none;}
+	.lb-jdt2{width:98%;padding-left:2%;}
+	.lb-jdt2 .lb-word2{float:left;}
+	.lb-jdt2 .lb-prored2{width:40%;float:left;height:5px;margin:9px 5px 0 5px;background:#ccc;}
+	.lb-jdt2 .lb-prored2 .prored2{width:33%;height:5px;background:#ff6666;}
+}
+
+/* ---- 个人中心--省心计划 ---- */
+
+.body-back-gray{background:#F4F5F8;}
+
+/*---省心计划左侧部分---*/
+.pLeft{width:229px;background:#fff;margin-top:10px;}
+.pLeft .img-g{padding-top:20px;}
+.pLeft p{text-align:center;}
+.pLeft .user-name{font-size:14px;color:#333;}
+.pLeft .user-iphone{font-size:12px;color:#666;}
+.pLeft .authen{border:1px #F4F5F8 solid;border-left:0px;border-right:0px;}
+.pLeft .authen li{float:left;width:114px;height:45px;line-height:50px;text-align:center;}
+.pLeft .authen .li-02{border-left:1px #F4F5F8 solid;border-right:none;border-top:0px;border-bottom:0px;}
+.pLeft .visite-g{padding:10px 0;border-bottom:1px #F4F5F8 solid;}
+.pLeft .visite-g .user-btn{width:150px;text-align:center;height:33px;line-height:35px;border:1px #FF5E63 solid;display: block;margin: 0 auto;border-radius:5px;color:#FF5E63;background:url(../images/news_icon/friend.png) no-repeat 30% 50%;text-indent: 20px;}
+.pLeft .visite-g .user-btn:hover{color:#fff;background:#FF5E63 url(../images/news_icon/friend2.png) no-repeat 30% 50%;text-indent: 20px;}
+.p-nav-g h2{width:100%;height:45px;float:left;line-height:45px;border-top:1px #F4F5F8 solid;text-indent:50px;}
+.p-nav-g h2 a{font-size:14px;color:#333;}
+.p-nav-g h2 .ibottom{width:12px;height:7px;background:url(../images/news_icon/user_down.jpg);display: block;float: right;margin-top: 20px;margin-right: 25px;cursor:pointer;}
+.p-nav-g h2 .itop{width:12px;height:7px;background:url(../images/news_icon/user_up.jpg);display: block;
+float: right;margin-top: 20px;margin-right: 25px;cursor:pointer;}
+.p-nav-g .user-h2-bg1{background:url(../images/news_icon/new2_icon.png) no-repeat 25px -125px;}
+.p-nav-g .user-h2-bg2{background:url(../images/news_icon/new2_icon.png) no-repeat 25px -155px;}
+.p-nav-g .user-h2-bg3{background:url(../images/news_icon/new2_icon.png) no-repeat 25px -188px;}
+.p-nav-g .user-h2-bg4{background:url(../images/news_icon/new2_icon.png) no-repeat 25px -218px;}
+.p-nav-g .user-h2bor{border:0px;}
+.p-nav-g ul{width:100%;height:auto;float:left;background: #F8F9FB;}
+.p-nav-g ul .active{background:#FF5E63;}
+.p-nav-g ul .active b{color:#FFF;}
+.p-nav-g ul .active a{color:#FFF;}
+.p-nav-g ul li{height:45px;padding-left:50px;line-height:45px;}
+.p-nav-g ul li a{font-size:14px;}
+.p-nav-g ul li a b{padding-right:15px;}
+.ul-hide{display:none;}
+
+/*---省心计划右侧部分---*/
+.p-Right-top{width:auto;height:auto;background:#fff;margin-top:10px;padding:25px 25px 15px 25px;}
+.p-Right-top hr{border:0.5px solid #F4F5F8;margin-top:10px;}
+.p-Right-top .lcjh-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -288px no-repeat;}
+.lcjh-state .th-sorts a{width:auto;}
+.lcjh-state .th-sorts a:hover{width:auto;}
+.lcjh-state{padding-top:10px;height:auto;border-top:1px solid #F4F5F8;margin-top: 20px;}
+.lcjh-state p{line-height:30px;}
+.lcjh-state p span{font-size:12px;padding:3px 10px;margin-right:20px;}
+.lcjh-state p span:hover{background:#FF5E63;color:#fff;border-radius:3px;}
+.lcjh-state p .lcjh-state-t{padding:0px;font-size: 12px;margin-right: 20px;}
+.lcjh-state p .lcjh-state-one{background:#FF5E63;color:#fff;border-radius:3px;}
+.p-Right-bot{width:auto;height:auto;background:#fff;margin-top:5px;}
+.p-Right-bot ul .p-Right-ulli-bg{height:50px;background:#E8ECF1;border-bottom:1px #F4F5F8 solid;}
+.p-Right-bot ul .p-Right-ulli-bg ul li{height:50px;line-height:50px;}
+.p-Right-bot ul li{height:60px;}
+.p-Right-bot ul li ul{height:50px;margin:0 20px;}
+.p-Right-bot ul li .p-Right-ulli-borb{height:60px;margin:0 20px;border-bottom:1px #F4F5F8 solid;}
+.p-Right-bot ul li ul li.p-Right-ulli-wrap{line-height:30px!important;}
+.p-Right-bot ul li .p-Right-ulli-borb-no{border-bottom:none;}
+.p-Right-bot ul li ul li{float:left;width:100px;height:60px;line-height:60px;text-align:center;font-size:12px;color:#666;}
+.p-Right-bot ul li ul li a{color:#6699ff;font-size:12px;text-decoration:underline;}
+.p-Right-bot ul li ul .p-Right-bot-ulli-95{width:95px;text-align:center;}
+.p-Right-bot ul li ul .p-Right-bot-ulli-80{width:80px;text-align:center;}
+
+/*--- apple ipad mini ---*/
+@media (max-width:1024px) and (min-width:992px){
+	.pLeft{width:200px;}
+	.pRight{width:750px;}
+	.pLeft .authen li{width: 49.7%;;}
+	.p-Right-bot ul li ul li{width:76px;}
+	.p-Right-bot ul li ul{margin:0 10px;}
+	.p-Right-bot ul li .p-Right-ulli-borb{margin:0 10px;}
+}
+
+/*--- apple ipad mini 竖屏---*/
+@media (max-width:768px){
+	.pLeft{width:178px;}
+	.pRight{width:544px;}
+	.pLeft .authen li{width: 49.7%;}
+	.p-Right-ulli-hide{display:none;}
+	.p-Right-bot ul li ul .p-Right-bot-ulli-95{width:170px!important;}
+	.p-Right-bot ul li .p-Right-ulli-borb{margin:0px;}
+	
+}
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.pLeft{width:384px;}
+	.pRight{width:384px;}
+	.p-Right-ulli-hide{display:none;}
+	.p-Right-bot ul li ul li {width:100px!important;}
+	.p-Right-bot ul li ul .p-Right-bot-ulli-95{width:100px!important;}
+	.p-Right-bot ul li .p-Right-ulli-borb{margin:0px;}
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.pLeft{width:345px;}
+	.pRight{width:345px;}
+	.lcjh-state p span {margin-right:10px;}
+	.p-Right-ulli-hide{display:none;}
+	.p-Right-bot ul li ul li {width:76px!important;}
+	.p-Right-bot ul li ul .p-Right-bot-ulli-95{width:90px!important;}
+	.p-Right-bot ul li .p-Right-ulli-borb{margin:0px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.pLeft{width:290px;}
+	.pRight{width:290px;}
+	.p-Right-top{padding: 25px 0 15px 10px;}
+	.p-Right-bot ul li ul{margin: 0 5px;}
+	.p-Right-bot ul li ul li{width:68.5px;}
+	.p-Right-bot ul li .p-Right-ulli-borb{margin: 0px;}
+	.p-Right-bot ul li ul .p-Right-bot-ulli-95{width:73px!important;}
+	.p-Right-bot ul li ul .p-Right-bot-ulli-60{width:60px!important;}
+}
+
+/* ---- 个人中心--债权转让 ---- */
+.p-Right-top .zqzr-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -689px no-repeat;}
+
+
+/* ---- 个人中心--消息管理 ---- */
+.p-Right-xxgl{width:auto;height:auto;background:#fff;margin-top:5px;}
+.p-Right-top .xxgl-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -428px no-repeat;}
+.p-Right-xxgl ul .p-Right-ulli-bg{height:50px;background:#E8ECF1;border-bottom:1px #F4F5F8 solid;}
+.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-350{width:350px;float:left;height:50px;line-height:50px;text-align:center;font-size:12px;color:#666;}
+.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-100{width:100px;float:left;height:50px;line-height:50px;text-align:center;font-size:12px;color:#666;}
+.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-225{width:225px;float:left;height:50px;line-height:50px;text-align:center;font-size:12px;color:#666;}
+
+.p-Right-xxgl ul li{height:60px;}
+.p-Right-xxgl ul li ul{height:50px;margin:0 20px;}
+.p-Right-xxgl ul .p-Right-ulli-bg .p-Right-ulli-borb{height:50px;margin:0 20px;border-bottom:1px #F4F5F8 solid;}
+.p-Right-xxgl ul li .p-Right-ulli-borb{height:60px;margin:0 20px;border-bottom:1px #F4F5F8 solid;}
+.p-Right-xxgl ul li ul li{float:left;}
+
+.p-Right-xxgl ul li ul .p-Right-xxgl-350{width:350px;float:left;height:60px;line-height:60px;text-align:center;font-size:12px;color:#666;overflow:hidden;}
+.p-Right-xxgl ul li ul .p-Right-xxgl-100{width:100px;float:left;height:60px;line-height:60px;text-align:center;font-size:12px;color:#666;}
+.p-Right-xxgl ul li ul .p-Right-xxgl-225{width:225px;float:left;height:60px;line-height:60px;text-align:center;font-size:12px;color:#666;}
+.p-Right-xxgl ul li ul .pre_red{color:red;}
+
+/* ---- 消息管理--平台公告弹窗 ---- */
+#pingt_ggao{background:#FFF;}
+#pingt_ggao2{background:#FFF;}
+.pingt_ggao{width:482px;margin:0 auto;text-align:center;background:#FFF;}
+.pingt_ggao p{font-size:12px;color:#494949; word-wrap:break-word;word-break:break-all;}
+.pingt_ggao p span{font-size:18px;font-family:"Microsoft YaHei";color:#010068;}
+.pingt_ggao p font{font-size:12px;font-family:"Microsoft YaHei";color:#A1A1A1;}
+.pingt_ggao p button{width:120px;float:right;text-align:center;border:none;height:40px;line-height:40px;color:#fff;border-radius:2px;background:#FD2A4D;cursor:pointer;}
+.pingt_ggao p button:hover{background:#fe2b4e;}
+.pingt_ggao p button:active{color:#fcd3a5;}
+
+/*--- apple ipad mini ---*/
+@media (max-width:1024px) and (min-width:992px){
+	.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-350{width:250px;}
+	.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-225{width:160px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-350{width:250px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-225{width:160px;}
+	
+}
+/*--- apple ipad mini 竖屏---*/
+@media (max-width:768px){
+	.xxgl-hide{display:none;}
+	.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-350{width:300px;}
+	.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-225{width:204px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-350{width:300px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-225{width:204px;}
+	.masklayer{width:393px!important;}
+	.pingt_ggao{width:393px;}
+	.pingt_ggao p img{max-width:88%;}
+	.ptgg_text{text-align:left;margin:0 20px;}
+	.pingt_ggao p button{margin-right:20px;}
+}
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.xxgl-hide{display:none;}
+	.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-350{width:244px;}
+	.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-225{width:100px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-350{width:244px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-225{width:100px;line-height: 30px;}
+	.masklayer{width:393px!important;right:4px!important;}
+	.pingt_ggao{width:393px;}
+	.pingt_ggao p img{max-width:88%;}
+	.ptgg_text{text-align:left;margin:0 20px;}
+	.pingt_ggao p button{margin-right:20px;}
+}
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.xxgl-hide{display:none;}
+	.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-350{width:205px;}
+	.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-225{width:100px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-350{width:205px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-225{width:100px;line-height:30px;}
+	.masklayer{width:360px!important;right:1px!important;}
+	.pingt_ggao{width:360px;}
+	.pingt_ggao p span{font-size:14px;}
+	.pingt_ggao p img{max-width:88%;}
+	.pingt_ggao p button{margin-right:20px;}
+	.ptgg_text{text-align:left;margin:0 20px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.xxgl-hide{display:none;}
+	.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-350{width:170px;font-size:12px;}
+	.p-Right-xxgl ul .p-Right-ulli-bg ul .p-Right-xxgl-225{width:80px;font-size:12px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-350{width:170px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-350 a{font-size:12px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-225{width:80px;line-height:30px;}
+	.p-Right-xxgl ul li ul .p-Right-xxgl-225 a{font-size:12px;}
+	.masklayer{width:300px!important;right:4px!important;}
+	.pingt_ggao{width:300px;}
+}
+
+
+/* ---- 个人中心--密码管理 ---- */
+.p-Right-mmgl{width:auto;height:auto;background:#fff;}
+.p-Right-top .mmgl-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -500px no-repeat;}
+
+.mmgl-bor{border-top:1px #F4F5F8 solid; border-bottom:1px #F4F5F8 solid;}
+.mmgl_ul{width:885px;height:70px;line-height:70px;margin:0 auto;color:#333;}
+.mmgl_ul_450{width:50%;line-height:70px;height:70px;text-align:center;float:left;}
+.mmgl_ul .color_1{padding:3px 5px;background:#FD2C4C;color:#fff;margin-left:8px;}
+.mmgl_ul .color_2{padding:3px 5px;background:#1AD9B0;color:#fff;margin-left:8px;}
+.mmgl_show{width:;text-align:center;background:#F4F4F4;box-shadow:0 -5px 5px #DEDEDE inset, /*顶部阴影*/  0 5px 5px #DEDEDE inset; /*底边阴影*/padding:40px 0;z-index:9999;float:left;}
+.mmgl_show .input_box em{height:43px;line-height:43px;margin-left:380px;float:left;color:red;}
+.mmgl_show .input_box label{width:;text-align:center;float:left;}
+.mmgl_show .input_box label{width:;text-align:center;float:left;}
+.mmgl_show .input_box .ipt-error{border:1px solid #fe2a4d;}
+.mmgl_show .input_box label span{width:60px;height:38px;line-height:38px;display:block;text-align:right;margin:0 10px 0 310px;float:left;}
+.mmgl_show .input_box label input{width:230px;display:block;height:38px;line-height:38px;float:left;text-indent:5px;border:1px #E1E1E1 solid;}
+.input_box label .Tcolor{width:35px;display:block;height:38px;line-height:38px;float:left;color:#fff;background:#FF5E63 ;border:1px #FF5E63 solid;}
+.input_box label .Wcolor{width:35px;display:block;height:38px;line-height:38px;float:left;color:#fff;}
+.input_box label .Mcolor{width:35px;display:block;height:38px;line-height:38px;float:left;color:#fff;}
+.input_box label .Scolor{width:35px;display:block;height:38px;line-height:38px;float:left;color:#fff;}
+.mmgl_show .mmgl_btn{width:915px;margin:0 auto;float:left;}
+.mmgl_show .mmgl_btn button{width:230px;height:40px;line-height:40px;text-align:center;border:none;border-radius:2px;color:#fff;font-size:14px;background:#FF5E63;margin-left:75px;cursor:pointer;}
+.mmgl_show .mmgl_btn button:hover{background: #fe2b4e;}
+.mmgl_show .mmgl_btn button:active{color: #fcd3a5;}
+
+.xiugai_phone_main{width:100%;background:#fff;text-align:center;} 
+.xiugai_phone_main .input_box_phone{width:100%;background:#fff;float:left;} 
+.xiugai_phone_main  .ipt_box_phone{ margin:10px 0 20px 0;}
+.xiugai_phone_main .input_box_phone label{width:100%;float:left;}
+.xiugai_phone_main .input_box_phone label span{text-align:right;height:40px;line-height:40px;display:block;float:left;margin-left:60px;}
+.xiugai_phone_main .input_box_phone label input{width:120px;height:38px;line-height:38px;display:block;float:left;text-indent:5px;border:1px solid #E1E1E1;margin-left:10px; }
+.xiugai_phone_main .input_box_phone label input.width200{ width:200px;}
+.xiugai_phone_main .input_box_phone em{height:43px;line-height:43px;margin-left:200px;display:black;float:left;color:red;}
+.xiugai_phone_main .input_box_phone em.hui{ color:#999999!important;}
+.xiugai_phone_main .input_box_phone label .huoqu_yanzm{width:100px;height:40px;line-height:40px;display:block;float:left;text-align:center;margin:0;padding:0;background:#02004B;border-radius:0px;}
+.xiugai_phone_main .input_box_phone label .huoqu_yanzm:hover{background:;}
+.xiugai_phone_main .input_box_phone label .huoqu_yanzm:active{color:#FFF;}
+.xiugai_phone_main .input_box_phone button{width:220px;height:40px;line-height:40px;border:none;background:#FF5E63;text-align:center;color:#FFF;margin-left:25px;cursor:pointer;border-radius: 3px;}
+.xiugai_phone_main .input_box_phone button:hover{background:;}
+.xiugai_phone_main .input_box_phone .btn-gray{width:100px;height:40px;line-height:40px;display:block;float:left;margin:0;padding:0;text-align:center;color:#666666; background: #eeeeee;}
+.xiugai_phone_main .input_box_phone .btn-gray:hover{background:#eeeeee;}
+.xiugai_phone_main .input_box_phone .btn-gray:active{background:#eeeeee;}
+.xiugai_phone_main .input_box_phone.xiugai_phone_main .input_box_phone button:active{color: #fcd3a5;}
+.xiugai_phone_main .input_box_phone.xiugai_phone_main p span{font-size:24px;font-family:"Microsoft YaHei";color:#2A275C;}
+.xiugai_phone_main p img{vertical-align:middle;margin-bottom:10px;margin-right:8px;}
+.xiugai_phone_main p{font-size:14px;color:#323232;line-height:25px;}
+.xiugai_phone_main p.mt-70{ margin-top:70px;}
+.xiugai_phone_main .input_box_phone i.ex-plone{ height:40px;line-height:40px; margin-left:10px; display:inline-block; float:left}
+/*--- apple ipad mini ---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.mmgl_ul{width:750px;height:70px;line-height:70px;margin:0 auto;color:#333;}
+	.mmgl_ul_450{width:375px;line-height:70px;height:70px;text-align:center;float:left;}
+	.mmgl_show .mmgl_btn{width:750px;margin:0 auto;float:left;}
+	.mmgl_show .input_box label span {margin: 0 10px 0 225px;}
+	.mmgl_show .input_box em {margin-left: 295px;}
+}
+/*--- apple ipad mini 竖屏 ---*/
+@media (max-width: 768px){
+	.mmgl_ul{width:544px;}
+	.mmgl_show{width:544px;}
+	.mmgl_show .input_box label span{ margin: 0 10px 0 80px;}
+	.mmgl_show .input_box em { margin-left: 150px;width:434px;text-align:left;}
+	.mmgl_show .mmgl_btn{width:384px;}
+	.mmgl_show .mmgl_btn button{ margin-left:148px;}
+	#xigai1 img{max-width:90%;}
+	.xiugai_phone_main .input_box_phone label span{margin-left:0px;}
+	.xiugai_phone_main .input_box_phone em{ margin-left: 140px;}
+}
+
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.mmgl_ul{width:354px;}
+	.mmgl_show .input_box label span{ margin: 0 10px 0 40px;}
+	.mmgl_show .input_box em { margin-left: 110px;width:auto;}
+	.mmgl_show .mmgl_btn{width:384px;}
+	.mmgl_show .mmgl_btn button{ margin-left: 68px;}
+	#xigai1 img{max-width:90%;}
+	.xiugai_phone_main .input_box_phone label span{margin-left:0px;}
+	.xiugai_phone_main .input_box_phone em{ margin-left:140px;}
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.mmgl_ul{width:315px;}
+	.mmgl_show{width:345px;}
+	.mmgl_show .input_box label span{ margin: 0 10px 0 20px;}
+	.mmgl_show .input_box em { margin-left: 90px;width:auto;}
+	.mmgl_show .mmgl_btn button{ margin-left: 30px;}
+	.masklayer form>div label span{width:110px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.mmgl_ul{width:260px;}
+	.mmgl_show{width:290px;}
+	.mmgl_show .input_box label input{width:150px!important;}
+	.mmgl_show .mmgl_btn{width:290px;}
+	.mmgl_show .mmgl_btn button{width:150px; margin-left:40px;}
+	.masklayer form>div label span{width:90px;font-size:12px;}
+	.xiugai_phone_main .input_box_phone label .huoqu_yanzm{width:70px;font-size:12px;}
+	.xiugai_phone_main .input_box_phone label .huoqu_yanzm[disabled]{color:#666;}
+	.xiugai_phone_main .input_box_phone em{ margin-left: 100px;}
+	.xiugai_phone_main .input_box_phone button{width: 122px;}
+	.xiugai_phone_main .input_box_phone label input{width:90px;}
+}
+
+/* ---- 个人中心--验证信息 ---- */
+.p-Right-yzxx{width:auto;height:auto;background:#fff;}
+.p-Right-top .yzxx-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -567px no-repeat;}
+.yanz_infor{width:885px;margin:0 auto;background:#FFF;border-top:1px #F4F5F8 solid;}
+.yanz_infor li{width:100%;height:70px;line-height:70px;float:left;border-bottom:1px #F4F5F8 solid}
+.yanz_infor li ul li{width:30%;float:left;}
+.yanz_infor li ul .yz-infor-ml{margin-left:5%;}
+.yanz_infor li ul li img{vertical-align:middle;margin-bottom:3px;margin-right:10px;}
+.yanz_infor li ul .yanz_red{color:red;}
+.yanz_infor li ul .yanz_imgle{margin-left:50px;}
+.shenf_yanz_main{width:100%;text-align:center;background:#FFF;}
+.shenf_yanz_main p.myp{ margin-top:70px;}
+.shenf_yanz_main .myp2{ margin-top:50px; margin-bottom:90px;}
+.shenf_yanz_main .input_box_shenf button{width:200px;height:40px;line-height:40px;border:none;border-radius:2px;background:#FF5E63;text-align:center;color:#FFF;}
+.shenf_yanz_main .input_box_shenf button:hover{background:#fe2b4e;}
+.shenf_yanz_main .input_box_shenf button:active{color: #fcd3a5;}
+.shenf_yanz_main p{font-size:14px;color:#323232;line-height:25px;}
+.shenf_yanz_main p span{font-size:24px;font-family:"Microsoft YaHei";color:#2A275C;}
+.shenf_yanz_main p  img{vertical-align:middle;margin-bottom:10px;margin-right:8px;}
+.shenf_yanz_main .input_box{width:100%;text-align:center;background:#FFF;float:left;}
+.shenf_yanz_main .input_box label{width:100%;text-align:center;background:#FFF;float:left;}
+.shenf_yanz_main .input_box span{height:40px;line-height:40px;}
+.shenf_yanz_main .input_box input{width:200px;height:38px;line-height:38px;text-indent:5px;border:1px solid #E1E1E1;margin-left:10px; color:#666;font-family:"MicroSoft YaHei";}
+.shenf_yanz_main .input_box em{height:43px;line-height:43px;padding-left:235px;float:left;color:red;}
+.shenf_yanz_main .input_box button{width:200px;height:40px;line-height:40px;border:none;border-radius:2px;background:#FF5E63;text-align:center;color:#FFF;margin-left:60px;cursor:pointer;font-family:"MicroSoft YaHei";}
+.shenf_yanz_main .input_box button:hover{background:#fe2b4e;}
+.shenf_yanz_main .input_box button:active{color: #fcd3a5;}
+
+#shenfen ,#xiugai_phone ,#bangd_email{padding-bottom:0px;}
+.xiugai_phone_main .input_box_phone label .ipt-error{border:1px red solid;}
+.shenf_yanz_main .input_box .ipt-error{border:1px red solid;}
+.infor-rz{padding:5px 15px;background:#FF5E63;color:#fff!important;border-radius: 3px;}
+
+/*--- apple ipad mini 横屏---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.yanz_infor{width:750px;}
+	.yanz_infor li ul li{width:30%;float:left;}
+	.yanz_infor li ul .yz-infor-45{width:35%;}
+	.masklayer form>div label span {width:90px!important;}
+	.shenf_yanz_main .input_box em{ padding-left: 132px;}
+	.xiugai_phone_main .input_box_phone em{ margin-left: 100px;}
+}
+
+/*--- apple ipad mini 竖屏---*/
+@media (max-width: 768px){
+	.yanz_infor{width:544px;}
+	.yanz_infor li ul li{width:30%;float:left;}
+	.yanz_infor li ul .yz-infor-45{width:35%;}
+	.masklayer form>div label span {width:90px!important;}
+	.shenf_yanz_main .input_box em{ padding-left: 132px;}
+	.xiugai_phone_main .input_box_phone em{ margin-left: 100px;}
+}
+
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.yanz_infor{width:354px;}
+	.yanz_infor li ul li{width:30%;float:left;}
+	.yanz_infor li ul .yz-infor-45{width:35%;}
+	.masklayer form>div label span {width:90px!important;}
+	.shenf_yanz_main .input_box em{ padding-left: 132px;}
+	.xiugai_phone_main .input_box_phone em{ margin-left: 100px;}
+	.mmgl_show{width:384px;}
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.shenf_yanz_main .input_box em {padding-left: 115px;}
+	.masklayer form>div label span {width:70px!important;}
+	.xiugai_phone_main .input_box_phone em{margin-left: 80px;}
+	.mmgl_show{width:345px;}
+	
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.yanz_infor{width:290px;}
+	.yanz_infor li ul .yz-infor-ml{ margin-left:1%;}
+	.yanz_infor li ul .yz-infor-45{ width: 38%}
+	.yanz_infor li ul li{width:30%; font-size: 12px;}
+	.yanz_infor li ul li a{font-size: 12px;}
+	.masklayer form>div label span {width:70px!important;}
+	.xiugai_phone_main .input_box_phone em{ margin-left: 80px;}
+	.shenf_yanz_main .input_box em {padding-left: 80px;}
+	#phone ,#email{width:192px!important;}
+	.shenf_yanz_main .input_box button{width:122px!important;}
+	.mmgl_show{width:290px;}
+}
+
+/* ---- 个人中心--个人信息 ---- */
+.p-Right-grxx{width:885px;padding:10px 15px 0;margin:0 auto;height:auto;background:#fff;}
+.p-Right-top .grxx-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -628px no-repeat;}
+.per_center{border-bottom:1px solid #F4F5F8;}
+.per_center .per-cenri{width:800px;height:auto;float:left;margin-top:30px;}
+.per_center .per-cenri .per-inputbox{width:800px;height:auto;text-align:left;float:left;}
+.per_center .per-cenri .per-inputbox .xueli{width:232px;}
+.per_center .per-cenri .per-inputbox button{width:230px;height:40px;text-align:center;background:#FF5E63;color:#fff;border-radius:2px;border:none;font-family:"Microsoft YaHei";margin-left:130px;margin-top:10px;cursor:pointer;}
+.per_center .per-cenri .per-inputbox #per-keep{display:none;}
+.per_center .per-cenri .per-inputbox button:hover{background:#fe2b4e;}
+.per_center .per-cenri .per-inputbox button:active{color: #fcd3a5;}
+.per_center .per-cenri .per-inputbox label{width:800px;height:auto;text-align:left;float:left;}
+.per_center .per-cenri .per-inputbox label .user-xg{float:right;}
+.per_center .per-cenri .per-inputbox label .user-xg button{width:80px;height:40px;background:#fff;text-align:center;color:#333;border:1px #999 solid;border-radius:2px;font-family:"Microsoft YaHei";padding:0;margin:0;cursor:pointer;}
+.per_center .per-cenri .per-inputbox label .user-xg button:hover{background:#FF5E63;border:1px #FF5E63 solid;color:#fff;}
+.per_center .per-cenri .per-inputbox label .user-xg button:active{color: #fcd3a5;}
+.per_center .per-cenri .per-inputbox label select{width:110px;height:38px;line-height:38px;text-align:left;float:left;font-family:"Microsoft YaHei";font-size:14px;color:#666;}
+.per_center .per-cenri .per-inputbox label #city{width:110px;height:38px;line-height:38px;text-align:left;float:left;margin-left:13px;}
+.per_center .per-cenri .per-inputbox label p{width:200px;height:auto;text-align:left;float:left;}
+.per_center .per-cenri .per-inputbox label p font{height:40;line-height:40px;margin-right:20px;text-align:left;float:left;}
+.per_center .per-cenri .per-inputbox label p font a{color:#000066;text-decoration:underline;}
+.per_center .per-cenri .per-inputbox label span{width:70px;height:38px;line-height:38px;margin:0 30px;display:block;text-align:right;float:left;}
+.per_center .per-cenri .per-inputbox label input{width:230px;height:38px;line-height:38px;font-family:"Microsoft YaHei";display:block;text-align:left;float:left;border:1px #e1e1e1 solid;text-indent:1em;}
+.per_center .per-cenri .per-inputbox em{height:30px;line-height:30px;margin-left:130px;display:black;float:left;color:red;}
+
+/*--- apple ipad mini ---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.p-Right-grxx ,.per_center .per-cenri ,.per_center .per-cenri .per-inputbox ,.per_center .per-cenri .per-inputbox label{width:720px;}
+}
+
+/*--- apple ipad mini 竖屏---*/
+@media (max-width: 768px){
+	.p-Right-grxx ,.per_center .per-cenri ,.per_center .per-cenri .per-inputbox ,.per_center .per-cenri .per-inputbox label{width:514px;}
+	.per_center .per-cenri .per-inputbox label .user-xg button{display:none;}
+	.per_center .per-cenri .per-inputbox label span{margin:0 10px;}
+	.per_center .per-cenri .per-inputbox button ,.per_center .per-cenri .per-inputbox em { margin-left: 90px;}
+}
+
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.p-Right-grxx ,.per_center .per-cenri ,.per_center .per-cenri .per-inputbox ,.per_center .per-cenri .per-inputbox label{width:354px;}
+	.per_center .per-cenri .per-inputbox label .user-xg button{display:none;}
+	.per_center .per-cenri .per-inputbox label span{margin:0 10px;}
+	.per_center .per-cenri .per-inputbox button ,.per_center .per-cenri .per-inputbox em { margin-left: 90px;}
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.p-Right-grxx ,.per_center .per-cenri ,.per_center .per-cenri .per-inputbox ,.per_center .per-cenri .per-inputbox label{width:315px;}
+	.per_center .per-cenri .per-inputbox label .user-xg button{display:none;}
+	.per_center .per-cenri .per-inputbox label span{margin:0 5px;width:60px;}
+	.per_center .per-cenri .per-inputbox button ,.per_center .per-cenri .per-inputbox em { margin-left: 70px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.p-Right-grxx ,.per_center .per-cenri ,.per_center .per-cenri .per-inputbox ,.per_center .per-cenri .per-inputbox label{width:260px;}
+	.per_center .per-cenri .per-inputbox label .user-xg button{display:none;}
+	.per_center .per-cenri .per-inputbox label span{margin:0 5px;width:60px;}
+	.per_center .per-cenri .per-inputbox button ,.per_center .per-cenri .per-inputbox em { margin-left: 70px;}
+	.per_center .per-cenri .per-inputbox label p ,.per_center .per-cenri .per-inputbox .xueli ,.per_center .per-cenri .per-inputbox label input ,.per_center .per-cenri .per-inputbox button{width:150px;}
+	.per_center .per-cenri .per-inputbox label #city ,.per_center .per-cenri .per-inputbox label select{width:75px;}
+	.per_center .per-cenri .per-inputbox label #city{margin-left:0px;border-left:none;}
+}
+
+
+/* ---- 个人中心--出借债权 ---- */
+.p-Right-top .cjzq-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -357px no-repeat;}
+.pre_zt{border-top:1px #F4F5F8 solid;margin-top: 20px;padding-top: 10px;}
+.th-sorts a{ display:inline-block;float:left;text-align:center;-webkit-transition: none;
+-o-transition: none; transition: none; overflow: hidden; padding:3px 10px;margin:5px;font-size:12px;width:60px;}
+.th-sorts span.a-head{width: 80px;float:left;font-size:12px; margin:5px; text-align:center;}
+.th-sorts span{ float: left; font-size: 12px;  margin: 5px;   text-align: center; width: 80px;}
+.th-sorts a.a-head{background:#FF5E63;color:#fff; margin:5px;border-radius: 2px;}
+.th-sorts a.a-head:hover{background-color: #fb5156;}
+.th-sorts a:hover{width: 60px;background:#FF5E63;color:#fff; margin:5px;border-radius: 2px;}
+.th-sorts a.a-midden{ margin:5px;background:#fff; border-radius: 2px; width: 60px; font-size: 12px; cursor: pointer; color: #666;}
+.th-sorts a.a-midden-up,.th-sorts a.a-midden-down{ background:url(../images/finance_list/finance_icon.png) #ff5e63  no-repeat;background-position:62px -43px;color: #fff;text-indent: -10px;}
+.th-sorts a.a-midden-up:hover,.th-sorts a.a-midden-down:hover{ background-color: #fb5156;}
+.th-sorts a.a-midden-down{ background-position: 62px 1px;}
+
+.pre_zt{vertical-align:middle;}
+.pre_zt .pre_zt_box{width:100%;float:left;}
+.pre_zt .pre_zt_box .pre_zt_boxtitle{width:60px;height:30px;text-align:right;float:left;font-size:12px;}
+.pre_zt .pre_zt_box .pre_paixu{width:80px;text-align:center;height:30px;float:left;font-size:12px;line-height:30px;margin-right:5px;}
+.pre_zt .pre_zt_box .pre_paixu img{vertical-align:middle;margin-bottom:1px;margin-left:3px;}
+.pre_zt .pre_zt_box span{width:70px;height:30px;line-height:30px;text-align:right;float:left;font-size:12px;margin-right:10px;}
+.pre_zt .pre_zt_box .label{width:800px;height:30px;line-height:30px;text-align:left;float:left;font-size:12px;}
+.pre_zt .pre_zt_box .label label{width:80px;height:30px;line-height:30px;text-align:left;float:left;font-size:12px;}
+.pre_zt .pre_zt_box .label input{margin-top:-2px;margin-right:5px;vertical-align:middle;}
+
+.pre_cjzq .pre_zqlist .pre_tabbox2 .pre_tabbox_click{border:1px red solid;width:915px;float:left;}
+.pre_zqlist .pre_ul50{width:915px;text-align:center;height:50px;line-height:50px;background:#F9F9F9;color:#666;font-size:12px;}
+.pre_zqlist .pre_ul50 li{width:100px;height:50px;line-height:50px;float:left;font-size:12px;}
+.pre_zqlist .pre_ul50 .pre_ul_170{width:170px;line-height:50px;float:left;}
+.pre_zqlist .pre_ul50 .pre_ul_150{width:150px;line-height:50px;float:left;}
+.pre_zqlist .pre_ul50 .pre_ul_80{width:80px;line-height:50px;float:left;}
+.pre_zqlist .pre_ul50 .pre_ul_50{width:65px;line-height:50px;float:left;}
+.pre_ulbig{width:915px;text-align:center;height:auto;position:relative;}
+.pre_ulbig li{width:915px;height:70px;line-height:70px;text-align:center;float:left;}
+.pre_ulsmall{width:915px;height:70px;line-height:70px;background:#fff;font-size:12px;}
+.pre_ulsmall li{width:100px;height:70px;line-height:70px;font-size:12px;}
+.pre_ulsmall li img.updown{ margin-top:20px}
+.pre_ulsmall .pre_ul_lismall_170{width:170px;height:70px;line-height:70px;float:left; overflow: hidden}
+.pre_ulsmall .pre_ul_lismall_150{width:150px;height:70px;line-height:70px;float:left;}
+.pre_ulsmall .pre_ul_lismall_80{width:80px;height:70px;line-height:70px;float:left;}
+.pre_ulsmall .pre_ul_lismall_50{width:65px;height:70px;line-height:70px;float:left;cursor:pointer;}
+.pre_ulsmall .pre_ul_lismall_50 .up{width:8px;height:5px;background:url(../images/news_icon/xq_upicon.png);cursor:pointer;display:block;margin:32px auto 0;}
+.pre_ulsmall .pre_ul_lismall_50 .down{width:8px;height:5px;background:url(../images/news_icon/xq_downicon.png);cursor:pointer;display:block;margin:32px auto 0;}
+.pre_ulbig_hui{background:#fff;}
+.div_show{width:875px;padding:20px;z-index:9999;background:#F9F9F9; float:left;top:70px; 
+box-shadow:0 -5px 5px #DEDEDE inset, /*顶部阴影*/  0 5px 5px #DEDEDE inset; /*底边阴影*/  }
+.div_show p{width:875px;float:left;text-align: left;font-size: 12px;}
+.div_show p a{float:right;color:#58BEE4;font-size:12px;margin-top:10px;}
+.div_show .div_show_top{width:875px;float:left;}
+.div_show  .div_show_top .dl_box1{width:300px;float:left;font-size:12px;color:#333333;}
+.div_show  .div_show_top .dl_box1 dd{width:300px;text-align:left;float:left;font-size:12px;}
+.div_show  .div_show_top .dl_box2{width:205px;float:left;font-size:12px;color:#333333;}
+.div_show  .div_show_top .dl_box2 dd{width:205px;text-align:left;float:left;font-size:12px;}
+.div_show  .div_show_top .dl_box3{width:290px;float:left;font-size:12px;color:#333333;}
+.div_show  .div_show_top .dl_box3 dd{width:290px;text-align:left;float:left;font-size:12px;}
+.div_show  .div_show_top .dl_box4{width:80px;float:right;font-size:12px;color:#333333;}
+.div_show  .div_show_top .dl_box4 dd{width:80px;text-align:right;float:left;}
+.div_show  .div_show_top .dl_box4 dd a{font-size:12px;}
+.div_show  .div_show_top .dl_box4 dd img{vertical-align:middle;margin-right:5px;}
+.div_show_bot_ul{width:875px;float:left;color:#333;font-size:12px;}
+.div_show_bot_ul li{width:875px;height:50px;line-height:50px;float:left;margin-bottom:1px;background:#fff;}
+.div_show_bot_ultop{width:875px;float:left;color:#333;background:#F1F1F1;margin-top:20px;}
+.div_show_bot_ultop li{width:90px;height:50px;line-height:50px;float:left;font-size:12px;}
+.div_show_bot_ultop .div_show_bot_ul2_120{width:120px;height:50px;line-height:50px;float:left;}
+.div_show_bot_ultop .div_show_bot_ul2_40{width:120px;height:50px;line-height:50px;float:left;}
+.div_show_bot_ul2 li{width:90px;height:50px;line-height:50px;float:left;font-size:12px;}
+.div_show_bot_ul2 .div_show_bot_ul2_120{width:120px;height:50px;line-height:50px;float:left;}
+.div_show_bot_ul2 .div_show_bot_ul2_40{width:120px;height:50px;line-height:50px;float:left;}
+
+/*--- apple ipad mini 横屏---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.pre_zqlist .pre_ul50 ,.pre_ulbig ,.pre_ulbig li ,.pre_ulsmall{width:750px;}
+	.pre_zqlist .pre_ul50 li ,.pre_ulsmall li{width:72px;}
+	.div_show ,.div_show .div_show_top ,.div_show_bot_ultop ,.div_show_bot_ul ,.div_show_bot_ul li ,.div_show p{width:710px;}
+	.div_show  .div_show_top .dl_box3{width:200px;float:left;font-size:12px;color:#333333;}
+	.div_show  .div_show_top .dl_box3 dd{width:200px;text-align:left;float:left;font-size:12px;}
+	.div_show  .div_show_top .dl_box1{width:240px;float:left;font-size:12px;color:#333333;}
+	.div_show  .div_show_top .dl_box1 dd{width:240px;text-align:left;float:left;font-size:12px;}
+	.div_show  .div_show_top .dl_box2{width:190px;float:left;font-size:12px;color:#333333;}
+	.div_show  .div_show_top .dl_box2 dd{width:190px;text-align:left;float:left;font-size:12px;}
+	.div_show_bot_ultop li ,.div_show_bot_ul2 li{width:75px;}
+	.div_show_bot_ultop .div_show_bot_ul2_120 ,.div_show_bot_ul2 .div_show_bot_ul2_120 {width:90px;}
+}
+/*--- apple ipad mini 竖屏---*/
+@media (max-width: 768px){
+	.cjzq_list_hide{display:none;}
+	.pre_zqlist .pre_ul50{width:544px;}
+	ul#pre_ul_big ,.pre_ulbig li ,.pre_ulsmall ,.pre_ulbig_hui ,.pre_ulbig{width:544px;}
+	.pre_zqlist .pre_ul50 .pre_ul_170 ,.pre_ulsmall .pre_ul_lismall_170{width:144px;line-height:35px;}
+	.pre_ulsmall li ,.pre_zqlist .pre_ul50 li{ width:100px;}
+	.pre_ul_170{line-height:50px!important;}
+	.div_show{width:504px;}
+	.div_show .div_show_top{width:504px;}
+	.div_show_bot_ul li{width:504px;}
+	.div_show p{width:504px;}
+	.div_show_bot_ultop ,.div_show_bot_ul{width:504px;}
+	.div_show .div_show_top .dl_box1{width:50%;}
+	 .zqzr_list_hide{display:none;}
+	
+	.div_show_bot_ultop li{width:96px;}
+	.div_show_bot_ul2 li{width:96px;}
+	
+	
+	
+}
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.cjzq_list_hide{display:none;}
+	.pre_zqlist .pre_ul50{width:384px;}
+	ul#pre_ul_big ,.pre_ulbig li ,.pre_ulsmall ,.pre_ulbig_hui ,.pre_ulbig{width:384px;}
+	.pre_zqlist .pre_ul50 .pre_ul_170 ,.pre_ulsmall .pre_ul_lismall_170{width:100px;line-height:35px;}
+	.pre_ulsmall li ,.pre_zqlist .pre_ul50 li{ width: 70px;}
+	.pre_ul_170{line-height:50px!important;}
+	.div_show{width:344px;}
+	.div_show .div_show_top{width:344px;}
+	.div_show_bot_ultop,.div_show_bot_ul{width:344px;}
+	.div_show_bot_ul li{width:344px;}
+	.div_show p{width:344px;}
+	.div_show .div_show_top .dl_box1{width:100%;}
+	.div_show_bot_ultop li{width:68.8px;}
+	.div_show_bot_ultop .div_show_bot_ul2_120{width:68.8px;}
+	.div_show_bot_ul2 .div_show_bot_ul2_120{width:68.8px;}
+	.div_show_bot_ul2 li{width:68.8px;}
+	
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.cjzq_list_hide ,.cjzq_list_hide2, .cjzq_list_hide3{display:none;}
+	.div_show ,.div_show p{width:304px;}
+	.div_show .div_show_top{width:304px;}
+	.div_show_bot_ul li{width:304px;}
+	.pre_zqlist .pre_ul50{width:345px;}
+	.div_show_bot_ultop,.div_show_bot_ul{width:304px;}
+	.div_show_bot .div_show_bot_ul li{width:304px;}
+	.div_show_bot .div_show_bot_ul li .div_show_bot_ul2 li{width:76px;}
+	ul#pre_ul_big ,.pre_ulbig li ,.pre_ulsmall ,.pre_ulbig_hui ,.pre_ulbig{width:344px;}
+	.pre_zqlist .pre_ul50 .pre_ul_170 ,.pre_ulsmall .pre_ul_lismall_170{width:145px;}
+	.pre_zqlist .pre_ul50 li ,.pre_ulsmall li{width:100px;}
+	.div_show_bot_ultop li{width:76px;}
+	.div_show_bot_ul2 li{width:76px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.cjzq_list_hide ,.cjzq_list_hide2{display:none;}
+	.div_show ,.div_show p{width:280px;padding:10px 5px;}
+	.div_show .div_show_top{width:280px;}
+	.div_show_bot_ultop, .div_show_bot_ul{width:280px;}
+	.pre_zqlist .pre_ul50{width:290px;}
+	
+	ul#pre_ul_big ,.pre_ulbig li ,.pre_ulsmall ,.pre_ulbig_hui ,.pre_ulbig{width:290px;}
+	.div_show_bot .div_show_bot_ul li{width:280px;}
+	.div_show_bot_ultop li{width:70px;}
+	.pre_zqlist .pre_ul50 .pre_ul_170 ,.pre_ulsmall .pre_ul_lismall_170{width:120px;}
+	.div_show_bot .div_show_bot_ul li .div_show_bot_ul2 li{width:70px;}
+	.pre_zqlist .pre_ul50 li ,.pre_ulsmall li{width:85px;}
+}
+
+/* ----- 个人中心-订单查询 ----- */
+.p-Right-top .ddcx-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -743px no-repeat;}
+.pre_zt_box_chaxun{width:100%;float:left;padding:10px 0;border-top:1px #F4F5F8 solid;margin-top:20px;}
+.pre_zt_box_chaxun .label_1{width:205px;height:30px;line-height:30px;text-align:left;float:left;font-size:12px;}
+.pre_zt_box_chaxun .label_1 input{width:146px;text-indent:5px;height:30px;line-height:30px;border:1px #E5E5E5 solid;font-size:12px;color:#B7B7B7;}
+.pre_zt_box_chaxun .label_2{width:190px;height:30px;line-height:30px;text-align:left;float:left;font-size:12px;}
+.pre_zt_box_chaxun .label_3{height:30px;line-height:30px;text-align:left;float:left;font-size:12px;}
+.pre_zt_box_chaxun .label_3 input{width:120px;height:30px;line-height:30px;text-indent:5px;border:1px #E5E5E5 solid;}
+.pre_zt_box_chaxun .label_4{width:50px;height:30px;line-height:30px;text-align:left;float:left;font-size:12px;}
+.pre_zt_box_chaxun .label_4 .chaxun_btn{height: 32px;line-height: 25px;width: 50px;color: #fff;
+background: #FF5E63;border-radius: 2px;margin-left:20px;border:none;cursor:pointer;}
+.label_title{margin-right:5px;}
+.pre_tabtitle_ddcx h2{font-size:18px;width:;height:35px;background:url(../images/new_icon/user_icon.png) no-repeat 0 -499px;text-indent:30px;color:#000;}
+.pre_tabbox1_150 ,.pre_tabbox_150{width:150px;}
+.pre_tabbox1_200 ,.pre_tabbox_200{width:200px;}
+.pre_tabbox1_80 ,.pre_tabbox_80{width:100px;}
+.datail-check-btn{width: 200px;height: 50px;border: 0;background: #FE3859;display: block;margin:25px auto;line-height:50px;border-radius: 5px;font-size: 16px;color: #fff!important;cursor: pointer;}
+.pre_tabbox1_70 ,.pre_tabbox_70{width:75px;}
+.pre_tabbox1_100 ,.pre_tabbox_100{width:100px;}
+.pre_tabbox1_50{width:50px;}
+.pre_tabbox_100 .pre_red a{margin-right:20px;color:red;}
+.pre_zt_box_chaxun .label_3 input{width:90px;}
+.pre_tabbox_chaxun{width:100%;background:#E8ECF1;height:50px;}
+.pre_tabbox_chaxun .pre_tabboxtitle_chaxun{width:875px;height:50px;margin:0 auto;}
+.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul{margin:0px;}
+.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul li{height:50px;line-height:50px;}
+.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_200{width:200px;}
+.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_150{width:150px;}
+.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_100{width:100px;}
+.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_80{width:100px;}
+.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_70{width:75px;}
+.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul li{height:60px;line-height:60px;}
+.pre_zqlist_chaxun .pre_tabbox2_chaxun li{height:60px;line-height:60px;}
+.pre_zqlist_chaxun .pre_tabbox2_chaxun .li_border{height:60px;border-bottom:1px #F4F5F8 solid;}
+.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_200{width:200px;line-height:60px;font-size:12px;}
+.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_150{width:150px;}
+.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_100{width:100px;}
+.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_80{width:100px;}
+.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_70{width:75px;}
+
+/*--- apple ipad mini ---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun{width:750px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_80{width:80px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_150{width:130px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_200{width:200px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_100{width:50px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_70{width:75px;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_200{width:200px;line-height:30px;font-size:12px;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_150{width:130px;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_100{width:50px;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_80{width:80px;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_70{width:75px;}
+	.p-Right-bot ul li ul{margin:0px;}
+	.pre_zt_box_chaxun .label_4 .chaxun_btn{margin-left:10px;}
+	.ddcx-zqlc-hide{display:none;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_100{width:125px;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_100{width:125px;}
+	
+}
+/*--- apple ipad mini 竖屏 ---*/
+@media (max-width:768px){
+	.ddcx-hide{display:none;}
+	.pre_zt_box_chaxun .label_1 ,.pre_zt_box_chaxun .label_2 ,.pre_zt_box_chaxun .label_3,.pre_zt_box_chaxun .label_4{width:100%;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun{width:544px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_200{width:184px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_80{width:100px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_100{width:105px;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_200{width:184px;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_80{width:100px;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_100{width:105px;}
+	.p-Right-bot ul li ul{margin:0px;}
+	.pre_zt_box_chaxun .label_2{margin:10px 0;}
+	.pre_zt_box_chaxun .label_3 input{margin-left:-4px;}
+	.pre_zt_box_chaxun .label_4 {margin-top:10px;}
+	.pre_zt_box_chaxun .label_4 .chaxun_btn {margin-left:53px;}
+	
+}
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.ddcx-hide{display:none;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun{width:384px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_200{width:96px!important;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_80{width:96px!important;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_100{width:96px!important;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_200{width:96px!important;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_80{width:96px!important;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_100{width:96px!important;}
+	.p-Right-bot ul li ul{margin:0px;}
+	.pre_zt_box_chaxun .label_2{margin:10px 0;}
+	.pre_zt_box_chaxun .label_3 input{margin-left:-4px;}
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.ddcx-hide{display:none;}
+	.pre_zt_box_chaxun .label_4 .chaxun_btn{margin-left:10px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun{width:345px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_200{width:150px!important;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_80{width:65px!important;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_100{width:65px!important;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_200{width:150px!important;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_80{width:65px!important;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_100{width:65px!important;}
+	.pre_tabbox_100 .pre_red a{margin-right: 5px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.ddcx-hide{display:none;}
+	.pre_zt_box_chaxun .label_4 .chaxun_btn{margin-left:10px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun{width:290px;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_200{width:115px!important;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_80{width:70px!important;}
+	.pre_tabbox_chaxun .pre_tabboxtitle_chaxun ul .pre_tabbox1_100{width:35px!important;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_200{width:115px!important;overflow:hidden;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_80{width:70px!important;}
+	.pre_zqlist_chaxun .pre_tabbox2_chaxun li ul .pre_tabbox_100{width:35px!important;}
+	.pre_zt_box_chaxun .label_3 input{width:80px;}
+	.pre_zt_box_chaxun .label_4 .chaxun_btn{margin-left:3px;}
+}
+
+
+/* ----- 个人中心-财富券 ----- */
+.p-Right-top .cfq-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -797px no-repeat;}
+.label_2_width{width:auto!important;margin-right:10px;}
+.pre_tabbox_cfq .pre_tabboxtitle_cfq{height:50px;}
+.pre_tabbox_cfq{background:#E8ECF1;}
+.pre_tabbox_cfq .pre_tabboxtitle_cfq ul li{width:100px;height:50px;line-height:50px;}
+.pre_tabbox_cfq .pre_tabboxtitle_cfq ul .cfq_li_170{width:170px;height:50px;line-height:50px;}
+.pre_tabbox_cfq .pre_tabboxtitle_cfq ul .cfq_li_205{width:205px;height:50px;line-height:50px;}
+.pre_tabbox2_cfq li{height:60px;line-height:60px;}
+.pre_tabbox2_cfq li ul li{width:100px;}
+.pre_tabbox2_cfq li ul .cfq_li_170{width:170px;}
+.pre_tabbox2_cfq li ul .cfq_li_205{width:205px;  }
+.pre_tabbox2_cfq li .cfq-border{border-bottom:1px #F4F5F8 solid;height:60px;line-height:60px;}
+/* help-tip */
+.help-tip{position:relative;text-align:center;border-radius:50%;width:24px;height:24px;font-size:14px;line-height:26px;cursor:default}
+.help-tip:hover p{display:block;transform-origin:100% 0%;-webkit-animation:fadeIn 0.3s ease-in-out;animation:fadeIn 0.3s ease-in-out;filter:alpha(opacity=80);-moz-opacity:0.8;opacity:0.8;}
+.help-tip p{display:none;text-align:left;background-color:#1E2021;padding:20px;width:300px;position:absolute;border-radius:3px;box-shadow:1px 1px 1px rgba(0, 0, 0, 0.2);right:33px;color:#FFF;font-size:13px;line-height:1.4;z-index:9999;}
+.help-tip p:before{position:absolute;content:'';width:0;height:0;border:6px solid transparent;border-bottom-color:#1E2021;right:10px;top:-12px;}
+.help-tip p:after{width:100%;height:40px;content:'';position:absolute;top:-40px;left:0;}
+
+.help-tipcfq{position:relative;text-align:center;border-radius:50%;width:24px;height:24px;font-size:14px;line-height:26px;cursor:default}
+.help-tipcfq:hover p{display:block;transform-origin:100% 0%;-webkit-animation:fadeIn 0.3s ease-in-out;animation:fadeIn 0.3s ease-in-out;filter:alpha(opacity=80);-moz-opacity:0.8;opacity:0.8;}
+.help-tipcfq p{display:none;text-align:left;background-color:#1E2021;padding:20px;width:300px;position:absolute;border-radius:3px;white-space:pre-wrap;box-shadow:1px 1px 1px rgba(0, 0, 0, 0.2);right:87px;color:#FFF;font-size:13px;line-height:1.4;z-index:9999;}
+.help-tipcfq p:before{position:absolute;content:'';width:0;height:0;border:6px solid transparent;border-bottom-color:#1E2021;right:10px;top:-12px;}
+.help-tipcfq p:after{width:100%;height:40px;content:'';position:absolute;top:-40px;left:0;}
+
+@-webkit-keyframes fadeIn {
+	0% { 
+		opacity:0; 
+		transform:scale(0.6);
+	}
+
+	100% {
+		opacity:100%;
+		transform:scale(1);
+	}
+}
+@keyframes fadeIn {
+	0% { opacity:0; }
+	100% { opacity:100%; }
+}
+
+
+/*--- apple ipad mini 横屏---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul li{width:90px;height:50px;line-height:50px;}
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul .cfq_li_170{width:150px;height:50px;line-height:50px;}
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul .cfq_li_205{width:150px;height:50px;line-height:50px;}
+	.pre_zqlist_cfq .pre_tabbox2_cfq li ul li{width:90px;}
+	.pre_zqlist_cfq .pre_tabbox2_cfq li ul .cfq_li_170{width:150px;}
+	.pre_zqlist_cfq .pre_tabbox2_cfq li ul .cfq_li_205{width:150px;}
+}    
+/*--- apple ipad mini 竖屏---*/
+@media (max-width: 768px){
+	.cfq-hide{display:none;}
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul li{width:118px;height:50px;line-height:50px;}
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul .cfq_li_170{width:150px;height:50px;line-height:50px;}
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul .cfq_li_205{width:150px;height:50px;line-height:50px;}
+	.pre_zqlist_cfq .pre_tabbox2_cfq li ul li{width:118px;}
+	.pre_zqlist_cfq .pre_tabbox2_cfq li ul .cfq_li_170{width:150px;}
+	.pre_zqlist_cfq .pre_tabbox2_cfq li ul .cfq_li_205{width:150px;}
+	.help-tip p{width:200px;right:40px;}
+} 
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.cfq-hide{display:none;}
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul li ,.p-Right-bot ul li ul li{width:90px!important;    overflow: hidden;}
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul .cfq_li_205 ,.pre_tabbox2_cfq li ul .cfq_li_205{width:144px;}
+	.help-tip p ,.help-tip:hover p{display:none;}
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul li ,.p-Right-bot ul li ul li{width:80px!important;}
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul .cfq_li_205 ,.pre_tabbox2_cfq li ul .cfq_li_205{width:105px;}
+	.help-tip p ,.help-tip:hover p{display:none;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul li ,.p-Right-bot ul li ul li{width:70px!important;}
+	.pre_tabbox_cfq .pre_tabboxtitle_cfq ul .cfq_li_205 ,.pre_tabbox2_cfq li ul .cfq_li_205{width:80px;}
+	.help-tip p ,.help-tip:hover p{display:none;}
+}
+
+/* ----- 个人中心-资金管理 ----- */
+.mt-5{margin-top:5px;}
+.color_red{color:red;}
+.color_black{color:#333;}
+.p-Right-top .zjls-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -857px no-repeat;}
+.zjls-title-box{margin-top:20px;padding-top:20px;border-top:1px solid #F4F5F8;}
+.zjls-title-box .zjls-box{width:25%;height:auto;float:left;text-align:center;}
+.zjls-title-box .zjls-box p .zjls-word{font-size:14px;color:#333;font-family:"MicroSoft YaHei";}
+.zjls-title-box .zjls-box p .zjls-num{font-size:18px;color:#333;font-family:"MicroSoft YaHei";}
+.fund_boxcon .fund_box1{width:207px;border:none;}
+.fund_boxcon .fund_box1 .fund_box1_icon{width:50px;margin-left:20px;}
+.fund_boxcon .fund_box1 .fund_box1_icon img{margin-left:7px;margin-top:28px;}
+.fund_boxcon{width:;}
+.fund_boxcon .fund_box1 .fund_box1_140 .fund_num{font-size:20px;color:#333;font-weight:none;}
+.fund_listtop{height:50px;line-height:50px;background:#E8ECF1;padding: 0 15px}
+.fund_listtop li{color:#666;font-size:12px;}
+.fund_li100 ,.fund_listmain_li100{width:150px;float:left;text-align:center;}
+.fund_li110 ,.fund_listmain_li110{width:90px;float:left;text-align:center;}
+.fund_li80 ,.fund_listmain_li80{width:90px;float:left;text-align:center;}
+.fund_li200 ,.fund_listmain_li200{width:200px;float:left;text-align:center;}
+.fund_listmain_li200 {line-height:25px;margin-top:5px;display:block;}
+.fund_listmain{background:#fff;}
+.fund_listmain .fund_listmain_li{height:60px;line-height:60px;padding:0 15px;border-bottom:;}
+.zjgl-ulli-ul{border-bottom:1px solid #F4F5F8;}
+.zjgl-ulli-ul li{font-size:12px;}
+
+/*--- apple ipad mini ---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.fund_li200 ,.fund_listmain_li200{width:150px;} 
+	.fund_li100 ,.fund_listmain_li100{width:100px;line-height:30px;}
+	.fund_listmain_li200 {line-height: 15px;}
+}
+
+/*--- apple ipad mini ---*/
+@media (max-width:768px) {
+	.fund-hide{display:none;}
+	.fund_li110, .fund_listmain_li110{width:170px;}
+	.fund_li200, .fund_listmain_li200{width:174px}
+	.fund_listmain_li200 {line-height: 18px;}
+	.zjls-title-box .zjls-box{width:50%;}
+}
+
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.fund-hide{display:none;}
+	.fund_li110, .fund_listmain_li110{width:90px;}
+	.fund_li200, .fund_listmain_li200{width:174px}
+	.fund_listmain_li200 {line-height: 18px;}
+	.zjls-title-box .zjls-box{width:50%;}
+	.fund_li80 ,.fund_li110 ,.fund_listmain_li80 ,.fund_listmain_li110 {width:114.6px;}
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.zjls-title-box .zjls-box p .zjls-word{ font-size: 12px;}
+	.zjls-title-box .zjls-box p .zjls-num{ font-size: 16px;}
+	.fund_li200, .fund_listmain_li200{width:135px}
+	.fund_li80 ,.fund_li110 ,.fund_listmain_li80 ,.fund_listmain_li110 {width:104.6px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.zjls-title-box .zjls-box p .zjls-word{ font-size: 12px;}
+	.zjls-title-box .zjls-box p .zjls-num{ font-size: 16px;}
+	.fund_li110, .fund_listmain_li110{width:80px;}
+	.fund_li200, .fund_listmain_li200{width:90px;}
+	.fund_listmain_li200{width:90px;height:60px;line-height:15px;overflow:hidden;}
+	.fund_li80, .fund_li110, .fund_listmain_li80, .fund_listmain_li110{width:86.6px;}
+}
+
+
+/* ----- 个人中心-银行卡管理（已绑定） ----- */
+.yhkgl-mt0{margin-top:0px;}
+.p-Right-top .yhkgl-title{font-size:20px;height:45px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -917px no-repeat;border-bottom:1px solid #F4F5F8;color:#333;}
+.hostray .yhkgl-title{font-size:20px;height:45px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -917px no-repeat;border-bottom:1px solid #F4F5F8;color:#333;}
+.thisbank ,.hostray{padding: 25px 15px 15px 25px;}
+.bankdetailr{ float:left; margin-left:40px; width:528px;}
+.bankdetailr2{margin-top:0px;}
+.bankdetailr>h2{ font-size:18px; color:#333333; padding-left:30px; background:url(../images/bank_03_07.png) no-repeat 0px center;}
+.bankdetailr>p{ font-size:12px;line-height:20px;color:#999;}
+.bankdetailr{margin-left:20px;}
+.bankdetailr > h2{background:url(../images/news_icon/text_icon.png) no-repeat 0px 4px;padding-left:22px;font-size:16px;}
+.bankblock{ width:270px; height:150px;background-repeat:no-repeat;}
+.bankblock .img{ height:20px; width:112px; background:url(../images/user-center/bankjs.png) no-repeat;}
+.bankblock .titlet{ margin:15px; }
+.bankblock p{ text-align:center; font-size:12px;}
+.bankblock p big{ font-size:22px; color:#333333;}
+.bankblock .lastl{ margin:30px 15px 15px 15px; }
+.bankblock .lastl .floatLeft{ color:#ac9542; font-size:8px; line-height:9px;}
+.bankblock .lastl .floatRight{font-size:12px;}
+.bankblock .last2{margin-top:0px;}
+.bankblock .imgs{width:112px;height:20px;background:url(../images/user-center/bankjs.png) no-repeat;}
+.bankuse{ float:left; background-image:url(../images/user-center/bank_03.jpg);}
+.hosbank{ display:inline; float:left;background-image: url(../images/user-center/bankbg.jpg); margin-right:20px; margin-bottom:20px;}
+.imgsbg{width:266px;height:148px;}
+.img_mt{margin-top:10px;}
+.user-card-bj{margin-right:10px;}
+
+/*--- apple ipad mini ---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.bankdetailr{width:400px;}
+	.hosbank{margin-bottom:20px;}
+}
+
+/*--- apple ipad mini 竖屏---*/
+@media (max-width:768px){
+	.bankdetailr{width:auto;margin-left:0px;}
+}
+
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.thisbank{padding: 0px 15px 15px 25px;}
+	.bankdetailr{width:auto;margin-left:0px;margin-top:10px;}
+	.hosbank{margin-bottom:20px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.thisbank ,.hostray{padding: 25px 15px 15px 0px;}
+}
+
+/* ----- 个人中心-银行卡管理（未绑定） ----- */
+.quickPay {font-size:16px;color:#333;padding-bottom:30px;background:#fff;}
+.quickPay img{padding-right: 10px;border-right: 1px solid #333;margin-right: 10px;margin-left: 25px;vertical-align: middle;}
+.quickPay small{width:68%;display:block;line-height:15px;float:right;margin-right:30px;font-size:12px;color:#999;}
+.bank-left{width:60%;float:left;}
+.bank-right{width:40%;float:left;}
+.fsp1{padding-left:20px;}
+.small_name a{color:#00BEFF;}
+#bankshow img{vertical-align:middle;margin-top:-3px;margin-right:5px;}
+.pRight .p-Right-bot .input-group .click_ck{color:#00BEFF;}
+.pRight .p-Right-bot .input-group em {margin-left:133px;}
+.pRight .p-Right-bot .input-group a{color:#ff6666;text-decoration:underline;}
+.pRight .p-Right-bot .input-group .btn-group{margin-left:74px;}
+.pRight .p-Right-bot .input-group span{ display:inline-block; width:112px;text-align:right;float:left;}
+.pRight .p-Right-bot .btn-group{ margin-left:155px; margin-top:10px;}
+.pRight .p-Right-bot .input-group em{ margin-left:142px;width:auto;}
+.pRight .p-Right-bot .bank-left .input-group em{ margin-left:132px!important;width:auto;}
+.pRight .p-Right-bot .input-group .cz-em{ margin-left:113px;width:auto;}
+.pRight .p-Right-bot .input-group .hui{ color:#5d5d5d;}
+.pRight .p-Right-bot .input-group input{ width:215px;height:37px;line-height:37px\9;margin-right:10px;padding-left:0px;text-indent: 6px;}
+.bankphonebtyn{margin-left:132px;}
+.bankphonebtyn button{width:210px;background:#ff6666;height:40px;float:left;font-family:"MicroSoft YaHei";}
+.bankphonebtyn a{margin-left:10px;margin-top:10px;color:#ff6666;text-decoration:underline;line-height:40px;display:block;float:left;}
+.bindcard{width:270px;border:1px solid #EC5A60;padding:20px;}
+.bindcard h2{ font-size:18px;color:#333; height:40px; line-height:35px; background:url(../images/news_icon/text2_icon.png) no-repeat 0px 7px;padding-left:30px;}
+.bindcard p{ text-indent:2em;color:#333;font-size:14px;}
+
+/*--- apple ipad mini ---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.bank-left{width:58%;padding-left:2%;float:left;}
+	.quickPay small{width:58%;}
+	.bindcard{padding:10px;}
+}
+
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.bank-left{width:100%;float:left;}
+	.bank-right{width:100%;float:left;}
+	.pRight .p-Right-bot .input-group input{margin-right:3px;}
+	.fsp1{padding-left:10px;}
+	.pRight .p-Right-bot .input-group em ,.bankphonebtyn{width:290px;margin-left:125px;}
+	.bindcard{width:auto;margin:0 20px;}
+	.quickPay small{display:none;}
+	#bankshow{font-size:12px;}
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	#bankshow{display:none;}
+	.pRight .p-Right-bot .input-group em ,.bankphonebtyn{width:250px;margin-left:90px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	#bankshow{display:none;}
+	.pRight .p-Right-bot .input-group input{width:170px;}
+	.pRight .p-Right-bot .input-group em ,.bankphonebtyn{width:200px;margin-left:90px;}
+	.bankphonebtyn button{width:152px;}
+	.bankphonebtyn a{margin-left:0px;}
+}
+
+
+/* ----- 个人中心-提现 ----- */
+.p-Right-top .tx-title{font-size:20px;height:45px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -1038px no-repeat;border-bottom:1px solid #F4F5F8;color:#333;}
+.p-Right-top .txjl-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/new2_icon.png) 0 -1099px no-repeat;color:#333;}
+.fsp2{padding-left:20px;}
+.labelwidth{ margin-left:30px;display:inline-block; padding-left:20px;  padding-left:7px\9; background:url(../images/fdetail/check02.jpg) 0 2px no-repeat;}
+.labelwidth:hover{ background-image:url(../images/fdetail/check03.jpg);}
+.detaildesabed{ background-image:url(../images/fdetail/check05.jpg); cursor:no-drop;}
+.detaildesabed:hover{ background-image:url(../images/fdetail/check05.jpg);}
+.labelwidth input{ display:none; display:inline-block\9; z-index:0px\9; width:0px; height:0px; padding-left:0px; margin-left:0px; border:none;}
+.widthvalid{width:130px!important;margin-right:0px!important;}
+#getvalid{width:90px;margin-left: 0px;padding: 0px;height: 40px; font-size:12px;border:none;}
+.btn-red{background:#FF5C5F;border:1px #FF5C5F solid;border-radius:0px;font-family:"MicroSoft YaHei";}
+.whycfy{ text-decoration:none; margin-left:48px;}
+.use1{background-image: url(../images/user-center/withd_03.jpg);}
+.checked{ background:url(../images/fdetail/check01.jpg) 0 2px no-repeat;}
+.checked:hover{ background:url(../images/fdetail/check01.jpg) 0 2px no-repeat;}
+.user-btn-group {margin-left: 135px;}
+.user-btn-group button{width:210px;height:40px;background:#FF5E63;font-family:"MicroSoft YaHei";}
+.huanka_tip{width: 375px;margin-left: 20px;float: left;}
+.huanka_tip .tip_title{font-size:16px;color:#333;}
+.huanka_tip .tip_title img{vertical-align:middle;margin-top:-4px;margin-right:5px;}
+.huanka_tip p{font-size:12px;}
+.txjl-list{background:#fff;}
+.txjl-ul-big{height:auto;padding:0 25px;}
+.txjl-ul-big li{width:100%;float:left;}
+.tx-ul li{width:25%;text-align:center;height:50px;line-height:50px;font-size:12px;float:left;background:#E8ECF1;}
+.tx-ul-list li{width:25%;text-align:center;height:60px;line-height:60px;font-size:12px;float:left;}
+.txjl-border{height:60px;float:left;border-bottom:1px solid #F4F5F8;}
+.tx-a{line-height:40px;margin-left:20px;text-decoration:none;}
+.tx-a2{line-height:40px;margin-left:5px;text-decoration:none;}
+/*补卡信息弹窗*/
+.input-group .withdraw_tx{width:100px;text-align:right;display:block;float:left;}
+.input-group .em_tip{padding-left:120px;margin-top:5px;}
+.input-group .buc_infotip{padding-left:120px;}
+.input-group .buc_input{width:210px;}
+.input-group .withdraw_img{left:180px;top:-5px;}
+.withdraw_btn{margin-left:120px;}
+.withdraw_btn button{width:170px;}
+.withdraw_btn #notWithDraw{margin-right:20px;}
+.buc_miantip{text-align:center;margin-top:10px;}
+
+/*--- apple ipad mini ---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.huanka_tip{width: 275px;}
+	.pRight .p-Right-bot .input-group em{width: 500px;}
+}
+/*--- apple ipad mini ---*/
+@media (max-width:768px){
+	.huanka_tip{margin-left:60px;}
+}
+
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.fsp2{padding-left:0px;}
+	/* .pRight .p-Right-bot .input-group a{margin-left:115px;} */
+	.user-btn-group{margin-left:120px!important;}
+	.pRight .p-Right-bot .input-group em{width:260px;margin-left:115px!important;line-height:15px;}
+	.tx-a ,.tx-a2{margin-left:115px;}
+	.tx-ul-list-li{line-height:30px!important;}
+	.huanka_tip{margin-left:0px;}
+	.whycfy{margin-left: 8px;}
+	
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.use1{margin-left: 50px;}
+	.huanka_tip{width: 275px;margin-left: 50px;}
+	.pRight .p-Right-bot .input-group em{ width: 200px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.txjl-ul-big{padding:0px;}
+	.pRight .p-Right-bot .input-group span{width:100px;}
+	.pRight .p-Right-bot .input-group input{width: 150px;}
+	.pRight .p-Right-bot .input-group em{width:150px;margin-left:105px!important;}
+	/* .pRight .p-Right-bot .input-group a{margin-left: 105px;} */
+	.use1{margin-left: 10px;}
+	.huanka_tip{margin-left:10px;}
+	.user-btn-group button{width: 150px!important;}
+	.user-btn-group{margin-left:105px!important;margin-top:20px;}
+	.widthvalid{width:75px!important;}
+
+}
+
+
+/* ----- 个人中心-充值 ----- */
+.p-Right-top .cz-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/cz_icon.png) 0 2px no-repeat;color:#333;}
+.p-Right-top .cz-title2{font-size:20px;height:45px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/cz_icon.png) 0 2px no-repeat;color:#333;border-bottom:1px solid #F4F5F8;}
+.p-Right-top .czlist-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/cz_icon.png) 0 -55px no-repeat;color:#333;}
+.rechan_gro{margin:0 25px;padding:10px;border:1px solid #F4F5F8;}
+.banksy{ display:inline-block; margin-top:0px; margin-left:110px;}
+.divhr{height:0; width:92%; margin:0 auto; border-top:1px solid #ccc;}
+.botyibao{margin-bottom:20px;padding-bottom:20px;padding:0 15px 10px;border-bottom:1px solid #F4F5F8;}
+.quickPay{line-height:45px;}
+.quickPay img{ padding-right:10px; border-right:1px solid #ccc;margin-left:100px; vertical-align:middle;}
+.inter-group{ margin-bottom:20px; display:none; border:none;}
+.inter_more{text-align:right;cursor:pointer;}
+.btn-inter-group{ margin:50px 84px 20px 40px; text-align:right;}
+.btn-inter-group a.btn{width:150px;}
+.btn-inter-group a{ display:inline-block;  margin-right:19px; text-decoration:none;}
+.payie{ display:inline-block; width:400px; line-height:20px; font-size:12px; color:red; vertical-align:middle; margin-left:20px;}
+.label2_1{ margin-right:7px;display:none;}
+.bank_card h2{font-size:18px;width:830px;height:35px;background:url(../images/new_icon/user_icon.png) no-repeat 0 -540px;text-indent:30px;color:#000;border-bottom:1px #ccc solid;}
+.internateBank{margin-left:0px!important;}
+.internateBank span{ display:inline-block; float:left; height:40px;  line-height:40px; text-align:center; width:160px; border:1px solid #ccc; cursor:pointer;}
+.internateBank span.choose{ border:1px solid #fe2a4d; position:relative;}
+.internateBank span.choose i{ position:absolute; height:17px; width:17px; display:block; background:url(../images/news_icon/payb_03.png) no-repeat; top:0px;right:0px;}
+.kard_czjl h2{font-size:18px;width:830px;height:35px;background:url(../images/new_icon/user_icon.png) no-repeat 0 -51px;text-indent:30px;color:#000;line-height:30px;}
+.internateTable{ border-top:1px solid #ccc; border-left:1px solid #ccc;  text-align:center;margin-left:5px;}
+.internateTable td{ height:32px; line-height:32px; border-right:1px solid #ccc; border-bottom:1px solid #ccc;}
+.internateTable .interTitle{ background:#f4f2f2;}
+.ieshowpay{padding: 0px 15px;}
+.ieshowpay span{float:left;color:#ff6666;}
+.ieshowpay .inter_more{float:right;}
+.renzheng{vertical-align:middle;margin-right:40px;cursor:pointer;}
+.emti{margin-left:115px!important;}
+.cz-btn{margin-left:115px;}
+.inter-group #rechargeEBank .mb-30 .user-cz-btn{width:210px;height:40px;line-height:40px;margin-left:115px;font-family:"MicroSoft YaHei";background:#FF5C5F;}
+.user-cz-btn2{width:230px;height:40px;line-height:40px;}
+.user-cz-input{width:219px;height:40px;line-height:40px;}
+.user-btn-group{margin-left:142px;}
+.bankpayd button.btn{width:215px;}
+.cz-list-le{width:500px;float:left;}
+.cz-list-ri{width:296px;float:left;padding:15px;border:1px red solid;}
+.cz-list-ri span{font-size:18px;color:#333;}
+.cz-list-ri span img{vertical-align:middle;margin-right:10px;margin-top:-5px;}
+.cz-list-ri p{font-size:14px;color:#333;text-indent:30px;line-height: 20px;}
+.s_show{height: 50px;line-height: 50px;border-bottom: 1px solid #eeeeee;padding-left: 20px;
+background: url(../images/pay/pay_icon.png) no-repeat -1px -291px;}
+.s_hide{height: 50px;line-height: 50px;border-bottom: 1px solid #eeeeee;padding-left: 20px;
+background: url(../images/pay/pay_icon.png) no-repeat -1px -351px;}
+.internateBank span img{}
+.inter-show{display:block;}
+
+
+/*--- apple ipad mini ---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.internateBank span{width:160px;margin:3px;}
+	.internateTable{width:98.3%;margin-left:3px;}
+	.cz-list-ri{margin:10px 0px 10px 115px;}
+	
+}
+/*--- apple ipad mini 竖屏---*/
+@media (max-width: 768px){
+	.bank-left ,.bank-right{width:100%;}
+	.quickPay small{width: 48%;}
+	.cz-list-le{width:312px;}
+	.input-group small a ,.cz-list-a{margin-left:0px!important;}
+	#bankshow{display:none;}
+	.cz-span{width:70px!important;text-align:right;}
+	.input-group .cz-em{width:auto!important;line-height:20px!important;margin-left:75px!important;}
+	.cz-list-ri{width: 280px;}
+	.cz-btn ,.user-cz-btn{margin-left:75px;}
+	.internateTable{width:83.1%;}
+	.cz-list-ri{margin:10px 0px 10px 0px;}
+	.bindcard{margin-left: 135px;}
+	
+}
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.cz-list-le{width:312px;}
+	.input-group small a ,.cz-list-a{margin-left:0px!important;}
+	#bankshow{display:none;}
+	.cz-span{width:70px!important;text-align:right;}
+	.input-group .cz-em{width:auto!important;line-height:20px!important;margin-left:75px!important;}
+	.cz-list-ri{width: 280px;}
+	.cz-btn ,.user-cz-btn{margin-left:75px;}
+	.pRight .p-Right-bot .input-group em{width:auto;margin-left:125px;}
+	.bindcard{margin-left:35px;}
+	.cz-list-ri{margin:10px 0px 10px 5px;}
+	.inter-group #rechargeEBank .mb-30 .user-cz-btn{margin-left:75px;}
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.rechan_gro{margin:0px;}
+	.bindcard{margin-left:35px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.cz-list-le{width:268px;}
+	.cz-list-ri{width: 238px;}
+	.user-cz-btn{width:152px;}
+	.bindcard{margin:0 0 0 35px;}
+	.pRight .p-Right-bot .input-group em{margin-left:115px;}
+}
+
+/* ----- 账户中心-个人信息-邀请好友 ----- */
+.p-Right-top .yqhy-title{font-size:20px;height:45px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/cz_icon.png) 0 -112px no-repeat;color:#333;border-bottom:1px solid #F4F5F8;}
+.p-Right-top .yqhy-list-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/cz_icon.png) 0 -170px no-repeat;color:#333;}
+.p-Right-top .wcz-list-title{font-size:20px;height:25px;text-indent: 30px;line-height:23px;font-family:"MicroSoft YaHei";background:url(../images/news_icon/cz_icon.png) 0 -170px no-repeat;color:#333;}
+.yqhy-mt{margin-top:0px;}
+.in_friends_top .in_friends_tople{width:400px;height:200px;float:left;border-right:1px solid #F4F5F8;margin-left:50px;}
+.fri_step1 h2{font-family:"Microsoft YaHei";font-size:18px;color:#333333;}
+.fri_step1 input{width:280px;text-indent:5px;height:35px;line-height:35px;border:1px #E1E1E1 solid;float:left;font-family:"Microsoft YaHei";}
+.fri_step1{height:35px;line-height:35px;}
+.fri_step1 span{width:100px;font-size:16px;color:#333;float:left;height:35px;line-height:35px;}
+.fri_step1 i{font-size:30px;color:#333;font-family:"Arial";}
+.fri_step1 button{width:120px;text-align:center;color:#fff;font-size:14px;height:40px;border-radius:2px;background:#FF5E63;border:none;cursor:pointer;font-family:"Microsoft YaHei";}
+.fri_step1 button:hover{background:#fe2b4e;}
+.fri_step1 button:active{color: #fcd3a5;}
+.in_friends_top .in_friends_tople .in_friends_tople_box1 .fri_step1 dl{width:50px;float:left;margin-right:30px;}
+.in_friends_top .in_friends_tople .in_friends_tople_box1 .fri_step1 dl dd{width:50px;text-align:center;float:left;font-size:12px;}
+.in_friends_top .in_friends_topri{width:410px;float:left;}
+.in_friends_top .in_friends_topri p{text-align:center;margin-top:10px;font-size:16px;color:#333;}
+.in_friends_bot .user_success_title li{width:250px;text-align:center;height:50px;line-height:50px;font-size:12px;color:#fff;float:left;font-family:"Microsoft YaHei";}
+.in_friends_bot .user_success_con .friend_hui{background:#FAFAFA;}
+.in_friends_bot .user_success_con li ul li{width:250px;text-align:center;height:70px;line-height:70px;font-size:12px;float:left;}
+.in_friends_top{width:875px;margin:0 auto;}
+.in_friends_top .in_friends_topri{width:420px;}
+.in_friends_bot{width:915px;}
+.in_friends_bot .user_success_title li{width:218.75px;color:#666;}
+.in_friends_bot .user_success_title{width:875px;height:50px;line-height:50px;background:#E8ECF1;margin:0 auto;}
+.in_friends_bot .user_success_con{width:875px;margin:0 auto;}
+.in_friends_bot .user_success_con li{width:875px;height:60px;line-height:60px;border-bottom:1px solid #F4F5F8;}
+.in_friends_bot .user_success_con li ul li{width:218.75px;height:60px;line-height:60px;}
+.friend_ul_li ul{margin:0px!important;}
+.pre_tabtitle_friend h2{font-size:18px;width:875px;height:35px;background:url(../images/new_icon/user_icon.png) no-repeat 0 -666px;text-indent:30px;color:#000;border-bottom:1px #ccc solid;}
+.in_friends_bot h2{font-size:18px;width:875px;height:35px;background:url(../images/new_icon/user_icon.png) no-repeat 0 -415px;text-indent:30px;color:#000;}
+.xiugai_phone_main .user_yqhy{font-size:30px;color:#333;}
+.xiugai_phone_main .input_box_phone button{width:150px;height:40px;line-height:40px;color:#fff;border-radius:3px;margin-left:0px;}
+.xiugai_phone_main .input_box_phone button:hover{background:;color:#fff;}
+
+/*--- apple ipad mini ---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	.in_friends_top .in_friends_tople{width:350px;}
+	.in_friends_top .in_friends_topri{width:320px;}
+	.in_friends_bot ,.in_friends_bot .user_success_con{width:750px;}
+	.in_friends_bot .user_success_title{width:720px;margin:0 auto;}
+	.in_friends_bot .user_success_con li{width:720px;margin:0 auto;}
+	.in_friends_bot .user_success_title li ,.in_friends_bot .user_success_con li ul li{width:180px;}
+}
+@media (max-width:768px) {
+	.in_friends_top{width:544px;}
+	.in_friends_top .in_friends_tople ,.in_friends_top .in_friends_topri{width: auto;}
+	.in_friends_top .in_friends_topri{margin-left:110px;}
+	.in_friends_bot{width:544px;}
+	.in_friends_bot .user_success_title ,.in_friends_bot .user_success_con ,.in_friends_bot .user_success_con li{width:544px;}
+	.in_friends_bot .user_success_title li ,.in_friends_bot .user_success_con li ul li{width:136px;}
+	.input-group em{width:auto;}
+}
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.in_friends_top{width:384px;}
+	.in_friends_top .in_friends_tople ,.in_friends_top .in_friends_topri{width: auto;}
+	.in_friends_top .in_friends_topri{margin-left:110px;}
+	.in_friends_bot{width:384px;}
+	.in_friends_bot .user_success_title ,.in_friends_bot .user_success_con ,.in_friends_bot .user_success_con li{width:384px;}
+	.in_friends_bot .user_success_title li ,.in_friends_bot .user_success_con li ul li{width:96px;}
+	.yq_ptjl{line-height:30px!important;}
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.in_friends_top{width:345px;}
+	.in_friends_bot{width:345px;}
+	.in_friends_bot .user_success_title ,.in_friends_bot .user_success_con ,.in_friends_bot .user_success_con li{width:345px;}
+	.in_friends_bot .user_success_title li ,.in_friends_bot .user_success_con li ul li{width:86.25px!important;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.fri_step1 input{width:200px;}
+	.in_friends_top .in_friends_tople{border:none;}
+	.in_friends_top .in_friends_topri{margin-left:65px;}
+	.in_friends_top{width:290px;}
+	.in_friends_bot{width:290px;}
+	.in_friends_bot .user_success_title ,.in_friends_bot .user_success_con ,.in_friends_bot .user_success_con li{width:290px;}
+	.in_friends_bot .user_success_title li ,.in_friends_bot .user_success_con li ul li{width:72.5px!important;}
+
+}
+
+
+
+/* ----- 账户中心-银行卡管理-卡编辑 ----- */
+.lian_khh{float:left;line-height:39px;}
+.lian_sel{float:left;width:105px!important;height:39px!important;}
+.lian_dt{float:left;width:91px!important;padding-left:0px!important;height:39px!important;line-height:39px!important;text-indent:5px!important;}
+.lian_ul{float:left;width:103px!important;overflow-y:scroll;}
+.lian_ul li{height:28px!important;}
+.lian_ul li a{line-height: 28px;display: block;color: #666!important;text-decoration:none!important;text-align: left;border-top: 1px solid #fff;border-bottom: 1px solid #fff;}
+.yh_mian_text{background:#fff;height:30px;text-indent:2px;line-height:30px;border:1px solid #DDD;border-top:none;border-right:none;font-family:"Microsoft YaHei";}
+.yh_search{position:absolute;left:315px;top:-6px;cursor:pointer;width:30px;height:30px;display:none;}
+.yh_name{min-width:221px;height:125px;overflow-y:scroll;margin-left:136px;z-index:999;margin-top:-41px;cursor:pointer;border-top:1px solid #ddd;background:#fff;position:absolute;display:none;}
+.yh_tip{margin-left:133px;margin-top:-10px;}
+.yhkgl-pd{margin-top:0px;}
+.yhk-bjbtn{margin-left: 135px;}
+/*--- apple ipad mini ---*/
+@media (max-width: 1024px) and (min-width: 992px){
+	
+}
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.yhkgl-pd{padding:0 10px;}
+	.pRight .p-Right-bot .input-group .kbj-em{width:200px!important;line-height:25px!important;margin-left:125px!important;}
+	.yh_search{left:303px;}
+	.yh_name{max-width:150px!important;margin-left:126px;margin-top:-62px;}
+	.yh_mian_text{overflow:hidden;}
+	.yh_tip{margin-left: 125px;}
+	/* .iphone6-p{margin-top:-22px;} */
+	.yhk-bjbtn{margin-left:130px;width:210px!important;}
+	
+	
+}
+
+/*--- apple iphone6 ---*/
+@media (max-width:375px){
+	.kbj-span{width:80px!important;line-height: 39px;}
+	.yhk-bjbtn{margin-left: 95px;}
+	.pRight .p-Right-bot .input-group .kbj-em{margin-left: 95px!important;}
+	.yh_search{left: 270px;}
+	.yh_name{margin-left: 94px;}
+	.yh_tip{margin-left: 95px;}
+}
+
+/*--- apple iphone5 ---*/
+@media (max-width:320px){
+	.lian_sel{width:76px!important;}
+	.lian_dt{width: 62px!important;}
+	.yhk-bjbtn button{width:152px!important;}
+	.yh_search{left: 215px;}
+	.yh_name{margin-top: -83px;min-width: 180px;}
+	.pRight .p-Right-bot .input-group .kbj-em{width: 180px!important;}
+	.lian_ul{width: 74px!important;}
+	
+}
+
+/*  账户中心*/
+.fash-3{height:37px;line-height:37px;}
+
+/*---------------------------------------------------------404页面---------------------------------------------------------*/
+.404_main{width:100%;height:auto;}
+.main_top{width:1000px;height:auto;margin:0 auto;margin-top:20px;text-align:center;}
+.main_top p{font-size:24px;color:#000;}
+.main_top .Error-code{font-size:18px;color:#000;}
+.main_center{width:100%;height:360px;margin:0 auto;margin-top:50px;text-align:center;background:url(../images/404.jpg) no-repeat center;}
+.main_bot{width:1000px;height:auto;margin:0 auto;margin-top:30px;text-align:center;}
+.main_bot p{font-size:16px;color:#000;}
+.main_bot .main_bot_big{margin-bottom:20px;font-size:30px;color:#000;}
+.main_bot .main_bot_big a{font-size:30px;color:#36b1e9;}
+
+#yqsy1{float: right; display:block;}
+
+
+/*---找回密码--01---*/
+.re_Step1{width:100%;text-align:center;}
+.re_Step1_main{width:950px;margin:0 auto;overflow:hidden;}
+.re_Step1_main .re_Step1_mainle{width:400px;float:left;}
+.re_Step1_main .re_Step1_mainri{width:380px;float:right;border:1px #333 solid;padding:20px 15px;}
+.re_Step1_mainletop ,.re_Step1_mainlebot{width:100%;float:left;}
+.re_Step1_mainletop .re_Step1_mainletop_le ,.re_Step1_mainlebot_le{width:80px;height:30px;line-height:30px;float:left;text-align:right;}
+
+.re_Step1_mainle .ipt-input{border:1px #333 solid;width:249px;}
+.re_Step1_mainle .phone-input{width:249px;height:38px!important;line-height:38px!important;}
+.re_Step1_mainle .new-emtip{padding-left:60px;height:43px!important;line-height:43px!important;}
+.re_Step1_mainle .new-emtips{padding-left:70px;height:43px!important;line-height:43px!important;}
+.re_Step1_mainle .valid-input{margin-left:4px;height:38px!important;width:159px!important;}
+.re_Step1_mainle .btn-hqvalid{width:100px;height:40px;line-height:40px;padding:0;font-size:12px;cursor:pointer;}
+.re_Step1_mainle .btn-blank{color:#fff;background:#333;}
+.re_Step1_mainle .rebtn-gray{color:#fff;background:#999;}
+.re_Step1_mainle em img{vertical-align:middle;margin:-4px 3px 0 0;}
+.re_Step1_mainle .new-mt-7{margin-top:7px;}
+.re_Step1_mainle .new-yzm-no{width:325px;text-align:right;}
+.re_Step1_mainle .new-yzm-no a{text-decoration:none;color:#f66;}
+.re_Step1_main .new-btn{width:250px;height:50px;margin:0 auto;font-family:'微软雅黑';}
+#re_getvalid{width:90px;margin-left:0px;padding:0px;height:40px;border:0px;font-size:12px;}
+
+/*--- apple ipad mini 竖屏---*/
+@media (max-width:768px){
+	.re_Step1_main{width:738px;}
+	.re_Step1_main .re_Step1_mainle{width:350px;}
+	.re_Step1_main .re_Step1_mainri{width:340px;padding:10px;}
+}
+/*--- iphone6 plus 竖屏---*/
+@media (max-width:414px){
+	.re_Step1_main{width:384px;}
+	.re_Step1_main .re_Step1_mainle{width:100%;}
+	.re_Step1_main .re_Step1_mainri{width:240px;margin-right: 62px;}
+}
+/*--- iphone6竖屏---*/
+@media (max-width:375px){
+	.re_Step1_main{width:345px;}
+	.re_Step1_main .re_Step1_mainle{width:100%;}
+	.re_Step1_main .re_Step1_mainri{width:240px;margin-right:25px;}
+}
+/*--- iphone5竖屏---*/
+@media (max-width:320px){
+	.re_Step1_main{width:290px;}
+	.re_Step1_main .re_Step1_mainle{width:100%;}
+	.re_Step1_main .re_Step1_mainri{width:183px;margin-right:25px;}
+	.re_Step1_mainle .valid-input{width:101px!important;}
+	.re_Step1_mainle .new-yzm-no{width: 265px;}
+}
+/*---找回密码--02---*/
+.re_Step1_mainle .input-group .re_Step1_mainletop_ri{width:325px;float:right;}
+.re_Step1_mainle .input-group .re_Step1_mainletop_ri p{width:320px;float:left;color:#999;font-size:12px;margin-left:7px;}
+.re_Step1_mainle .input-group .re_Step1_mainletop_ri label{width:110px;line-height:23px;text-align:left;text-indent:1em;font-family:"Microsoft Yahei";font-size:14px;color:#333;float:left;}
+.re_Step1_mainle .input-group .re_Step1_mainletop_ri label input{margin-left:-8px;}
+.new2-emtip{padding-left:72px;height:43px;line-height:43px;}
+
+.input-group .re_Step1_mainlebot_ri{width:318px;float:right;}
+.input-group .re_Step1_mainlebot_ri span{width:120px;text-align:center;float:left;height:30px;line-height:30px;}
+.input-group .re_Step1_mainlebot_ri label{width:15px;height:30px;line-height:30px;float:left;border:1px #ccc solid;}
+.input-group .re_Step1_mainlebot_ri label input{width:15px;height:30px;line-height:30px;border:none;float:left;}
+.input-group .re_Step1_mainlebot_ri .border_rino{border-right:none;}
+.input-group .hui{ color:#999999;}
+.re_Step1_mainle #rejc,.re_Step1_mainle .Wcolor,.re_Step1_mainle .Mcolor,.re_Step1_mainle .Scolor,.re_Step1_mainle .Tcolor{ height:38px;border-radius:0; width:38px; line-height:40px; text-align:center; color:#fff;border: 1px solid #868686;margin-left:-38px;}
+.re_Step1_mainle .Tcolor{ background:#868686;}
+.idcard{border:1px solid #ccc;border-right:none;width:13px;height:25px;text-align:center;padding:0;margin:0;float:left;}
+.idcard2{border:1px solid #ccc;width:13px;height:25px;text-align:center;padding:0;margin:0;float:left;}
+#tip{color:#999;font-size:12px;}
+/*--- apple ipad mini 竖屏---*/
+@media (max-width:768px){
+	.re_Step1_mainle .input-group .re_Step1_mainletop_ri{width:275px;}
+	.input-group .re_Step1_mainlebot_ri{width:270px;}
+}
+/*--- iphone6 plus 竖屏---*/
+@media (max-width:414px){
+	.re_Step1_mainle .input-group .re_Step1_mainletop_ri{width:310px;}
+	.input-group .re_Step1_mainlebot_ri{width:305px;}
+}
+/*--- iphone6竖屏---*/
+@media (max-width:375px){
+	.re_Step1_mainle .input-group .re_Step1_mainletop_ri{width:273px;}
+	.input-group .re_Step1_mainlebot_ri{width: 267px;}
+}
+
+/*--- iphone5竖屏---*/
+@media (max-width:320px){
+	.re_Step1_mainle .input-group .re_Step1_mainletop_ri{width:220px;}
+	.input-group label #re_password_card{width:192px;font-size:12px;}
+	.input-group .re_Step1_mainlebot_ri{width: 238px;}
+}
+
+/*---找回密码--03---*/
+.re_Step1_mainle .input-group .new-pasinput{height:38px;line-height:40px;}
+
+/*--- iphone5竖屏---*/
+@media (max-width:320px){
+	.input-group #password ,.input-group #password2 {width:192px;}
+}
+
+/*---找回密码--04---*/
+.container .re-password img{vertical-align: middle;max-width:100%;}
+.re-password-link{ height: 50px; line-height: 50px;}
+.re-password-link ul li{ display: inline-block; float: left; margin-right: 5px; color: #333;}
+.re-password-link ul li a{ margin-right: 5px; color: #333;}
+.re-password-link ul li a:hover{ color: #ff5e63;}
+.re-password-link ul li span{color: #ff5e63;}
+.re-password-main p{text-align:center;font-size:16px;color:#333;font-family:"微软雅黑";}
+.re-password-main .re-password-btn{text-align:center;}
+.re-password-main .re-password-btn button{background:#ff6666;border:0px;width:250px;height:50px;font-size:14px;color:#fff;font-family:"微软雅黑";border-radius: 2px;cursor:pointer;}
+
+
+
+/*--- 计算器--- */
+.helptitle{ position:relative;height:50px;}
+.helptitle h2{ width:100%; height:50px; color:#fff; background:#393c46; position:absolute;}
+.helptitle h2 .tabul{width:500px;margin:0 auto;}
+.helptitle h2 .tabul li{display:inline-block; float:left; width:50%; height:50px; line-height:50px; text-align:center; cursor:pointer;font-size:18px;}
+.helptitle h2 .tabul li.action{background:#f66; position:relative; top:0px; font-size:20px; -moz-transition: background 0.2s ease; -webkit-transition: background 0.2s ease; -o-transition: background 0.2s ease;transition: background 0.2s ease }
+.helptitle h2 .tabul li .sp2{ line-height:20px;}
+.helptitle h2 .tabul li.zheicon,.helptitle h2 .tabul li.hengicon{ background-position:38% center; background-repeat:no-repeat;}
+.bortab{ text-align:center;  margin-top:40px;}
+.bortab span{ display:inline-block; }
+.bortab .ipt-borrow{ width:300px; height:40px; border:1px solid #dddddd; margin-right:8px; padding:0px;text-indent:5px;text-align:left;}
+.bormoney .c_red{margin-left:75px;color:#f66;}
+.bordetail .c_red{color:#f66;}
+.bortab .bormoney{width:450px; margin:0 auto; margin-top:30px; text-align:left;}
+.bortab .bormoney .firstb{ width:70px; text-align:left;}
+.bortab .bormoney .four{ width:auto; text-align:left;}
+.bortab .bormoney .four input{ margin-right:8px;}
+.bortab .bormoney .four:last-child{ width:80px;}
+.bortab .borcenter{ text-align:center; display:inline-block; float:none;}
+.bortab .borcenter button{width:250px;height:50px;border:0px;padding:0px;background:#f66;font-size:20px;margin-right:50px;}
+.bordetail{background-size:100%; padding-top:40px; margin-top:40px;border-top:1px #eee solid;}
+.bordetail p{ line-height:40px; width:500px; margin:0 auto;}
+.bordetail p span{ display:inline-block;}
+.bordetail p span.bfirst{width:170px;text-align:left;}
+.bordetail p span.blast{width:330px;text-align:right;text-indent:10px;}
+.second{position:relative;}
+.second i{position:absolute;top:8px;width:25px;font-size:12px;text-align:center;line-height:25px;height:25px;color:#333;border-radius:5px;}
+.bordetail .bortable{width:750px; line-height:50px; border-top:1px solid #dddddd; border-left:1px solid #dddddd; text-align:center; margin:0 auto; margin-top:30px; }
+.bordetail .bortable td{ border-right:1px solid #dddddd; border-bottom:1px solid #dddddd;}
+
+.tac a{/*float:right;*/font-size:12px;text-decoration:none;display:inline-block;margin:5px 0 10px;}
+.user_bordetail_btn{margin:20px auto!important;}
+.user_bordetail_btn button{width:150px;height:40px;background:#f66;border-radius:3px;border:none;color:#FFF;cursor:pointer;margin-left:50px;}
+.user_bordetail_title{font-size:18px;color:#000;margin-bottom:20px;}
+
+
+/*--- apple ipad mini 竖屏---*/
+@media (max-width:1024px){
+	.wrapper{width:;}
+}
+/*--- apple ipad mini 横屏---*/
+@media (max-width:768px){
+	.wrapper{width:738px;}
+}
+/*--- apple iphone6 plus 竖屏---*/
+@media (max-width:414px){
+	.wrapper{width:384px!important;}
+	.helptitle h2 .tabu{width:384px;}
+	.bortab .ipt-borrow{width:260px;}
+	.bortab .bormoney{width:384px;}
+	.bortab .bormoney .four input{margin-right:0px;}
+	.bortab .bormoney .four{font-size:12px;}
+	.bordetail p ,.bordetail .bortable{width:384px;}
+	.bordetail p span.blast ,.bordetail p span.bfirst{width:50%;}
+}
+/*--- apple iphone6 竖屏---*/
+@media (max-width:375px){
+	.wrapper{width:345px!important;}
+	.helptitle h2 .tabu{width:345px;}
+	.bortab .ipt-borrow{width:200px;}
+	.bortab .bormoney{width:345px;}
+	.bortab .bormoney .four input{margin-right:0px;}
+	.bortab .bormoney .four{font-size:12px;}
+	.bordetail p ,.bordetail .bortable{width:345px;}
+	.bordetail p span.blast ,.bordetail p span.bfirst{width:50%;}
+}
+
+/*--- apple iphone5 竖屏---*/
+@media (max-width:320px){
+	.wrapper{width:290px!important;}
+	.helptitle h2 .tabu{width:290px;}
+	.bortab .ipt-borrow{width:150px;}
+	.bortab .bormoney{width:290px;}
+	.bortab .bormoney .four input{margin-right:0px;}
+	.bortab .bormoney .four{font-size:12px;}
+	.bordetail p ,.bordetail .bortable{width:290px;}
+	.bordetail p span.blast ,.bordetail p span.bfirst{width:50%;}
+	.iphone4{width: 39%;margin-left: 74px;}
+}
+
+
+.th-pro-title {
+    background: #393c46 none repeat scroll 0 0;
+    height: 50px;
+    line-height: 50px;
+    overflow: hidden;
+}
+
+
+/* * *
+   * 省心计划详情页面样式
+   *
+*/
+.list-bot-licai-icon1{width:14px;height:14px;margin-right:5px;display:block;float:left;margin-top:9px;background:url(../images/finance_list/licai_icon.png) 0 0;}
+.list-bot-licai-icon2{width:14px;height:14px;margin-right:5px;display:block;float:left;margin-top:8px;background:url(../images/finance_list/licai_icon.png) 0 -26px;}
+.list-bot-licai-icon3{width:14px;height:14px;margin-right:5px;display:block;float:left;margin-top:8px;background:url(../images/finance_list/licai_icon.png) 0 -52px;}
+.list-bot-licai-icon4{width:14px;height:14px;margin-right:5px;display:block;float:left;margin-top:8px;background:url(../images/finance_list/licai_icon.png) 0 -80px;}
+.tab_licai_cqjs{padding:30px;}
+.tab_licai_lc{border-bottom:1px solid #E4E1DC;}
+.tab_licai_lc h2{font-size:18px;font-family:"MicroSoft YaHei";color:#333;}
+.tab_licai_lc .licai_img{width:auto;height:110px;background:url(../images/finance_list/licai_licheng.jpg) no-repeat;margin:15px 25px;}
+.tab_licai_ul{}
+.tab_licai_ul li{float:left;width:100%;}
+.tab_licai_ul li ul li{float:left;line-height:40px;}
+.tab_licai_ul li ul .tab_licai_ul_li_left{width:12%;text-align:left;font-size:14px;color:#666;}
+.tab_licai_ul li ul .tab_licai_ul_li_right{width:88%;text-align:left;font-size:14px;color:#333;}
+.tab_licai_wenti{border-bottom:1px dashed #E4E1DC;padding:10px 0px 20px;}
+.border_btnone{border-bottom:none;}
+.tab_licai_wenti .question{font-size:18px;color:#333;line-height:40px;}
+.tab_licai_wenti .question i{width:26px;height:23px;background:url(../images/finance_list/wen_icon.png) no-repeat;display:block;float:left;margin:9px 5px 0px 0px}
+.tab_licai_wenti .answer{text-indent:2em;font-size:14px;color:#333;line-height:30px;}
+/*--- apple ipad mini 竖屏---*/
+@media (max-width:768px){
+	.tab_licai_ul li ul .tab_licai_ul_li_left{width:20%;}
+	.tab_licai_ul li ul .tab_licai_ul_li_right{width:80%;}
+}
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.tab_licai_ul li ul .tab_licai_ul_li_left{width:30%;}
+	.tab_licai_ul li ul .tab_licai_ul_li_right{width:70%;}
+}
+
+/* * *
+   * 省心计划页面样式
+   *
+*/
+.th-finance-list-group{border:1px #eee solid;margin-top:15px;padding:30px 30px 0px;}
+.th-finance-list-group .finance_pro_box{width:100%;border-bottom:1px #eee solid;}
+.th-finance-list-group .border_bm{border-bottom:none;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_le{width:9.9%;float:left;text-align: center;padding: 30px 0;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_le .finance_pro_name{font-size:18px;color:#333;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_cen{width:70%;float:left;margin:15px 0;border-left: 1px #eee solid;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_cen ul li{width:100%;float:left;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_cen ul li ul li{width:25%;float:left;text-indent: 30px;line-height:40px;font-size:14px;color:#999}
+.th-finance-list-group .finance_pro_box .finance_pro_box_cen ul li ul .finance_pro_size{font-size:36px;color:#f66;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_cen ul li ul .finance_pro_size2{font-size:24px;color:#333;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_cen ul li ul .finance_pro_size3{font-size:18px;color:#333;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_cen ul li ul .finance_pro_size4{font-size:20px;color:#333;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_cen p{text-indent:30px;line-height:50px;font-size:14px;color:#666;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_ri{width:20%;float:left;padding: 30px 0;text-align: center;margin: 40px 0;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_ri a{display:block;width:120px;height:40px;line-height:40px;background:#f66;font-size:14px;color:#fff;border-radius:3px;cursor:pointer;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_ri a:hover{background:#fb5156;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_ri .btn_pro_mane{color:#999;background:#f5f5f5;}
+.th-finance-list-group .finance_pro_box .finance_pro_box_ri .btn_pro_mane:hover{background:#f5f5f5;}
+@media (max-width:1024px) and (min-width:992px){
+	.th-finance-list-group .finance_pro_box .finance_pro_box_ri{width:19%;}
+}
+/*--- apple ipad mini 竖屏---*/
+@media (max-width:768px){
+	.th-finance-list-group .finance_pro_box .finance_pro_box_le{display:none;}
+	.th-finance-list-group .finance_pro_box .finance_pro_box_cen{border-left:none;width:100%;}
+	.th-finance-list-group .finance_pro_box .finance_pro_box_ri{width:100%;padding:0px;margin:0px 0px 20px;}
+}
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.th-finance-list-group .finance_pro_box .finance_pro_box_cen .finance_pro_none{display:none;}
+	.th-finance-list-group .finance_pro_box .finance_pro_box_cen .finance_pro_size3{display:none;}
+	.th-finance-list-group .finance_pro_box .finance_pro_box_cen .finance_pro_size4{display:none;}
+	.th-finance-list-group .finance_pro_box .finance_pro_box_cen ul li ul li{width:50%;}
+	.th-finance-list-group .finance_pro_box .finance_pro_box_cen p{line-height: 20px;margin-top:10px;}
+}
+
+
+/* * *
+   * 省心计划详情页面样式----new_style
+   *
+*/
+.loanlist_new_mian{width:100%;height:auto;border:1px #e4e1dc solid;margin-top:25px;}
+.loanlist_new_mian .loanlist_new_mian_top{width:100%;float:left;line-height:78px;border-bottom:1px #e4e1dc solid;}
+.loanlist_new_mian .loanlist_new_mian_top .loanlist_new_mtople{font-size:24px;color:#333;padding-left:30px;}
+.loanlist_new_mian .loanlist_new_mian_top .loanlist_new_mtopri{font-size:14px;color:#333;float:right;padding-right:30px;}
+.loanlist_new_mian .loanlist_new_mian_top .loanlist_new_mtopri .loanlist_xieyi{float:right;display:block;text-decoration:underline;}
+.loanlist_new_mian .loanlist_new_mian_top .loanlist_new_mtopri .loanlist_xieyi2{float:right;display:block;padding-right:20px;text-decoration:underline;}
+.loanlist_new_mian .loanlist_new_mian_top .loanlist_new_mtopri a img{vertical-align:middle;margin-right:5px;}
+.loanlist_new_mian .loanlist_new_mian_bot{width:100%;float:left;}
+.loanlist_new_mian_le{width:24%;height:auto;float:left;padding:80px 0px;}
+.loanlist_new_mian_le p{line-height:35px;text-indent:35px;}
+.loanlist_new_mian_le .loanlist_user_zc{font-size:18px;color:#333;}
+.loanlist_new_mian_le .loanlist_user_num{font-size:32px;color:#f66;}
+.loanlist_new_mian_ri{width:75%;height:auto;float:left;margin:20px 0px;border-left:1px #e4e1dc solid;}
+.loanlist_new_mian_ri .l_list_mian_box{width:100%;height:auto;float:left;margin-bottom:10px;}
+.loanlist_new_mian_ri .l_list_mian_box dl{width:25%;height:auto;float:left;text-indent:30px;}
+.loanlist_new_mian_ri .l_list_mian_box dl dd{line-height:30px;}
+.loanlist_new_mian_ri .l_list_mian_box dl dd span{font-size:20px;color:#000;}
+.loanlist_new_mian_ri .l_list_mian_box dl dd font{font-size:20px;color:#f66;}
+.loanlist_new_mian_ri .l_list_mian_box dl dd img{vertical-align:middle;margin-left:5px;margin-top:-2px;}
+.loanlist_new_page{width:100%;float:left;}
+.loanlist_new_page_title{width:100%;height:60px;line-height:60px;border-bottom:1px #e4e1dc solid;}
+.loanlist_new_page_title h2{font-size:24px;color:#333;}
+.loanlist_new_page_mian ul{width:100%;}
+.loanlist_new_page_mian ul li{float:left;width:100%;}
+.loanlist_new_page_mian ul .page_mian_li_title{height:40px;line-height:40px;background:#F7F7F7;border-bottom:1px #e4e1dc solid;}
+.loanlist_new_page_mian ul .page_mian_li_main{height:60px;line-height:60px;border-bottom:1px #e4e1dc solid;}
+.loanlist_new_page_mian ul li ul{width:100%;}
+.loanlist_new_page_mian ul li ul li{float:left;text-align:center;}
+.loanlist_new_page_mian ul li ul .loanlist_li5{width:5%;}
+.loanlist_new_page_mian ul li ul .loanlist_li15{width:15%;}
+.loanlist_new_page_mian ul li ul .loanlist_li10{width:10%;}
+.loanlist_new_page_mian ul li ul .loanlist_li20{width:20%;white-space:nowrap;overflow:hidden;}
+/*--- apple ipad mini 竖屏---*/
+@media (max-width:768px){
+	.loanlist_new_mian_le{width:44%;}
+	.loanlist_new_mian_ri{width:55%;}
+	.loanlist_new_mian_ri .l_list_mian_box dl{width:50%;}
+	.display_none{display:none;}
+	.loanlist_new_page_mian ul li ul .loanlist_li10{width:15%;}
+	.loanlist_new_page_mian ul li ul .loanlist_li15{width:18%;}
+	.loanlist_new_page_mian ul li ul .loanlist_li20{width:16%;}
+	.loanlist_new_page_mian ul .page_mian_li_title ul li{font-size:12px;}
+}
+/*--- apple iphone6 plus ---*/
+@media (max-width:414px){
+	.loanlist_new_mian_le{width:100%;padding: 20px 0px;}
+	.loanlist_new_mian_ri{width:100%;}
+	.loanlist_new_mian .loanlist_new_mian_top .loanlist_new_mtople{float:left;}
+	.loanlist_new_mian .loanlist_new_mian_top .loanlist_new_mtopri{float:left;padding-left:30px;}
+	.loanlist_new_page_mian ul li ul .loanlist_li10{width:30%;}
+	.loanlist_new_page_mian ul li ul .loanlist_li15{width:26%;}
+}
+
+
+.em-sfyz{margin-left:20px;font-size:12px;color:red;line-height:25px;}
+	.div .c-orange{color:#ff6b00;}
+	.list_tab .div .repayment-list table {border-top: 1px solid #e1e1e1; border-left: 1px solid #e1e1e1;margin: 15px 0 0; color: #666;margin-bottom:30px;}
+	.list_tab .div .repayment-list{padding:0 30px;}
+	.list_tab .div .repayment-list p{padding-top:20px;}
+	.repayment-list td, .repayment-list th {border-bottom: 1px solid #e1e1e1;border-right: 1px solid #e1e1e1;padding: 10px 0;text-align: center;}
+	.repayment-list th { background: #f5f9fd;}
+	
+	.shxx-add{width:100%!important;margin-top:15px;}
+	.shxx-add li{width:12%!important;height:auto;float:left;text-align:center;}
+	.list-i-7{width: 16px;height: 16px;display: inline-block;margin-bottom: -3px;margin-right: 10px;background:url(../images/icon_shxx/title_icon.png);}
+	.list-i-8{width: 16px;height: 16px;display: inline-block;margin-bottom: -3px;margin-right: 10px;background:url(../images/icon_shxx/title_icon2.jpg);}
+	.list-i-9{width: 16px;height: 16px;display: inline-block;margin-bottom: -3px;margin-right: 10px;background:url(../images/icon_shxx/title_gszm.jpg);}
+	.list-i-10{width: 16px;height: 16px;display: inline-block;margin-bottom: -3px;margin-right: 10px;background:url(../images/icon_shxx/title_xmms.jpg);}
+	.list-i-11{width: 16px;height: 16px;display: inline-block;margin-bottom: -3px;margin-right: 10px;background:url(../images/icon_shxx/title_ytms.jpg);}
+	
+	.list-fk-title{display:block;float:left;}
+	.list-fk-main{display:block;float:left;width:95%;}
+
+.l_downloadPDF{position:absolute;right:25px;top;0;}
+.l_downloadPDF>i{display:inline-block;width:16px;height:16px;background: url(../images/printer.png) center no-repeat;margin-right:10px;background-size:contain;position:relative;top: 3px;}
+

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="USER_ACCOUNT_HIS" >
+  <resultMap id="BaseResultMap" type="com.external.yongyou.entity.UserAccountHistory" >
+    <id column="autoid" property="autoid" jdbcType="DECIMAL" />
+    <id column="lsid" property="lsid" jdbcType="DECIMAL" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="uname" property="uname" jdbcType="NVARCHAR" />
+    <result column="mphone" property="mphone" jdbcType="VARCHAR" />
+    <result column="ddate" property="ddate" jdbcType="TIMESTAMP" />
+    <result column="ctype" property="ctype" jdbcType="NVARCHAR" />
+    <result column="je" property="je" jdbcType="DECIMAL" />
+    <result column="cmemo" property="cmemo" jdbcType="NVARCHAR" />
+    <result column="jsfs" property="jsfs" jdbcType="NVARCHAR" />
+    <result column="jszh" property="jszh" jdbcType="NVARCHAR" />
+    <result column="fylx" property="fylx" jdbcType="NVARCHAR" />
+    <result column="u8id" property="u8id" jdbcType="DECIMAL" />
+    <result column="billcode" property="billcode" jdbcType="NVARCHAR" />
+    <result column="ztid" property="ztid" jdbcType="VARCHAR" />
+    <result column="u8jsfs" property="u8jsfs" jdbcType="VARCHAR" />
+    <result column="u8jscode" property="u8jscode" jdbcType="VARCHAR" />
+    <result column="u8dfcode" property="u8dfcode" jdbcType="VARCHAR" />
+    <result column="u8itype" property="u8itype" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    autoid, "uid", uname, mphone, ddate, ctype, je, 
+    cmemo, jsfs, jszh, fylx, u8id, billcode, 
+    ztid, u8jsfs, u8jscode, u8dfcode, u8itype,lsid
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select
+    <include refid="Base_Column_List" />
+    from jsdata
+    where autoid = #{autoid,jdbcType=DECIMAL}
+  </select>
+  <select id="queryAllIds" resultType="int"  >
+    select
+    lsid
+    from jsdata
+  </select>
+  <select id="queryAllIdsLock" resultType="int"  >
+    select
+    lsid
+    from jsdata with(holdlock)
+  </select>
+  
+
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from jsdata
+    where autoid = #{autoid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.external.yongyou.entity.UserAccountHistory" >
+
+    insert into jsdata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="autoid != null" >
+        autoid,
+      </if>
+      <if test="lsid != null" >
+        lsid,
+      </if>
+      <if test="uid != null" >
+        "uid",
+      </if>
+      <if test="uname != null" >
+        uname,
+      </if>
+      <if test="mphone != null" >
+        mphone,
+      </if>
+      <if test="ddate != null" >
+        ddate,
+      </if>
+      <if test="ctype != null" >
+        ctype,
+      </if>
+      <if test="je != null" >
+        je,
+      </if>
+      <if test="cmemo != null" >
+        cmemo,
+      </if>
+      <if test="jsfs != null" >
+        jsfs,
+      </if>
+      <if test="jszh != null" >
+        jszh,
+      </if>
+      <if test="fylx != null" >
+        fylx,
+      </if>
+      <if test="u8id != null" >
+        u8id,
+      </if>
+      <if test="billcode != null" >
+        billcode,
+      </if>
+      <if test="ztid != null" >
+        ztid,
+      </if>
+      <if test="u8jsfs != null" >
+        u8jsfs,
+      </if>
+      <if test="u8jscode != null" >
+        u8jscode,
+      </if>
+      <if test="u8dfcode != null" >
+        u8dfcode,
+      </if>
+      <if test="u8itype != null" >
+        u8itype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="autoid != null" >
+        #{autoid,jdbcType=DECIMAL},
+      </if>
+      <if test="lsid != null" >
+        #{lsid,jdbcType=DECIMAL},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=NVARCHAR},
+      </if>
+      <if test="mphone != null" >
+        #{mphone,jdbcType=VARCHAR},
+      </if>
+      <if test="ddate != null" >
+        #{ddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ctype != null" >
+        #{ctype,jdbcType=NVARCHAR},
+      </if>
+      <if test="je != null" >
+        #{je,jdbcType=DECIMAL},
+      </if>
+      <if test="cmemo != null" >
+        #{cmemo,jdbcType=NVARCHAR},
+      </if>
+      <if test="jsfs != null" >
+        #{jsfs,jdbcType=NVARCHAR},
+      </if>
+      <if test="jszh != null" >
+        #{jszh,jdbcType=NVARCHAR},
+      </if>
+      <if test="fylx != null" >
+        #{fylx,jdbcType=NVARCHAR},
+      </if>
+      <if test="u8id != null" >
+        #{u8id,jdbcType=DECIMAL},
+      </if>
+      <if test="billcode != null" >
+        #{billcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="ztid != null" >
+        #{ztid,jdbcType=VARCHAR},
+      </if>
+      <if test="u8jsfs != null" >
+        #{u8jsfs,jdbcType=VARCHAR},
+      </if>
+      <if test="u8jscode != null" >
+        #{u8jscode,jdbcType=VARCHAR},
+      </if>
+      <if test="u8dfcode != null" >
+        #{u8dfcode,jdbcType=VARCHAR},
+      </if>
+      <if test="u8itype != null" >
+        #{u8itype,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.external.yongyou.entity.UserAccountHistory" >
+    update jsdata
+    <set >
+      <if test="autoid != null" >
+       autoid=#{autoid,jdbcType=DECIMAL},
+      </if>
+      <if test="lsid != null" >
+       lsid=#{lsid,jdbcType=DECIMAL},
+      </if>
+      <if test="uid != null" >
+      uid= #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+       uname= #{uname,jdbcType=NVARCHAR},
+      </if>
+      <if test="mphone != null" >
+       mphone= #{mphone,jdbcType=VARCHAR},
+      </if>
+      <if test="ddate != null" >
+       ddate= #{ddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ctype != null" >
+        ctype=#{ctype,jdbcType=NVARCHAR},
+      </if>
+      <if test="je != null" >
+       je= #{je,jdbcType=DECIMAL},
+      </if>
+      <if test="cmemo != null" >
+        cmemo=#{cmemo,jdbcType=NVARCHAR},
+      </if>
+      <if test="jsfs != null" >
+       jsfs= #{jsfs,jdbcType=NVARCHAR},
+      </if>
+      <if test="jszh != null" >
+       jszh= #{jszh,jdbcType=NVARCHAR},
+      </if>
+      <if test="fylx != null" >
+       fylx= #{fylx,jdbcType=NVARCHAR},
+      </if>
+      <if test="u8id != null" >
+        u8id=#{u8id,jdbcType=DECIMAL},
+      </if>
+      <if test="billcode != null" >
+       billcode= #{billcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="ztid != null" >
+        ztid=#{ztid,jdbcType=VARCHAR},
+      </if>
+      <if test="u8jsfs != null" >
+        u8jsfs=#{u8jsfs,jdbcType=VARCHAR},
+      </if>
+      <if test="u8jscode != null" >
+       u8jscode= #{u8jscode,jdbcType=VARCHAR},
+      </if>
+      <if test="u8dfcode != null" >
+        u8dfcode=#{u8dfcode,jdbcType=VARCHAR},
+      </if>
+      <if test="u8itype != null" >
+        u8itype=#{u8itype,jdbcType=DECIMAL}
+       </if>
+    </set>
+    where autoid = #{autoid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.external.yongyou.entity.UserAccountHistory" >
+    update jsdata
+    set
+       autoid=#{autoid,jdbcType=DECIMAL},
+       lsid=#{lsid,jdbcType=DECIMAL},
+       uid= #{uid,jdbcType=VARCHAR},
+       uname= #{uname,jdbcType=NVARCHAR},
+       mphone= #{mphone,jdbcType=VARCHAR},
+       ddate= #{ddate,jdbcType=TIMESTAMP},
+       ctype=#{ctype,jdbcType=NVARCHAR},
+       je= #{je,jdbcType=DECIMAL},
+       cmemo=#{cmemo,jdbcType=NVARCHAR},
+       jsfs= #{jsfs,jdbcType=NVARCHAR},
+       jszh= #{jszh,jdbcType=NVARCHAR},
+       fylx= #{fylx,jdbcType=NVARCHAR},
+       u8id=#{u8id,jdbcType=DECIMAL},
+       billcode= #{billcode,jdbcType=NVARCHAR},
+       ztid=#{ztid,jdbcType=VARCHAR},
+       u8jsfs=#{u8jsfs,jdbcType=VARCHAR},
+       u8jscode= #{u8jscode,jdbcType=VARCHAR},
+       u8dfcode=#{u8dfcode,jdbcType=VARCHAR},
+       u8itype=#{u8itype,jdbcType=DECIMAL}
+    where autoid = #{autoid,jdbcType=DECIMAL}
+  </update>
+
+	
+  
+</mapper>

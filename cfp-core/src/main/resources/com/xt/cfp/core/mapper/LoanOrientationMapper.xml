@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LOAN_ORIENTATION" >     
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LoanOrientation" >
+    <id column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="O_TYPE" property="oType" jdbcType="DECIMAL" />
+    <result column="O_PASS" property="oPass" jdbcType="VARCHAR" />
+    <result column="O_USERID" property="oUserid" jdbcType="DECIMAL" />
+    <result column="O_Code" property="oCode" jdbcType="VARCHAR" />
+    <result column="O_PASSVO" property="oPassVo" jdbcType="VARCHAR" />
+    <result column="O_USERNAME" property="userName" jdbcType="VARCHAR" />
+    <result column="O_LOGNAME" property="logName" jdbcType="VARCHAR" />
+    <result column="O_PHONE" property="phone" jdbcType="VARCHAR" />
+ 
+  </resultMap>
+  
+    <resultMap id="BaseResultMapByUserInfoExt" type="com.xt.cfp.core.pojo.LoanOrientation" >
+    <id column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="O_PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="O_PASS" property="oPass" jdbcType="VARCHAR" />
+    <result column="O_USERID" property="oUserid" jdbcType="DECIMAL" />
+    <result column="O_LOGNAME" property="logName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LOAN_APPLICATION_ID, O_TYPE, O_PASS, O_USERID, O_PASSVO,O_Code,O_LOGNAME,O_USERNAME,O_PHONE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+     LOAN_APPLICATION_ID, O_TYPE, O_PASS, O_USERID, O_PASSVO,O_Code,O_LOGNAME,O_USERNAME,O_PHONE
+    from LOAN_ORIENTATION
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectByPrimaryKeyCount"  resultType="int" parameterType="java.lang.Long" >
+    select 
+   count(1)
+    from LOAN_ORIENTATION
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  
+   <select id="selectByPrimaryKeyoType"  resultType="int" parameterType="java.lang.Long" >
+    select 
+   nvl(o_type,0)
+    from LOAN_PUBLISH
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+    <select id="selectByPrimaryKeyPass"  resultType="java.lang.String" parameterType="java.lang.Long" >
+    select 
+  O_PASS
+    from LOAN_ORIENTATION
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LOAN_ORIENTATION
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LoanOrientation" >
+    insert into LOAN_ORIENTATION (LOAN_APPLICATION_ID, O_TYPE, O_PASS, 
+      O_USERID, IS_O)
+    values (#{loanApplicationId,jdbcType=DECIMAL}, #{oType,jdbcType=DECIMAL}, #{oPass,jdbcType=VARCHAR}, 
+      #{oUserid,jdbcType=DECIMAL}, #{oCode,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LoanOrientation" >
+    insert into LOAN_ORIENTATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+    <if test="logName != null" >
+        O_LOGNAME,
+      </if>
+       <if test="userName != null" >
+        O_USERNAME,
+      </if>
+      <if test="phone != null" >
+        O_PHONE,
+      </if>
+        <if test="oPassVo != null" >
+        O_PASSVO,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="oType != null" >
+        O_TYPE,
+      </if>
+      <if test="oPass != null" >
+        O_PASS,
+      </if>
+      <if test="oUserid != null" >
+        O_USERID,
+      </if>
+      <if test="oCode != null" >
+        O_Code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+    <if test="logName != null" >
+         #{logName,jdbcType=VARCHAR},
+      </if>
+       <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+     <if test="oPassVo != null" >
+        #{oPassVo,jdbcType=VARCHAR},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="oType != null" >
+        #{oType,jdbcType=DECIMAL},
+      </if>
+      <if test="oPass != null" >
+        #{oPass,jdbcType=VARCHAR},
+      </if>
+      <if test="oUserid != null" >
+        #{oUserid,jdbcType=DECIMAL},
+      </if>
+      <if test="oCode != null" >
+        #{oCode,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LoanOrientation" >
+    update LOAN_ORIENTATION
+    <set >
+    <if test="logName != null" >
+       O_LOGNAME=  #{logName,jdbcType=VARCHAR},
+      </if>
+       <if test="userName != null" >
+       O_USERNAME= #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+       O_PHONE= #{phone,jdbcType=VARCHAR},
+      </if>
+     <if test="oPassVo != null" >
+       O_PASSVO= #{oPassVo,jdbcType=VARCHAR},
+      </if>
+      <if test="oType != null" >
+      O_TYPE=  #{oType,jdbcType=DECIMAL},
+      </if>
+      <if test="oPass != null" >
+        O_PASS=#{oPass,jdbcType=VARCHAR},
+      </if>
+      <if test="oUserid != null" >
+      O_USERID=  #{oUserid,jdbcType=DECIMAL},
+      </if>
+      <if test="oCode != null" >
+        O_Code=#{oCode,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LoanOrientation" >
+    update LOAN_ORIENTATION
+    set O_TYPE = #{oType,jdbcType=DECIMAL},
+      O_PASS = #{oPass,jdbcType=VARCHAR},
+      O_USERID = #{oUserid,jdbcType=DECIMAL},
+      O_Code = #{oCode,jdbcType=DECIMAL}
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </update>
+  
+   <select id="getCountOtypeByLoanApplicationId" resultType="string" parameterType="java.lang.Long" >
+    select nvl(o_type,0) from loan_orientation lo where  rownum=1 and lo.loan_application_id =#{loanApplicationId,jdbcType=DECIMAL} 
+  </select>
+   <select id="getCountYesOtypeByLoanApplicationId" resultType="int" parameterType="java.lang.Long" >
+    select count(1) from loan_orientation lo where lo.loan_application_id =#{userId,jdbcType=DECIMAL} 
+  </select>
+  
+  
+     <select id="getUserInfoByLoanApplicationId"  resultMap="BaseResultMapByUserInfoExt" parameterType="java.lang.Long" >
+ select
+ TO_CHAR(lobd.buy_date, 'YYYY-MM-DD HH24:MI:SS')O_PHONE
+  ,lobd.buy_balance O_PASS,
+ (select real_name from user_info_ext uie where exists(
+select lo.lend_user_id from lend_order lo  where lo.lend_user_id =uie.user_id and lo.lend_order_id=lobd.lend_order_id
+)
+) O_LOGNAME
+from lend_order_bid_detail lobd where lobd.loan_application_id=#{userId,jdbcType=DECIMAL}
+ <!-- 
+   select cr.buy_price O_PASS, TO_CHAR(cr.create_time, 'YYYY-MM-DD HH24:MI:SS')O_PHONE
+   ,(select uie.real_name from user_info_ext uie where uie.user_id=cr.lend_user_id) 
+	O_LOGNAME
+	from creditor_rights cr where cr.loan_application_id=#{userId,jdbcType=DECIMAL}  -->
+  </select>
+</mapper>

@@ -1,0 +1,244 @@
+html,body {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #eee;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif,微软雅黑;
+    color:#000;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.w_container{
+    width: 100%;
+    height: 100%;
+}
+.w_header{
+    width: 100%;
+    height: 4rem;
+    border-bottom: 1rem solid #f7f7f7;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: #fff;
+}
+.w_vouList{
+    height: 100%;
+    display: -webkit-box;
+    font-size: 2rem;
+}
+.w_vouList li{
+    -webkit-box-flex:1;
+    line-height: 4rem;
+    text-align: center;
+}
+.w_vouList li a{
+    display: inline-block;
+    color:#cd1b21!important;
+}
+.w_vouList li a.w_active{
+    border-bottom: 2px solid #cd1b21;
+}
+.orderList{
+	width: 300%;
+	height: 100%;
+	display: -webkit-box;
+	margin-top: 4rem;
+  background: #fff;
+}
+.w_page{
+	width: 33.333%;
+	height: 100%;
+	overflow-y: scroll;
+}
+.w_page::-webkit-scrollbar {
+    display: none;
+}
+.regular{
+  padding-bottom: 4rem;
+}
+.w_public{
+    width: 90%;
+    margin: 1rem auto;
+    position: relative;
+    overflow: hidden;
+}
+.w_Voucher{
+    background: url(../images/wealth.png) no-repeat center center;
+    background-size: 100% 100%;
+    padding:.5rem 0;
+}
+.w_Voucher:after{
+  content: "";
+  width:4.8rem;
+  height: 4.8rem;
+  background: url(../images/certificate.png) no-repeat center center;
+  background-size: cover;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.w_Interest{
+   background: url(../images/Interest.png) no-repeat center center;
+   background-size: 100% 100%;
+}
+.w_Interest:after{
+  content: "";
+  width:4.8rem;
+  height: 4.8rem;
+  background: url(../images/raiseInterest.png) no-repeat center center;
+  background-size: cover;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.w_use{
+  background: url(../images/Use.png) no-repeat center center;
+  background-size: 100% 100%;
+}
+.w_use:after{
+  content: "";
+  width:4.8rem;
+  height: 4.8rem;
+  background: url(../images/AlreadyUsed.png) no-repeat center center;
+  background-size: cover;
+  position: absolute;
+  right: 0;
+  top: -1rem;
+}
+.expire:after{
+  content: "";
+  width:4.8rem;
+  height: 4.8rem;
+  background: url(../images/overdue.png) no-repeat center center;
+  background-size: cover;
+  position: absolute;
+  right: 0;
+  top: -1rem;
+}
+.w_public dl{
+  width: 90%;
+  margin: 0 auto;
+  display: -webkit-box;
+}
+.w_public dl dd{
+    width: 40%;
+    display: -webkit-box;
+    color: #b97b58;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin: 1rem 0 0 -.5rem;
+    text-align:center;
+}
+.w_public dl dd p{
+  width:90%;
+  margin:1.5rem auto 0 auto;
+  font-size: 3rem;
+  text-align: center;
+}
+.percent{
+  margin: .8rem 0;
+  line-height: 1.4rem;
+  color: #7676cb;
+  width: 80%;
+  text-align: center;
+}
+.w_date{
+  width: 88%;
+  margin: 0 auto;
+  padding: 0rem 0 1.5rem 0;
+  text-indent:41.5%;
+  color: #b97b58;
+  font-size: 1.4rem;
+  margin-right: 3rem;
+}
+.w_Interest p.w_date{
+  color: #7676cb;
+  padding-bottom: 2rem;
+}
+.w_public dl dd p span{
+  font-size: 1.4rem;
+}
+.w_public dl dt{
+    width: 54%;/* change */
+    position: relative;
+    margin-left:1rem;
+    margin-top: 10px;
+}
+.w_public dl dt p{
+    background: #b97b58;
+    width: auto;
+    margin: 2rem auto 0 auto;
+    text-align: center;
+    color: #fff;
+    font-size:1.4rem;
+}
+
+.percentList{
+    color: #7676cb;
+    position: absolute;
+    left: 39%;
+    top: 0.6rem;
+    margin: 0px -60px;
+    line-height: 1.4rem;
+    font-size: 1.4rem;
+    width: 100%;
+}
+.w_use p,.w_use li,.w_use p.w_date,.w_use dl dd{
+  color: #d8d8e5;
+}
+.w_limit{
+  background: #d8d8e5!important;
+}
+.l_lastTips{
+  width: 90%;
+  padding: 2rem 0;
+
+  border-bottom: 1px solid #fe5f63;
+  position: relative;
+  background: #fff;
+  margin: 0 auto;
+}
+.l_lastTips a{
+  z-index: 998;
+  background: #fff;
+  display: block;
+  color: #fe5f63;
+  width: 30%;
+  text-align: center;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  margin-left: -15%;
+}
+.w_noDate{
+	width:100%;
+	height:auto;
+	margin:8rem auto;
+}
+.w_noDate dd{
+	width:25%;
+	height:auto;
+	margin: 0 auto;
+}
+.w_noDate dd img{
+	width:100%;
+	height:100%;
+}
+.w_noDate dt{
+	text-align:center;
+	margin-top:2rem;
+	font-size:1.4rem;
+	color:#999;
+}
+li.checkEle:before{
+	content:"";
+	width:3rem;
+	height:3rem;
+	background:url(../images/choose.png) no-repeat;
+	background-size:contain;
+	position:absolute;
+ 	top: .6rem;
+    left: 4.2%;
+}

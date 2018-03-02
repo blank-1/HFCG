@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CUSTOMER_CONTACTS_SNAPSHOT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CustomerContactsSnapshot" >
+    <id column="SNAPSHOT_ID" property="snapshotId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="CONCACT_NAME" property="concactName" jdbcType="VARCHAR" />
+    <result column="CONCAT_PHONE" property="concatPhone" jdbcType="VARCHAR" />
+    <result column="RELATION_TYPE" property="relationType" jdbcType="CHAR" />
+    <result column="RELATION" property="relation" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SNAPSHOT_ID, LOAN_APPLICATION_ID, CONCACT_NAME, CONCAT_PHONE, RELATION_TYPE, RELATION, 
+    STATUS, MAIN_LOAN_APPLICATION_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CONTACTS_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CUSTOMER_CONTACTS_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CustomerContactsSnapshot" >
+  	<selectKey keyProperty="snapshotId" order="BEFORE" resultType="long">
+      SELECT SEQ_CUSTOMER_CONTACTS_SNAPSHOT.NEXTVAL as snapshotId FROM dual
+    </selectKey>
+    insert into CUSTOMER_CONTACTS_SNAPSHOT (SNAPSHOT_ID, LOAN_APPLICATION_ID, CONCACT_NAME, 
+      CONCAT_PHONE, RELATION_TYPE, RELATION, 
+      STATUS, MAIN_LOAN_APPLICATION_ID)
+    values (#{snapshotId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, #{concactName,jdbcType=VARCHAR}, 
+      #{concatPhone,jdbcType=VARCHAR}, #{relationType,jdbcType=CHAR}, #{relation,jdbcType=CHAR}, 
+      #{status,jdbcType=CHAR}, #{mainLoanApplicationId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CustomerContactsSnapshot" >
+    insert into CUSTOMER_CONTACTS_SNAPSHOT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        SNAPSHOT_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="concactName != null" >
+        CONCACT_NAME,
+      </if>
+      <if test="concatPhone != null" >
+        CONCAT_PHONE,
+      </if>
+      <if test="relationType != null" >
+        RELATION_TYPE,
+      </if>
+      <if test="relation != null" >
+        RELATION,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        #{snapshotId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="concactName != null" >
+        #{concactName,jdbcType=VARCHAR},
+      </if>
+      <if test="concatPhone != null" >
+        #{concatPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="relationType != null" >
+        #{relationType,jdbcType=CHAR},
+      </if>
+      <if test="relation != null" >
+        #{relation,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CustomerContactsSnapshot" >
+    update CUSTOMER_CONTACTS_SNAPSHOT
+    <set >
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="concactName != null" >
+        CONCACT_NAME = #{concactName,jdbcType=VARCHAR},
+      </if>
+      <if test="concatPhone != null" >
+        CONCAT_PHONE = #{concatPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="relationType != null" >
+        RELATION_TYPE = #{relationType,jdbcType=CHAR},
+      </if>
+      <if test="relation != null" >
+        RELATION = #{relation,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CustomerContactsSnapshot" >
+    update CUSTOMER_CONTACTS_SNAPSHOT
+    set LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      CONCACT_NAME = #{concactName,jdbcType=VARCHAR},
+      CONCAT_PHONE = #{concatPhone,jdbcType=VARCHAR},
+      RELATION_TYPE = #{relationType,jdbcType=CHAR},
+      RELATION = #{relation,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 下面是自行添加的方法************************************************************************************* -->
+  
+  <select id="getContactsByloanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CONTACTS_SNAPSHOT
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- by mainid -->
+  <select id="getContactsByMainLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CONTACTS_SNAPSHOT
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </select>
+</mapper>

@@ -1,0 +1,17 @@
+{"rows":[
+	{
+		"show":"true",
+		"imageSrc":"http://app.caifupad.com/images/banner/yuandan_APPbanner.png",
+		"httpUrl":"http://app.caifupad.com/",
+		"shareInfo":
+		{
+			"title":"我们再加息 持续到元旦！你不抢 就没了！",
+	   		"desc":"有钱就是任性，12月26日，开始加息到元旦，再不抢真没了！",
+	   		"link":"http://mp.weixin.qq.com/s?__biz=MzI2MjAwNDk0Mw==&mid=400734304&idx=1&sn=d9bfc18459282f197d2b9838bd5146e5#rd",
+	   		"imgUrl":"http://app.caifupad.com/images/banner/share_yuandan.png",
+	   		"shareCloseUrl":"http://m.caifupad.com/shareClose",
+	        "closeUrl":"http://m.caifupad.com/close",
+	        "shareBackUrl":"http://m.caifupad.com/back"
+	    }
+	}
+]}

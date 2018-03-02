@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DIS_ACTIVITY" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.DisActivity" >
+    <id column="DIS_ID" property="disId" jdbcType="DECIMAL" />
+    <result column="DIS_NAME" property="disName" jdbcType="VARCHAR" />
+    <result column="SECTION_CODE" property="sectionCode" jdbcType="DECIMAL" />
+    <result column="RULE_START_DATE" property="ruleStartDate" jdbcType="TIMESTAMP" />
+    <result column="RULE_END_DATE" property="ruleEndDate" jdbcType="TIMESTAMP" />
+    <result column="DIS_DISCRIPTION" property="disDiscription" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="TARGET_USER" property="targetUser" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="DisActivityVOBaseResultMap" type="com.xt.cfp.core.pojo.ext.DisActivityVO" extends="BaseResultMap">
+     <result column="LEND_PRODUCT_ID" property="disProductId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_NAME" property="disProductName" jdbcType="VARCHAR" />
+    <result column="SALES_POINT_START" property="salesPointStart" jdbcType="DECIMAL" />
+    <result column="SALES_POINT_END" property="salesPointEnd" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    DIS_ID, DIS_NAME, SECTION_CODE, RULE_START_DATE, RULE_END_DATE, DIS_DISCRIPTION, 
+    STATE,CREATE_DATE,TARGET_USER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from DIS_ACTIVITY
+    where DIS_ID = #{disId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from DIS_ACTIVITY
+    where DIS_ID = #{disId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.DisActivity" >
+  	<selectKey keyProperty="disId" order="BEFORE" resultType="long">
+      SELECT SEQ_DIS_ACTIVITY.NEXTVAL as disId FROM dual
+    </selectKey>
+    insert into DIS_ACTIVITY (DIS_ID, DIS_NAME, SECTION_CODE, 
+      RULE_START_DATE, RULE_END_DATE, DIS_DISCRIPTION, 
+      STATE,CREATE_DATE,TARGET_USER)
+    values (#{disId,jdbcType=DECIMAL}, #{disName,jdbcType=VARCHAR}, #{sectionCode,jdbcType=DECIMAL}, 
+      #{ruleStartDate,jdbcType=TIMESTAMP}, #{ruleEndDate,jdbcType=TIMESTAMP}, #{disDiscription,jdbcType=VARCHAR}, 
+      #{state,jdbcType=CHAR},#{createDate,jdbcType=TIMESTAMP},#{targetUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.DisActivity" >
+  	<selectKey keyProperty="disId" order="BEFORE" resultType="long">
+      SELECT SEQ_DIS_ACTIVITY.NEXTVAL as disId FROM dual
+    </selectKey>
+    insert into DIS_ACTIVITY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="disId != null" >
+        DIS_ID,
+      </if>
+      <if test="disName != null" >
+        DIS_NAME,
+      </if>
+      <if test="sectionCode != null" >
+        SECTION_CODE,
+      </if>
+      <if test="ruleStartDate != null" >
+        RULE_START_DATE,
+      </if>
+      <if test="ruleEndDate != null" >
+        RULE_END_DATE,
+      </if>
+      <if test="disDiscription != null" >
+        DIS_DISCRIPTION,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="targetUser != null" >
+        TARGET_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="disId != null" >
+        #{disId,jdbcType=DECIMAL},
+      </if>
+      <if test="disName != null" >
+        #{disName,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionCode != null" >
+        #{sectionCode,jdbcType=DECIMAL},
+      </if>
+      <if test="ruleStartDate != null" >
+        #{ruleStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ruleEndDate != null" >
+        #{ruleEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="disDiscription != null" >
+        #{disDiscription,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="targetUser != null" >
+        #{targetUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.DisActivity" >
+    update DIS_ACTIVITY
+    <set >
+      <if test="disName != null" >
+        DIS_NAME = #{disName,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionCode != null" >
+        SECTION_CODE = #{sectionCode,jdbcType=DECIMAL},
+      </if>
+      <if test="ruleStartDate != null" >
+        RULE_START_DATE = #{ruleStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ruleEndDate != null" >
+        RULE_END_DATE = #{ruleEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="disDiscription != null" >
+        DIS_DISCRIPTION = #{disDiscription,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE=#{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="targetUser != null" >
+        TARGET_USER=#{targetUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DIS_ID = #{disId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.DisActivity" >
+    update DIS_ACTIVITY
+    set DIS_NAME = #{disName,jdbcType=VARCHAR},
+      SECTION_CODE = #{sectionCode,jdbcType=DECIMAL},
+      RULE_START_DATE = #{ruleStartDate,jdbcType=TIMESTAMP},
+      RULE_END_DATE = #{ruleEndDate,jdbcType=TIMESTAMP},
+      DIS_DISCRIPTION = #{disDiscription,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=CHAR},
+      CREATE_DATE=#{createDate,jdbcType=TIMESTAMP},
+      TARGET_USER=#{targetUser,jdbcType=VARCHAR}
+    where DIS_ID = #{disId,jdbcType=DECIMAL}
+  </update>
+  <select id="getDisActivityListVOPaging" resultMap="DisActivityVOBaseResultMap" parameterType="map" >
+      SELECT DIS_ID,
+		         DIS_NAME,
+		         SECTION_CODE,
+		         RULE_START_DATE,
+		         RULE_END_DATE,
+		         DIS_DISCRIPTION,
+		         STATE,
+		         CREATE_DATE,
+		         LEND_PRODUCT_ID,
+		         PRODUCT_NAME,
+		         SALES_POINT_START,
+          	     SALES_POINT_END,
+          	     TARGET_USER
+		    FROM (select DA.DIS_ID,
+		                 DA.DIS_NAME,
+		                 DA.SECTION_CODE,
+		                 DA.RULE_START_DATE,
+		                 DA.RULE_END_DATE,
+		                 DA.DIS_DISCRIPTION,
+		                 DA.STATE,
+		                 DA.CREATE_DATE,
+		                 DAR.LEND_PRODUCT_ID,
+		                 LP.PRODUCT_NAME,
+		                 DAR.SALES_POINT_START,
+                  		 DAR.SALES_POINT_END,
+                  		 DA.TARGET_USER,
+		                 ROW_NUMBER() OVER(PARTITION BY DA.DIS_ID ORDER BY DA.DIS_ID) ORDER1
+		            from DIS_ACTIVITY DA
+		           INNER JOIN DIS_ACTIVITY_RULES DAR ON DA.DIS_ID = DAR.DIS_ID
+		           INNER JOIN LEND_PRODUCT LP ON LP.LEND_PRODUCT_ID =
+		                                         DAR.LEND_PRODUCT_ID
+		where 1=1
+			<if test="disActivity != null">
+		   		<if test="disActivity.disName != null and disActivity.disName!='' ">
+		   			AND DA.DIS_NAME LIKE '%${disActivity.disName}%'  
+		        </if>
+	   			<if test="disActivity.disProductId != null ">
+		   			AND DAR.LEND_PRODUCT_ID =#{disActivity.disProductId}   
+		        </if>
+		        <if test="disActivity.state != null ">
+		   			AND DA.STATE =#{disActivity.state}  
+		        </if>
+	        </if>
+	        
+	        <if test="customParams.timeInterval != null">
+	          <if test="customParams.timeInterval.startTime != null">
+	            <![CDATA[   AND DA.RULE_START_DATE >=  #{customParams.timeInterval.startTime}   ]]>
+	          </if>
+	          <if test="customParams.timeInterval.endTime != null">
+	            <![CDATA[  AND DA.RULE_END_DATE <=   #{customParams.timeInterval.endTime}  
+	          ]]>
+	          </if>
+	        </if> 
+		          ) AA
+		   WHERE AA.ORDER1 = 1
+  </select>
+  
+  <select id="count_getDisActivityListVOPaging"  resultType="int" parameterType="map" >
+    SELECT count(0)
+		    FROM (select DA.DIS_ID,
+		                 DA.DIS_NAME,
+		                 DA.SECTION_CODE,
+		                 DA.RULE_START_DATE,
+		                 DA.RULE_END_DATE,
+		                 DA.DIS_DISCRIPTION,
+		                 DA.STATE,
+		                 DA.CREATE_DATE,
+		                 DAR.LEND_PRODUCT_ID,
+		                 LP.PRODUCT_NAME,
+		                 DAR.SALES_POINT_START,
+                  		 DAR.SALES_POINT_END,
+                  		 DA.TARGET_USER,
+		                 ROW_NUMBER() OVER(PARTITION BY DA.DIS_ID ORDER BY DA.DIS_ID) ORDER1
+		            from DIS_ACTIVITY DA
+		           INNER JOIN DIS_ACTIVITY_RULES DAR ON DA.DIS_ID = DAR.DIS_ID
+		           INNER JOIN LEND_PRODUCT LP ON LP.LEND_PRODUCT_ID =
+		                                         DAR.LEND_PRODUCT_ID
+			where 1=1
+          	<if test="disActivity != null">
+		   		<if test="disActivity.disName != null and disActivity.disName!='' ">
+		   			AND DA.DIS_NAME LIKE '%${disActivity.disName}%'  
+		        </if>
+	   			<if test="disActivity.disProductId != null ">
+		   			AND DAR.LEND_PRODUCT_ID =#{disActivity.disProductId}   
+		        </if>
+		        <if test="disActivity.state != null ">
+		   			AND DA.STATE =#{disActivity.state}  
+		        </if>
+		         <if test="disActivity.ruleStartDate != null ">
+		   		     <![CDATA[	AND DA.RULE_START_DATE >=  #{disActivity.ruleStartDate}    ]]>  
+		        </if>
+		         <if test="disActivity.ruleEndDate != null ">
+		   			 <![CDATA[   AND DA.RULE_END_DATE <= #{disActivity.ruleEndDate}      ]]>  
+		        </if>
+	        </if>
+          <if test="customParams.timeInterval != null">
+	          <if test="customParams.timeInterval.startTime != null">
+	            <![CDATA[   AND DA.RULE_START_DATE >=  #{customParams.timeInterval.startTime}   ]]>
+	          </if>
+	          <if test="customParams.timeInterval.endTime != null">
+	            <![CDATA[  AND DA.RULE_END_DATE <=   #{customParams.timeInterval.endTime} 
+	          ]]>
+	          </if>
+	        </if> 
+		          ) AA
+		   WHERE AA.ORDER1 = 1 
+  </select>
+  <select id="getDisActivityVoById" resultMap="DisActivityVOBaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from DIS_ACTIVITY
+    where DIS_ID = #{disId,jdbcType=DECIMAL}
+  </select>
+  <select id="getDisActByStateAndLendProId" resultMap="DisActivityVOBaseResultMap" parameterType="map" >
+    SELECT *
+	  FROM DIS_ACTIVITY_RULES DAR, DIS_ACTIVITY DA, LEND_PRODUCT LP
+	 WHERE DA.DIS_ID = DAR.DIS_ID
+		AND LP.LEND_PRODUCT_ID = DAR.LEND_PRODUCT_ID
+	   AND DA.STATE = #{state,jdbcType=CHAR}
+	   AND DAR.LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL}
+	   <if test="targetUser!=null and targetUser!='' ">
+            AND DA.TARGET_USER in
+            <foreach collection="targetUser" item="target" open="(" separator="," close=")">
+                #{target}
+            </foreach>
+        </if>
+  </select>
+  
+    
+  <select id="getAllDisActivityProducts" resultMap="DisActivityVOBaseResultMap" >
+  	select LP.LEND_PRODUCT_ID, LP.PRODUCT_NAME
+		  from DIS_ACTIVITY DA, DIS_ACTIVITY_RULES DAR, LEND_PRODUCT LP
+		 WHERE DA.DIS_ID = DAR.DIS_ID
+		   AND DAR.LEND_PRODUCT_ID = LP.LEND_PRODUCT_ID
+		 GROUP BY LP.LEND_PRODUCT_ID, LP.PRODUCT_NAME
+  </select>
+</mapper>

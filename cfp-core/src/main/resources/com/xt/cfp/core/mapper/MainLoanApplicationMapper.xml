@@ -1,0 +1,885 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MAIN_LOAN_APPLICATION" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.MainLoanApplication" >
+    <id column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+    <result column="MAIN_CODE" property="mainCode" jdbcType="VARCHAR" />
+    <result column="MAIN_LOAN_BALANCE" property="mainLoanBalance" jdbcType="DECIMAL" />
+    <result column="MAIN_STATE" property="mainState" jdbcType="CHAR" />
+    <result column="MAIN_PUBLISH_BALANCE" property="mainPublishBalance" jdbcType="DECIMAL" />
+    <result column="MAIN_CREATE_TIME" property="mainCreateTime" jdbcType="TIMESTAMP" />
+    <result column="MAIN_UPDATE_TIME" property="mainUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="MAIN_ADMIN_ID" property="mainAdminId" jdbcType="DECIMAL" />
+    <result column="CUSTOMER_ACCOUNT_ID" property="customerAccountId" jdbcType="DECIMAL" />
+    <result column="REPAYMENT_ACCOUNT_ID" property="repaymentAccountId" jdbcType="DECIMAL" />
+    <result column="IN_CARD_ID" property="inCardId" jdbcType="DECIMAL" />
+    <result column="OUT_CARD_ID" property="outCardId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="LOAN_PRODUCT_ID" property="loanProductId" jdbcType="DECIMAL" />
+    <result column="ORIGIN_LOAN_APP_ID" property="originLoanAppId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_CODE" property="loanApplicationCode" jdbcType="VARCHAR" />
+    <result column="LOAN_APPLICATION_NAME" property="loanApplicationName" jdbcType="VARCHAR" />
+    <result column="OFFLINE_APPLY_CODE" property="offlineApplyCode" jdbcType="VARCHAR" />
+    <result column="PUBLISH_TARGET" property="publishTarget" jdbcType="CHAR" />
+    <result column="LOAN_USEAGE" property="loanUseage" jdbcType="VARCHAR" />
+    <result column="RENEW_AGREEMENT_CODE" property="renewAgreementCode" jdbcType="VARCHAR" />
+    <result column="SUBJECT_TYPE" property="subjectType" jdbcType="CHAR" />
+    <result column="LOAN_TYPE" property="loanType" jdbcType="CHAR" />
+    <result column="LOAN_BALANCE" property="loanBalance" jdbcType="DECIMAL" />
+    <result column="CONFIRM_BALANCE" property="confirmBalance" jdbcType="DECIMAL" />
+    <result column="RESULT_BALANCE" property="resultBalance" jdbcType="DECIMAL" />
+    <result column="MAX_BUY_BALANCE" property="maxBuyBalance" jdbcType="DECIMAL" />
+    <result column="ANNUAL_RATE" property="annualRate" jdbcType="DECIMAL" />
+    <result column="APPLICATION_DESC" property="applicationDesc" jdbcType="VARCHAR" />
+    <result column="LEND_STATE" property="lendState" jdbcType="CHAR" />
+    <result column="VERIFY_STATE" property="verifyState" jdbcType="CHAR" />
+    <result column="PUBLISH_STATE" property="publishState" jdbcType="CHAR" />
+    <result column="INTEREST_BALANCE" property="interestBalance" jdbcType="DECIMAL" />
+    <result column="APPLICATION_STATE" property="applicationState" jdbcType="CHAR" />
+    <result column="RECORDER_PERSONNEL" property="recorderPersonnel" jdbcType="DECIMAL" />
+    <result column="RECORDER_NAME" property="recorderName" jdbcType="VARCHAR" />
+    <result column="CHANNEL" property="channel" jdbcType="CHAR" />
+    <result column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+    <result column="ORIGINAL_USER_ID" property="originalUserId" jdbcType="DECIMAL" />
+    <result column="PREHEAT_TIME" property="preheatTime" jdbcType="TIMESTAMP" />
+    <result column="OPEN_TIME" property="openTime" jdbcType="TIMESTAMP" />
+    <result column="FULL_TIME" property="fullTime" jdbcType="TIMESTAMP" />
+    <result column="PAYMENT_DATE" property="paymentDate" jdbcType="TIMESTAMP" />
+    <result column="RECORD_TIME" property="recordTime" jdbcType="TIMESTAMP" />
+    <result column="PUBLISH_TIME" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="CANCEL_TIME" property="cancelTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AGREEMENT_START_DATE" property="agreementStartDate" jdbcType="TIMESTAMP" />
+    <result column="FIRST_REPAYMENT_DATE" property="firstRepaymentDate" jdbcType="TIMESTAMP" />
+    <result column="LAST_REPAYMENT_DATE" property="lastRepaymentDate" jdbcType="TIMESTAMP" />
+    <result column="LOAN_USEAGE_DESC" jdbcType="VARCHAR" property="loanUseageDesc"/>
+    <result column="MAIN_AUTO_PUBLISH" property="mainAutoPublish" jdbcType="CHAR" />
+    <result column="RISK_CONTROL_INFORMATION" property="riskControlInformation" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="mainLoanApplicationExtOneResultMap" type="com.xt.cfp.core.pojo.ext.MainLoanApplicationExtOne"
+           extends="BaseResultMap">
+    <result column="REAL_NAME" jdbcType="VARCHAR" property="userRealName"/>
+    <result column="ID_CARD" jdbcType="VARCHAR" property="idCard"/>
+    <result column="MOBILE_NO" jdbcType="VARCHAR" property="mobileNo"/>
+    <result column="CREDIT_LEVEL" jdbcType="VARCHAR" property="creditLevel"/>
+    <result column="LOAN_TITLE" jdbcType="VARCHAR" property="loanTitle"/>
+    <result column="HAVE_CAST" jdbcType="DECIMAL" property="haveCast"/>
+    <result column="IS_DELAY" jdbcType="DECIMAL" property="isDelay"/>
+    <result column="LOAN_TITLE" jdbcType="VARCHAR" property="loanTitle"/>
+    <result column="CYCLE_COUNTS" jdbcType="DECIMAL" property="cycleCounts"/>
+    <result column="CYCLE_VALUE" jdbcType="DECIMAL" property="cycleValue"/>
+    <result column="AGREEMENT_STATUS" jdbcType="DECIMAL" property="agreementStatus"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    MAIN_LOAN_APPLICATION_ID, MAIN_CODE, MAIN_LOAN_BALANCE, MAIN_STATE, MAIN_PUBLISH_BALANCE, 
+    MAIN_CREATE_TIME, MAIN_UPDATE_TIME, MAIN_ADMIN_ID, CUSTOMER_ACCOUNT_ID, REPAYMENT_ACCOUNT_ID, 
+    IN_CARD_ID, OUT_CARD_ID, USER_ID, LOAN_PRODUCT_ID, ORIGIN_LOAN_APP_ID, LOAN_APPLICATION_CODE, 
+    LOAN_APPLICATION_NAME, OFFLINE_APPLY_CODE, PUBLISH_TARGET, LOAN_USEAGE, RENEW_AGREEMENT_CODE, 
+    SUBJECT_TYPE, LOAN_TYPE, LOAN_BALANCE, CONFIRM_BALANCE, RESULT_BALANCE, MAX_BUY_BALANCE, 
+    ANNUAL_RATE, APPLICATION_DESC, LEND_STATE, VERIFY_STATE, PUBLISH_STATE, INTEREST_BALANCE, 
+    APPLICATION_STATE, RECORDER_PERSONNEL, RECORDER_NAME, CHANNEL, CHANNEL_ID, ORIGINAL_USER_ID, 
+    PREHEAT_TIME, OPEN_TIME, FULL_TIME, PAYMENT_DATE, RECORD_TIME, PUBLISH_TIME, CANCEL_TIME, 
+    CREATE_TIME, AGREEMENT_START_DATE, FIRST_REPAYMENT_DATE, LAST_REPAYMENT_DATE, LOAN_USEAGE_DESC, 
+    MAIN_AUTO_PUBLISH, RISK_CONTROL_INFORMATION  
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MAIN_LOAN_APPLICATION
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from MAIN_LOAN_APPLICATION
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.MainLoanApplication" >
+  	<selectKey keyProperty="mainLoanApplicationId" order="BEFORE" resultType="long">
+      SELECT SEQ_MAIN_LOAN_APPLICATION.NEXTVAL as mainLoanApplicationId FROM dual
+    </selectKey>
+    insert into MAIN_LOAN_APPLICATION (MAIN_LOAN_APPLICATION_ID, MAIN_CODE, 
+      MAIN_LOAN_BALANCE, MAIN_STATE, MAIN_PUBLISH_BALANCE, 
+      MAIN_CREATE_TIME, MAIN_UPDATE_TIME, MAIN_ADMIN_ID, 
+      CUSTOMER_ACCOUNT_ID, REPAYMENT_ACCOUNT_ID, 
+      IN_CARD_ID, OUT_CARD_ID, USER_ID, 
+      LOAN_PRODUCT_ID, ORIGIN_LOAN_APP_ID, LOAN_APPLICATION_CODE, 
+      LOAN_APPLICATION_NAME, OFFLINE_APPLY_CODE, 
+      PUBLISH_TARGET, LOAN_USEAGE, RENEW_AGREEMENT_CODE, 
+      SUBJECT_TYPE, LOAN_TYPE, LOAN_BALANCE, 
+      CONFIRM_BALANCE, RESULT_BALANCE, MAX_BUY_BALANCE, 
+      ANNUAL_RATE, APPLICATION_DESC, LEND_STATE, 
+      VERIFY_STATE, PUBLISH_STATE, INTEREST_BALANCE, 
+      APPLICATION_STATE, RECORDER_PERSONNEL, RECORDER_NAME, 
+      CHANNEL, CHANNEL_ID, ORIGINAL_USER_ID, 
+      PREHEAT_TIME, OPEN_TIME, FULL_TIME, 
+      PAYMENT_DATE, RECORD_TIME, PUBLISH_TIME, 
+      CANCEL_TIME, CREATE_TIME, AGREEMENT_START_DATE, 
+      FIRST_REPAYMENT_DATE, LAST_REPAYMENT_DATE, LOAN_USEAGE_DESC, 
+      MAIN_AUTO_PUBLISH, RISK_CONTROL_INFORMATION 
+      )
+    values (#{mainLoanApplicationId,jdbcType=DECIMAL}, #{mainCode,jdbcType=VARCHAR}, 
+      #{mainLoanBalance,jdbcType=DECIMAL}, #{mainState,jdbcType=CHAR}, #{mainPublishBalance,jdbcType=DECIMAL}, 
+      #{mainCreateTime,jdbcType=TIMESTAMP}, #{mainUpdateTime,jdbcType=TIMESTAMP}, #{mainAdminId,jdbcType=DECIMAL}, 
+      #{customerAccountId,jdbcType=DECIMAL}, #{repaymentAccountId,jdbcType=DECIMAL}, 
+      #{inCardId,jdbcType=DECIMAL}, #{outCardId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{loanProductId,jdbcType=DECIMAL}, #{originLoanAppId,jdbcType=DECIMAL}, #{loanApplicationCode,jdbcType=VARCHAR}, 
+      #{loanApplicationName,jdbcType=VARCHAR}, #{offlineApplyCode,jdbcType=VARCHAR}, 
+      #{publishTarget,jdbcType=CHAR}, #{loanUseage,jdbcType=VARCHAR}, #{renewAgreementCode,jdbcType=VARCHAR}, 
+      #{subjectType,jdbcType=CHAR}, #{loanType,jdbcType=CHAR}, #{loanBalance,jdbcType=DECIMAL}, 
+      #{confirmBalance,jdbcType=DECIMAL}, #{resultBalance,jdbcType=DECIMAL}, #{maxBuyBalance,jdbcType=DECIMAL}, 
+      #{annualRate,jdbcType=DECIMAL}, #{applicationDesc,jdbcType=VARCHAR}, #{lendState,jdbcType=CHAR}, 
+      #{verifyState,jdbcType=CHAR}, #{publishState,jdbcType=CHAR}, #{interestBalance,jdbcType=DECIMAL}, 
+      #{applicationState,jdbcType=CHAR}, #{recorderPersonnel,jdbcType=DECIMAL}, #{recorderName,jdbcType=VARCHAR}, 
+      #{channel,jdbcType=CHAR}, #{channelId,jdbcType=DECIMAL}, #{originalUserId,jdbcType=DECIMAL}, 
+      #{preheatTime,jdbcType=TIMESTAMP}, #{openTime,jdbcType=TIMESTAMP}, #{fullTime,jdbcType=TIMESTAMP}, 
+      #{paymentDate,jdbcType=TIMESTAMP}, #{recordTime,jdbcType=TIMESTAMP}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{cancelTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{agreementStartDate,jdbcType=TIMESTAMP}, 
+      #{firstRepaymentDate,jdbcType=TIMESTAMP}, #{lastRepaymentDate,jdbcType=TIMESTAMP}, #{loanUseageDesc,jdbcType=VARCHAR}, 
+      #{mainAutoPublish,jdbcType=CHAR}, #{riskControlInformation,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.MainLoanApplication" >
+  	<selectKey keyProperty="mainLoanApplicationId" order="BEFORE" resultType="long">
+      SELECT SEQ_MAIN_LOAN_APPLICATION.NEXTVAL as mainLoanApplicationId FROM dual
+    </selectKey>
+    insert into MAIN_LOAN_APPLICATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID,
+      </if>
+      <if test="mainCode != null" >
+        MAIN_CODE,
+      </if>
+      <if test="mainLoanBalance != null" >
+        MAIN_LOAN_BALANCE,
+      </if>
+      <if test="mainState != null" >
+        MAIN_STATE,
+      </if>
+      <if test="mainPublishBalance != null" >
+        MAIN_PUBLISH_BALANCE,
+      </if>
+      <if test="mainCreateTime != null" >
+        MAIN_CREATE_TIME,
+      </if>
+      <if test="mainUpdateTime != null" >
+        MAIN_UPDATE_TIME,
+      </if>
+      <if test="mainAdminId != null" >
+        MAIN_ADMIN_ID,
+      </if>
+      <if test="customerAccountId != null" >
+        CUSTOMER_ACCOUNT_ID,
+      </if>
+      <if test="repaymentAccountId != null" >
+        REPAYMENT_ACCOUNT_ID,
+      </if>
+      <if test="inCardId != null" >
+        IN_CARD_ID,
+      </if>
+      <if test="outCardId != null" >
+        OUT_CARD_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="loanProductId != null" >
+        LOAN_PRODUCT_ID,
+      </if>
+      <if test="originLoanAppId != null" >
+        ORIGIN_LOAN_APP_ID,
+      </if>
+      <if test="loanApplicationCode != null" >
+        LOAN_APPLICATION_CODE,
+      </if>
+      <if test="loanApplicationName != null" >
+        LOAN_APPLICATION_NAME,
+      </if>
+      <if test="offlineApplyCode != null" >
+        OFFLINE_APPLY_CODE,
+      </if>
+      <if test="publishTarget != null" >
+        PUBLISH_TARGET,
+      </if>
+      <if test="loanUseage != null" >
+        LOAN_USEAGE,
+      </if>
+      <if test="renewAgreementCode != null" >
+        RENEW_AGREEMENT_CODE,
+      </if>
+      <if test="subjectType != null" >
+        SUBJECT_TYPE,
+      </if>
+      <if test="loanType != null" >
+        LOAN_TYPE,
+      </if>
+      <if test="loanBalance != null" >
+        LOAN_BALANCE,
+      </if>
+      <if test="confirmBalance != null" >
+        CONFIRM_BALANCE,
+      </if>
+      <if test="resultBalance != null" >
+        RESULT_BALANCE,
+      </if>
+      <if test="maxBuyBalance != null" >
+        MAX_BUY_BALANCE,
+      </if>
+      <if test="annualRate != null" >
+        ANNUAL_RATE,
+      </if>
+      <if test="applicationDesc != null" >
+        APPLICATION_DESC,
+      </if>
+      <if test="lendState != null" >
+        LEND_STATE,
+      </if>
+      <if test="verifyState != null" >
+        VERIFY_STATE,
+      </if>
+      <if test="publishState != null" >
+        PUBLISH_STATE,
+      </if>
+      <if test="interestBalance != null" >
+        INTEREST_BALANCE,
+      </if>
+      <if test="applicationState != null" >
+        APPLICATION_STATE,
+      </if>
+      <if test="recorderPersonnel != null" >
+        RECORDER_PERSONNEL,
+      </if>
+      <if test="recorderName != null" >
+        RECORDER_NAME,
+      </if>
+      <if test="channel != null" >
+        CHANNEL,
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="originalUserId != null" >
+        ORIGINAL_USER_ID,
+      </if>
+      <if test="preheatTime != null" >
+        PREHEAT_TIME,
+      </if>
+      <if test="openTime != null" >
+        OPEN_TIME,
+      </if>
+      <if test="fullTime != null" >
+        FULL_TIME,
+      </if>
+      <if test="paymentDate != null" >
+        PAYMENT_DATE,
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME,
+      </if>
+      <if test="publishTime != null" >
+        PUBLISH_TIME,
+      </if>
+      <if test="cancelTime != null" >
+        CANCEL_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="agreementStartDate != null" >
+        AGREEMENT_START_DATE,
+      </if>
+      <if test="firstRepaymentDate != null" >
+        FIRST_REPAYMENT_DATE,
+      </if>
+      <if test="lastRepaymentDate != null" >
+        LAST_REPAYMENT_DATE,
+      </if>
+      <if test="loanUseageDesc != null" >
+        LOAN_USEAGE_DESC,
+      </if>
+      <if test="mainAutoPublish != null" >
+        MAIN_AUTO_PUBLISH,
+      </if>
+      <if test="riskControlInformation != null" >
+        RISK_CONTROL_INFORMATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mainLoanApplicationId != null" >
+        #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="mainCode != null" >
+        #{mainCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mainLoanBalance != null" >
+        #{mainLoanBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="mainState != null" >
+        #{mainState,jdbcType=CHAR},
+      </if>
+      <if test="mainPublishBalance != null" >
+        #{mainPublishBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="mainCreateTime != null" >
+        #{mainCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainUpdateTime != null" >
+        #{mainUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainAdminId != null" >
+        #{mainAdminId,jdbcType=DECIMAL},
+      </if>
+      <if test="customerAccountId != null" >
+        #{customerAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentAccountId != null" >
+        #{repaymentAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="inCardId != null" >
+        #{inCardId,jdbcType=DECIMAL},
+      </if>
+      <if test="outCardId != null" >
+        #{outCardId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanProductId != null" >
+        #{loanProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="originLoanAppId != null" >
+        #{originLoanAppId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationCode != null" >
+        #{loanApplicationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loanApplicationName != null" >
+        #{loanApplicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="offlineApplyCode != null" >
+        #{offlineApplyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTarget != null" >
+        #{publishTarget,jdbcType=CHAR},
+      </if>
+      <if test="loanUseage != null" >
+        #{loanUseage,jdbcType=VARCHAR},
+      </if>
+      <if test="renewAgreementCode != null" >
+        #{renewAgreementCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectType != null" >
+        #{subjectType,jdbcType=CHAR},
+      </if>
+      <if test="loanType != null" >
+        #{loanType,jdbcType=CHAR},
+      </if>
+      <if test="loanBalance != null" >
+        #{loanBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="confirmBalance != null" >
+        #{confirmBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="resultBalance != null" >
+        #{resultBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="maxBuyBalance != null" >
+        #{maxBuyBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="annualRate != null" >
+        #{annualRate,jdbcType=DECIMAL},
+      </if>
+      <if test="applicationDesc != null" >
+        #{applicationDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="lendState != null" >
+        #{lendState,jdbcType=CHAR},
+      </if>
+      <if test="verifyState != null" >
+        #{verifyState,jdbcType=CHAR},
+      </if>
+      <if test="publishState != null" >
+        #{publishState,jdbcType=CHAR},
+      </if>
+      <if test="interestBalance != null" >
+        #{interestBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="applicationState != null" >
+        #{applicationState,jdbcType=CHAR},
+      </if>
+      <if test="recorderPersonnel != null" >
+        #{recorderPersonnel,jdbcType=DECIMAL},
+      </if>
+      <if test="recorderName != null" >
+        #{recorderName,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=CHAR},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=DECIMAL},
+      </if>
+      <if test="originalUserId != null" >
+        #{originalUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="preheatTime != null" >
+        #{preheatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openTime != null" >
+        #{openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fullTime != null" >
+        #{fullTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentDate != null" >
+        #{paymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordTime != null" >
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelTime != null" >
+        #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agreementStartDate != null" >
+        #{agreementStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstRepaymentDate != null" >
+        #{firstRepaymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastRepaymentDate != null" >
+        #{lastRepaymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanUseageDesc != null" >
+        #{loanUseageDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="mainAutoPublish != null" >
+        #{mainAutoPublish,jdbcType=CHAR},
+      </if>
+      <if test="riskControlInformation != null" >
+        #{riskControlInformation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.MainLoanApplication" >
+    update MAIN_LOAN_APPLICATION
+    <set >
+      <if test="mainCode != null" >
+        MAIN_CODE = #{mainCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mainLoanBalance != null" >
+        MAIN_LOAN_BALANCE = #{mainLoanBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="mainState != null" >
+        MAIN_STATE = #{mainState,jdbcType=CHAR},
+      </if>
+      <if test="mainPublishBalance != null" >
+        MAIN_PUBLISH_BALANCE = #{mainPublishBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="mainCreateTime != null" >
+        MAIN_CREATE_TIME = #{mainCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainUpdateTime != null" >
+        MAIN_UPDATE_TIME = #{mainUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainAdminId != null" >
+        MAIN_ADMIN_ID = #{mainAdminId,jdbcType=DECIMAL},
+      </if>
+      <if test="customerAccountId != null" >
+        CUSTOMER_ACCOUNT_ID = #{customerAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentAccountId != null" >
+        REPAYMENT_ACCOUNT_ID = #{repaymentAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="inCardId != null" >
+        IN_CARD_ID = #{inCardId,jdbcType=DECIMAL},
+      </if>
+      <if test="outCardId != null" >
+        OUT_CARD_ID = #{outCardId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanProductId != null" >
+        LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="originLoanAppId != null" >
+        ORIGIN_LOAN_APP_ID = #{originLoanAppId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationCode != null" >
+        LOAN_APPLICATION_CODE = #{loanApplicationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loanApplicationName != null" >
+        LOAN_APPLICATION_NAME = #{loanApplicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="offlineApplyCode != null" >
+        OFFLINE_APPLY_CODE = #{offlineApplyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTarget != null" >
+        PUBLISH_TARGET = #{publishTarget,jdbcType=CHAR},
+      </if>
+      <if test="loanUseage != null" >
+        LOAN_USEAGE = #{loanUseage,jdbcType=VARCHAR},
+      </if>
+      <if test="renewAgreementCode != null" >
+        RENEW_AGREEMENT_CODE = #{renewAgreementCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectType != null" >
+        SUBJECT_TYPE = #{subjectType,jdbcType=CHAR},
+      </if>
+      <if test="loanType != null" >
+        LOAN_TYPE = #{loanType,jdbcType=CHAR},
+      </if>
+      <if test="loanBalance != null" >
+        LOAN_BALANCE = #{loanBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="confirmBalance != null" >
+        CONFIRM_BALANCE = #{confirmBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="resultBalance != null" >
+        RESULT_BALANCE = #{resultBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="maxBuyBalance != null" >
+        MAX_BUY_BALANCE = #{maxBuyBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="annualRate != null" >
+        ANNUAL_RATE = #{annualRate,jdbcType=DECIMAL},
+      </if>
+      <if test="applicationDesc != null" >
+        APPLICATION_DESC = #{applicationDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="lendState != null" >
+        LEND_STATE = #{lendState,jdbcType=CHAR},
+      </if>
+      <if test="verifyState != null" >
+        VERIFY_STATE = #{verifyState,jdbcType=CHAR},
+      </if>
+      <if test="publishState != null" >
+        PUBLISH_STATE = #{publishState,jdbcType=CHAR},
+      </if>
+      <if test="interestBalance != null" >
+        INTEREST_BALANCE = #{interestBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="applicationState != null" >
+        APPLICATION_STATE = #{applicationState,jdbcType=CHAR},
+      </if>
+      <if test="recorderPersonnel != null" >
+        RECORDER_PERSONNEL = #{recorderPersonnel,jdbcType=DECIMAL},
+      </if>
+      <if test="recorderName != null" >
+        RECORDER_NAME = #{recorderName,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        CHANNEL = #{channel,jdbcType=CHAR},
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+      </if>
+      <if test="originalUserId != null" >
+        ORIGINAL_USER_ID = #{originalUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="preheatTime != null" >
+        PREHEAT_TIME = #{preheatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openTime != null" >
+        OPEN_TIME = #{openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fullTime != null" >
+        FULL_TIME = #{fullTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentDate != null" >
+        PAYMENT_DATE = #{paymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null" >
+        PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelTime != null" >
+        CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agreementStartDate != null" >
+        AGREEMENT_START_DATE = #{agreementStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstRepaymentDate != null" >
+        FIRST_REPAYMENT_DATE = #{firstRepaymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastRepaymentDate != null" >
+        LAST_REPAYMENT_DATE = #{lastRepaymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanUseageDesc != null" >
+        LOAN_USEAGE_DESC = #{loanUseageDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="mainAutoPublish != null" >
+        MAIN_AUTO_PUBLISH = #{mainAutoPublish,jdbcType=CHAR},
+      </if>
+      <if test="riskControlInformation != null" >
+        RISK_CONTROL_INFORMATION = #{riskControlInformation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.MainLoanApplication" >
+    update MAIN_LOAN_APPLICATION
+    set MAIN_CODE = #{mainCode,jdbcType=VARCHAR},
+      MAIN_LOAN_BALANCE = #{mainLoanBalance,jdbcType=DECIMAL},
+      MAIN_STATE = #{mainState,jdbcType=CHAR},
+      MAIN_PUBLISH_BALANCE = #{mainPublishBalance,jdbcType=DECIMAL},
+      MAIN_CREATE_TIME = #{mainCreateTime,jdbcType=TIMESTAMP},
+      MAIN_UPDATE_TIME = #{mainUpdateTime,jdbcType=TIMESTAMP},
+      MAIN_ADMIN_ID = #{mainAdminId,jdbcType=DECIMAL},
+      CUSTOMER_ACCOUNT_ID = #{customerAccountId,jdbcType=DECIMAL},
+      REPAYMENT_ACCOUNT_ID = #{repaymentAccountId,jdbcType=DECIMAL},
+      IN_CARD_ID = #{inCardId,jdbcType=DECIMAL},
+      OUT_CARD_ID = #{outCardId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL},
+      ORIGIN_LOAN_APP_ID = #{originLoanAppId,jdbcType=DECIMAL},
+      LOAN_APPLICATION_CODE = #{loanApplicationCode,jdbcType=VARCHAR},
+      LOAN_APPLICATION_NAME = #{loanApplicationName,jdbcType=VARCHAR},
+      OFFLINE_APPLY_CODE = #{offlineApplyCode,jdbcType=VARCHAR},
+      PUBLISH_TARGET = #{publishTarget,jdbcType=CHAR},
+      LOAN_USEAGE = #{loanUseage,jdbcType=VARCHAR},
+      RENEW_AGREEMENT_CODE = #{renewAgreementCode,jdbcType=VARCHAR},
+      SUBJECT_TYPE = #{subjectType,jdbcType=CHAR},
+      LOAN_TYPE = #{loanType,jdbcType=CHAR},
+      LOAN_BALANCE = #{loanBalance,jdbcType=DECIMAL},
+      CONFIRM_BALANCE = #{confirmBalance,jdbcType=DECIMAL},
+      RESULT_BALANCE = #{resultBalance,jdbcType=DECIMAL},
+      MAX_BUY_BALANCE = #{maxBuyBalance,jdbcType=DECIMAL},
+      ANNUAL_RATE = #{annualRate,jdbcType=DECIMAL},
+      APPLICATION_DESC = #{applicationDesc,jdbcType=VARCHAR},
+      LEND_STATE = #{lendState,jdbcType=CHAR},
+      VERIFY_STATE = #{verifyState,jdbcType=CHAR},
+      PUBLISH_STATE = #{publishState,jdbcType=CHAR},
+      INTEREST_BALANCE = #{interestBalance,jdbcType=DECIMAL},
+      APPLICATION_STATE = #{applicationState,jdbcType=CHAR},
+      RECORDER_PERSONNEL = #{recorderPersonnel,jdbcType=DECIMAL},
+      RECORDER_NAME = #{recorderName,jdbcType=VARCHAR},
+      CHANNEL = #{channel,jdbcType=CHAR},
+      CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+      ORIGINAL_USER_ID = #{originalUserId,jdbcType=DECIMAL},
+      PREHEAT_TIME = #{preheatTime,jdbcType=TIMESTAMP},
+      OPEN_TIME = #{openTime,jdbcType=TIMESTAMP},
+      FULL_TIME = #{fullTime,jdbcType=TIMESTAMP},
+      PAYMENT_DATE = #{paymentDate,jdbcType=TIMESTAMP},
+      RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      AGREEMENT_START_DATE = #{agreementStartDate,jdbcType=TIMESTAMP},
+      FIRST_REPAYMENT_DATE = #{firstRepaymentDate,jdbcType=TIMESTAMP},
+      LAST_REPAYMENT_DATE = #{lastRepaymentDate,jdbcType=TIMESTAMP},
+      LOAN_USEAGE_DESC = #{loanUseageDesc,jdbcType=VARCHAR},
+      MAIN_AUTO_PUBLISH = #{mainAutoPublish,jdbcType=CHAR},
+      RISK_CONTROL_INFORMATION = #{riskControlInformation,jdbcType=VARCHAR}
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByMap" parameterType="java.util.Map">
+        update MAIN_LOAN_APPLICATION
+        <set>
+      
+        	<if test="_parameter.containsKey('mainLoanBalance')">
+                MAIN_LOAN_BALANCE = #{mainLoanBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('mainState')">
+                MAIN_STATE = #{mainState,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('mainPublishBalance')">
+                MAIN_PUBLISH_BALANCE = #{mainPublishBalance,jdbcType=DECIMAL},
+            </if>
+        
+            <if test="_parameter.containsKey('inCardId')">
+                IN_CARDID = #{inCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('outCardId')">
+                OUT_CARDID = #{outCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('loanProductId')">
+                LOAN_PRODUCT_ID= #{loanProductId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('loanApplicationName')">
+                LOAN_APPLICATION_NAME= #{loanApplicationName,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('offlineApplyCode')">
+                OFFLINE_APPLY_CODE = #{offlineApplyCode,jdbcType=VARCHAR,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('loanUseage')">
+                LOAN_USEAGE= #{loanUseage},
+            </if>
+            <if test="_parameter.containsKey('renewAgreementCode')">
+                RENEW_AGREEMENT_CODE = #{renewAgreementCode,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('loanBalance')">
+                LOAN_BALANCE = #{loanBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('confirmBalance')">
+                CONFIRM_BALANCE = #{confirmBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('resultBalance')">
+                RESULT_BALANCE = #{resultBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('lastRepaymentDate')">
+                LAST_REPAYMENT_DATE = #{lastRepaymentDate,jdbcType=DATE},
+            </if>
+            <if test="_parameter.containsKey('annualRate')">
+                ANNUAL_RATE = #{annualRate,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('applicationDesc')">
+                APPLICATION_DESC = #{applicationDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('publishState')">
+                PUBLISH_STATE = #{publishState,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('publishTime')">
+                PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('fullTime')">
+                FULL_TIME = #{fullTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('cancelTime')">
+                CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('agreementStartDate')">
+                AGREEMENT_START_DATE = #{agreementStartDate,jdbcType=DATE},
+            </if>
+            <if test="_parameter.containsKey('firstRepaymentDate')">
+                FIRST_REPAYMENT_DATE = #{firstRepaymentDate,jdbcType=DATE},
+            </if>
+            <if test="_parameter.containsKey('lendState')">
+                LEND_STATE = #{lendState,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('verifyState')">
+                VERIFY_STATE = #{verifyState,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('interestBalance')">
+                INTEREST_BALANCE = #{interestBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('applicationState')">
+                APPLICATION_STATE = #{applicationState,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('channel')">
+                CHANNEL = #{channel,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('channelId')">
+                CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('originalUserId')">
+                ORIGINAL_USER_ID = #{originalUserId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('paymentDate')">
+                PAYMENT_DATE = #{paymentDate,jdbcType=DATE},
+            </if>
+            <if test="_parameter.containsKey('maxBuyBalance')">
+                MAX_BUY_BALANCE = #{maxBuyBalance,jdbcType=DATE},
+            </if>
+            <if test="_parameter.containsKey('loanUseageDesc')">
+                LOAN_USEAGE_DESC = #{loanUseageDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('mainAutoPublish')">
+                MAIN_AUTO_PUBLISH = #{mainAutoPublish,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('riskControlInformation')">
+                RISK_CONTROL_INFORMATION = #{riskControlInformation,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+    </update>
+    
+ <!-- 企业借款申请，分页查询-数据 -->
+ <select id="findAllEnterpriseMainLoanByPage" resultMap="mainLoanApplicationExtOneResultMap" parameterType="java.util.HashMap">
+     select
+     CASE
+     WHEN (SELECT COUNT (*)
+     FROM agreement_info ai
+     WHERE ai.creditor_rights_id =
+     (SELECT crs.creditor_rights_id
+     FROM CREDITOR_RIGHTS crs
+     WHERE     crs.loan_application_id =
+     La.MAIN_LOAN_APPLICATION_ID
+     AND ROWNUM = 1)) > 0
+     THEN
+     '已生成'
+     ELSE
+     '未生成'
+     END  as agreement_status ,
+		la.MAIN_LOAN_APPLICATION_ID,
+		la.LOAN_TYPE,
+		la.LOAN_APPLICATION_CODE,
+		la.LOAN_APPLICATION_NAME,
+		la.LOAN_BALANCE,
+		la.CONFIRM_BALANCE,
+		la.APPLICATION_STATE,
+		la.CREATE_TIME,
+		la.PUBLISH_TIME,
+		la.FULL_TIME,
+		la.PAYMENT_DATE,
+		uie.REAL_NAME,
+		uie.ID_CARD,
+		uie.MOBILE_NO,
+		(SELECT SUM(LOBD.BUY_BALANCE) FROM LEND_ORDER_BID_DETAIL LOBD WHERE LOBD.STATUS = '0' AND LOBD.LOAN_APPLICATION_ID = la.MAIN_LOAN_APPLICATION_ID) HAVE_CAST
+		from MAIN_LOAN_APPLICATION la 
+		left join ENTERPRISE_LOAN_APPLICATION ela on la.MAIN_LOAN_APPLICATION_ID = ela.LOAN_APPLICATION_ID
+		left join ENTERPRISE_INFO ei on ela.ENTERPRISE_ID = ei.ENTERPRISE_ID
+		left join USER_INFO_EXT uie on ei.USER_ID = uie.USER_ID
+        <include refid="where_findAllEnterpriseMainLoanByPage"/>
+        order by la.MAIN_LOAN_APPLICATION_ID desc
+    </select>
+
+    <!-- 企业借款申请，分页查询-数量 -->
+    <select id="count_findAllEnterpriseMainLoanByPage" resultType="int" parameterType="java.util.HashMap">
+        select 
+		count(1)
+		from MAIN_LOAN_APPLICATION la 
+		left join ENTERPRISE_LOAN_APPLICATION ela on la.MAIN_LOAN_APPLICATION_ID = ela.LOAN_APPLICATION_ID
+		left join ENTERPRISE_INFO ei on ela.ENTERPRISE_ID = ei.ENTERPRISE_ID
+		left join USER_INFO_EXT uie on ei.USER_ID = uie.USER_ID
+        <include refid="where_findAllEnterpriseMainLoanByPage"/>
+    </select>
+
+    <!-- 企业借款申请，分页查询-条件 -->
+    <sql id="where_findAllEnterpriseMainLoanByPage">
+		where la.LOAN_TYPE in ('2','3','4','5')
+		
+  		<if test="loanApplicationCode !=null and loanApplicationCode != ''">
+            AND la.LOAN_APPLICATION_CODE like '%${loanApplicationCode}%'
+        </if>
+        <if test="loanApplicationName !=null and loanApplicationName != ''">
+            AND la.LOAN_APPLICATION_NAME like '%${loanApplicationName}%'
+        </if>
+        <if test="loanType != null and loanType != ''">
+            AND la.LOAN_TYPE = #{loanType,jdbcType=CHAR}
+        </if>
+        <if test="realName !=null and realName != ''">
+            AND uie.REAL_NAME like '%${realName}%'
+        </if>
+        <if test="idCard !=null and idCard != ''">
+            AND substr(uie.ID_CARD,length(uie.ID_CARD)-3) = #{idCard}
+        </if>
+        <if test="mobileNo !=null and mobileNo != ''">
+            AND uie.MOBILE_NO like '%${mobileNo}%'
+        </if>
+        <if test="applicationState != null and applicationState != ''">
+            AND la.APPLICATION_STATE = #{applicationState,jdbcType=CHAR}
+        </if>
+		
+    </sql>
+  
+  <!-- 查询符合自动发标的主借款申请数据（自动发标专用） -->
+  <select id="selectByAuto" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select * from MAIN_LOAN_APPLICATION
+    where MAIN_AUTO_PUBLISH = '1'
+  </select>
+  
+</mapper>

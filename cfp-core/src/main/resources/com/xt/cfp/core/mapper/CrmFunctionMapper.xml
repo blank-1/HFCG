@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CRM_FUNCTION">
+	<resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CrmFunction">
+		<id column="FUN_ID" property="funId" jdbcType="DECIMAL" />
+		<result column="FUN_CODE" property="funCode" jdbcType="VARCHAR" />
+		<result column="FUN_NAME" property="funName" jdbcType="VARCHAR" />
+		<result column="P_FUN_ID" property="pFunId" jdbcType="DECIMAL" />
+		<result column="FUN_TYPE" property="funType" jdbcType="CHAR" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		FUN_ID, FUN_CODE, FUN_NAME, P_FUN_ID, FUN_TYPE, URL
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from CRM_FUNCTION
+		where FUN_ID = #{funId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from CRM_FUNCTION
+		where FUN_ID = #{funId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.xt.cfp.core.pojo.CrmFunction">
+		<selectKey keyProperty="funId" order="BEFORE" resultType="long">
+			SELECT SEQ_CRM_FUNCTION.NEXTVAL as funId FROM dual
+		</selectKey>
+		insert into CRM_FUNCTION (FUN_ID, FUN_CODE, FUN_NAME,
+		P_FUN_ID, FUN_TYPE, URL)
+		values (#{funId,jdbcType=DECIMAL}, #{funCode,jdbcType=VARCHAR},
+		#{funName,jdbcType=VARCHAR},
+		#{pFunId,jdbcType=DECIMAL}, #{funType,jdbcType=CHAR}, #{url,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CrmFunction">
+		insert into CRM_FUNCTION
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="funId != null">
+				FUN_ID,
+			</if>
+			<if test="funCode != null">
+				FUN_CODE,
+			</if>
+			<if test="funName != null">
+				FUN_NAME,
+			</if>
+			<if test="pFunId != null">
+				P_FUN_ID,
+			</if>
+			<if test="funType != null">
+				FUN_TYPE,
+			</if>
+			<if test="url != null">
+				URL,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="funId != null">
+				#{funId,jdbcType=DECIMAL},
+			</if>
+			<if test="funCode != null">
+				#{funCode,jdbcType=VARCHAR},
+			</if>
+			<if test="funName != null">
+				#{funName,jdbcType=VARCHAR},
+			</if>
+			<if test="pFunId != null">
+				#{pFunId,jdbcType=DECIMAL},
+			</if>
+			<if test="funType != null">
+				#{funType,jdbcType=CHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CrmFunction">
+		update CRM_FUNCTION
+		<set>
+			<if test="funCode != null">
+				FUN_CODE = #{funCode,jdbcType=VARCHAR},
+			</if>
+			<if test="funName != null">
+				FUN_NAME = #{funName,jdbcType=VARCHAR},
+			</if>
+			<if test="pFunId != null">
+				P_FUN_ID = #{pFunId,jdbcType=DECIMAL},
+			</if>
+			<if test="funType != null">
+				FUN_TYPE = #{funType,jdbcType=CHAR},
+			</if>
+			<if test="url != null">
+				URL = #{url,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where FUN_ID = #{funId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CrmFunction">
+		update CRM_FUNCTION
+		set FUN_CODE = #{funCode,jdbcType=VARCHAR},
+		FUN_NAME = #{funName,jdbcType=VARCHAR},
+		P_FUN_ID = #{pFunId,jdbcType=DECIMAL},
+		FUN_TYPE = #{funType,jdbcType=CHAR},
+		URL = #{url,jdbcType=VARCHAR}
+		where FUN_ID = #{funId,jdbcType=DECIMAL}
+	</update>
+	
+	
+	<select id="selectAllFuncByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from CRM_FUNCTION f
+		where f.fun_id in(
+		   select r.menu_id from CRM_ROLE_FUNCTION r where r.role_id=#{roleId,jdbcType=DECIMAL}
+		)
+		order by f.fun_id,f.p_fun_id
+	</select>
+	<select id="findMenusByIds" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from CRM_FUNCTION 
+		where <![CDATA[(${ids})]]>
+		order by fun_id,p_fun_id
+	</select>
+	<select id="selectAllMainMenu" resultMap="BaseResultMap"  parameterType="map" >
+	    select
+      	 distinct f.*
+        from CRM_FUNCTION  f left join CRM_ROLE_FUNCTION rf on F.FUN_ID = RF.MENU_ID
+        left join CRM_STAFF_ROLE sr on RF.ROLE_ID = SR.ROLE_ID
+		where FUN_TYPE = '0'
+		<if test="staffId != null" >
+			and SR.STAFF_ID = #{staffId,jdbcType=DECIMAL}
+		</if>
+		and P_FUN_ID is null order by FUN_ID desc,P_FUN_ID
+	</select>
+	<select id="selectStaffMenu" resultMap="BaseResultMap"  parameterType="map" >
+	    select
+      	 distinct f.*
+        from CRM_FUNCTION  f left join CRM_ROLE_FUNCTION rf on F.FUN_ID = RF.MENU_ID
+        left join CRM_STAFF_ROLE sr on RF.ROLE_ID = SR.ROLE_ID
+		where FUN_TYPE = '0'
+		<if test="staffId != null" >
+			and SR.STAFF_ID = #{staffId,jdbcType=DECIMAL}
+		</if>
+		order by FUN_ID desc,P_FUN_ID
+	</select>
+	<select id="findChildMenus" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from CRM_FUNCTION
+		where FUN_TYPE = '0' and P_FUN_ID = #{funId,jdbcType=DECIMAL}
+		order by fun_id,p_fun_id
+	</select>
+	<select id="selectAllFuncs" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CRM_FUNCTION where P_FUN_ID is null order by fun_id,p_fun_id
+	</select>
+	<select id="findChildFuncs" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from CRM_FUNCTION
+		where P_FUN_ID = #{funId,jdbcType=DECIMAL}
+		order by fun_id,p_fun_id
+	</select>
+	<select id="findCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from CRM_FUNCTION
+		where FUN_CODE = #{code,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteMenus" parameterType="map">
+		delete from CRM_FUNCTION
+		where <![CDATA[(${ids})]]>
+	</delete>
+</mapper>

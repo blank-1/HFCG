@@ -1,0 +1,615 @@
+@charset "UTF-8";
+/* CSS Document */
+input,textarea,button,select{
+	border-radius: 0px;
+	-webkit-appearance:none;					/*ios清除默认样式            		 */
+}
+input[type=checkbox] {
+	visibility: hidden;
+	}
+	
+input:focus { border:solid 1px #0764ff;}
+p,span{
+	font-size: 1.6rem;
+}
+
+html,body{
+	font-family: "微软雅黑";
+	font-size: 62.5%;
+	overflow: hidden;
+	margin:0; height:100%;width: 100%;
+}
+.w-wrapper{
+	width: 100%;
+	height: 100%;
+	background: url(../gameimg/bg.png) no-repeat;
+	background-size: cover;
+	position: relative;
+}
+.w-kong{
+	width: 100%;
+	height: 2rem;
+}
+.w-handerBox{
+	width: 100%;
+	height: auto;
+	display: -webkit-box;
+	padding-top: 1rem;
+}
+.w-hander{
+	width: 25%;
+	height: auto;
+	margin-left: 2rem;
+}
+.w-hander img{
+	width: 100%;
+	height: 100%;
+}
+.w-handerBox p{
+	color: #fff;
+	height: 4rem;
+	display: block;
+	margin-left: 1rem;
+	font-size: 1.4rem;
+	line-height: 1.5rem;
+}
+.w-handerBox p span{
+	font-size: 1.8rem;
+}
+.w-btnbox{
+	width: 100%;
+	display: -webkit-box;
+	position: absolute;
+	bottom: 4rem;
+	left: 0;
+}
+.w-btnbox a{
+	width: 50%;
+	height: auto;
+	display: block;
+}
+.w-btnbox dl{
+	width: 100%;
+}
+.w-btnbox dl dt{
+	width: 40%;
+	height: auto;
+	text-align: center;
+	margin: 0 auto;
+}
+.w-btnbox dl dt img{
+	width: 100%;
+	height: 100%;
+}
+.w-btnbox dl dd{
+	text-align: center;
+	color: #fff;
+	font-size: 1.6rem;
+	padding-top: .5rem;
+}
+/*通话*/
+.w-tmer{
+	width: 100%;
+	height: 4rem;
+}
+.w-tmer p{
+	text-align: center;
+	color: #c0bdbc;
+	font-size: 1.6rem;
+}
+.option{
+	width: 70%;
+	height: auto;
+	margin: .5rem auto;
+	position:absolute;
+	bottom: 11rem;
+	left: 50%;
+	margin-left: -35%;
+}
+.option img{
+	width: 100%;
+	height: 100%;
+}
+.w-hangup{
+	width: 100%;
+	margin-top: rem;
+	position: absolute;
+	bottom: 1rem;
+	left: 50%;
+	margin-left: -50%;
+}
+.w-hangup a{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+.w-hangup a dl dt{
+	width: 15%;
+	margin: 0 auto;
+}
+.w-hangup a dl dt img{
+	width: 100%;
+	height: 100%;
+}
+.w-hangup a dl dd{
+	text-align: center;
+	color: #fff;
+	margin-top: .5rem;
+	font-size: 1.6rem;
+}
+/*信息页*/
+.w-all{
+	width: 100%;
+	height: 100%;
+	background: url(../gameimg/msg_bg.png) no-repeat;
+	background-size: cover;
+	position: relative;
+}
+.w-input{
+	width: 100%;
+	height: auto;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+.w-input img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.w-list{
+	width: 90%;
+	height: auto;
+	overflow: hidden;
+	margin: 0 auto;
+}
+.w-list li{
+	width: 100%;
+	height: auto;
+	margin-top: 2rem;
+	display: none;
+}
+.w-list li dl{
+	width: 100%;
+	display: -webkit-box;
+}
+.w-list li dl dt{
+	width: 15%;
+	height: auto;
+}
+.w-list li dl dt img,.w-list li dl dd p span img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.w-list li dl dd p{
+	display: -webkit-box;
+	padding: .5rem;
+	margin-left: 1.5rem;
+	background: #fff;
+	border-radius: 5px;
+	line-height: 2rem;
+	position: relative;
+	font-size: 1.6rem;
+}
+.w-list li dl dd p:after{
+	content: "";
+	width: 1.4rem;
+	height: 1.4rem;
+	background: url(../gameimg/triangle.png) no-repeat;
+	background-size: 1rem 1.6rem;
+	position: absolute;
+	left: -1rem;
+	top: 1rem;
+ 
+}
+.w-list li dl dd p span{
+	width: 10%;
+	display: block;
+	margin: .1rem 0 0 -.8rem;
+}
+.w-list li dl dd p span img{
+	width: 100%;
+	height: 100%;
+}
+/*活动页*/
+.container,.wrapper,section{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.page1{
+	width: 100%;
+	height: 100%;
+	background: url(../gameimg/bg1.jpg) no-repeat ;
+	background-size: 100% 100%;
+}
+.page2{
+	width: 100%;
+	height: 100%;
+	background: url(../gameimg/bg2.jpg) no-repeat ;
+	background-size: 100% 100%;
+}
+.animate{
+	width:60%;
+	height: auto;
+	margin: 0rem auto;
+	-webkit-animation: zoomBig 1.8s ease-in-out;
+}
+.animate img{
+	margin-top: 10rem;
+	width: 100%;
+	height: 100%;
+
+}
+.present{
+	width: 90%;
+	height: 73%;
+	position: absolute;
+	top: 5rem;
+	left: 50%;
+	margin-left: -45%;
+	background: url(../gameimg/border.png) no-repeat;
+	background-size: 100% 100%;
+}
+.present p{
+	color: #fff;
+	width: 80%;
+	height: auto;
+	display: block;
+	margin: 5rem auto;
+	font-size: 1.5rem;
+	line-height: 2rem;
+
+}
+.fontAera{
+	width: 80%;
+	margin: 0 auto;
+}
+.present p span{
+	width: 100%;
+	display: block;
+	text-align: center;
+	font-size: 1.9rem;
+	padding-bottom: 1rem;
+}
+@media (min-width:360px) and (max-width:736px) {
+	.present p{
+		color: #fff;
+		width: 80%;
+		height: auto;
+		display: block;
+		margin: 5rem auto;
+		font-size: 2.1rem;
+		line-height: 2.7rem;
+	}
+	.present p span{
+		width: 100%;
+		display: block;
+		text-align: center;
+		font-size: 2.1rem;
+		padding-bottom: 1rem;
+	}
+}
+@media (min-width:414px) and (max-width:736px){
+	.present p{
+		color: #fff;
+		width: 80%;
+		height: auto;
+		display: block;
+		margin: 5rem auto;
+		font-size: 2.1rem;
+		line-height: 3rem;
+	}
+	.present p span{
+		width: 100%;
+		display: block;
+		text-align: center;
+		font-size: 2.1rem;
+		padding-bottom: 1rem 0;
+	}
+}
+.present a{
+	width: 80%;
+	height: auto;
+	position: absolute;
+	bottom: 2rem;
+	left: 50%;
+	margin-left: -40%;
+}
+.present a img{
+	width: 100%;
+	height: 100%;
+}
+.activityMask{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.8);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.shareImg{
+	width: 90%;
+	height: auto;
+	margin: 0rem auto;
+}
+.shareImg img{
+	width: 100%;
+	height: 100%;
+
+}
+/*分享页*/
+.w-cash{
+	width: 100%;
+	height: 100%;
+	background: #ebeef6;
+}
+.shareSuccess{
+	width: 100%;
+	height: auto;
+	padding: 5rem 0;
+}
+.shareSuccess p{
+	text-align: center;
+	color: #777778;
+	position: relative;
+	font-size: 1.8rem;
+}
+.shareSuccess p span{
+	width: 10%;
+	height: auto;
+	display: block;
+	position: absolute;
+	left: 23%;
+	top: -.3rem;
+}
+.shareSuccess p span img{
+	width: 100%;
+	height: 100%;
+}
+.shareSuccess p:nth-child(1){
+	font-size: 2.4rem;
+}
+.shareSuccess p:nth-child(2){
+	margin-top: 2.5rem;
+	color: #8a8a8a;
+}
+.towCode{
+	width: 100%;
+	height: auto;
+	margin: 5rem auto;
+	position: absolute;
+	bottom: 2rem;
+}
+.towCode img{
+	width: 100%;
+	height:100%;
+}
+.towCode p{
+	text-align: center;
+	color: #908ebe;
+	font-size: 1.6rem;
+	margin-top: -1rem;
+}
+/*活动页*/
+.arr {
+  width: 40px;
+  height: 20px;
+  background: url(../gameimg/arr.png) no-repeat;
+  background-size: 100% 100%;
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  margin-left: -10px;
+  opacity: 0;
+  -webkit-animation: flicker 1.5s ease-in-out 0.5s infinite;
+  -moz-animation: flicker 1.5s ease-in-out 0.5s infinite;
+  -ms-animation: flicker 1.5s ease-in-out 0.5s infinite;  
+  -o-animation: flicker 1.5s ease-in-out 0.5s infinite;
+  animation: flicker 1.5s ease-in-out 0.5s infinite;
+ 
+}
+@-webkit-keyframes flicker{
+  0% {
+    bottom: 10px;
+    opacity: 0;
+  }
+  25% {
+    bottom: 20px;
+    opacity: 1;
+  }
+  50% {
+    bottom: 20px;
+    opacity: 1;
+  }
+  75% {
+    bottom: 25px;
+    opacity: .5;
+  }
+  100% {
+    bottom: 30px;
+    opacity: 0;
+  }
+}
+@-moz-keyframes flicker{
+  0% {
+    bottom: 10px;
+    opacity: 0;
+  }
+  25% {
+    bottom: 20px;
+    opacity: 1;
+  }
+  50% {
+    bottom: 20px;
+    opacity: 1;
+  }
+  75% {
+    bottom: 25px;
+    opacity: .5;
+  }
+  100% {
+    bottom: 30px;
+    opacity: 0;
+  }
+}
+@-ms-keyframes flicker{
+  0% {
+    bottom: 10px;
+    opacity: 0;
+  }
+  25% {
+    bottom: 20px;
+    opacity: 1;
+  }
+  50% {
+    bottom: 20px;
+    opacity: 1;
+  }
+  75% {
+    bottom: 25px;
+    opacity: .5;
+  }
+  100% {
+    bottom: 30px;
+    opacity: 0;
+  }
+}
+@keyframes flicker{
+  0% {
+    bottom: 10px;
+    opacity: 0;
+  }
+  25% {
+    bottom: 20px;
+    opacity: 1;
+  }
+  50% {
+    bottom: 20px;
+    opacity: 1;
+  }
+  75% {
+    bottom: 25px;
+    opacity: .5;
+  }
+  100% {
+    bottom: 30px;
+    opacity: 0;
+  }
+}
+@-o-keyframes flicker{
+  0% {
+    bottom: 10px;
+    opacity: 0;
+  }
+  25% {
+    bottom: 20px;
+    opacity: 1;
+  }
+  50% {
+    bottom: 20px;
+    opacity: 1;
+  }
+  75% {
+    bottom: 25px;
+    opacity: .5;
+  }
+  100% {
+    bottom: 30px;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes zoomBig{
+  0% {
+    -webkit-transform:scale(.3);
+    -moz-transform:scale(.3);
+    -ms-transform:scale(.3);
+    -o-transform:scale(.3);
+    -webkit-transform:translate(0,120px);
+    -moz-transform:translate(0,120px);
+    -ms-transform:translate(0,120px);
+    -o-transform:translate(0,120px);
+    opacity: 0;
+    display: none;
+  }
+
+  100% {
+  	-webkit-transform:scale(1);
+  	-moz-transform:scale(1);
+  	-ms-transform:scale(1);
+  	-o-transform:scale(1);
+  	opacity: 1;
+  	display: block;
+  }
+}
+@-moz-keyframes zoomBig{
+  0% {
+    -webkit-transform:scale(.3);
+    -moz-transform:scale(.3);
+    -ms-transform:scale(.3);
+    -o-transform:scale(.3);
+    -webkit-transform:translate(0,120px);
+    -moz-transform:translate(0,120px);
+    -ms-transform:translate(0,120px);
+    -o-transform:translate(0,120px);
+    opacity: 0;
+    display: none;
+  }
+
+  100% {
+  	-webkit-transform:scale(1);
+  	-moz-transform:scale(1);
+  	-ms-transform:scale(1);
+  	-o-transform:scale(1);
+  	opacity: 1;
+  	display: block;
+  }
+}
+@-ms-keyframes zoomBig{
+  0% {
+    -webkit-transform:scale(.3);
+    -moz-transform:scale(.3);
+    -ms-transform:scale(.3);
+    -o-transform:scale(.3);
+    -webkit-transform:translate(0,120px);
+    -moz-transform:translate(0,120px);
+    -ms-transform:translate(0,120px);
+    -o-transform:translate(0,120px);
+    opacity: 0;
+    display: none;
+  }
+
+  100% {
+  	-webkit-transform:scale(1);
+  	-moz-transform:scale(1);
+  	-ms-transform:scale(1);
+  	-o-transform:scale(1);
+  	opacity: 1;
+  	display: block;
+  }
+}
+@-o-keyframes zoomBig {
+  0% {
+    -webkit-transform:scale(.3);
+    -moz-transform:scale(.3);
+    -ms-transform:scale(.3);
+    -o-transform:scale(.3);
+    -webkit-transform:translate(0,120px);
+    -moz-transform:translate(0,120px);
+    -ms-transform:translate(0,120px);
+    -o-transform:translate(0,120px);
+    opacity: 0;
+    display: none;
+  }
+
+  100% {
+  	-webkit-transform:scale(1);
+  	-moz-transform:scale(1);
+  	-ms-transform:scale(1);
+  	-o-transform:scale(1);
+  	opacity: 1;
+  	display: block;
+  }
+}

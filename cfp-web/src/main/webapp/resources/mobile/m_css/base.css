@@ -1,0 +1,58 @@
+@charset "utf-8";
+*{margin:0;padding:0;vertical-align:baseline;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+img{border:0 none}
+i,em{font-style:normal;display:inline-block}
+ol,ul{list-style:none}
+input,img{vertical-align:middle}
+input,select{font:inherit;font-size:100%}
+a{text-decoration:none;color:#000;}
+body{height:100%;font-size:14px;font-family:"\5fae\8f6f\96c5\9ed1","Microsoft YaHei",Helvetica,Arial,sans-serif;line-height:1.5;color:#666;-webkit-text-size-adjust:100%; background:#ebeef6;}
+
+/*去掉table cell的边距并让其边重合*/
+table{ border-collapse:collapse; border-spacing:0;}
+/* IE bug fixed:th 不继承 text-align*/
+th{ text-align:inherit;}
+/*去除默认边框*/
+fieldset,img{ border:0;}
+/*ie6 7 8(q) bug显示为行内显现*/
+iframe{ display:block;}
+/* 去掉列表前的标识，li 会继承*/
+ol,ul,li{ list-style:none;}
+/* 一致的 del样式*/
+del{ text-decoration:line-through;}
+
+/*来自 yahoo,让标题都自定义，适应多个系统应用*/
+h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:500;}
+
+q:before,q:after{ content:'';}
+i{ font-style:normal;}
+
+/* 统一上标和下标*/
+sub,sup{ font-size:75%; line-height:0; position:relative; vertical-align:baseline;}
+sup{ top:-0.5em;}
+sub{ bottom:-0.25em;}
+
+/* 默认不显示下划线，保持页面简洁*/
+ins,a{ text-decoration:none;}
+
+/* 清理浮动*/
+.clearFloat:after{ visibility:hidden; display:block; font-size:0; content:""; clear:both; height:0;}
+.clearFloat{ zoom:1;}/*兼容ie6 7*/
+
+/* 设置内联，减少浮动带来的bug*/
+.floatLeft,.floatRight{ display:inline;}
+.floatLeft{ float:left;}
+.floatRight{ float:right;}
+
+/* 重设html5标签，ie需要在js中 createElement(TAG)*/
+article,aside,details,figcaption,figure,footer,header,menu,nav,section{ display:block;}
+
+/* 去除浏览器中input文本框的默认自带样式 */
+input{ border:none; outline:medium;-webkit-appearance: none;}
+button{-webkit-appearance: none;}
+
+/*去掉 firefox下此元素的边框*/
+abbr,acronym{ border:0; font-variant:normal;}
+address,caption,cite,code,dfn,em,th,var{ font-style:normal; font-weight:500;}
+
+.cut_string{overflow: hidden;white-space: nowrap;-o-text-overflow: ellipsis;text-overflow: ellipsis;}

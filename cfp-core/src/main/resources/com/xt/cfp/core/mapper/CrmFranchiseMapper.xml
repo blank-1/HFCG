@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CRM_FRANCHISE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CrmFranchise" >
+    <id column="FRANCHISE_ID" property="franchiseId" jdbcType="DECIMAL" />
+    <result column="ADDRESS_ID" property="addressId" jdbcType="DECIMAL" />
+      <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="FRANCHISE_STATE" property="franchiseState" jdbcType="CHAR" />
+    <result column="FRANCHISE_CODE" property="franchiseCode" jdbcType="VARCHAR" />
+    <result column="FRANCHISE_NAME" property="franchiseName" jdbcType="VARCHAR" />
+    <result column="FRANCHISE_AGREECODE" property="franchiseAgreecode" jdbcType="VARCHAR" />
+    <result column="STAR_LEVEL" property="starLevel" jdbcType="VARCHAR" />
+    <result column="SIGN_DATE" property="signDate" jdbcType="VARCHAR" />
+    <result column="OPEN_DATE" property="openDate" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="CONCAT_PERSON" property="concatPerson" jdbcType="VARCHAR" />
+    <result column="CONCAT_INFORMATION" property="concatInformation" jdbcType="VARCHAR" />
+    <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="simpleFranc" type="com.xt.cfp.core.pojo.ext.crm.FranchiseVO" >
+    <id column="FRANCHISE_ID" property="franchiseId" jdbcType="DECIMAL" />
+    <result column="FRANCHISE_NAME" property="franchiseName" jdbcType="VARCHAR" />
+    <result column="CONCAT_PERSON" property="concatPerson" jdbcType="VARCHAR" />
+    <result column="CONCAT_INFORMATION" property="concatInformation" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="francMapping" type="com.xt.cfp.core.pojo.CrmOrgFranchise" >
+    <id column="id" property="id" jdbcType="DECIMAL" />
+    <result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="FRANCHISE_ID" property="franchiseId" jdbcType="DECIMAL" />
+    <result column="JOIN_TIME" property="joinTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FRANCHISE_ID, ADDRESS_ID, FRANCHISE_STATE, FRANCHISE_CODE, FRANCHISE_NAME, FRANCHISE_AGREECODE, 
+    STAR_LEVEL, SIGN_DATE, OPEN_DATE, CREATE_DATE, CONCAT_PERSON, CONCAT_INFORMATION, 
+    LAST_UPDATE_DATE
+  </sql>
+
+   <sql id="sum_re_if" >
+  <if test="sum_re != null" >
+  and ro.user_id=${sum_re}
+  </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_FRANCHISE
+    where FRANCHISE_ID = #{franchiseId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getCrmFranchiseListFromOrgCode" resultMap="BaseResultMap" parameterType="map" >
+     select
+    cf.*
+    from CRM_FRANCHISE cf left join CRM_ORG_FRANCHISE cof on CF.FRANCHISE_ID = COF.FRANCHISE_ID
+    left join CRM_ORG co on COF.ORG_ID = CO.ORG_ID
+    where CO.ORG_CODE like '${code}%' and co.ORG_TYPE = '2'
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_FRANCHISE
+    where FRANCHISE_ID = #{franchiseId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CrmFranchise" >
+    insert into CRM_FRANCHISE (FRANCHISE_ID, ADDRESS_ID, FRANCHISE_STATE, 
+      FRANCHISE_CODE, FRANCHISE_NAME, FRANCHISE_AGREECODE, 
+      STAR_LEVEL, SIGN_DATE, OPEN_DATE, 
+      CREATE_DATE, CONCAT_PERSON, CONCAT_INFORMATION, 
+      LAST_UPDATE_DATE)
+    values (#{franchiseId,jdbcType=DECIMAL}, #{addressId,jdbcType=DECIMAL}, #{franchiseState,jdbcType=CHAR}, 
+      #{franchiseCode,jdbcType=VARCHAR}, #{franchiseName,jdbcType=VARCHAR}, #{franchiseAgreecode,jdbcType=VARCHAR}, 
+      #{starLevel,jdbcType=VARCHAR}, #{signDate,jdbcType=TIMESTAMP}, #{openDate,jdbcType=TIMESTAMP}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{concatPerson,jdbcType=VARCHAR}, #{concatInformation,jdbcType=VARCHAR}, 
+      #{lastUpdateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CrmFranchise" >
+    <selectKey keyProperty="franchiseId" order="BEFORE" resultType="long">
+      SELECT SEQ_CRM_FRANCHISE.NEXTVAL as adminId FROM dual
+    </selectKey>
+    insert into CRM_FRANCHISE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="franchiseId != null" >
+        FRANCHISE_ID,
+      </if>
+      <if test="addressId != null" >
+        ADDRESS_ID,
+      </if>
+      <if test="franchiseState != null" >
+        FRANCHISE_STATE,
+      </if>
+      <if test="franchiseCode != null" >
+        FRANCHISE_CODE,
+      </if>
+      <if test="franchiseName != null" >
+        FRANCHISE_NAME,
+      </if>
+      <if test="franchiseAgreecode != null" >
+        FRANCHISE_AGREECODE,
+      </if>
+      <if test="starLevel != null" >
+        STAR_LEVEL,
+      </if>
+      <if test="signDate != null" >
+        SIGN_DATE,
+      </if>
+      <if test="openDate != null" >
+        OPEN_DATE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="concatPerson != null" >
+        CONCAT_PERSON,
+      </if>
+      <if test="concatInformation != null" >
+        CONCAT_INFORMATION,
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="franchiseId != null" >
+        #{franchiseId,jdbcType=DECIMAL},
+      </if>
+      <if test="addressId != null" >
+        #{addressId,jdbcType=DECIMAL},
+      </if>
+      <if test="franchiseState != null" >
+        #{franchiseState,jdbcType=CHAR},
+      </if>
+      <if test="franchiseCode != null" >
+        #{franchiseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="franchiseName != null" >
+        #{franchiseName,jdbcType=VARCHAR},
+      </if>
+      <if test="franchiseAgreecode != null" >
+        #{franchiseAgreecode,jdbcType=VARCHAR},
+      </if>
+      <if test="starLevel != null" >
+        #{starLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openDate != null" >
+        #{openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="concatPerson != null" >
+        #{concatPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="concatInformation != null" >
+        #{concatInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CrmFranchise" >
+    update CRM_FRANCHISE
+    <set >
+      <if test="addressId != null" >
+        ADDRESS_ID = #{addressId,jdbcType=DECIMAL},
+      </if>
+      <if test="franchiseState != null" >
+        FRANCHISE_STATE = #{franchiseState,jdbcType=CHAR},
+      </if>
+      <if test="franchiseCode != null" >
+        FRANCHISE_CODE = #{franchiseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="franchiseName != null" >
+        FRANCHISE_NAME = #{franchiseName,jdbcType=VARCHAR},
+      </if>
+      <if test="franchiseAgreecode != null" >
+        FRANCHISE_AGREECODE = #{franchiseAgreecode,jdbcType=VARCHAR},
+      </if>
+      <if test="starLevel != null" >
+        STAR_LEVEL = #{starLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        SIGN_DATE = #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openDate != null" >
+        OPEN_DATE = #{openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="concatPerson != null" >
+        CONCAT_PERSON = #{concatPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="concatInformation != null" >
+        CONCAT_INFORMATION = #{concatInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FRANCHISE_ID = #{franchiseId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CrmFranchise" >
+    update CRM_FRANCHISE
+    set ADDRESS_ID = #{addressId,jdbcType=DECIMAL},
+      FRANCHISE_STATE = #{franchiseState,jdbcType=CHAR},
+      FRANCHISE_CODE = #{franchiseCode,jdbcType=VARCHAR},
+      FRANCHISE_NAME = #{franchiseName,jdbcType=VARCHAR},
+      FRANCHISE_AGREECODE = #{franchiseAgreecode,jdbcType=VARCHAR},
+      STAR_LEVEL = #{starLevel,jdbcType=VARCHAR},
+      SIGN_DATE = #{signDate,jdbcType=TIMESTAMP},
+      OPEN_DATE = #{openDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CONCAT_PERSON = #{concatPerson,jdbcType=VARCHAR},
+      CONCAT_INFORMATION = #{concatInformation,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP}
+    where FRANCHISE_ID = #{franchiseId,jdbcType=DECIMAL}
+  </update>
+   <select id="count_CrmFranchisePaging"  resultType="int" parameterType="map" >
+ 	select count(1) from crm_org co 
+    left join crm_org_franchise cof on co.org_id =cof.org_id
+    left join crm_franchise cf on cof.franchise_id =cf.franchise_id
+    where 1=1
+     <if test="code != null">
+     and   co.org_code like '%'||#{code}||'%'  
+     </if>
+    and cf.franchise_id is not null
+ 	 <if test=" franchiseState != null">
+	    and   (select count(1) from crm_org  co 
+    left join crm_org_franchise cof on co.org_id = cof.org_id
+    where cof.franchise_id=cf.franchise_id) = 0 
+	 </if>
+	  <if test=" franchiseState1 != null">
+	    and   (select count(1) from crm_org  co 
+    left join crm_org_franchise cof on co.org_id = cof.org_id
+    where cof.franchise_id=cf.franchise_id) >0
+	 </if>
+	 	 <if test="franchiseName != null">
+	          and franchise_name   like '%'||#{franchiseName}||'%'  
+	 </if>
+	 	 <if test=" searchFranchiseType != null">
+	         and star_level       like '%'||#{searchFranchiseType}||'%'    
+	     </if>
+  </select>
+  
+   <select id="selectByPrimaryKeyPaging" resultMap="BaseResultMap" parameterType="map" >
+  select cf.FRANCHISE_ID, cf.ADDRESS_ID, (select count(1) from crm_org  co 
+    left join crm_org_franchise cof on co.org_id = cof.org_id
+    where cof.franchise_id=cf.franchise_id) FRANCHISE_STATE, cf.FRANCHISE_CODE, cf.FRANCHISE_NAME, cf.FRANCHISE_AGREECODE, 
+    cf.STAR_LEVEL, cf.SIGN_DATE, cf.OPEN_DATE, cf.CREATE_DATE, cf.CONCAT_PERSON, cf.CONCAT_INFORMATION, 
+    cf.LAST_UPDATE_DATE  from 
+    crm_franchise cf 
+    where 1=1
+    
+    and cf.franchise_id is not null
+ 	 <if test=" franchiseState != null">
+	    and   (select count(1) from crm_org  co 
+    left join crm_org_franchise cof on co.org_id = cof.org_id
+    where cof.franchise_id=cf.franchise_id) = 0 
+	 </if>
+	  <if test=" franchiseState1 != null">
+	    and   (select count(1) from crm_org  co 
+    left join crm_org_franchise cof on co.org_id = cof.org_id
+    where cof.franchise_id=cf.franchise_id) >0
+	 </if>
+	 	 <if test="franchiseName != null">
+	          and franchise_name   like '%'||#{franchiseName}||'%'  
+	 </if>
+	 	 <if test=" searchFranchiseType != null">
+	         and star_level       like '%'||#{searchFranchiseType}||'%'    
+	     </if>
+ order by  create_date desc
+  </select>
+  
+  <select id="selectByPrimaryKeyPagingcustomerList" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+ 	 select  <include refid="Base_Column_List" /> ,
+ 	 (select count(1) from CRM_FRAN_CUSTOMER cfc where cfc.franchise_id=c.franchise_id) as customerNum
+ 	 from CRM_FRANCHISE
+ 	 where 1=1
+ 	 <if test=" franchiseState != null">
+	         and  franchise_state like '%'|| #{franchiseState}||'%'   
+	 </if>
+	 	 <if test=" franchiseName != null">
+	          and c.franchise_name   like '%'||#{franchiseName}||'%'  
+	 </if>
+	 	 <if test=" searchFranchiseType != null">
+	         and c.star_level       like '%'||#{searchFranchiseType}||'%'    
+	     </if>
+ 
+  </select>
+  
+   <select id="count_selectByPrimaryKeyPagingcustomerList" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+ 	 select  count(1)
+ 	 from CRM_FRANCHISE
+ 	 where 1=1
+ 	 <if test=" franchiseState != null">
+	         and  franchise_state like '%'|| #{franchiseState}||'%'   
+	 </if>
+	 	 <if test=" franchiseName != null">
+	          and c.franchise_name   like '%'||#{franchiseName}||'%'  
+	 </if>
+	 	 <if test=" searchFranchiseType != null">
+	         and c.star_level       like '%'||#{searchFranchiseType}||'%'    
+	     </if>
+ 
+  </select>
+   <select id="getUserInfoByFranchise" resultMap="BaseResultMap"  >
+ 	select cfc.* from crm_franchise  cf
+left join crm_fran_customer cfc  on cf.franchise_id = cfc.franchise_id
+left join user_info ui on ui.user_id =cfc.customer_id
+  </select>
+  
+  <select id="getFranchiseList" resultMap="BaseResultMap"  >
+ 	    <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";" > 
+            select 
+    	<include refid="Base_Column_List" />
+   		 from CRM_FRANCHISE
+    	where FRANCHISE_ID = #{item.franchiseId,jdbcType=VARCHAR}
+        </foreach>
+ 
+  </select>
+ 
+    <select id="getCrmsumUp" resultType="java.util.HashMap" parameterType="java.lang.Long" >
+  SELECT *
+    FROM ((SELECT SUM(ro.amount) a FROM RECHARGE_ORDER ro WHERE 1 = 1
+        <include refid="sum_re_if" />
+    
+    )
+          union all
+          (SELECT SUM(ro.amount) 
+             FROM RECHARGE_ORDER ro
+            WHERE ro.create_time >= (SELECT TRUNC(sysdate, 'MM') FROM dual)
+              AND ro.create_time &lt;= (SELECT last_day(sysdate) FROM dual)
+                 <include refid="sum_re_if" />
+              
+              )
+          union all
+          (SELECT SUM(ro.amount) 
+             FROM RECHARGE_ORDER ro
+            WHERE ro.create_time >=
+                  (SELECT TRUNC(sysdate, 'Q') AS cMonthRL FROM dual)
+              AND ro.create_time &lt;=
+                  (SELECT add_months(TRUNC(sysdate, 'Q'), 3) - 1 FROM dual)
+                  
+                     <include refid="sum_re_if" />
+                  )
+          union all
+          (SELECT SUM(ro.amount) 
+             FROM RECHARGE_ORDER ro
+            WHERE ro.create_time >= (SELECT TRUNC(sysdate, 'yyyy') FROM dual)
+              AND ro.create_time &lt;=
+                  (SELECT add_months(TRUNC(sysdate, 'yyyy'), 12) - 1 FROM dual))
+                   union ALL (SELECT SUM(wd.withdraw_amount)FROM withdraw  wd where wd.create_time>=
+     (select trunc(add_months(sysdate,-1),'mm') from dual) 
+     and wd.create_time &lt;=(select last_day(add_months(sysdate,-1))  from dual)
+        <include refid="sum_re_if" />
+     )   )
+  </select>
+    <select id="getCrmsumUpWithDraw" resultType="java.util.HashMap"  >
+   WITH aa AS
+  (SELECT *
+  FROM (
+    (SELECT SUM(ro.amount) a FROM RECHARGE_ORDER ro WHERE 1 = 1
+    )
+  UNION ALL( SELECT SUM(wd.withdraw_amount)
+FROM withdraw wd
+WHERE wd.create_time>=
+  (SELECT TRUNC(sysdate,'MM') AS cMonthF FROM dual)
+AND wd.create_time &lt;=
+  (SELECT last_day(sysdate) AS cMonthL FROM dual))---
+  UNION ALL
+    ( SELECT SUM(wd.withdraw_amount)
+FROM withdraw wd
+WHERE wd.create_time>=
+  ( SELECT TRUNC(sysdate,'Q') AS cMonthRL FROM dual
+  )
+AND wd.create_time &lt;=
+  (SELECT add_months(TRUNC(sysdate,'Q'),3)-1 FROM dual
+  ))
+  UNION ALL  
+    ( SELECT SUM(wd.withdraw_amount)
+FROM withdraw wd
+WHERE wd.create_time>=
+  (SELECT TRUNC(sysdate,'yyyy') FROM dual
+  )
+AND wd.create_time &lt;=
+  ( SELECT add_months(TRUNC(sysdate,'yyyy'),12)-1 FROM dual
+  ))
+    union ALL (SELECT SUM(wd.withdraw_amount)FROM withdraw  wd where wd.create_time>=
+     (select trunc(add_months(sysdate,-1),'mm') from dual) 
+     and wd.create_time &lt;=(select last_day(add_months(sysdate,-1))  from dual))
+   )
+  )
+SELECT MAX(DECODE(rn,1,a,NULL))AS leijiWd,
+  MAX(DECODE(rn,2,a,NULL))     AS yueWd,
+  MAX(DECODE(rn,3,a,NULL))     AS jiduWd,
+  MAX(DECODE(rn,4,a,NULL))     AS nianWd
+  MAX(DECODE(rn,5,a,NULL))     AS LmonthWd
+FROM
+  (SELECT a,row_number() over(order by a) rn FROM aa
+  ) 
+  </select>
+   <select id="getCrmsumUpCreditorRights" resultType="java.util.HashMap"  >
+    
+WITH aa AS
+  (SELECT *
+  FROM (
+    (SELECT SUM(cr.buy_price) a FROM creditor_rights cr WHERE 1 = 1
+    )
+  UNION ALL( SELECT SUM(wd.buy_price) FROM creditor_rights  wd
+WHERE wd.create_time>=
+  (SELECT TRUNC(sysdate,'MM') AS cMonthF FROM dual)
+AND wd.create_time &lt;=
+  (SELECT last_day(sysdate) AS cMonthL FROM dual)) 
+  UNION ALL
+    ( SELECT SUM(wd.buy_price) FROM creditor_rights wd
+WHERE wd.create_time>=
+  ( SELECT TRUNC(sysdate,'Q') AS cMonthRL FROM dual
+  )
+AND wd.create_time  &lt;=
+  (SELECT add_months(TRUNC(sysdate,'Q'),3)-1 FROM dual
+  ))
+  UNION ALL  ------
+    ( SELECT SUM(wd.buy_price) FROM creditor_rights wd
+WHERE wd.create_time>=
+  (SELECT TRUNC(sysdate,'yyyy') FROM dual
+  )
+AND wd.create_time  &lt;=
+  ( SELECT add_months(TRUNC(sysdate,'yyyy'),12)-1 FROM dual
+  ))
+  union ALL ( SELECT SUM(wd.buy_price) FROM creditor_rights wd where wd.create_time>=
+     (select trunc(add_months(sysdate,-1),'mm') from dual) 
+     and wd.create_time &lt;=(select last_day(add_months(sysdate,-1))  from dual))
+  )
+  )
+SELECT MAX(DECODE(rn,1,a,NULL))AS leijiB,
+  MAX(DECODE(rn,2,a,NULL))     AS yueB,
+  MAX(DECODE(rn,3,a,NULL))     AS jiduB,
+  MAX(DECODE(rn,4,a,NULL))     AS nianB,
+  MAX(DECODE(rn,5,a,NULL))     AS LmonthB
+FROM
+  (SELECT a,row_number() over(order by a) rn FROM aa
+  )
+  </select>
+ 
+	
+	
+  <select id="selectByStaffId" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    FRANCHISE_ID, FRANCHISE_NAME
+    from CRM_FRANCHISE f
+    <where>
+    	<if test="staffId != null">
+    		f.franchise_id= ( select e.franchise_id from CRM_FRAN_EMP e where e.staff_id=#{staffId,jdbcType=DECIMAL} ) 
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectFranchiseNoOrg" resultMap="simpleFranc">
+    select f.franchise_id,f.franchise_name,f.concat_person,f.concat_information,
+	p.province_name province,c.city_name city,c2.city_name area
+	from CRM_FRANCHISE f
+	left join address a on f.address_id=a.address_id
+	left join province_info p on p.province_id=a.province
+	left join city_info c on c.city_id=a.city
+	left join city_info c2 on c2.city_id=a.district
+    where f.franchise_id not in 
+    (select m.FRANCHISE_ID from  CRM_ORG_FRANCHISE m)
+  </select>
+  <select id="selectFranchiseByOrgId" resultMap="simpleFranc" parameterType="java.lang.Long" >
+    select f.franchise_id,f.franchise_name,f.concat_person,f.concat_information,
+	p.province_name province,c.city_name city,c2.city_name area
+	from CRM_FRANCHISE f
+	left join address a on f.address_id=a.address_id
+	left join province_info p on p.province_id=a.province
+	left join city_info c on c.city_id=a.city
+	left join city_info c2 on c2.city_id=a.district
+	where f.franchise_id in 
+	(select m.FRANCHISE_ID from CRM_ORG_FRANCHISE m where m.org_id=#{oId,jdbcType=VARCHAR})
+  </select>
+  <select id="selectTopOneFrancByOrgId" resultMap="simpleFranc" parameterType="java.lang.Long" >
+    select f.franchise_id,f.franchise_name,f.concat_person,f.concat_information,
+	p.province_name province,c.city_name city,c2.city_name area,t.id mOid
+	from CRM_FRANCHISE f
+	left join address a on f.address_id=a.address_id
+	left join province_info p on p.province_id=a.province
+	left join city_info c on c.city_id=a.city
+	left join city_info c2 on c2.city_id=a.district
+	left join CRM_ORG_FRANCHISE t on f.franchise_id=t.franchise_id
+  	where rownum=1 and t.org_id=#{oId,jdbcType=VARCHAR} order by t.id
+  </select>
+  
+  <select id="selectOrgMappingById" resultMap="francMapping" parameterType="java.lang.Long" >
+    select *
+	from CRM_ORG_FRANCHISE f
+  	where f.id=#{id,jdbcType=VARCHAR}
+  </select>
+ 
+   <select id="selectEmployeeByPrimaryKey"  resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select  ui.user_id from crm_franchise  cm 
+    left join crm_fran_emp  cfe on cm.franchise_id = cfe.franchise_id
+    left join user_info ui on ui.user_id =cfe.user_id
+    where cm.franchise_id =#{franchise_id}
+  </select>
+  
+   <select id="selectEmployeeByPrimaryKeyCurrent"  resultMap="BaseResultMap" parameterType="java.lang.Long" >
+     select  *  from user_info ui 
+	left join user_info_ext  uie on ui.user_id =uie.user_id
+	left join crm_fran_emp  cfe on cfe.user_id =uie.user_id
+	left join crm_franchise  cf on cf.franchise_id =cfe.franchise_id
+	where 
+  	ui.create_time>=
+     ( select trunc(sysdate,'MM')   from dual) 
+     and ui.create_time &lt;=(  select last_day(sysdate)   from dual)
+     and cf.franchise_id =#{franchise_id,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="selectAllFranc" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_FRANCHISE
+  </select>
+
+   <select id="getCrmFranEmpOrgIdByStaffId" resultType="java.lang.Long"  >
+    select nvl(org_id,0) from (select  org_id from crm_org  co order by co.org_id asc ) where rownum =1
+  </select>
+     <select id="selectByPrimaryKeyBycrmOrgFranchiseCount"  resultType="java.lang.Long" parameterType="String">
+      select cf.franchise_id  from crm_fran_emp cfe left join crm_franchise cf
+   	 	on cfe.franchise_id = cf.franchise_id
+    	where cfe.user_id=#{user_id,jdbcType=VARCHAR}
+   </select> 
+    <select id="getFranchiseByfranchiseName"  resultType="java.lang.Integer" parameterType="String">
+     select count(1) from  crm_franchise  cf
+        where cf.franchise_name= #{franchise_name,jdbcType=VARCHAR}
+   </select> 
+   
+  <select id="getUserIdByfranchiseForCount"  resultType="map" parameterType="String">
+    with  countBuyPrice as (
+ select nvl(sum(ab.buy_price),0) aaaa,nvl(sum(ab.buy_price*cycle_counts/12),0 )bbbb from (  select * from (
+  select  lp.cycle_counts , cr.buy_price,cr.channel_type,cr.lend_user_id from creditor_rights  cr 
+     left join loan_application la  on cr.loan_application_id = la.loan_application_id
+     left join  loan_product lp on lp.loan_product_id = la.loan_product_id) a
+     where a.channel_type=2 ) ab where exists  (select  a.user_id from (
+        
+select  uie2.user_id from user_info_ext uie2 where exists 
+(select  uie1.user_id from user_info_ext uie1 where exists 
+(select  uie.user_id from user_info_ext uie where exists 
+(select * from crm_fran_emp cfe
+left join crm_franchise cf 
+on cfe.franchise_id =cf.franchise_id
+where cf.franchise_id=#{franchise_id,jdbcType=VARCHAR}
+and cfe.user_id= uie.rec_user_id ) and uie.user_id =uie1.rec_user_id) and uie1.user_id =uie2.rec_user_id )
+union
+--three
+select  uie1.user_id from user_info_ext uie1 where exists 
+--two
+(select  uie.user_id from user_info_ext uie where exists 
+(select * from crm_fran_emp cfe
+left join crm_franchise cf 
+on cfe.franchise_id =cf.franchise_id
+
+where cf.franchise_id=#{franchise_id,jdbcType=VARCHAR}
+and cfe.user_id= uie.rec_user_id ) and uie.user_id =uie1.rec_user_id    )
+union
+--one
+select  uie.user_id from user_info_ext uie where exists 
+(select * from crm_fran_emp cfe
+left join crm_franchise cf 
+on cfe.franchise_id =cf.franchise_id
+
+where cf.franchise_id=#{franchise_id,jdbcType=VARCHAR}
+and cfe.user_id= uie.rec_user_id)
+union 
+select cfe.user_id from crm_fran_emp cfe
+left join crm_franchise cf 
+on cfe.franchise_id =cf.franchise_id
+where cf.franchise_id=#{franchise_id,jdbcType=VARCHAR}  ) a where a.user_id = ab.lend_user_id) ),
+CurrentMonthNewIn as (
+-----本月新增投资本月新增 
+select  count(1) EEE from (
+select  
+   
+  --select nvl(count(a.user_id), 0)
+  (select  ui.create_time from user_info ui where ui.user_id=a.user_id )  
+   EEE 
+          from (select uie2.user_id
+                  from user_info_ext uie2
+                 where exists
+                 (select uie1.user_id
+                          from user_info_ext uie1
+                         where exists
+                         (select uie.user_id
+                                  from user_info_ext uie
+                                 where exists
+                                 (select *
+                                          from crm_fran_emp cfe
+                                          left join crm_franchise cf
+                                            on cfe.franchise_id =
+                                               cf.franchise_id
+                                         where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR}
+                                           and cfe.user_id = uie.rec_user_id)
+                                   and uie.user_id = uie1.rec_user_id)
+                           and uie1.user_id = uie2.rec_user_id)
+                union
+                --three
+                select uie1.user_id
+                  from user_info_ext uie1
+                 where exists
+                --two
+                 (select uie.user_id
+                          from user_info_ext uie
+                         where exists
+                         (select *
+                                  from crm_fran_emp cfe
+                                  left join crm_franchise cf
+                                    on cfe.franchise_id = cf.franchise_id
+                                
+                                 where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR}
+                                   and cfe.user_id = uie.rec_user_id)
+                           and uie.user_id = uie1.rec_user_id)
+                union
+                --one
+                select uie.user_id
+                  from user_info_ext uie
+                 where exists (select *
+                          from crm_fran_emp cfe
+                          left join crm_franchise cf
+                            on cfe.franchise_id = cf.franchise_id
+                        
+                         where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR}
+                           and cfe.user_id = uie.rec_user_id)
+                union
+                select cfe.user_id
+                  from crm_fran_emp cfe
+                  left join crm_franchise cf
+                    on cfe.franchise_id = cf.franchise_id
+                 where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR}) a ) b
+         where 1=1
+           and to_date(b.EEE) &gt;= to_date(trunc(sysdate, 'mm'))
+           and to_date(b.EEE) &lt;= to_date(last_day(trunc(sysdate)))
+) 
+,-----总客户数
+countUserNot as (
+
+ select count(1) cccc
+             
+          from (select uie2.user_id
+                  from user_info_ext uie2
+                 where exists
+                 (select uie1.user_id
+                          from user_info_ext uie1
+                         where exists
+                         (select uie.user_id
+                                  from user_info_ext uie
+                                 where exists
+                                 (select *
+                                          from crm_fran_emp cfe
+                                          left join crm_franchise cf
+                                            on cfe.franchise_id =
+                                               cf.franchise_id
+                                         where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR}
+                                           and cfe.user_id = uie.rec_user_id)
+                                   and uie.user_id = uie1.rec_user_id)
+                           and uie1.user_id = uie2.rec_user_id )
+                union
+            
+                select uie1.user_id
+                  from user_info_ext uie1
+                 where exists
+            
+                 (select uie.user_id
+                          from user_info_ext uie
+                         where exists
+                         (select *
+                                  from crm_fran_emp cfe
+                                  left join crm_franchise cf
+                                    on cfe.franchise_id = cf.franchise_id
+                                
+                                 where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR}
+                                   and cfe.user_id = uie.rec_user_id)
+                           and uie.user_id = uie1.rec_user_id)
+                union
+                --one
+                select uie.user_id
+                  from user_info_ext uie
+                 where exists (select *
+                          from crm_fran_emp cfe
+                          left join crm_franchise cf
+                            on cfe.franchise_id = cf.franchise_id
+                        
+                         where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR}
+                           and cfe.user_id = uie.rec_user_id)
+                union
+                select cfe.user_id
+                  from crm_fran_emp cfe
+                  left join crm_franchise cf
+                    on cfe.franchise_id = cf.franchise_id
+                 where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR})  abc  
+ 
+         )
+       ,  currentMonthIncreateSum as (
+         select  nvl(sum(cr.buy_price),0)FFF from creditor_rights cr where exists(
+select  abc.user_id   
+             
+          from (select uie2.user_id
+                  from user_info_ext uie2
+                 where exists
+                 (select uie1.user_id
+                          from user_info_ext uie1
+                         where exists
+                         (select uie.user_id
+                                  from user_info_ext uie
+                                 where exists
+                                 (select *
+                                          from crm_fran_emp cfe
+                                          left join crm_franchise cf
+                                            on cfe.franchise_id =
+                                               cf.franchise_id
+                                         where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR}
+                                           and cfe.user_id = uie.rec_user_id)
+                                   and uie.user_id = uie1.rec_user_id)
+                           and uie1.user_id = uie2.rec_user_id)
+                union
+            
+                select uie1.user_id
+                  from user_info_ext uie1
+                 where exists
+            
+                 (select uie.user_id
+                          from user_info_ext uie
+                         where exists
+                         (select *
+                                  from crm_fran_emp cfe
+                                  left join crm_franchise cf
+                                    on cfe.franchise_id = cf.franchise_id
+                                
+                                 where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR}
+                                   and cfe.user_id = uie.rec_user_id)
+                           and uie.user_id = uie1.rec_user_id)
+                union
+                --one
+                select uie.user_id
+                  from user_info_ext uie
+                 where exists (select *
+                          from crm_fran_emp cfe
+                          left join crm_franchise cf
+                            on cfe.franchise_id = cf.franchise_id
+                        
+                         where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR}
+                           and cfe.user_id = uie.rec_user_id)
+                union
+                select cfe.user_id
+                  from crm_fran_emp cfe
+                  left join crm_franchise cf
+                    on cfe.franchise_id = cf.franchise_id
+                 where cf.franchise_id = #{franchise_id,jdbcType=VARCHAR})  abc where cr.loan_user_id =abc.user_id )
+         
+         
+         )
+         
+         
+
+select * from countBuyPrice,countUserNot,CurrentMonthNewIn ,currentMonthIncreateSum
+   </select>   
+   
+   
+</mapper>

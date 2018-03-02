@@ -1,0 +1,208 @@
+@charset "utf-8";
+
+.container{width:1170px; margin:0 auto;}
+.dd-path{ height:50px; background:#393c46;}
+.dd-path a{ font-size:12px; color:white; height:50px; line-height:50px; float:left;}
+.dd-path a.active{ color:#ff5e63;}
+.dd-path span{ font-size:12px; color:white; height:50px; line-height:50px; float:left; margin:0 5px;}
+.dd-h2{ font-size:24px; padding:32px 0 10px; color:#333;}
+.dd-jr{ border:1px solid #eee; background:#f7f7f7;}
+.dd-jr .dd-jr-l{ width:350px; float:left; margin-left:30px;}
+.dd-jr .dd-jr-l h3{ font-size:20px; color:#333; padding:16px 0 6px;}
+.dd-jr .dd-jr-l p{ font-size:12px; color:#888; padding-bottom:16px;}
+.dd-jr .dd-jr-r{ float:right; width:188px; margin-right:30px;}
+.dd-jr .dd-jr-r h4{ color:#333; font-size:14px; padding-top:5px;}
+.dd-jr .dd-jr-r h4 b{ color:#ff5c5f; font-size:30px; font-weight:normal; word-wrap:break-word;}
+.dd-jr .dd-jr-r p{ font-size:12px; color:#888; padding-bottom:16px;}
+.dd-ul{ margin:0 30px; padding:30px 0; list-style:none; border-bottom:1px dashed #eee;}
+.dd-ul li{ float:left; width:220px; height:53px; border-right:1px dashed #eee; text-align:center}
+.dd-ul li h5{ font-size:14px; color:#333; text-align:center}
+.dd-ul li h5 i{ font-style:normal; font-size:16px;}
+.dd-ul li p{ font-size:14px; color:#333; text-align:center}
+.dd-ul li p span{ display:inline-block; font-size:16px; color:#ff5c5f; padding-right:22px; background:url(../images/d1.jpg) no-repeat right center;}
+.dd-ul li p em{ font-size:16px;}
+.dd-ul li p strong{ font-size:20px; font-style:normal; font-weight:normal; color:#ff5c5f}
+.dd-dl{ margin:0 30px; border-bottom:1px dashed #eee;}
+.dd-dl dt{ width:80px; float:left; font-size:14px; padding:24px 0; line-height:20px;}
+.dd-dl dd{ width:; float:left; font-size:14px; padding:24px 0;}
+.dd-dl dd p{ line-height:20px; font-size:14px;}
+.dd-btn{ height:40px; margin:20px 30px 0 30px;}
+.dd-btn a{ float:right; width:200px; height:40px; background:#ff5c5f; border-radius:3px; font-size:14px; color:white; text-align:center; line-height:40px; 
+background:#ff5c5f url(../images/d2.jpg) no-repeat 45px center;}
+.dd-btn a:hover{background:#FE3859 url(../images/d2.jpg) no-repeat 45px center;}
+.dd-tit{ height:30px;}
+.dd-tit span{ float:left; font-size:24px; color:#333;}
+.dd-tit em{ font-style:normal; padding-top:16px; font-size:12px; float:right; margin-right:30px;}
+.dd-prese{ border-bottom:1px solid #eee; background:#f9f9f9; padding:10px 30px 10px 0; margin:20px 0 80px;}
+.dd-prese p{ font-size:14px; color:#333; line-height:30px; text-align:right;}
+.dd-prese p i{ font-weight:normal; font-style:normal; color:#ff5c5f; font-size:18px;}
+
+@media (min-width:1200px){
+.container{width:1170px; margin:0 auto;}
+.dd-path{ height:50px; background:#393c46;}
+.dd-path a{ font-size:12px; color:white; height:50px; line-height:50px; float:left;}
+.dd-path a.active{ color:#ff5e63;}
+.dd-path span{ font-size:12px; color:white; height:50px; line-height:50px; float:left; margin:0 5px;}
+.dd-h2{ font-size:24px; padding:32px 0 10px; color:#333;}
+.dd-jr{ border:1px solid #eee; background:#f7f7f7;}
+.dd-jr .dd-jr-l{ width:350px; float:left; margin-left:30px;}
+.dd-jr .dd-jr-l h3{ font-size:20px; color:#333; padding:16px 0 6px;}
+.dd-jr .dd-jr-l p{ font-size:12px; color:#888; padding-bottom:16px;}
+.dd-jr .dd-jr-r{ float:right; width:260px; margin-right:30px;}
+.dd-jr .dd-jr-r h4{ color:#333; font-size:14px; padding-top:5px;}
+.dd-jr .dd-jr-r h4 b{ color:#ff5c5f; font-size:30px; font-weight:normal; word-wrap:break-word;}
+.dd-jr .dd-jr-r p{ font-size:12px; color:#888; padding-bottom:16px;}
+.dd-ul{ margin:0 30px; padding:30px 0; list-style:none; border-bottom:1px dashed #eee;}
+.dd-ul li{ float:left; width:220px; height:53px; border-right:1px dashed #eee; text-align:center}
+.dd-ul li h5{ font-size:14px; color:#333; text-align:center}
+.dd-ul li h5 i{ font-style:normal; font-size:16px;}
+.dd-ul li p{ font-size:14px; color:#333; text-align:center}
+.dd-ul li p span{ display:inline-block; font-size:16px; color:#ff5c5f; padding-right:22px; background:url(../images/d1.jpg) no-repeat right center;}
+.dd-ul li p em{ font-size:16px;}
+.dd-ul li p strong{ font-size:20px; font-style:normal; font-weight:normal; color:#ff5c5f}
+.dd-dl{ margin:0 30px; border-bottom:1px dashed #eee;}
+.dd-dl dt{ width:80px; float:left; font-size:14px; padding:24px 0; line-height:20px;}
+.dd-dl dd{ width:1028px; float:left; font-size:14px; padding:24px 0;}
+.dd-dl dd p{ line-height:20px; font-size:14px;}
+.dd-btn{ height:40px; margin:20px 0 0 30px;}
+.dd-btn a{ float:right; width:200px; height:40px; background:#ff5c5f; border-radius:3px; font-size:14px; color:white; text-align:center; line-height:40px; background:#ff5c5f url(../images/d2.jpg) no-repeat 45px center;}
+.dd-tit{ height:30px;}
+.dd-tit span{ float:left; font-size:24px; color:#333;}
+.dd-tit em{ font-style:normal; padding-top:16px; font-size:12px; float:right; margin-right:30px;}
+.dd-prese{ border-bottom:1px solid #eee; background:#f9f9f9; padding:10px 30px 10px 0; margin:20px 0 80px;}
+.dd-prese p{ font-size:14px; color:#333; line-height:30px; text-align:right;}
+.dd-prese p i{ font-weight:normal; font-style:normal; color:#ff5c5f; font-size:18px;}
+}
+@media (min-width:992px) and (max-width:1199px){
+.container{width:970px; margin:0 auto;}
+.dd-path{ height:50px; background:#393c46;}
+.dd-path a{ font-size:12px; color:white; height:50px; line-height:50px; float:left;}
+.dd-path a.active{ color:#ff5e63;}
+.dd-path span{ font-size:12px; color:white; height:50px; line-height:50px; float:left; margin:0 5px;}
+.dd-h2{ font-size:24px; padding:32px 0 10px; color:#333;}
+.dd-jr{ border:1px solid #eee; background:#f7f7f7;}
+.dd-jr .dd-jr-l{ width:350px; float:left; margin-left:30px;}
+.dd-jr .dd-jr-l h3{ font-size:20px; color:#333; padding:16px 0 6px;}
+.dd-jr .dd-jr-l p{ font-size:12px; color:#888; padding-bottom:16px;}
+.dd-jr .dd-jr-r{ float:right; width:188px; margin-right:30px;}
+.dd-jr .dd-jr-r h4{ color:#333; font-size:14px; padding-top:5px;}
+.dd-jr .dd-jr-r h4 b{ color:#ff5c5f; font-size:30px; font-weight:normal; word-wrap:break-word;}
+.dd-jr .dd-jr-r p{ font-size:12px; color:#888; padding-bottom:16px;}
+.dd-ul{ margin:0px; padding:30px 0; list-style:none; border-bottom:1px dashed #eee;}
+.dd-ul li{ float:left; width:220px; height:53px; border-right:1px dashed #eee; text-align:center}
+.dd-ul li h5{ font-size:14px; color:#333; text-align:center}
+.dd-ul li h5 i{ font-style:normal; font-size:16px;}
+.dd-ul li p{ font-size:14px; color:#333; text-align:center}
+.dd-ul li p span{ display:inline-block; font-size:16px; color:#ff5c5f; padding-right:22px; background:url(../images/d1.jpg) no-repeat right center;}
+.dd-ul li p em{ font-size:16px;}
+.dd-ul li p strong{ font-size:20px; font-style:normal; font-weight:normal; color:#ff5c5f}
+.dd-dl{ margin:0px; border-bottom:1px dashed #eee;}
+.dd-dl dt{ float:none; font-size:14px; padding:10px 0; line-height:20px;}
+.dd-dl dd{ float:none; font-size:14px; padding:10px 0;}
+.dd-dl dd p{ line-height:20px; font-size:14px;}
+.dd-btn{ height:40px; margin:20px 30px 0 30px;}
+.dd-btn a{ float:right; width:200px; height:40px; background:#ff5c5f; border-radius:3px; font-size:14px; color:white; text-align:center; line-height:40px; background:#ff5c5f url(../images/d2.jpg) no-repeat 45px center;}
+.dd-tit{ height:30px;}
+.dd-tit span{ float:left; font-size:24px; color:#333;}
+.dd-tit em{ font-style:normal; padding-top:16px; font-size:12px; float:right; margin-right:30px;}
+.dd-prese{ border-bottom:1px solid #eee; background:#f9f9f9; padding:10px 30px 10px 0; margin:20px 0 80px;}
+.dd-prese p{ font-size:14px; color:#333; line-height:30px; text-align:right;}
+.dd-prese p i{ font-weight:normal; font-style:normal; color:#ff5c5f; font-size:18px;}
+}
+@media (min-width:768px) and (max-width:991px){
+.container{width:738px; margin:0 auto;}
+.dd-path{ height:50px; background:#393c46;}
+.dd-path a{ font-size:12px; color:white; height:50px; line-height:50px; float:left;}
+.dd-path a.active{ color:#ff5e63;}
+.dd-path span{ font-size:12px; color:white; height:50px; line-height:50px; float:left; margin:0 5px;}
+.dd-h2{ font-size:24px; padding:32px 0 10px; color:#333;}
+.dd-jr{ border:1px solid #eee; background:#f7f7f7;}
+.dd-jr .dd-jr-l{ width:350px; float:left; margin-left:30px;}
+.dd-jr .dd-jr-l h3{ font-size:20px; color:#333; padding:16px 0 6px;}
+.dd-jr .dd-jr-l p{ font-size:12px; color:#888; padding-bottom:16px;}
+.dd-jr .dd-jr-r{ float:right; width:188px; margin-right:30px;}
+.dd-jr .dd-jr-r h4{ color:#333; font-size:14px; padding-top:5px;}
+.dd-jr .dd-jr-r h4 b{ color:#ff5c5f; font-size:30px; font-weight:normal; word-wrap:break-word;}
+.dd-jr .dd-jr-r p{ font-size:12px; color:#888; padding-bottom:16px;}
+.dd-ul{ margin:0px; padding:30px 0; list-style:none; border-bottom:1px dashed #eee;}
+.dd-ul li{ float:left; width:220px; height:53px; border-right:1px dashed #eee; text-align:center}
+.dd-ul li h5{ font-size:14px; color:#333; text-align:center}
+.dd-ul li h5 i{ font-style:normal; font-size:16px;}
+.dd-ul li p{ font-size:14px; color:#333; text-align:center}
+.dd-ul li p span{ display:inline-block; font-size:16px; color:#ff5c5f; padding-right:22px; background:url(../images/d1.jpg) no-repeat right center;}
+.dd-ul li p em{ font-size:16px;}
+.dd-ul li p strong{ font-size:20px; font-style:normal; font-weight:normal; color:#ff5c5f}
+.dd-dl{ margin:0px; border-bottom:1px dashed #eee;}
+.dd-dl dt{ float:none; font-size:14px; padding:10px 0; line-height:20px;}
+.dd-dl dd{ float:none; font-size:14px; padding:10px 0;}
+.dd-dl dd p{ line-height:20px; font-size:14px;}
+.dd-btn{ height:40px; margin:20px 30px 0 30px;}
+.dd-btn a{ float:right; width:200px; height:40px; background:#ff5c5f; border-radius:3px; font-size:14px; color:white; text-align:center; line-height:40px; background:#ff5c5f url(../images/d2.jpg) no-repeat 45px center;}
+.dd-tit{ height:30px;}
+.dd-tit span{ float:left; font-size:24px; color:#333;}
+.dd-tit em{ font-style:normal; padding-top:16px; font-size:12px; float:right; margin-right:30px;}
+.dd-prese{ border-bottom:1px solid #eee; background:#f9f9f9; padding:10px 30px 10px 0; margin:20px 0 80px;}
+.dd-prese p{ font-size:14px; color:#333; line-height:30px; text-align:right;}
+.dd-prese p i{ font-weight:normal; font-style:normal; color:#ff5c5f; font-size:18px;}
+}
+@media (min-width:320px) and (max-width:768px){
+.container{width:auto}
+.dd-path{ height:50px; background:#393c46;}
+.dd-path a{ font-size:12px; color:white; height:50px; line-height:50px; float:left;}
+.dd-path a.active{ color:#ff5e63;}
+.dd-path span{ font-size:12px; color:white; height:50px; line-height:50px; float:left; margin:0 5px;}
+.dd-h2{ font-size:24px; padding:32px 0 10px; color:#333;}
+.dd-jr{ border:1px solid #eee; background:#f7f7f7;}
+.dd-jr .dd-jr-l{ float:none; margin-left:30px;}
+.dd-jr .dd-jr-l h3{ font-size:20px; color:#333; padding:16px 0 6px;}
+.dd-jr .dd-jr-l p{ font-size:12px; color:#888; padding-bottom:16px;}
+.dd-jr .dd-jr-r{ float:none; margin-left:30px;}
+.dd-jr .dd-jr-r h4{ color:#333; font-size:14px; padding-top:5px;}
+.dd-jr .dd-jr-r h4 b{ color:#ff5c5f; font-size:30px; font-weight:normal; word-wrap:break-word;}
+.dd-jr .dd-jr-r p{ font-size:12px; color:#888; padding-bottom:16px;}
+.dd-ul{ margin:0px; padding:30px 0; list-style:none; border-bottom:1px dashed #eee;}
+.dd-ul li{ float:left; width:33%; height:53px; border-right:1px dashed #eee; text-align:center}
+.dd-ul li h5{ font-size:14px; color:#333; text-align:center}
+.dd-ul li h5 i{ font-style:normal; font-size:16px;}
+.dd-ul li p{ font-size:14px; color:#333; text-align:center}
+.dd-ul li p span{ display:inline-block; font-size:16px; color:#ff5c5f; padding-right:22px; background:url(../images/d1.jpg) no-repeat right center;}
+.dd-ul li p em{ font-size:16px;}
+.dd-ul li p strong{ font-size:20px; font-style:normal; font-weight:normal; color:#ff5c5f}
+.dd-dl{ margin:0px; border-bottom:1px dashed #eee;}
+.dd-dl dt{ float:none; font-size:14px; padding:10px 0; line-height:20px;}
+.dd-dl dd{ float:none; font-size:14px; padding:10px 0;}
+.dd-dl dd p{ line-height:20px; font-size:14px;}
+.dd-btn{ height:40px; margin:20px 0px 0 30px;}
+.dd-btn a{ float:right; width:200px; height:40px; background:#ff5c5f; border-radius:3px; font-size:14px; color:white; text-align:center; line-height:40px; background:#ff5c5f url(../images/d2.jpg) no-repeat 45px center;}
+.dd-tit{ height:30px;}
+.dd-tit span{ float:left; font-size:24px; color:#333;}
+.dd-tit em{ font-style:normal; padding-top:16px; font-size:12px; float:right; margin-right:0px;}
+.dd-prese{ border-bottom:1px solid #eee; background:#f9f9f9; padding:10px 30px 10px 0; margin:20px 0 80px;}
+.dd-prese p{ font-size:14px; color:#333; line-height:30px; text-align:right;}
+.dd-prese p i{ font-weight:normal; font-style:normal; color:#ff5c5f; font-size:18px;}
+}
+
+/*省心计划利息分配方式*/
+.shengXinpaybox{margin:0 30px;padding:20px 0;border-bottom:1px dashed #eee;}
+.shengXinpay span{padding:10px 25px;border:1px #EBECEE solid;position:relative;border-radius:3px;background:#EFF1F5;margin-right:40px;font-family:"微软雅黑";font-size:18px;color:#333;cursor:pointer;}
+.shengXinpay .yixuan{border:1px #FDDCDD solid;background:url(../images/pay/yixuan_icon.png) no-repeat top right;
+    box-shadow:0 5px 5px #FDDCDD; /*底边阴影*/}
+.shengxinTips{color:#666;font-size:14px;}
+@media (max-width:414px){
+    .shengXinpay span{padding: 10px 18px;font-size: 14px;margin-right: 15px;}
+}
+@media (max-width:375px){
+    .shengXinpay span{padding: 5px 18px;font-size: 12px;margin-right: 10px;}
+    .shengXinpay .yixuan{border:1px #FDDCDD solid;background:url(../images/pay/yixuan_smallicon.png) no-repeat top right;
+}
+@media (max-width:375px){
+    .shengXinpay{margin:0;}
+}
+
+
+
+
+
+
+
+

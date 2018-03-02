@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LOAN_FEES_DETAIL">
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LoanFeesDetail">
+        <id column="LOAN_FEES_DETAIL_ID" jdbcType="DECIMAL" property="loanFeesDetailId"/>
+        <result column="LOAN_APPLICATION_FEES_ITEM_ID" jdbcType="DECIMAL" property="loanApplicationFeesItemId"/>
+        <result column="LOAN_APPLICATION_ID" jdbcType="DECIMAL" property="loanApplicationId"/>
+        <result column="FEES_CYCLE" jdbcType="DECIMAL" property="feesCycle"/>
+        <result column="SECTION_CODE" jdbcType="DECIMAL" property="sectionCode"/>
+        <result column="FEES" jdbcType="DECIMAL" property="fees"/>
+        <result column="FEES2" jdbcType="DECIMAL" property="fees2"/>
+        <result column="PAID_FEES" jdbcType="DECIMAL" property="paidFees"/>
+        <result column="FEES_STATE" jdbcType="DECIMAL" property="feesState"/>
+        <result column="REDUCTION_BALANCE" jdbcType="DECIMAL" property="reductionBalance"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    LOAN_FEES_DETAIL_ID,LOAN_APPLICATION_FEES_ITEM_ID,LOAN_APPLICATION_ID,FEES_CYCLE,SECTION_CODE,FEES,FEES2,PAID_FEES,FEES_STATE,REDUCTION_BALANCE
+  </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from LOAN_FEES_DETAIL
+        where LOAN_FEES_DETAIL_ID = #{loanFeesDetailId,jdbcType=DECIMAL}
+    </select>
+
+    <select id="getLoanFeeNoPaied" parameterType="java.lang.Long"  resultType="java.util.HashMap">
+        SELECT NVL (SUM (lfd.FEES2), 0) fee,
+               NVL (SUM (lfd.PAID_FEES), 0) paid,
+               NVL (SUM (lfd.REDUCTION_BALANCE), 0) reduction
+          FROM LOAN_FEES_DETAIL lfd
+               LEFT JOIN LOAN_APPLICATION la
+                  ON LFD.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+         WHERE LA.USER_ID = #{value}
+    </select>
+    
+    <!-- 添加 -->
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.LoanFeesDetail" >
+        <selectKey keyProperty="loanFeesDetailId" order="BEFORE" resultType="long">
+            SELECT SEQ_LOAN_FEES_DETAIL.NEXTVAL as loanFeesDetailId FROM dual
+        </selectKey>
+        insert into LOAN_FEES_DETAIL
+        (LOAN_FEES_DETAIL_ID,LOAN_APPLICATION_FEES_ITEM_ID,LOAN_APPLICATION_ID,FEES_CYCLE,SECTION_CODE,FEES,FEES2,PAID_FEES,FEES_STATE,REDUCTION_BALANCE)
+        values
+        (#{loanFeesDetailId,jdbcType=DECIMAL},#{loanApplicationFeesItemId,jdbcType=DECIMAL},#{loanApplicationId,jdbcType=DECIMAL},
+        #{feesCycle,jdbcType=DECIMAL},#{sectionCode,jdbcType=DECIMAL},
+        #{fees,jdbcType=DECIMAL},#{fees2,jdbcType=DECIMAL},#{paidFees,jdbcType=DECIMAL},#{feesState,jdbcType=DECIMAL},#{reductionBalance,jdbcType=DECIMAL})
+    </insert>
+    <select id="selectByloanApplicationId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from LOAN_FEES_DETAIL
+        where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    </select>
+    
+    <update id="updateMap" parameterType="java.util.Map" >
+        update LOAN_FEES_DETAIL
+        <set>
+            <if test="_parameter.containsKey('fees')">
+                FEES = #{fees,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('fees2')">
+                FEES2 = #{fees2,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('paidFees')">
+                PAID_FEES = #{paidFees,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('reductionBalance')">
+                REDUCTION_BALANCE = #{reductionBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('feesState')">
+                FEES_STATE = #{feesState,jdbcType=CHAR},
+            </if>
+        </set>
+        where LOAN_FEES_DETAIL_ID=#{loanFeesDetailId,jdbcType=DECIMAL}
+    </update>
+
+
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LoanFeesDetail" >
+    update LOAN_FEES_DETAIL
+    set LOAN_APPLICATION_FEES_ITEM_ID = #{loanApplicationFeesItemId,jdbcType=DECIMAL},
+      LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      FEES_CYCLE = #{feesCycle,jdbcType=CHAR},
+      SECTION_CODE = #{sectionCode,jdbcType=DECIMAL},
+      FEES = #{fees,jdbcType=DECIMAL},
+      FEES2 = #{fees2,jdbcType=DECIMAL},
+      PAID_FEES = #{paidFees,jdbcType=DECIMAL},
+      FEES_STATE = #{feesState,jdbcType=CHAR},
+      REDUCTION_BALANCE = #{reductionBalance,jdbcType=DECIMAL}
+    where LOAN_FEES_DETAIL_ID = #{loanFeesDetailId,jdbcType=DECIMAL}
+  </update>
+
+    <select id="getFeesItemBy" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from LOAN_FEES_DETAIL
+
+        where (1=1)
+        <if test="_parameter.containsKey('loanApplicationId')">
+            and LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+        </if>
+        <if test="_parameter.containsKey('sectionCode')">
+            and SECTION_CODE = #{sectionCode,jdbcType=DECIMAL}
+        </if>
+        <if test="_parameter.containsKey('loanApplicationFeesItemId')">
+            and LOAN_APPLICATION_FEES_ITEM_ID = #{loanApplicationFeesItemId,jdbcType=DECIMAL}
+        </if>
+        <if test="_parameter.containsKey('feesCycle')">
+            and FEES_CYCLE = #{feesCycle,jdbcType=CHAR}
+        </if>
+        <if test="_parameter.containsKey('feesState')">
+            and FEES_STATE = #{feesState,jdbcType=CHAR}
+        </if>
+        <if test="_parameter.containsKey('sectionCodes')">
+            and SECTION_CODE in
+            <foreach collection="sectionCodes" item="item" open="(" separator="," close=")">
+                #{item,jdbcType=CHAR}
+            </foreach>
+        </if>
+        <if test="_parameter.containsKey('UNCOMPLETE_WAIVER')">
+            and (FEES_STATE = '1' or FEES_STATE = '3')
+        </if>
+    </select>
+
+    <select id="getLoanFeesDetailByLoanId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from LOAN_FEES_DETAIL
+        where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    </select>
+
+
+</mapper>

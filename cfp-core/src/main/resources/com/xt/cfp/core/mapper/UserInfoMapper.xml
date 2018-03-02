@@ -1,0 +1,1724 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="USER_INFO" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.UserInfo" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="LOGIN_PASS" property="loginPass" jdbcType="VARCHAR" />
+    <result column="BID_PASS" property="bidPass" jdbcType="VARCHAR" />
+    <result column="MOBILE_NO" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="SOURCE" property="source" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+  </resultMap>
+
+	<resultMap id="UserExt" type="com.xt.cfp.core.pojo.UserInfoExt" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="RESIDENT_ADDRESS" property="residentAddress" jdbcType="DECIMAL" />
+    <result column="AVATAR" property="avatar" jdbcType="DECIMAL" />
+    <result column="SEX" property="sex" jdbcType="CHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+    <result column="MOBILE_NO" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="EDUCATION_LEVEL" property="educationLevel" jdbcType="CHAR" />
+    <result column="REC_USER_ID" property="recUserId" jdbcType="DECIMAL" />
+    <result column="IS_VERIFIED" property="isVerified" jdbcType="CHAR" />
+  </resultMap>
+
+  <resultMap id="SalesUserInfo" type="com.xt.cfp.core.pojo.ext.SalesUserInfo" extends="BaseResultMap" >
+    <result column="realName" property="realName" jdbcType="VARCHAR" />
+    <result column="salesAdminCode" property="salesAdminCode" jdbcType="VARCHAR" />
+    <result column="salesAdminLoginName" property="salesAdminLoginName" jdbcType="VARCHAR" />
+    <result column="idCardNo" property="idCardNo" jdbcType="VARCHAR" />
+    <result column="salesAdminName" property="salesAdminName" jdbcType="VARCHAR" />
+    <result column="lastLoginDate" property="lastLoginDate" jdbcType="TIMESTAMP" />
+    <result column="adminId" property="adminId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+    <resultMap id="BaseResultMapByCrm" type="com.xt.cfp.core.pojo.UserInfo" >
+    
+    
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="FRANCHISE_NAME" property="franchiseName" jdbcType="VARCHAR" />
+    <result column="ManageCount" property="ManageCount" jdbcType="VARCHAR" />
+    <result column="withDrawCount" property="withDrawCount" jdbcType="VARCHAR" />
+    <result column="lastLoginTime" property="lastLoginTime" jdbcType="VARCHAR" />
+    <result column="realName" property="realName" jdbcType="VARCHAR" />
+    <result column="firstManageTime" property="firstManageTime" jdbcType="VARCHAR" />
+    
+    <result column="icCode" property="icCode" jdbcType="VARCHAR" />
+     <result column="blance" property="blance" jdbcType="VARCHAR" />
+    <result column="LOGIN_PASS" property="loginPass" jdbcType="VARCHAR" />
+    <result column="BID_PASS" property="bidPass" jdbcType="VARCHAR" />
+    <result column="MOBILE_NO" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="SOURCE" property="source" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+  </resultMap>
+
+
+  <resultMap id="PerformanceStatisticsVO" type="com.xt.cfp.core.pojo.ext.crm.PerformanceStatisticsVO" >
+    <result column="fname" property="fname" jdbcType="VARCHAR" />
+    <result column="staffName" property="staffName" jdbcType="VARCHAR" />
+    <result column="customerName" property="customerName" jdbcType="VARCHAR" />
+    <result column="customerMobile" property="customerMobile" jdbcType="VARCHAR" />
+    <result column="ivcode" property="ivcode" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="discountAmount" property="discountAmount" jdbcType="DECIMAL" />
+    <result column="userId" property="userId" jdbcType="DECIMAL" />
+    <result column="genId" property="genId" jdbcType="DECIMAL" />
+  </resultMap>
+
+
+	<resultMap id="CRMCustomerVO" type="com.xt.cfp.core.pojo.ext.crm.CRMCustomerVO" >
+	    <result column="user_id" property="userId" jdbcType="DECIMAL" />
+	    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+	    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+	    <result column="mobile_no" property="mobile" jdbcType="VARCHAR" />
+	    <result column="avail_value2" property="account" jdbcType="DECIMAL" />
+	    <result column="froze_value2" property="accountFroze" jdbcType="DECIMAL" />
+	    <result column="source" property="source" jdbcType="VARCHAR" />
+	    <result column="create_time" property="regTime" jdbcType="TIMESTAMP" />
+	    <result column="last_login_time" property="lastLogin" jdbcType="TIMESTAMP" />
+	    <result column="invitation_code" property="code" jdbcType="VARCHAR" />
+	    <result column="status" property="status" jdbcType="VARCHAR" />
+	</resultMap>
+
+  <sql id="Base_Column_List" >
+    USER_ID, LOGIN_NAME, LOGIN_PASS, BID_PASS, MOBILE_NO, SOURCE, CREATE_TIME,
+    TYPE, STATUS
+  </sql>
+
+
+
+  <select id="performanceStatistice" resultMap="PerformanceStatisticsVO" parameterType="map">
+
+    WITH b
+    AS (SELECT CFE.USER_ID,
+    CFE.NAME,
+    CASE WHEN CF.FRANCHISE_NAME is not null THEN CF.FRANCHISE_NAME ELSE (select cff.FRANCHISE_NAME from CRM_ORG coo LEFT JOIN
+    CRM_ORG_FRANCHISE coff
+    ON COFf.ORG_ID = COo.ORG_ID
+    LEFT JOIN
+    CRM_FRANCHISE cff
+    ON CFf.FRANCHISE_ID =
+    COFf.FRANCHISE_ID
+    WHERE     1 = 1
+    <![CDATA[
+                             AND length(COO.ORG_CODE) < length(CO.ORG_CODE)
+                                  ]]>
+    <if test="customParams.code != null and customParams.code != ''">
+      and COO.ORG_CODE like '' || #{customParams.code,jdbcType=VARCHAR}||'%'
+    </if>
+    and coo.ORG_TYPE = '2' and rownum =1 ) END fname,
+    CF.FRANCHISE_ID,
+    CO.ORG_NAME
+    FROM CRM_FRAN_EMP cfe
+    LEFT JOIN CRM_ORG co
+    ON CFE.ORG_ID = CO.ORG_ID
+    LEFT JOIN CRM_ORG_FRANCHISE cof
+    ON COF.ORG_ID = CO.ORG_ID
+    LEFT JOIN CRM_FRANCHISE cf
+    ON CF.FRANCHISE_ID = COF.FRANCHISE_ID
+    WHERE     1 = 1
+    <if test="customParams != null">
+      <if test="customParams.code != null and customParams.code != ''">
+        and  CO.ORG_CODE LIKE '' || #{customParams.code,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="customParams.franchiseeId != null and customParams.franchiseeId != ''">
+        and  COF.FRANCHISE_ID = #{customParams.franchiseeId,jdbcType=DECIMAL}
+      </if>
+    </if>
+    AND CFE.USER_ID IS NOT NULL),
+    c
+    AS (SELECT ue.*,
+    ui.name,
+    ui.invitation_code,
+    ui.fname,
+    ui.FRANCHISE_ID,
+    ICC.INVITATION_CODE code, ui.USER_ID gen
+    FROM USER_INFO_EXT ue
+    RIGHT JOIN
+    (SELECT ic.*,
+    u.name,
+    u.fname,
+    u.FRANCHISE_ID,
+    u.ORG_NAME
+    FROM INVITATION_CODE ic
+    RIGHT JOIN (SELECT * FROM b) u
+    ON IC.USER_ID = U.USER_ID) ui
+    ON UE.REC_USER_ID = UI.USER_ID
+    LEFT JOIN INVITATION_CODE icc ON UE.USER_ID = icc.user_id
+    WHERE UE.USER_ID IS NOT NULL),
+    a
+    AS (SELECT * FROM c
+    UNION ALL
+    SELECT ue.*,
+    b.name,
+    ic.invitation_code,
+    b.fname,
+    b.FRANCHISE_ID,
+    ICC.INVITATION_CODE code, b.user_id gen
+    FROM user_info_ext ue
+    RIGHT JOIN b ON UE.USER_ID = B.USER_ID
+    LEFT JOIN INVITATION_CODE ic ON UE.USER_ID = ic.user_id
+    LEFT JOIN User_info u ON UE.REC_USER_ID = U.USER_ID
+    LEFT JOIN INVITATION_CODE icc ON U.USER_ID = icc.user_id)
+
+    SELECT customer.fname,
+    customer.name staffName,
+    customer.real_name customerName,
+    customer.mobile_no customerMobile,
+    NVL (ll.amount, 0) amount,
+    customer.invitation_code ivcode,
+    customer.user_id userId,
+    NVL (ll.discountAmount, 0) discountAmount ,customer.gen genId
+    FROM (SELECT * FROM a
+    UNION ALL
+    (SELECT ue1.*,
+    a.real_name name,
+    a.code invitation_code,
+    a.fname,
+    a.FRANCHISE_ID,
+    icc1.INVITATION_CODE code,a.gen gen
+    FROM USER_INFO_EXT ue1
+    RIGHT JOIN c a ON UE1.REC_USER_ID = a.user_id and a.user_id != UE1.USER_ID
+    LEFT JOIN INVITATION_CODE icc1 ON UE1.USER_ID = icc1.user_id
+    WHERE ue1.USER_ID IS NOT NULL)
+    UNION ALL
+    (SELECT ue2.*,
+    b.real_name name,
+    b.code invitation_code,
+    b.fname,
+    b.FRANCHISE_ID,
+    icc2.INVITATION_CODE code,  b.gen gen
+    FROM USER_INFO_EXT ue2
+    RIGHT JOIN
+    (SELECT ue1.*,
+    a.real_name name,
+    a.code invitation_code,
+    a.fname,
+    a.FRANCHISE_ID,
+    icc1.INVITATION_CODE code,a.gen gen
+    FROM USER_INFO_EXT ue1
+    RIGHT JOIN c a ON UE1.REC_USER_ID = a.user_id and a.user_id != UE1.USER_ID
+    LEFT JOIN INVITATION_CODE icc1
+    ON UE1.USER_ID = icc1.user_id
+    WHERE ue1.USER_ID IS NOT NULL) b
+    ON UE2.REC_USER_ID = b.user_id  AND b.user_id != ue2.user_id
+    LEFT JOIN INVITATION_CODE icc2 ON UE2.USER_ID = icc2.user_id
+    WHERE ue2.USER_ID IS NOT NULL)
+    ) customer
+    LEFT JOIN
+    ( SELECT SUM (lo.BUY_BALANCE) amount,
+    SUM (lo.BUY_BALANCE * (lo.time_limit / 12)) discountAmount,
+    LO.LEND_USER_ID
+    FROM LEND_ORDER_BID_DETAIL LOBD, LEND_ORDER LO, USER_INFO UI
+    WHERE LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+    AND LO.LEND_USER_ID = UI.USER_ID
+    AND LOBD.STATUS = '1'
+    AND lo.ORDER_STATE IN ('1', '2', '5', '6')
+    <if test="customParams != null">
+      <!--添加时间查询-->
+      <if test="customParams.timeInterval != null">
+        <if test="customParams.timeInterval.startTime != null">
+          <![CDATA[ and lo.BUY_TIME >= #{customParams.timeInterval.startTime}]]>
+        </if>
+        <if test="customParams.timeInterval.endTime != null">
+          <![CDATA[ and lo.BUY_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY
+          ]]>
+        </if>
+      </if>
+    </if>
+    GROUP BY LO.LEND_USER_ID) ll
+    ON ll.LEND_USER_ID = customer.user_id
+  </select>
+  <select id="count_performanceStatistice" resultType="int" parameterType="map">
+    WITH b
+    AS (SELECT CFE.USER_ID,
+    CFE.NAME,
+    CASE WHEN CF.FRANCHISE_NAME is not null THEN CF.FRANCHISE_NAME ELSE (select cff.FRANCHISE_NAME from CRM_ORG coo LEFT JOIN
+    CRM_ORG_FRANCHISE coff
+    ON COFf.ORG_ID = COo.ORG_ID
+    LEFT JOIN
+    CRM_FRANCHISE cff
+    ON CFf.FRANCHISE_ID =
+    COFf.FRANCHISE_ID
+    WHERE     1 = 1
+    <![CDATA[
+                             AND length(COO.ORG_CODE) < length(CO.ORG_CODE)
+                                  ]]>
+    <if test="customParams.code != null and customParams.code != ''">
+      and COO.ORG_CODE like '' || #{customParams.code,jdbcType=VARCHAR}||'%'
+    </if>
+    and coo.ORG_TYPE = '2' and rownum =1 ) END fname,
+    CF.FRANCHISE_ID,
+    CO.ORG_NAME
+    FROM CRM_FRAN_EMP cfe
+    LEFT JOIN CRM_ORG co
+    ON CFE.ORG_ID = CO.ORG_ID
+    LEFT JOIN CRM_ORG_FRANCHISE cof
+    ON COF.ORG_ID = CO.ORG_ID
+    LEFT JOIN CRM_FRANCHISE cf
+    ON CF.FRANCHISE_ID = COF.FRANCHISE_ID
+    WHERE     1 = 1
+    <if test="customParams != null">
+      <if test="customParams.code != null and customParams.code != ''">
+        and  CO.ORG_CODE LIKE '' || #{customParams.code,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="customParams.franchiseeId != null and customParams.franchiseeId != ''">
+        and  COF.FRANCHISE_ID = #{customParams.franchiseeId,jdbcType=DECIMAL}
+      </if>
+    </if>
+    AND CFE.USER_ID IS NOT NULL),
+    c
+    AS (SELECT ue.*,
+    ui.name,
+    ui.invitation_code,
+    ui.fname,
+    ui.FRANCHISE_ID,
+    ICC.INVITATION_CODE code, ui.USER_ID gen
+    FROM USER_INFO_EXT ue
+    RIGHT JOIN
+    (SELECT ic.*,
+    u.name,
+    u.fname,
+    u.FRANCHISE_ID,
+    u.ORG_NAME
+    FROM INVITATION_CODE ic
+    RIGHT JOIN (SELECT * FROM b) u
+    ON IC.USER_ID = U.USER_ID) ui
+    ON UE.REC_USER_ID = UI.USER_ID
+    LEFT JOIN INVITATION_CODE icc ON UE.USER_ID = icc.user_id
+    WHERE UE.USER_ID IS NOT NULL),
+    a
+    AS (SELECT * FROM c
+    UNION ALL
+    SELECT ue.*,
+    b.name,
+    ic.invitation_code,
+    b.fname,
+    b.FRANCHISE_ID,
+    ICC.INVITATION_CODE code, b.user_id gen
+    FROM user_info_ext ue
+    RIGHT JOIN b ON UE.USER_ID = B.USER_ID
+    LEFT JOIN INVITATION_CODE ic ON UE.USER_ID = ic.user_id
+    LEFT JOIN User_info u ON UE.REC_USER_ID = U.USER_ID
+    LEFT JOIN INVITATION_CODE icc ON U.USER_ID = icc.user_id)
+
+    SELECT count(1)
+    FROM (SELECT * FROM a
+    UNION ALL
+    (SELECT ue1.*,
+    a.real_name name,
+    a.code invitation_code,
+    a.fname,
+    a.FRANCHISE_ID,
+    icc1.INVITATION_CODE code,a.gen gen
+    FROM USER_INFO_EXT ue1
+    RIGHT JOIN c a ON UE1.REC_USER_ID = a.user_id and a.user_id != UE1.USER_ID
+    LEFT JOIN INVITATION_CODE icc1 ON UE1.USER_ID = icc1.user_id
+    WHERE ue1.USER_ID IS NOT NULL)
+    UNION ALL
+    (SELECT ue2.*,
+    b.real_name name,
+    b.code invitation_code,
+    b.fname,
+    b.FRANCHISE_ID,
+    icc2.INVITATION_CODE code,  b.gen gen
+    FROM USER_INFO_EXT ue2
+    RIGHT JOIN
+    (SELECT ue1.*,
+    a.real_name name,
+    a.code invitation_code,
+    a.fname,
+    a.FRANCHISE_ID,
+    icc1.INVITATION_CODE code,a.gen gen
+    FROM USER_INFO_EXT ue1
+    RIGHT JOIN c a ON UE1.REC_USER_ID = a.user_id and a.user_id != UE1.USER_ID
+    LEFT JOIN INVITATION_CODE icc1
+    ON UE1.USER_ID = icc1.user_id
+    WHERE ue1.USER_ID IS NOT NULL) b
+    ON UE2.REC_USER_ID = b.user_id  AND b.user_id != ue2.user_id
+    LEFT JOIN INVITATION_CODE icc2 ON UE2.USER_ID = icc2.user_id
+    WHERE ue2.USER_ID IS NOT NULL)
+    ) customer
+    LEFT JOIN
+    ( SELECT SUM (lo.BUY_BALANCE) amount,
+    SUM (lo.BUY_BALANCE * (lo.time_limit / 12)) discountAmount,
+    LO.LEND_USER_ID
+    FROM LEND_ORDER_BID_DETAIL LOBD, LEND_ORDER LO, USER_INFO UI
+    WHERE LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+    AND LO.LEND_USER_ID = UI.USER_ID
+    AND LOBD.STATUS = '1'
+    AND lo.ORDER_STATE IN ('1', '2', '5', '6')
+    <if test="customParams != null">
+      <!--添加时间查询-->
+      <if test="customParams.timeInterval != null">
+        <if test="customParams.timeInterval.startTime != null">
+          <![CDATA[ and lo.BUY_TIME >= #{customParams.timeInterval.startTime}]]>
+        </if>
+        <if test="customParams.timeInterval.endTime != null">
+          <![CDATA[ and lo.BUY_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY
+          ]]>
+        </if>
+      </if>
+    </if>
+    GROUP BY LO.LEND_USER_ID) ll
+    ON ll.LEND_USER_ID = customer.user_id
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+
+
+  <select id="getUserByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    where LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getUserListByLoginName" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    where LOGIN_NAME like '%${loginName}%'
+    <if test="userType != null">
+      AND  TYPE = #{userType,jdbcType=CHAR}
+    </if>
+  </select>
+
+  <select id="getUserLastLoginTime" resultType="java.util.Date" parameterType="java.lang.Long" >
+    select
+          LAST_LOGIN_TIME
+    from USER_STATISTICAL
+     where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getUserByMobile" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    where  MOBILE_NO = #{mobileNo,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getUserExtByMobile" resultMap="UserExt" parameterType="java.lang.String" >
+    select *
+    from USER_INFO_EXT
+    where  MOBILE_NO = #{mobileNo,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insertWithId" parameterType="com.xt.cfp.core.pojo.UserInfo">
+    insert into USER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="loginName != null" >
+        LOGIN_NAME,
+      </if>
+      <if test="loginPass != null" >
+        LOGIN_PASS,
+      </if>
+      <if test="bidPass != null" >
+        BID_PASS,
+      </if>
+      <if test="mobileNo != null" >
+        MOBILE_NO,
+      </if>
+      <if test="source != null and source !=''" >
+        SOURCE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPass != null" >
+        #{loginPass,jdbcType=VARCHAR},
+      </if>
+      <if test="bidPass != null" >
+        #{bidPass,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null and source !=''" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.UserInfo" >
+
+    <selectKey keyProperty="userId" order="BEFORE" resultType="long">
+      SELECT SEQ_USER_INFO.NEXTVAL as userId FROM dual
+    </selectKey>
+    insert into USER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="loginName != null" >
+        LOGIN_NAME,
+      </if>
+      <if test="loginPass != null" >
+        LOGIN_PASS,
+      </if>
+      <if test="bidPass != null" >
+        BID_PASS,
+      </if>
+      <if test="mobileNo != null" >
+        MOBILE_NO,
+      </if>
+      <if test="source != null and source !=''" >
+        SOURCE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPass != null" >
+        #{loginPass,jdbcType=VARCHAR},
+      </if>
+      <if test="bidPass != null" >
+        #{bidPass,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null and source !=''" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <insert id="recordUser" parameterType="com.xt.cfp.core.pojo.UserInfo" >
+    insert into USER_STATISTICAL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="createTime != null" >
+        LAST_LOGIN_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="loginName != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateRecordUser" parameterType="com.xt.cfp.core.pojo.UserInfo" >
+    update USER_STATISTICAL
+    <set>
+      <if test="createTime != null" >
+        LAST_LOGIN_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.UserInfo" >
+    update USER_INFO
+    <set>
+      <if test="loginName != null" >
+        LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPass != null" >
+        LOGIN_PASS = #{loginPass,jdbcType=VARCHAR},
+      </if>
+      <if test="bidPass != null" >
+        BID_PASS = #{bidPass,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        MOBILE_NO = #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        SOURCE = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.UserInfo" >
+    update USER_INFO
+    set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      LOGIN_PASS = #{loginPass,jdbcType=VARCHAR},
+      BID_PASS = #{bidPass,jdbcType=VARCHAR},
+      MOBILE_NO = #{mobileNo,jdbcType=VARCHAR},
+      SOURCE = #{source,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      TYPE = #{type,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+
+  <update id="updatePayPassword" parameterType="com.xt.cfp.core.pojo.UserInfo" >
+    update USER_INFO
+    set   BID_PASS = #{bidPass,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+
+
+  <select id="getUserByCondition" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List" />
+    from USER_INFO
+
+    <where>
+      <if test="userInfo != null">
+        <if test="userInfo.loginName != null">
+          AND LOGIN_NAME = #{userInfo.loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.loginPass != null">
+          AND LOGIN_PASS = #{userInfo.loginPass,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.bidPass != null">
+          AND BID_PASS = #{userInfo.bidPass,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.mobileNo != null">
+          AND MOBILE_NO = #{userInfo.mobileNo,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.source != null">
+          AND SOURCE = #{userInfo.source,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.type != null">
+          AND  TYPE = #{userInfo.type,jdbcType=CHAR}
+        </if>
+        <if test="userInfo.status != null">
+          AND   STATUS = #{userInfo.status,jdbcType=CHAR}
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+    ORDER BY USER_ID DESC
+  </select>
+
+	<select id="getUserInfoTypeByIdCardAndName" resultMap="BaseResultMap" parameterType="map">
+				select * from user_info ui
+				 inner join user_info_ext uie on ui.user_id = uie.user_id
+				 where uie.id_card = #{idCard,jdbcType=VARCHAR}
+				   and uie.real_name = #{trueName,jdbcType=VARCHAR}
+				   and ui.type = #{userType,jdbcType=VARCHAR}
+				   and uie.is_verified = #{verified,jdbcType=VARCHAR}
+	</select>
+
+  <select id="getUserInfoPaging" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    <where>
+      <if test="userInfo != null">
+        <if test="userInfo.loginName != null">
+          AND LOGIN_NAME = #{userInfo.loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.loginPass != null">
+          AND LOGIN_PASS = #{userInfo.loginPass,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.bidPass != null">
+          AND BID_PASS = #{userInfo.bidPass,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.mobileNo != null">
+          AND MOBILE_NO = #{userInfo.mobileNo,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.source != null">
+          AND SOURCE = #{userInfo.source,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.type != null">
+          AND  TYPE = #{userInfo.type,jdbcType=CHAR}
+        </if>
+        <if test="userInfo.status != null">
+          AND   STATUS = #{userInfo.status,jdbcType=CHAR}
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+    ORDER BY USER_ID DESC
+  </select>
+  <select id="count_getUserInfoPaging" resultType="int" parameterType="map">
+    SELECT  count(1)  from USER_INFO
+    <where>
+      <if test="userInfo != null">
+        <if test="userInfo.loginName != null">
+          AND LOGIN_NAME = #{userInfo.loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.loginPass != null">
+          AND LOGIN_PASS = #{userInfo.loginPass,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.bidPass != null">
+          AND BID_PASS = #{userInfo.bidPass,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.mobileNo != null">
+          AND MOBILE_NO = #{userInfo.mobileNo,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.source != null">
+          AND SOURCE = #{userInfo.source,jdbcType=VARCHAR}
+        </if>
+        <if test="userInfo.type != null">
+          AND  TYPE = #{userInfo.type,jdbcType=CHAR}
+        </if>
+        <if test="userInfo.status != null">
+          AND   STATUS = #{userInfo.status,jdbcType=CHAR}
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+    ORDER BY USER_ID DESC
+  </select>
+  <select id="exportExcel" resultType="java.util.LinkedHashMap" parameterType="com.xt.cfp.core.pojo.ext.UserInfoVO">
+
+
+    SELECT ROWNUM AS 序号,
+    aa.USER_ID AS 用户ID,
+    IC.INVITATION_CODE AS 邀请码,
+    aa.LOGIN_NAME AS 登录名,
+    aa.REAL_NAME AS 真实姓名,
+    aa.MOBILE_NO AS 手机号,
+    <if test="roleID != null">
+     replace(aa.ID_CARD,substr(aa.ID_CARD, 4, 12),'************')AS 身份证号,
+    </if>
+    <if test="roleID == null">
+    aa.ID_CARD AS 身份证号,
+    </if>
+    (
+    (SELECT VALUE2 ZHANGHUYUE
+    FROM USER_ACCOUNT
+    WHERE USER_ID = aa.USER_ID AND ACC_TYPE_CODE = 2)
+    + (SELECT   NVL (SUM (LOR.SHOULD_CAPITAL2), 0)
+    - NVL (SUM (LOR.FACT_CAPITAL), 0)
+    DAIHUIBENJIN
+    FROM LEND_ORDER_RECEIVE LOR
+    LEFT JOIN LEND_ORDER LO
+    ON LOR.LEND_ORDER_ID = LO.LEND_ORDER_ID
+    LEFT JOIN USER_INFO U ON LO.LEND_USER_ID = U.USER_ID
+    WHERE U.USER_ID = aa.USER_ID AND LO.PRODUCT_TYPE = '1')
+    + (SELECT   NVL (SUM (LOR.SHOULD_INTEREST2), 0)
+    - NVL (SUM (LOR.FACT_INTEREST), 0)
+    DAIHUISHOUYI
+    FROM LEND_ORDER_RECEIVE LOR
+    LEFT JOIN LEND_ORDER LO
+    ON LOR.LEND_ORDER_ID = LO.LEND_ORDER_ID
+    LEFT JOIN USER_INFO U ON LO.LEND_USER_ID = U.USER_ID
+    WHERE U.USER_ID = aa.USER_ID AND LO.PRODUCT_TYPE = '1')
+    + (SELECT NVL (SUM (BUY_BALANCE), 0) BUY_BALANCE
+    FROM LEND_ORDER
+    WHERE     PRODUCT_TYPE = '2'
+    AND (ORDER_STATE = '1' OR ORDER_STATE = '5')
+    AND LEND_USER_ID = aa.USER_ID)
+    - (SELECT NVL (SUM (RP.SHOULD_CAPITAL2), 0) - NVL (SUM (RP.FACT_CAPITAL), 0)
+    FUZHAI
+    FROM REPAYMENT_PLAN RP, LOAN_APPLICATION LA
+    WHERE RP.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID AND LA.USER_ID = aa.USER_ID)
+
+    ) AS 总资产,
+    aa.AVAIL_VALUE2 AS 可用资产,
+    aa.FROZE_VALUE2 AS 冻结资产,
+    aa.CREATE_TIME AS 注册时间,
+    CASE WHEN aa.IS_VERIFIED = 1 THEN '是' ELSE '否' END
+    AS 是否身份认证,
+    DECODE (aa.VERIFIED_TIME,
+    NULL, DECODE (aa.IS_VERIFIED, 1, aa.CREATE_TIME),
+    aa.VERIFIED_TIME)
+    AS 身份认证时间,
+    cc.pay_time AS 首次投标时间,
+    aa.REC_USER_ID AS 推荐人ID,
+    UIE2.REAL_NAME AS 推荐人,
+    IC2.INVITATION_CODE AS 邀请人邀请码
+    FROM (  SELECT UI.LOGIN_NAME,
+    UIE.REAL_NAME,
+    UIE.MOBILE_NO,
+    UIE.ID_CARD,
+    UA.VALUE2,
+    UA.AVAIL_VALUE2,
+    UA.FROZE_VALUE2,
+    UI.USER_ID,
+    UI.CREATE_TIME,
+    UIE.IS_VERIFIED,
+    UIE.REC_USER_ID,
+    (select min(VERIFIED_TIME) from IDCARD_VERIFIED iv where IV.VERIFIED_RESULT = '1' and iv.CARD_CODE = UIE.ID_CARD) VERIFIED_TIME,
+    ui.status
+    FROM user_info ui
+    LEFT JOIN USER_INFO_EXT uie ON UI.USER_ID = UIE.USER_ID
+    INNER JOIN USER_ACCOUNT ua ON UI.USER_ID = UA.USER_ID
+    WHERE UA.ACC_TYPE_CODE = '2'
+    ORDER BY ui.create_time DESC) aa
+    LEFT JOIN (  SELECT LO.LEND_USER_ID, MIN (LO.PAY_TIME) AS pay_time
+    FROM lend_order lo
+    WHERE LO.PAY_TIME IS NOT NULL
+    GROUP BY LO.LEND_USER_ID) cc
+    ON aa.USER_ID = cc.LEND_USER_ID
+    LEFT JOIN user_info_ext uie2 ON aa.REC_USER_ID = UIE2.USER_ID
+    LEFT JOIN user_info ui2 ON uie2.user_id = ui2.user_id
+    LEFT JOIN INVITATION_CODE ic ON aa.USER_ID = IC.USER_ID
+    LEFT JOIN INVITATION_CODE IC2 ON aa.REC_USER_ID = IC2.USER_ID
+        <where>
+          <if test="status != null">
+            <if test="status != -1">
+              and aa.status = #{status}
+            </if>
+          </if>
+          <if test="realName != null and realName !=''">
+            and aa.REAL_NAME like '%'||#{realName}||'%'
+          </if>
+          <if test="loginName	 != null and loginName	 !=''">
+            and aa.LOGIN_NAME like '%'||#{loginName}||'%'
+          </if>
+          <if test="mobileNo != null and mobileNo !=''">
+            and aa.MOBILE_NO like '%'||#{mobileNo}||'%'
+          </if>
+          <if test="idCard != null and idCard !=''">
+            and aa.ID_CARD like '%'||#{idCard}||'%'
+          </if>
+        </where>
+
+  </select>
+
+
+  <update id="changeUserStatus" parameterType="map" >
+    update USER_INFO
+    set
+    STATUS = #{userstatus,jdbcType=CHAR}
+   where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+
+
+  <select id="getSalesUserInfoPaging" resultMap="SalesUserInfo" parameterType="map">
+    SELECT ui.*,
+    UIE.ID_CARD idCardNo,
+    UIE.REAL_NAME realName,
+    US.LAST_LOGIN_TIME lastLoginDate,
+    SA.LOGIN_NAME salesAdminCode,
+    SA.LOGIN_NAME salesAdminLoginName,
+    sa.ADMIN_ID adminId,
+    SA.DISPLAY_NAME salesAdminName,
+    t.name superiorsOrganize
+    FROM USER_INFO ui
+    RIGHT JOIN SL_ADMIN_USER_INFO sui ON SUI.USER_ID = UI.USER_ID
+    LEFT JOIN USER_INFO_EXT uie ON UI.USER_ID = UIE.USER_ID
+    LEFT JOIN USER_STATISTICAL us ON UI.USER_ID = US.USER_ID
+    LEFT JOIN SL_ADMIN_INFO sa ON SA.ADMIN_ID = SUI.ADMIN_ID
+    left join SL_ADMIN_ORGANIZATION ao on AO.ADMIN_ID = SA.ADMIN_ID
+    left join (select oi.*,OI2.ORGANIZE_NAME name from SL_ORGANIZATION_INFO oi left join SL_ORGANIZATION_INFO oi2 on OI2.ORGANIZE_ID = OI.PARENT_ID) t on AO.ORGANIZE_ID = t.ORGANIZE_ID
+
+    <where>
+      sui.status = '0'
+
+      <if test="isLeaf == 'isLeaf'">
+        AND   sa.admin_id  = #{adminId,jdbcType=DECIMAL}
+      </if>
+      <if test="isLeaf != 'isLeaf'">
+        AND    sa.admin_id in
+        (
+        select s.admin_id from SL_ADMIN_ORGANIZATION s where s.organize_id in
+        (
+        select t.organize_id from SL_ORGANIZATION_INFO t where t.organize_code like
+        (
+        select soi.organize_code from SL_ADMIN_INFO sai
+        left join SL_ADMIN_ORGANIZATION sao on sao.admin_id=sai.admin_id
+        left join SL_ORGANIZATION_INFO soi on soi.organize_id=sao.organize_id
+        where sai.admin_id = #{adminId,jdbcType=DECIMAL}
+        ) ||'%'
+        )
+        )
+      </if>
+
+      <if test="salesUserInfo != null">
+        <if test="salesUserInfo.loginName != null  and salesUserInfo.loginName !=''">
+          AND ui.LOGIN_NAME like '%${salesUserInfo.loginName}%'
+        </if>
+        <if test="salesUserInfo.mobileNo != null  and salesUserInfo.mobileNo !=''">
+          AND ui.MOBILE_NO = #{salesUserInfo.mobileNo,jdbcType=VARCHAR}
+        </if>
+        <if test="salesUserInfo.realName != null  and salesUserInfo.realName !=''">
+          AND uie.REAL_NAME like '%${salesUserInfo.realName}%'
+        </if>
+        <if test="salesUserInfo.salesAdminCode != null  and salesUserInfo.salesAdminCode !=''">
+          AND sa.LOGIN_NAME like '%${salesUserInfo.salesAdminCode}%'
+        </if>
+        <if test="salesUserInfo.salesAdminName != null  and salesUserInfo.salesAdminName !=''">
+          AND sa.DISPLAY_NAME like '%${salesUserInfo.salesAdminName}%'
+        </if>
+        <if test="salesUserInfo.superiorsOrganize != null  and salesUserInfo.superiorsOrganize !=''">
+          AND  t.name like '%${salesUserInfo.superiorsOrganize}%'
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+    ORDER BY ui.USER_ID DESC
+  </select>
+  <select id="count_getSalesUserInfoPaging" resultType="int" parameterType="map">
+    SELECT  count(1)
+    FROM USER_INFO ui
+    RIGHT JOIN SL_ADMIN_USER_INFO sui ON SUI.USER_ID = UI.USER_ID
+    LEFT JOIN USER_INFO_EXT uie ON UI.USER_ID = UIE.USER_ID
+    LEFT JOIN USER_STATISTICAL us ON UI.USER_ID = US.USER_ID
+    LEFT JOIN SL_ADMIN_INFO sa ON SA.ADMIN_ID = SUI.ADMIN_ID
+    left join SL_ADMIN_ORGANIZATION ao on AO.ADMIN_ID = SA.ADMIN_ID
+    left join (select oi.*,OI2.ORGANIZE_NAME name from SL_ORGANIZATION_INFO oi left join SL_ORGANIZATION_INFO oi2 on OI2.ORGANIZE_ID = OI.PARENT_ID) t on AO.ORGANIZE_ID = t.ORGANIZE_ID
+
+    <where>
+      sui.status = '0'
+      <if test="isLeaf == 'isLeaf'">
+        AND   sa.admin_id  = #{adminId,jdbcType=DECIMAL}
+      </if>
+      <if test="isLeaf != 'isLeaf'">
+        AND    sa.admin_id in
+        (
+        select s.admin_id from SL_ADMIN_ORGANIZATION s where s.organize_id in
+        (
+        select t.organize_id from SL_ORGANIZATION_INFO t where t.organize_code like
+        (
+        select soi.organize_code from SL_ADMIN_INFO sai
+        left join SL_ADMIN_ORGANIZATION sao on sao.admin_id=sai.admin_id
+        left join SL_ORGANIZATION_INFO soi on soi.organize_id=sao.organize_id
+        where sai.admin_id = #{adminId,jdbcType=DECIMAL}
+        ) ||'%'
+        )
+        )
+
+      </if>
+      <if test="salesUserInfo != null">
+        <if test="salesUserInfo.loginName != null  and salesUserInfo.loginName !=''">
+          AND ui.LOGIN_NAME like '%${salesUserInfo.loginName}%'
+        </if>
+        <if test="salesUserInfo.mobileNo != null  and salesUserInfo.mobileNo !=''">
+          AND ui.MOBILE_NO = #{salesUserInfo.mobileNo,jdbcType=VARCHAR}
+        </if>
+        <if test="salesUserInfo.realName != null  and salesUserInfo.realName !=''">
+          AND uie.REAL_NAME like '%${salesUserInfo.realName}%'
+        </if>
+        <if test="salesUserInfo.salesAdminCode != null  and salesUserInfo.salesAdminCode !=''">
+          AND sa.LOGIN_NAME like '%${salesUserInfo.salesAdminCode}%'
+        </if>
+        <if test="salesUserInfo.salesAdminName != null  and salesUserInfo.salesAdminName !=''">
+          AND sa.DISPLAY_NAME like '%${salesUserInfo.salesAdminName}%'
+        </if>
+        <if test="salesUserInfo.superiorsOrganize != null  and salesUserInfo.superiorsOrganize !=''">
+          AND  t.name like '%${salesUserInfo.superiorsOrganize}%'
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+
+  </select>
+  <select id="selectByPrimaryKeyByCustomListAll" resultMap="BaseResultMapByCrm" parameterType="map">
+  select ic.invitation_code icCode ,
+         ui.source,
+         ui.create_time,
+         ui.user_id,
+         ui.status,
+         ui.login_name,
+         ui.mobile_no,
+       uie.real_name realName,
+         ua.avail_value2 as blance,
+         (select sum(lo.buy_price)
+            from creditor_rights lo
+           where lo.lend_user_id = ui.user_id) as manageCount ,
+         (select sum(w.withdraw_amount)
+            from withdraw w
+           where w.user_id = ui.user_id) withDrawCount,
+         (select s.last_login_time
+            from user_statistical s
+           where s.user_id = ui.user_id) as lastLoginTime,
+         (select sum(lo.buy_price)
+            from creditor_rights lo
+           where lo.lend_user_id = ui.user_id) as manageCount,
+         (select a.create_time
+            from (select rownum as num,
+                         lo.buy_price,
+                         lo.create_time,
+                         lo.lend_user_id
+                    from creditor_rights lo
+                   order by lo.create_time) a
+           where a.lend_user_id = ui.user_id
+             and rownum = 1) firstManageTime,
+         (select a.create_time
+            from (select rownum as num,
+                         lo.buy_price,
+                         lo.create_time,
+                         lo.lend_user_id
+                    from creditor_rights lo
+                   order by lo.create_time desc) a
+           where a.lend_user_id = ui.user_id
+             and rownum = 1) as lastManageTime 
+             from 
+             user_info c
+               left join invitation_code ic
+      on ic.user_id = c.user_id
+    left join user_info ui
+      on ui.user_id = c.user_id
+    left join user_info_ext uie
+      on uie.user_id = ui.user_id
+    left join user_account ua
+      on ua.user_id = ui.user_id
+     and ua.acc_type_code = 2 
+     where ui.user_id in 
+      <foreach item="userId" index="index" collection="list" open="(" separator="," close=")">  
+      #{userId}  
+      </foreach>  
+  </select>
+  <select id="selectByPrimaryKeyByCustomList" resultType="string" parameterType="map">
+  	 select *
+  from (select row_.*, rownum rownum_
+          from (
+select c.user_id
+     
+            from  (select ui.* 
+            from user_info_ext ui
+            left join (select cfe.user_id, cf.franchise_name, uie.rec_user_id
+                        from crm_fran_emp cfe
+                        left join crm_org_franchise cof
+                          on cfe.franchise_id = cof.franchise_id
+                        left join crm_org co
+                          on cof.org_id = co.org_id
+                        left join user_info_ext uie
+                          on cfe.user_id = uie.user_id
+                        left join crm_franchise cf
+                          on cof.franchise_id = cf.franchise_id
+                      
+                       where 1 = 1  
+                      
+                      
+                           <if test="code != null and code != ''">
+     						and  co.org_code like  ''|| #{code,jdbcType=VARCHAR}||'%'
+      					   </if>
+                         and cfe.user_id is not null) a
+              on a.user_id = ui.user_id
+          
+           where a.user_id = ui.user_id
+          union
+          select ui.* 
+            from user_info_ext ui
+            left join (select ui.*, a.franchise_name
+                        from user_info_ext ui
+                        left join (select cfe.user_id,
+                                         cf.franchise_name,
+                                         uie.rec_user_id
+                                    from crm_fran_emp cfe
+                                    left join crm_org_franchise cof
+                                      on cfe.franchise_id = cof.franchise_id
+                                    left join crm_org co
+                                      on cof.org_id = co.org_id
+                                    left join user_info_ext uie
+                                      on cfe.user_id = uie.user_id
+                                    left join crm_franchise cf
+                                      on cof.franchise_id = cf.franchise_id
+                                    
+                                   where 1=1
+                                    <if test="code != null and code != ''">
+     						and  co.org_code like  ''|| #{code,jdbcType=VARCHAR}||'%'
+      					   </if>
+                                     and cfe.user_id is not null) a
+                          on a.user_id = ui.user_id
+                         and a.user_id is not null
+                      
+                       where a.user_id = ui.user_id
+                      
+                      ) a
+              on ui.rec_user_id = a.user_id
+           where a.user_id = ui.rec_user_id
+          union
+          select uie1.* 
+            from user_info_ext uie1
+            left join (select ui.*, a.franchise_name
+                        from user_info_ext ui
+                        left join (select ui.*, a.franchise_name
+                                    from user_info_ext ui
+                                    left join (select cfe.user_id,
+                                                     cf.franchise_name,
+                                                     uie.rec_user_id
+                                                from crm_fran_emp cfe
+                                                left join crm_org_franchise cof
+                                                  on cfe.franchise_id =
+                                                     cof.franchise_id
+                                                left join crm_org co
+                                                  on cof.org_id = co.org_id
+                                                left join user_info_ext uie
+                                                  on cfe.user_id =
+                                                     uie.user_id
+                                                left join crm_franchise cf
+                                                  on cof.franchise_id =
+                                                     cf.franchise_id
+                                               where 1 = 1  
+                                                <if test="code != null and code != ''">
+     						and  co.org_code like  ''|| #{code,jdbcType=VARCHAR}||'%'
+      					   </if>
+                                                 and cfe.user_id is not null) a
+                                      on a.user_id = ui.user_id
+                                     and a.user_id is not null
+                                  
+                                   where a.user_id = ui.user_id
+                                  
+                                  ) a
+                          on ui.rec_user_id = a.user_id
+                       where a.user_id = ui.rec_user_id) a
+              on uie1.rec_user_id = a.user_id
+           where a.user_id = uie1.rec_user_id
+          union
+          select ui.* 
+            from user_info_ext ui
+            left join (select ui.* 
+                        from user_info_ext ui
+                        left join (select cfe.user_id,
+                                         cf.franchise_name,
+                                         uie.rec_user_id
+                                    from crm_fran_emp cfe
+                                    left join crm_org_franchise cof
+                                      on cfe.franchise_id = cof.franchise_id
+                                    left join crm_org co
+                                      on cof.org_id = co.org_id
+                                    left join user_info_ext uie
+                                      on cfe.user_id = uie.user_id
+                                    left join crm_franchise cf
+                                      on cof.franchise_id = cf.franchise_id
+                                   where 1 = 1  
+                                    <if test="code != null and code != ''">
+     						and  co.org_code like  ''|| #{code,jdbcType=VARCHAR}||'%'
+      					   </if>
+                                     and cfe.user_id is not null) a
+                          on a.user_id = ui.user_id
+                         and a.user_id is not null
+                      
+                       where a.user_id = ui.user_id
+                      
+                      ) a
+              on ui.rec_user_id = a.user_id
+           where a.user_id = ui.rec_user_id
+          union
+          select uie2.* 
+            from user_info_ext uie2
+            left join (select uie1.*, a.franchise_name
+                        from user_info_ext uie1
+                        left join (select ui.*, a.franchise_name
+                                    from user_info_ext ui
+                                    left join (select ui.*, a.franchise_name
+                                                from user_info_ext ui
+                                                left join (select cfe.user_id,
+                                                                 cf.franchise_name,
+                                                                 uie.rec_user_id
+                                                            from crm_fran_emp cfe
+                                                            left join crm_org_franchise cof
+                                                              on cfe.franchise_id =
+                                                                 cof.franchise_id
+                                                            left join crm_org co
+                                                              on cof.org_id =
+                                                                 co.org_id
+                                                            left join user_info_ext uie
+                                                              on cfe.user_id =
+                                                                 uie.user_id
+                                                            left join crm_franchise cf
+                                                              on cof.franchise_id =
+                                                                 cf.franchise_id
+                                                           where 1 = 1 
+                                                                <if test="code != null and code != ''">
+     						and  co.org_code like  ''|| #{code,jdbcType=VARCHAR}||'%'
+      					   </if> 
+                                                             and cfe.user_id is not null) a
+                                                  on a.user_id = ui.user_id
+                                                 and a.user_id is not null
+                                              
+                                               where a.user_id = ui.user_id
+                                              
+                                              ) a
+                                      on ui.rec_user_id = a.user_id
+                                   where a.user_id = ui.rec_user_id) a
+                          on uie1.rec_user_id = a.user_id
+                       where a.user_id = uie1.rec_user_id) b
+              on uie2.rec_user_id = b.user_id
+           where b.user_id = uie2.rec_user_id) c
+    left join invitation_code ic
+      on ic.user_id = c.user_id
+    left join user_info ui
+      on ui.user_id = c.user_id
+    left join user_info_ext uie
+      on uie.user_id = ui.user_id
+    left join user_account ua
+      on ua.user_id = ui.user_id
+     and ua.acc_type_code = 2
+      ) row_
+      		<if test="pageSize != null">
+      			where  rownum  &lt;=  #{pageSize,jdbcType=DECIMAL}
+      		</if>  
+      		
+        )
+      <if test="pageNo != null">
+      		where rownum_ &gt;  #{pageNo,jdbcType=DECIMAL}
+      </if>  
+ 
+
+	</select>
+	
+	<select id="count_selectByPrimaryKeyByCustomList"  resultType="int" parameterType="String">
+with abc as
+ (select ic.invitation_code,
+         ui.source,
+         ui.create_time,
+         ui.user_id,
+         ui.status,
+         ui.login_name,
+         ui.mobile_no,
+      
+          uie.real_name realName,
+         ua.avail_value2 as blance,
+         (select sum(lo.buy_price)
+            from creditor_rights lo
+           where lo.lend_user_id = ui.user_id) as manageCountR,
+         (select sum(w.withdraw_amount)
+            from withdraw w
+           where w.user_id = ui.user_id) withDrawCount,
+         (select s.last_login_time
+            from user_statistical s
+           where s.user_id = ui.user_id) as lastLoginTime,
+         (select sum(lo.buy_price)
+            from creditor_rights lo
+           where lo.lend_user_id = ui.user_id) as manageCount,
+         (select a.create_time
+            from (select rownum as num,
+                         lo.buy_price,
+                         lo.create_time,
+                         lo.lend_user_id
+                    from creditor_rights lo
+                   order by lo.create_time) a
+           where a.lend_user_id = ui.user_id
+             and rownum = 1) firstManageTime,
+         (select a.create_time
+            from (select rownum as num,
+                         lo.buy_price,
+                         lo.create_time,
+                         lo.lend_user_id
+                    from creditor_rights lo
+                   order by lo.create_time desc) a
+           where a.lend_user_id = ui.user_id
+             and rownum = 1) as lastManageTime
+    from (select ui.* 
+            from user_info_ext ui
+            left join (select cfe.user_id, cf.franchise_name, uie.rec_user_id
+                        from crm_fran_emp cfe
+                        left join crm_org_franchise cof
+                          on cfe.franchise_id = cof.franchise_id
+                        left join crm_org co
+                          on cof.org_id = co.org_id
+                        left join user_info_ext uie
+                          on cfe.user_id = uie.user_id
+                        left join crm_franchise cf
+                          on cof.franchise_id = cf.franchise_id
+                      
+                       where 1 = 1  
+                      
+                           <if test="code != null and code != ''">
+     						and  co.org_code like  ''|| #{code,jdbcType=VARCHAR}||'%'
+      					   </if>
+                         and cfe.user_id is not null) a
+              on a.user_id = ui.user_id
+          
+           where a.user_id = ui.user_id
+          union
+          select ui.* 
+            from user_info_ext ui
+            left join (select ui.*, a.franchise_name
+                        from user_info_ext ui
+                        left join (select cfe.user_id,
+                                         cf.franchise_name,
+                                         uie.rec_user_id
+                                    from crm_fran_emp cfe
+                                    left join crm_org_franchise cof
+                                      on cfe.franchise_id = cof.franchise_id
+                                    left join crm_org co
+                                      on cof.org_id = co.org_id
+                                    left join user_info_ext uie
+                                      on cfe.user_id = uie.user_id
+                                    left join crm_franchise cf
+                                      on cof.franchise_id = cf.franchise_id
+                                    
+                                   where 1=1
+                                    <if test="code != null and code != ''">
+     						and  co.org_code like  ''|| #{code,jdbcType=VARCHAR}||'%'
+      					   </if>
+                                     and cfe.user_id is not null) a
+                          on a.user_id = ui.user_id
+                         and a.user_id is not null
+                      
+                       where a.user_id = ui.user_id
+                      
+                      ) a
+              on ui.rec_user_id = a.user_id
+           where a.user_id = ui.rec_user_id
+          union
+          select uie1.* 
+            from user_info_ext uie1
+            left join (select ui.*, a.franchise_name
+                        from user_info_ext ui
+                        left join (select ui.*, a.franchise_name
+                                    from user_info_ext ui
+                                    left join (select cfe.user_id,
+                                                     cf.franchise_name,
+                                                     uie.rec_user_id
+                                                from crm_fran_emp cfe
+                                                left join crm_org_franchise cof
+                                                  on cfe.franchise_id =
+                                                     cof.franchise_id
+                                                left join crm_org co
+                                                  on cof.org_id = co.org_id
+                                                left join user_info_ext uie
+                                                  on cfe.user_id =
+                                                     uie.user_id
+                                                left join crm_franchise cf
+                                                  on cof.franchise_id =
+                                                     cf.franchise_id
+                                               where 1 = 1  
+                                                <if test="code != null and code != ''">
+     						and  co.org_code like  ''|| #{code,jdbcType=VARCHAR}||'%'
+      					   </if>
+                                                 and cfe.user_id is not null) a
+                                      on a.user_id = ui.user_id
+                                     and a.user_id is not null
+                                  
+                                   where a.user_id = ui.user_id
+                                  
+                                  ) a
+                          on ui.rec_user_id = a.user_id
+                       where a.user_id = ui.rec_user_id) a
+              on uie1.rec_user_id = a.user_id
+           where a.user_id = uie1.rec_user_id
+          union
+          select ui.* 
+            from user_info_ext ui
+            left join (select ui.* 
+                        from user_info_ext ui
+                        left join (select cfe.user_id,
+                                         cf.franchise_name,
+                                         uie.rec_user_id
+                                    from crm_fran_emp cfe
+                                    left join crm_org_franchise cof
+                                      on cfe.franchise_id = cof.franchise_id
+                                    left join crm_org co
+                                      on cof.org_id = co.org_id
+                                    left join user_info_ext uie
+                                      on cfe.user_id = uie.user_id
+                                    left join crm_franchise cf
+                                      on cof.franchise_id = cf.franchise_id
+                                   where 1 = 1  
+                                    <if test="code != null and code != ''">
+     						and  co.org_code like  ''|| #{code,jdbcType=VARCHAR}||'%'
+      					   </if>
+                                     and cfe.user_id is not null) a
+                          on a.user_id = ui.user_id
+                         and a.user_id is not null
+                      
+                       where a.user_id = ui.user_id
+                      
+                      ) a
+              on ui.rec_user_id = a.user_id
+           where a.user_id = ui.rec_user_id
+          union
+          select uie2.* 
+            from user_info_ext uie2
+            left join (select uie1.*, a.franchise_name
+                        from user_info_ext uie1
+                        left join (select ui.*, a.franchise_name
+                                    from user_info_ext ui
+                                    left join (select ui.*, a.franchise_name
+                                                from user_info_ext ui
+                                                left join (select cfe.user_id,
+                                                                 cf.franchise_name,
+                                                                 uie.rec_user_id
+                                                            from crm_fran_emp cfe
+                                                            left join crm_org_franchise cof
+                                                              on cfe.franchise_id =
+                                                                 cof.franchise_id
+                                                            left join crm_org co
+                                                              on cof.org_id =
+                                                                 co.org_id
+                                                            left join user_info_ext uie
+                                                              on cfe.user_id =
+                                                                 uie.user_id
+                                                            left join crm_franchise cf
+                                                              on cof.franchise_id =
+                                                                 cf.franchise_id
+                                                           where 1 = 1 
+                                                                <if test="code != null and code != ''">
+     						and  co.org_code like  ''|| #{code,jdbcType=VARCHAR}||'%'
+      					   </if> 
+                                                             and cfe.user_id is not null) a
+                                                  on a.user_id = ui.user_id
+                                                 and a.user_id is not null
+                                              
+                                               where a.user_id = ui.user_id
+                                              
+                                              ) a
+                                      on ui.rec_user_id = a.user_id
+                                   where a.user_id = ui.rec_user_id) a
+                          on uie1.rec_user_id = a.user_id
+                       where a.user_id = uie1.rec_user_id) b
+              on uie2.rec_user_id = b.user_id
+           where b.user_id = uie2.rec_user_id) c
+    left join invitation_code ic
+      on ic.user_id = c.user_id
+    left join user_info ui
+      on ui.user_id = c.user_id
+    left join user_info_ext uie
+      on uie.user_id = ui.user_id
+    left join user_account ua
+      on ua.user_id = ui.user_id
+     and ua.acc_type_code = 2)
+select count(1)
+  from abc
+ where user_id is not null
+  
+	</select>
+	
+
+ <select id="getUserByConditionPhone" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    where MOBILE_NO = #{phone,jdbcType=VARCHAR}
+  </select>
+  <select id="getUserInfonormalOrOrienta" resultType="int"  parameterType="map" >
+    select  count(1) from   LOAN_ORIENTATION lo where lo.loan_application_id= #{applicationId,jdbcType=DECIMAL} and lo.o_userid = #{userId,jdbcType=DECIMAL} 
+   <!-- select  count(1) from   LOAN_ORIENTATION lo where lo.o_userid =#{userId,jdbcType=DECIMAL} -->
+  </select>
+  
+   <select id="getCountOtypeByLendOrderId" resultType="int"  parameterType="java.lang.Long" >
+    select nvl(o_type,0) from loan_orientation lo where lo.loan_application_id =(
+	select la.loan_application_id from loan_application la where la.loan_application_id
+    =(select  lobd.loan_application_id from lend_order_bid_detail 
+    lobd where lobd.lend_order_id=#{userId,jdbcType=DECIMAL}))
+  </select>
+   <select id="getOrientPass" resultType="java.lang.String"  parameterType="java.lang.String" >
+   select o_pass from loan_orientation lo where lo.loan_application_id =(
+select la.loan_application_id from loan_application la where la.loan_application_id
+=(select  lobd.loan_application_id from lend_order_bid_detail  lobd where lobd.lend_order_id=#{userId,jdbcType=DECIMAL}))
+  </select>
+  
+     <select id="getOrientPassLoanLoanApplicationId" resultType="java.lang.String"  parameterType="java.lang.String" >
+   select o_pass from loan_orientation lo where lo.loan_application_id = #{userId,jdbcType=DECIMAL}
+  </select>
+  
+  	<select id="getCRMCustomers" resultMap="CRMCustomerVO" parameterType="map">
+	  	with a as(
+		     select cfe.user_id from crm_fran_emp cfe
+		     <where>
+				<if test="userId != null">
+			  		cfe.user_id=#{userId,jdbcType=DECIMAL}
+			  	</if>
+		     </where>
+		),
+		b as(
+			  select cfe.user_id from crm_fran_emp cfe 
+			  left join crm_org o on o.org_id=cfe.org_id
+			  <where>
+			  	  <if test="code != null">
+					and o.org_code like '${code}0%'
+				  </if>
+			  </where>
+			  
+		)
+		select ui.user_id,ui.login_name,uie.real_name,ua.avail_value2,ua.froze_value2,ui.mobile_no,case ui.source when '0' then '平台' when '1' then 'web' when '2' then 'IOS' 
+		when '3' then 'android' when '4' then '微信公众平台' else '其它' end source,ui.create_time,us.last_login_time,ic.invitation_code,
+		case ui.status when '0' then '正常' when '1' then '冻结' else '禁用' end status
+		from user_info ui
+		join user_info_ext uie on uie.user_id=ui.user_id
+		join user_statistical us on us.user_id=ui.user_id
+		join invitation_code ic on ic.user_id=ui.user_id
+		join user_account ua on ua.user_id=ui.user_id
+		where ui.user_id in(
+		       select * from a
+		       union
+		       select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in (
+		              select * from a
+		       )
+		       union 
+		       select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		             select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in (
+		                    select * from a
+		             )
+		       )
+		       union
+		       select c3.customer_id from crm_fran_customer c3 where c3.p_customer_id in (
+		              select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		                     select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in (
+		                            select * from a
+		                     )
+		              )
+		       )
+		       union
+		       select * from b
+		       union
+		       select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in(
+		              select * from b
+		       )
+		       union 
+		       select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		             select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in(
+		                    select * from b
+		             )
+		       )
+		       union
+		       select c3.customer_id from crm_fran_customer c3 where c3.p_customer_id in (
+		              select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		                     select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in(
+		                            select * from b
+		                     )
+		              )
+		       )
+		)
+		and ua.acc_status='0' and ua.acc_type_code='2'
+  	</select>
+  	<select id="count_getCRMCustomers" resultType="int" parameterType="map">
+  		with a as(
+		     select cfe.user_id from crm_fran_emp cfe
+		     <where>
+				<if test="userId != null">
+			  		cfe.user_id=#{userId,jdbcType=DECIMAL}
+			  	</if>
+		     </where>
+		),
+		b as(
+			  select cfe.user_id from crm_fran_emp cfe 
+			  left join crm_org o on o.org_id=cfe.org_id
+			  <where>
+			  	  <if test="code != null">
+					and o.org_code like '${code}0%'
+				  </if>
+			  </where>
+			  
+		)
+		select nvl(count(1),0) from user_info ui
+		join user_info_ext uie on uie.user_id=ui.user_id
+		join user_statistical us on us.user_id=ui.user_id
+		join invitation_code ic on ic.user_id=ui.user_id
+		join user_account ua on ua.user_id=ui.user_id
+		where ui.user_id in(
+		       select * from a
+		       union
+		       select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in (
+		              select * from a
+		       )
+		       union 
+		       select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		             select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in (
+		                    select * from a
+		             )
+		       )
+		       union
+		       select c3.customer_id from crm_fran_customer c3 where c3.p_customer_id in (
+		              select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		                     select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in (
+		                            select * from a
+		                     )
+		              )
+		       )
+		       union
+		       select * from b
+		       union
+		       select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in(
+		              select * from b
+		       )
+		       union 
+		       select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		             select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in(
+		                    select * from b
+		             )
+		       )
+		       union
+		       select c3.customer_id from crm_fran_customer c3 where c3.p_customer_id in (
+		              select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		                     select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in(
+		                            select * from b
+		                     )
+		              )
+		       )
+		)
+		and ua.acc_status='0' and ua.acc_type_code='2'
+  	</select>
+  	<select id="countCRMCustomerInvestmentAccount" resultType="java.math.BigDecimal" parameterType="long">
+  		select nvl(sum(lo.buy_balance),0) from lend_order lo 
+		left join lend_order_bid_detail lobd on lobd.lend_order_id=lo.lend_order_id
+		where lo.order_state in ('1', '2', '5', '6') and lobd.status='1' and lo.lend_user_id=#{userId,jdbcType=VARCHAR}
+  	</select>
+  	<select id="countCRMCustomerWithdrawAccount" resultType="java.math.BigDecimal" parameterType="long">
+  		select nvl(sum(w.withdraw_amount),0) from withdraw w where w.trans_status='1' and w.user_id=#{userId,jdbcType=VARCHAR}
+  	</select>
+  	<select id="getCRMUserAndCustomers" resultMap="BaseResultMap" parameterType="map">
+  		with a as(
+		     select cfe.user_id from crm_fran_emp cfe
+		     <where>
+				<if test="userId != null">
+			  		cfe.user_id=#{userId,jdbcType=DECIMAL}
+			  	</if>
+		     </where>
+		),
+		b as(
+			  select cfe.user_id from crm_fran_emp cfe 
+			  left join crm_org o on o.org_id=cfe.org_id
+			  <where>
+			  	  <if test="code != null">
+					and o.org_code like '${code}0%'
+				  </if>
+			  </where>
+			  
+		)
+		select ui.user_id from user_info ui
+		where ui.user_id in(
+		       <!-- select * from a
+		       union
+		       select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in (
+		              select * from a
+		       )
+		       union 
+		       select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		             select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in (
+		                    select * from a
+		             )
+		       )
+		       union
+		       select c3.customer_id from crm_fran_customer c3 where c3.p_customer_id in (
+		              select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		                     select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in (
+		                            select * from a
+		                     )
+		              )
+		       )
+		       union
+		       select * from b
+		       union
+		       select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in(
+		              select * from b
+		       )
+		       union 
+		       select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		             select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in(
+		                    select * from b
+		             )
+		       )
+		       union
+		       select c3.customer_id from crm_fran_customer c3 where c3.p_customer_id in (
+		              select c2.customer_id from crm_fran_customer c2 where c2.p_customer_id in (
+		                     select c.customer_id from crm_fran_customer c WHERE c.p_customer_id in(
+		                            select * from b
+		                     )
+		              )
+		       ) -->
+			  select customer_id from(
+			  select level l,cfc.* from crm_fran_customer cfc  start with  cfc.p_customer_id = (select * from a)
+			  connect by nocycle prior cfc.customer_id=  cfc.p_customer_id ) aa where aa.l <![CDATA[<]]> 4
+			  union
+			  select customer_id from(
+			  select level l,cfc.* from crm_fran_customer cfc  start with  cfc.p_customer_id in (select * from b)
+			  connect by nocycle prior cfc.customer_id=  cfc.p_customer_id ) aa where aa.l <![CDATA[<]]> 4
+		)
+  	</select>
+  	
+  	<select id="getUserInfoByMobileNosAndType" parameterType="map" resultMap="BaseResultMap"  >
+  	with userids as (
+         select  
+             ui.user_id as user_id,
+             ui.login_name as LOGIN_NAME ,
+             ui.mobile_no as MOBILE_NO 
+            from USER_INFO ui  
+             where 
+              ui.mobile_no in 
+              <foreach item="mobile" index="index" collection="mobiles" open="(" separator="," close=")">  
+		        #{mobile}  
+		      </foreach>  
+             and ui.type = #{type}
+	    )
+	    select * from userids  union all
+	    select  
+	     ui1.User_Id,
+	     ui1.login_name,
+	     ui1.mobile_no
+	    from USER_INFO ui1 where ui1.user_id in (  
+	     select distinct (di.user_id)     	  
+			  from distribution_invite di , userids 
+			 start with di.user_pid in  
+	             (userids.user_id)
+			connect by prior di.user_id = di.user_pid    
+	    )
+	    
+  	</select>
+</mapper>

@@ -1,0 +1,159 @@
+/* 
+	Invitation.css
+
+ */
+body{
+	background: #f5f5f5;
+}
+.w_container{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	background: #ff5e61 url(../images/icon/invi_bj.png) no-repeat center center;
+	background-size: contain;
+	overflow-y:auto;
+}
+.invitBox{
+	width: 90%;
+	height: auto;
+	background: #fff;
+	margin: 5rem auto 0;
+	border-radius: 10px;
+	position: relative;
+	/* overflow: hidden; */
+	padding-top: 1rem;
+}
+.invitBox:before{
+	content: "";
+	width: 5rem;
+	height: 5rem;
+	background: url(../images/icon/love_head.png) no-repeat center;
+	background-size: 100% 100%;
+	position: absolute;
+	top: -2.5rem;
+	left: 50%;
+	margin-left: -2.5rem;
+	display: block;
+}
+.invitBox:after{
+	content: "";
+	width: 90%;
+	height: 1px;
+	position: absolute;
+	border-radius: 15px;
+	bottom: -1px;
+	left: 50%;
+	margin-left: -45%;
+	-moz-box-shadow:0px 3px 12px #FF5E61;
+	-webkit-box-shadow:0px 3px 12px #FF5E61;
+	box-shadow:0px 3px 12px #FF5E61;
+}
+header{
+	width: 90%;
+	height: auto;
+	border-bottom: 1.5px dashed #e8e8e8;
+	text-align: center;
+	margin: 0 auto;
+	position: relative;
+	padding-bottom: 1rem;
+}
+header:after{
+	content: "";
+	width: 1.5rem;
+	height: 1.5rem;
+	background: #ff5e61;
+	border-radius: 100%;
+	position: absolute;
+	bottom: -.7rem;
+	left: -9%;
+}
+header:before{
+	content: "";
+	width: 1.5rem;
+	height: 1.5rem;
+	background: #ff5e61;
+	border-radius: 100%;
+	position: absolute;
+	bottom: -.7rem;
+	right: -9%;
+}
+header h2{
+	font-size: 1.6rem;
+	font-weight: normal;
+	color: #ff5e61;
+	margin-top: 3rem;
+}
+header p{
+	font-size: 1.2rem;
+	margin-top: 1rem;
+	color: #333;
+	line-height: 1.6rem;
+	letter-spacing: 1.5px
+}
+header p span{
+	color: #ff5e61;
+}
+.code{
+	width: 60%;
+	height: auto;
+	margin: 1rem auto;
+	padding-bottom: 1rem;
+	text-align: center;
+}
+.code img{
+	width: 100%;
+	height: auto;
+}
+.code p{
+	margin-top: 1rem;
+	font-size: 1.2rem;
+	color: #333;
+
+}
+.rule{
+	width: 90%;
+	height: 5rem;
+	line-height: 5rem;
+	display: -webkit-flex;
+	justify-content:space-between;
+	margin: 0 auto;
+}
+.rule p{
+	width: 50%;
+	font-size: 1.2rem;
+	color: #333;
+	text-indent: 1.5rem;
+}
+.rule p:nth-child(1){
+	background: url(../images/icon/Invitation.png) no-repeat left center;
+	background-size: 1.2rem 1.2rem;
+	color: #fff;
+}
+.request{
+	width: 90%;
+	height: 4rem;
+	line-height: 4rem;
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	color: #fff;
+	background: #fcc403;
+	font-size: 1.4rem;
+	border-radius: 3px;
+	margin-bottom: 2rem;
+}
+.bottom{
+	width: 96%;
+	height: 1rem;
+	position: absolute;
+	bottom: -.8rem;
+	left: 50%;
+	margin-left: -48%;
+	background: url(../images/icon/bottom.png) no-repeat center center;
+	background-size: contain;
+}
+.count{
+	color: #8ab1f7;
+}
+
+

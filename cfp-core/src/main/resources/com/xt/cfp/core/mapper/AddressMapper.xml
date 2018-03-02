@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ADDRESS" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.Address" >
+    <id column="ADDRESS_ID" property="addressId" jdbcType="DECIMAL" />
+    <result column="PROVINCE" property="province" jdbcType="DECIMAL" />
+    <result column="CITY" property="city" jdbcType="DECIMAL" />
+    <result column="DISTRICT" property="district" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="DETAIL" property="detail" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="addressVO" type="com.xt.cfp.core.pojo.ext.AddressVO" extends="BaseResultMap">
+    <result column="PROVINCE_NAME" property="provinceStr" jdbcType="VARCHAR" />
+    <result column="CITY_NAME_S" property="cityStr" jdbcType="VARCHAR" />
+    <result column="DISTRICT_S" property="districtStr" jdbcType="VARCHAR" />
+    <result column="DETAIL" property="detail" jdbcType="VARCHAR" />
+  </resultMap>
+  
+    <resultMap id="addressAndVO" type="com.xt.cfp.core.pojo.ext.AddressVO" extends="BaseResultMap">
+    <id column="ADDRESS_ID" property="addressId" jdbcType="DECIMAL" />
+    <result column="PROVINCE" property="province" jdbcType="DECIMAL" />
+    <result column="CITY" property="city" jdbcType="DECIMAL" />
+    <result column="DISTRICT" property="district" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="DETAIL" property="detail" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="PROVINCE_NAME" property="provinceStr" jdbcType="VARCHAR" />
+    <result column="CITY_NAME_S" property="cityStr" jdbcType="VARCHAR" />
+    <result column="DISTRICT_S" property="districtStr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADDRESS_ID, PROVINCE, CITY, DISTRICT, USER_ID, DETAIL, TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ADDRESS
+    where ADDRESS_ID = #{addressId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getAddressVOById" resultMap="addressVO" parameterType="java.lang.Long" >
+  SELECT a.*,
+       P.PROVINCE_NAME,
+       C1.CITY_NAME CITY_NAME_S,
+       C2.CITY_NAME DISTRICT_S
+  FROM ADDRESS a
+       LEFT JOIN PROVINCE_INFO p ON A.PROVINCE = P.PROVINCE_ID
+       LEFT JOIN CITY_INFO c1 ON A.CITY = c1.CITY_ID
+       LEFT JOIN CITY_INFO c2 ON A.DISTRICT = c2.CITY_ID
+    where ADDRESS_ID = #{addressId,jdbcType=DECIMAL}
+  </select>
+   <select id="getAddressVOByIdNvl" resultMap="addressAndVO" parameterType="java.lang.Long" >
+   SELECT a.*,
+       P.PROVINCE_NAME,
+       C1.CITY_NAME CITY_NAME_S,
+       C2.CITY_NAME DISTRICT_S
+  FROM ADDRESS a
+       LEFT JOIN PROVINCE_INFO p ON A.PROVINCE = P.PROVINCE_ID
+       LEFT JOIN CITY_INFO c1 ON A.CITY = c1.CITY_ID
+       LEFT JOIN CITY_INFO c2 ON A.DISTRICT = c2.CITY_ID
+    where ADDRESS_ID = #{addressId,jdbcType=DECIMAL}
+  </select>
+  <select id="getAddressByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ADDRESS
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ADDRESS
+    where ADDRESS_ID = #{addressId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.Address" >
+  	<selectKey keyProperty="addressId" order="BEFORE" resultType="long">
+      SELECT SEQ_ADDRESS.NEXTVAL as addressId FROM dual
+    </selectKey>
+    insert into ADDRESS (ADDRESS_ID, PROVINCE, CITY, 
+      DISTRICT, USER_ID, DETAIL, 
+      TYPE)
+    values (#{addressId,jdbcType=DECIMAL}, #{province,jdbcType=DECIMAL}, #{city,jdbcType=DECIMAL}, 
+      #{district,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{detail,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.Address" >
+    insert into ADDRESS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        ADDRESS_ID,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="district != null" >
+        DISTRICT,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="detail != null" >
+        DETAIL,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        #{addressId,jdbcType=DECIMAL},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=DECIMAL},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=DECIMAL},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.Address" >
+    update ADDRESS
+    <set >
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=DECIMAL},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=DECIMAL},
+      </if>
+      <if test="district != null" >
+        DISTRICT = #{district,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="detail != null" >
+        DETAIL = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ADDRESS_ID = #{addressId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.Address" >
+    update ADDRESS
+    set PROVINCE = #{province,jdbcType=DECIMAL},
+      CITY = #{city,jdbcType=DECIMAL},
+      DISTRICT = #{district,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      DETAIL = #{detail,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR}
+    where ADDRESS_ID = #{addressId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ENTERPRISE_LOAN_APPLICATION" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.EnterpriseLoanApplication" >
+    <id column="ENTERPRISE_LOAN_APPLICATION_ID" property="enterpriseLoanApplicationId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="DECIMAL" />
+    <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ENTERPRISE_LOAN_APPLICATION_ID, LOAN_APPLICATION_ID, ENTERPRISE_ID, MAIN_LOAN_APPLICATION_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_LOAN_APPLICATION
+    where ENTERPRISE_LOAN_APPLICATION_ID = #{enterpriseLoanApplicationId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ENTERPRISE_LOAN_APPLICATION
+    where ENTERPRISE_LOAN_APPLICATION_ID = #{enterpriseLoanApplicationId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.EnterpriseLoanApplication" >
+  	<selectKey keyProperty="enterpriseLoanApplicationId" order="BEFORE" resultType="long">
+      SELECT SEQ_ENTERPRISE_LOAN_APP.NEXTVAL as enterpriseLoanApplicationId FROM dual
+    </selectKey>
+    insert into ENTERPRISE_LOAN_APPLICATION (ENTERPRISE_LOAN_APPLICATION_ID, LOAN_APPLICATION_ID, 
+      ENTERPRISE_ID, MAIN_LOAN_APPLICATION_ID)
+    values (#{enterpriseLoanApplicationId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, 
+      #{enterpriseId,jdbcType=DECIMAL}, #{mainLoanApplicationId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.EnterpriseLoanApplication" >
+    insert into ENTERPRISE_LOAN_APPLICATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enterpriseLoanApplicationId != null" >
+        ENTERPRISE_LOAN_APPLICATION_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID,
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enterpriseLoanApplicationId != null" >
+        #{enterpriseLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterpriseId != null" >
+        #{enterpriseId,jdbcType=DECIMAL},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.EnterpriseLoanApplication" >
+    update ENTERPRISE_LOAN_APPLICATION
+    <set >
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ENTERPRISE_LOAN_APPLICATION_ID = #{enterpriseLoanApplicationId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.EnterpriseLoanApplication" >
+    update ENTERPRISE_LOAN_APPLICATION
+    set LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL},
+      MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+    where ENTERPRISE_LOAN_APPLICATION_ID = #{enterpriseLoanApplicationId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getByLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_LOAN_APPLICATION
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getByMainLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_LOAN_APPLICATION
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </select>
+</mapper>

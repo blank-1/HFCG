@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TASK_EXEC_LOG">
+    <insert id="insert" parameterType="com.xt.cfp.core.event.pojo.TaskExecLog">
+        <selectKey keyProperty="taskExecLogId" order="BEFORE" resultType="long">
+            SELECT SEQ_TASK_EXEC_LOG.NEXTVAL as taskExecLogId FROM dual
+        </selectKey>
+        insert into TASK_EXEC_LOG
+        (TASK_EXEC_LOG_ID,EVENT_TRIGGER_ID,TASK_ID,EXEC_TIME,EXEC_RESULT,LOG_INFO)
+        values(#{taskExecLogId,jdbcType=DECIMAL},#{eventTriggerInfoId,jdbcType=DECIMAL},#{taskId,jdbcType=DECIMAL},
+        #{execTime,jdbcType=TIMESTAMP},#{execResult,jdbcType=CHAR},#{logInfo,jdbcType=VARCHAR})
+    </insert>
+</mapper>

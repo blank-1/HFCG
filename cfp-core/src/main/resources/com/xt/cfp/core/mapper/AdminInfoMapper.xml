@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ADMIN_INFO" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.AdminInfo" >
+    <id column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+    <result column="DISPLAY_NAME" property="displayName" jdbcType="VARCHAR" />
+    <result column="ADMIN_CODE" property="adminCode" jdbcType="VARCHAR" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="LOGIN_PWD" property="loginPwd" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_STATE" property="adminState" jdbcType="DECIMAL" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="ADMIN_ID_CODE" property="adminIdCode" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADMIN_ID, DISPLAY_NAME, ADMIN_CODE, LOGIN_NAME, LOGIN_PWD, CREATE_TIME, ADMIN_STATE, 
+    TELEPHONE, EMAIL, ADMIN_ID_CODE, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ADMIN_INFO
+    where ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ADMIN_INFO
+    where ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.AdminInfo" >
+    <selectKey keyProperty="adminId" order="BEFORE" resultType="long">
+      SELECT SEQ_ADMIN_INFO.NEXTVAL as adminId FROM dual
+    </selectKey>
+    insert into ADMIN_INFO (ADMIN_ID, DISPLAY_NAME, ADMIN_CODE, 
+      LOGIN_NAME, LOGIN_PWD, CREATE_TIME, 
+      ADMIN_STATE, TELEPHONE, EMAIL, 
+      ADMIN_ID_CODE, UPDATE_TIME)
+    values (#{adminId,jdbcType=DECIMAL}, #{displayName,jdbcType=VARCHAR}, #{adminCode,jdbcType=VARCHAR}, 
+      #{loginName,jdbcType=VARCHAR}, #{loginPwd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{adminState,jdbcType=DECIMAL}, #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{adminIdCode,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.AdminInfo" >
+    insert into ADMIN_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+      <if test="displayName != null" >
+        DISPLAY_NAME,
+      </if>
+      <if test="adminCode != null" >
+        ADMIN_CODE,
+      </if>
+      <if test="loginName != null" >
+        LOGIN_NAME,
+      </if>
+      <if test="loginPwd != null" >
+        LOGIN_PWD,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="adminState != null" >
+        ADMIN_STATE,
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="adminIdCode != null" >
+        ADMIN_ID_CODE,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="displayName != null" >
+        #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCode != null" >
+        #{adminCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null" >
+        #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminState != null" >
+        #{adminState,jdbcType=DECIMAL},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="adminIdCode != null" >
+        #{adminIdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.AdminInfo" >
+    update ADMIN_INFO
+    <set >
+      <if test="displayName != null" >
+        DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCode != null" >
+        ADMIN_CODE = #{adminCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null" >
+        LOGIN_PWD = #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminState != null" >
+        ADMIN_STATE = #{adminState,jdbcType=DECIMAL},
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="adminIdCode != null" >
+        ADMIN_ID_CODE = #{adminIdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.AdminInfo" >
+    update ADMIN_INFO
+    set DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},
+      ADMIN_CODE = #{adminCode,jdbcType=VARCHAR},
+      LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      LOGIN_PWD = #{loginPwd,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      ADMIN_STATE = #{adminState,jdbcType=DECIMAL},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      ADMIN_ID_CODE = #{adminIdCode,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 分页查询-列表 -->
+  <select id="findAllAdminInfoByPage" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+	select ai.*,ari.ROLE_NAME 
+	from ADMIN_INFO ai left join(
+	  select ar.admin_id,
+	  LISTAGG(ri.ROLE_NAME, ',') WITHIN GROUP(ORDER BY ri.ROLE_NAME) AS ROLE_NAME
+	  from ADMIN_ROLE ar,ROLE_INFO ri 
+	  where ri.ROLE_ID	= ar.ROLE_ID
+	  group by ar.ADMIN_ID
+	) ari 
+	on ai.ADMIN_ID = ari.ADMIN_ID
+	order by ai.ADMIN_ID desc
+  </select>
+  
+  <!-- 分页查询-数量 -->
+  <select id="count_findAllAdminInfoByPage" resultType="int" parameterType="java.util.HashMap">
+    SELECT count(1) from ADMIN_INFO ORDER BY ADMIN_ID DESC
+  </select>
+  
+  <!-- 根据登录名获取员工信息 -->
+  <select id="findAdminByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT 
+    <include refid="Base_Column_List" /> 
+    from ADMIN_INFO where LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

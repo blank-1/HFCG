@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ENTERPRISE_FOUNDATION_SNAPSHOT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.EnterpriseFoundationSnapshot" >
+    <id column="ENTERPRISE_FOUNDATION_ID" property="enterpriseFoundationId" jdbcType="DECIMAL" />
+    <result column="ATTACH_ID" property="attachId" jdbcType="DECIMAL" />
+    <result column="TRADE_BOOK_ID" property="tradeBookId" jdbcType="DECIMAL" />
+    <result column="RISK_TIP_ID" property="riskTipId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="CO_ID" property="coId" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="PROJECT_DESCRIPTION" property="projectDescription" jdbcType="VARCHAR" />
+    <result column="INVESTMENT_TYPE" property="investmentType" jdbcType="VARCHAR" />
+    <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ENTERPRISE_FOUNDATION_ID, ATTACH_ID, CREATE_TIME, LAST_UPDATE_TIME, PROJECT_DESCRIPTION, 
+    INVESTMENT_TYPE,LOAN_APPLICATION_ID,CO_ID,TRADE_BOOK_ID,RISK_TIP_ID, MAIN_LOAN_APPLICATION_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_FOUNDATION_SNAPSHOT
+    where ENTERPRISE_FOUNDATION_ID = #{enterpriseFoundationId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ENTERPRISE_FOUNDATION_SNAPSHOT
+    where ENTERPRISE_FOUNDATION_ID = #{enterpriseFoundationId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.EnterpriseFoundationSnapshot" >
+    <selectKey keyProperty="enterpriseFoundationId" order="BEFORE" resultType="long">
+      SELECT SEQ_ENTERPRISE_FOUNDATION.NEXTVAL as enterpriseFoundationId FROM dual
+    </selectKey>
+    insert into ENTERPRISE_FOUNDATION_SNAPSHOT (ENTERPRISE_FOUNDATION_ID, ATTACH_ID, 
+      CREATE_TIME, LAST_UPDATE_TIME, PROJECT_DESCRIPTION, 
+      INVESTMENT_TYPE,LOAN_APPLICATION_ID,CO_ID,TRADE_BOOK_ID,RISK_TIP_ID,MAIN_LOAN_APPLICATION_ID)
+    values (#{enterpriseFoundationId,jdbcType=DECIMAL}, #{attachId,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{projectDescription,jdbcType=VARCHAR}, 
+      #{investmentType,jdbcType=VARCHAR}, #{loanApplicationId,jdbcType=DECIMAL},#{coId,jdbcType=DECIMAL},#{tradeBookId,jdbcType=DECIMAL},
+      #{riskTipId,jdbcType=DECIMAL}, #{mainLoanApplicationId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.EnterpriseFoundationSnapshot" >
+    insert into ENTERPRISE_FOUNDATION_SNAPSHOT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enterpriseFoundationId != null" >
+        ENTERPRISE_FOUNDATION_ID,
+      </if>
+      <if test="attachId != null" >
+        ATTACH_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="projectDescription != null" >
+        PROJECT_DESCRIPTION,
+      </if>
+      <if test="investmentType != null" >
+        INVESTMENT_TYPE,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="coId != null" >
+        CO_ID,
+      </if>
+      <if test="tradeBookId != null" >
+        TRADE_BOOK_ID,
+      </if>
+      <if test="riskTipId != null" >
+        RISK_TIP_ID,
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enterpriseFoundationId != null" >
+        #{enterpriseFoundationId,jdbcType=DECIMAL},
+      </if>
+      <if test="attachId != null" >
+        #{attachId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectDescription != null" >
+        #{projectDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="investmentType != null" >
+        #{investmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="coId != null" >
+        #{coId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeBookId != null" >
+        #{tradeBookId,jdbcType=DECIMAL},
+      </if>
+      <if test="riskTipId != null" >
+        #{riskTipId,jdbcType=DECIMAL},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.EnterpriseFoundationSnapshot" >
+    update ENTERPRISE_FOUNDATION_SNAPSHOT
+    <set >
+      <if test="attachId != null" >
+        ATTACH_ID = #{attachId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectDescription != null" >
+        PROJECT_DESCRIPTION = #{projectDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="investmentType != null" >
+        INVESTMENT_TYPE = #{investmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="coId != null" >
+        CO_ID = #{coId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeBookId != null" >
+        TRADE_BOOK_ID = #{tradeBookId,jdbcType=DECIMAL},
+      </if>
+      <if test="riskTipId != null" >
+        RISK_TIP_ID = #{riskTipId,jdbcType=DECIMAL},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ENTERPRISE_FOUNDATION_ID = #{enterpriseFoundationId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.EnterpriseFoundationSnapshot" >
+    update ENTERPRISE_FOUNDATION_SNAPSHOT
+    set ATTACH_ID = #{attachId,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      PROJECT_DESCRIPTION = #{projectDescription,jdbcType=VARCHAR},
+      INVESTMENT_TYPE = #{investmentType,jdbcType=VARCHAR},
+      LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      CO_ID = #{coId,jdbcType=DECIMAL},
+      TRADE_BOOK_ID = #{tradeBookId,jdbcType=DECIMAL},
+      RISK_TIP_ID = #{riskTipId,jdbcType=DECIMAL},
+      MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+    where ENTERPRISE_FOUNDATION_ID = #{enterpriseFoundationId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="getByloanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_FOUNDATION_SNAPSHOT
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getByMainLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_FOUNDATION_SNAPSHOT
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </select>
+</mapper>

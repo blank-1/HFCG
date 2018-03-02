@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LEND_PRODUCT_PUBLISH" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LendProductPublish" >
+    <id column="LEND_PRODUCT_PUBLISH_ID" property="lendProductPublishId" jdbcType="DECIMAL" />
+    <result column="LEND_PRODUCT_ID" property="lendProductId" jdbcType="DECIMAL" />
+    <result column="PUBLISH_NAME" property="publishName" jdbcType="VARCHAR" />
+    <result column="PUBLISH_CODE" property="publishCode" jdbcType="VARCHAR" />
+    <result column="PUBLISH_BALANCE_TYPE" property="publishBalanceType" jdbcType="CHAR" />
+    <result column="PUBLISH_BALANCE" property="publishBalance" jdbcType="DECIMAL" />
+    <result column="SOLD_BALANCE" property="soldBalance" jdbcType="DECIMAL" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="PUBLISH_STATE" property="publishState" jdbcType="CHAR" />
+    <result column="PUBLISH_TIME" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="starts_at"    property="startsAt"   jdbcType="VARCHAR" />     
+    <result column="PREHEAT_TIME" property="preheatTime" jdbcType="TIMESTAMP" />
+    <result column="RECOMMEND" property="recommend" jdbcType="VARCHAR" /> 
+    <collection property="publishChannelDetails" column="LEND_PRODUCT_PUBLISH_ID"
+                    select="findChannelDetails"/>
+  </resultMap>
+  
+    <resultMap id="BaseResultMapPublish" type="com.xt.cfp.core.pojo.ext.LendProductPublishVO" >
+    <id column="LEND_PRODUCT_PUBLISH_ID" property="lendProductPublishId" jdbcType="DECIMAL" />
+    <result column="LEND_PRODUCT_ID" property="lendProductId" jdbcType="DECIMAL" />
+    <result column="PUBLISH_NAME" property="publishName" jdbcType="VARCHAR" />
+    <result column="PUBLISH_CODE" property="publishCode" jdbcType="VARCHAR" />
+    <result column="PUBLISH_BALANCE_TYPE" property="publishBalanceType" jdbcType="CHAR" />
+    <result column="PUBLISH_BALANCE" property="publishBalance" jdbcType="DECIMAL" />
+    <result column="SOLD_BALANCE" property="soldBalance" jdbcType="DECIMAL" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="PUBLISH_STATE" property="publishState" jdbcType="CHAR" />
+    <result column="PUBLISH_TIME" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="PREHEAT_TIME" property="preheatTime" jdbcType="TIMESTAMP" />
+    <result column="profit_rate" property="profitRate" jdbcType="VARCHAR" />
+    <result column="profit_rate_max" property="profitRateMax" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" /> 
+	<result column="closing_date" property="closingDate" jdbcType="VARCHAR" />  
+	<result column="starts_at"    property="startsAt"   jdbcType="VARCHAR" />     
+	<result column="closing_type" property="closingType" jdbcType="VARCHAR" />  
+    <result column="TIME_LIMIT_TYPE" property="timeLimitType" jdbcType="CHAR" />
+    <result column="TIME_LIMIT" property="timeLimit" jdbcType="DECIMAL" />
+    <result column="RECOMMEND" property="recommend" jdbcType="VARCHAR" /> 
+    <collection property="publishChannelDetails" column="LEND_PRODUCT_PUBLISH_ID"
+                    select="findChannelDetails"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    LEND_PRODUCT_PUBLISH_ID, LEND_PRODUCT_ID, PUBLISH_NAME, PUBLISH_CODE, PUBLISH_BALANCE_TYPE, RECOMMEND,
+    PUBLISH_BALANCE, SOLD_BALANCE, START_DATE, END_DATE, PUBLISH_STATE, PUBLISH_TIME, PREHEAT_TIME
+  </sql>
+  <sql id="where_findAllLendProductPublishByPage">
+      <if test="lendProductPublishId != null and lendProductPublishId != ''">
+        AND LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId}
+      </if>
+      <if test="lendProductId != null and lendProductId != ''">
+        AND LEND_PRODUCT_ID = #{lendProductId}
+      </if>
+      <if test="publishCode != null and publishCode != ''">
+        AND PUBLISH_CODE = #{publishCode}
+      </if>
+      <if test="publishBalanceType != null and publishBalanceType != ''">
+        AND PUBLISH_BALANCE_TYPE = #{publishBalanceType}
+      </if>
+      <if test="publishState != null and publishState != ''">
+        AND PUBLISH_STATE = #{publishState}
+      </if>
+      <if test="startDate != null and startDate != ''">
+        AND START_DATE >= #{startDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endDate != null and endDate != ''">
+        <![CDATA[
+        AND END_DATE <= #{endDate,jdbcType=TIMESTAMP}
+        ]]>
+      </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LEND_PRODUCT_PUBLISH
+    where LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId,jdbcType=DECIMAL}
+  </select>
+
+
+     <select id="findSXFinanceListForWebCondition" resultMap="BaseResultMapPublish" parameterType="com.xt.cfp.core.pojo.ext.LendProductPublishVO" >
+         <if test="closingDate != null  and closingDate != '' ">
+         with abc as  (  
+				 select lpp.publish_name publish_name,
+				            lpp.publish_code publish_code,
+				            lp.closing_type closing_type,
+				            lp.closing_date closing_date,
+				            lp.starts_at starts_at,
+				            lp.profit_rate profit_rate,
+				            lp.profit_rate_max profit_rate_max,
+				            lpp.publish_state publish_state,
+				            lpp.lend_product_id lend_product_id,
+				            lpp.lend_product_publish_id lend_product_publish_id,
+				            lpp.publish_balance - lpp.sold_balance as money,
+				            lpp.recommend recommend,
+				            lpp.PUBLISH_BALANCE PUBLISH_BALANCE,
+				            lpp.SOLD_BALANCE SOLD_BALANCE,
+				            lpp.PUBLISH_BALANCE_TYPE PUBLISH_BALANCE_TYPE,
+				            lpp.publish_time publish_time,
+				            lp.time_limit  time_limit  
+				  from lend_product_publish lpp
+				  left join lend_product lp on lp.lend_product_id = lpp.lend_product_id
+				 where lp.product_type = 2
+				      <![CDATA[
+					   and (lpp.start_date <= #{now} or
+					       lpp.start_date is null)
+					 ]]>
+		          <if test="profitRate == 2 ">
+		             and lp.to_interest_point in (1,2,3,4,5)
+		          </if>
+		           <if test="profitRate == 3">
+		             and lp.to_interest_point = 6
+		          </if>
+		          <if test="publishName == 1 ">
+		            and lp.time_limit      &lt; 6
+		          </if>
+		          <if test="publishName == 2 ">
+		           and lp.time_limit >=6    and lp.time_limit      &lt; =12    
+		           </if>
+		            <if test="publishName == 3 ">
+		           and lp.time_limit >12    
+		           </if>
+		          <if test="publishCode != null and  publishCode != '' ">
+		          and lp.profit_rate =#{publishCode}
+		          </if>
+		            ) 
+		             select *
+				      from (select *
+				              from abc vo
+				             where vo.publish_state in ('1', '2')
+				             order by vo.publish_state asc, vo.publish_time asc)
+				    union all (select *
+				                 from (select *
+				                         from abc vo1
+				                        where vo1.publish_state in ('3', '4')
+				                        order by vo1.publish_state asc, vo1.publish_time desc))
+         </if>
+         
+          <if test="closingDate == null  || closingDate == '' ">
+          with abc as  (  
+				  select   lpp.publish_name publish_name,
+					            lpp.publish_code publish_code,
+					            lp.closing_type closing_type,
+					            lp.closing_date closing_date,
+					            lp.starts_at starts_at,
+					            lp.profit_rate profit_rate,
+					            lp.profit_rate_max profit_rate_max,
+					            lpp.publish_state publish_state,
+					            lpp.lend_product_id lend_product_id,
+					            lpp.lend_product_publish_id lend_product_publish_id,
+					            lpp.publish_balance - lpp.sold_balance as money,
+					            lpp.recommend recommend,
+					            lpp.PUBLISH_BALANCE PUBLISH_BALANCE,
+					            lpp.SOLD_BALANCE SOLD_BALANCE,
+					            lpp.PUBLISH_BALANCE_TYPE PUBLISH_BALANCE_TYPE,
+					            lpp.publish_time publish_time,
+					            lp.time_limit  time_limit  
+	               from lend_product_publish lpp
+			          left join lend_product lp  on lp.lend_product_id =lpp.lend_product_id
+			          where lp.product_type=2 
+		            <![CDATA[
+					   and (lpp.start_date <= #{now} or
+					       lpp.start_date is null)
+					 ]]>
+		          <if test="profitRate == 2 ">
+		             and lp.to_interest_point in (1,2,3,4,5)
+		          </if>
+		           <if test="profitRate == 3">
+		             and lp.to_interest_point = 6
+		          </if>
+		          <if test="publishName == 1 ">
+		            and lp.time_limit      &lt; 6
+		          </if>
+		          <if test="publishName == 2 ">
+		           and lp.time_limit >=6    and lp.time_limit      &lt; =12    
+		           </if>
+		            <if test="publishName == 3 ">
+		           and lp.time_limit >12    
+		           </if>
+		          <if test="publishCode != null and  publishCode != '' ">
+		          and lp.profit_rate =#{publishCode}
+		          </if>
+		         )  
+		         select *
+				      from (select *
+				              from abc vo
+				             where vo.publish_state in ('1', '2')
+				             order by vo.publish_state asc, vo.publish_time asc)
+				    union all (select *
+				                 from (select *
+				                         from abc vo1
+				                        where vo1.publish_state in ('3', '4')
+				                        order by vo1.publish_state asc, vo1.publish_time desc))
+         </if>
+   	 	</select>
+   	 	
+ 	    <select id="count_FindSXFinanceListForWebConditionCount" resultType="Integer" parameterType="com.xt.cfp.core.pojo.ext.LendProductPublishVO" >
+       	  select count(1)  from lend_product_publish lpp
+          left join lend_product lp  on lp.lend_product_id =lpp.lend_product_id
+          where lp.product_type=2 
+            <![CDATA[
+					   and (lpp.start_date <= #{now} or
+					       lpp.start_date is null)
+					 ]]>
+          <if test="profitRate == 2 ">
+             and lp.to_interest_point in (1,2,3,4,5)
+          </if>
+           <if test="profitRate == 3 ">
+             and lp.to_interest_point = 6
+          </if>
+          <if test="publishName == 1 ">
+            and lp.time_limit      &lt; 6
+          </if>
+          <if test="publishName == 2 ">
+           and lp.time_limit >=6     and lp.time_limit      &lt; =12    
+           </if>
+            <if test="publishName == 3 ">
+           and lp.time_limit >=12    
+           </if>
+          <if test="publishCode != null and  publishCode != '' ">
+          and lp.profit_rate =#{publishCode}
+          </if>
+   	 	</select>
+   	 	   <select id="selectProfitByPrimaryKeyGroup" resultType="BigDecimal" parameterType="com.xt.cfp.core.pojo.LendProductPublish" >
+		   	 	
+							select lp.profit_rate
+							  from lend_product_publish lpp
+							  left join lend_product lp
+							    on lp.lend_product_id = lpp.lend_product_id
+							 where lp.product_type = 2
+			   group by lp.profit_rate order by lp.profit_rate
+		</select>
+  <select id="getLendProductPublishByLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select lpp.* from LEND_PRODUCT_PUBLISH lpp left join LEND_PRODUCT lp
+    on LPP.LEND_PRODUCT_ID = LP.LEND_PRODUCT_ID
+    left join LOAN_PRODUCT loanp on LP.LEND_PRODUCT_ID = LOANP.LEND_PRODUCT_ID
+    left join LOAN_APPLICATION la  on LOANP.LOAN_PRODUCT_ID = LA.LOAN_PRODUCT_ID
+    where LA.LOAN_APPLICATION_ID=#{value} and lpp.PUBLISH_STATE = 2
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LEND_PRODUCT_PUBLISH
+    where LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LendProductPublish" >
+  <selectKey resultType="long" keyProperty="lendProductPublishId" order="BEFORE">
+      select SEQ_LEND_PRO_PUB.nextval as lendProductPublishId from dual
+  </selectKey>
+    insert into LEND_PRODUCT_PUBLISH (LEND_PRODUCT_PUBLISH_ID, LEND_PRODUCT_ID, 
+      PUBLISH_NAME, PUBLISH_CODE, PUBLISH_BALANCE_TYPE, 
+      PUBLISH_BALANCE, SOLD_BALANCE, START_DATE, 
+      END_DATE, PUBLISH_STATE, PUBLISH_TIME, PREHEAT_TIME,RECOMMEND
+      )
+    values (#{lendProductPublishId,jdbcType=DECIMAL}, #{lendProductId,jdbcType=DECIMAL}, 
+      #{publishName,jdbcType=VARCHAR}, #{publishCode,jdbcType=VARCHAR}, #{publishBalanceType,jdbcType=CHAR}, 
+      #{publishBalance,jdbcType=DECIMAL}, #{soldBalance,jdbcType=DECIMAL}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{publishState,jdbcType=CHAR}, #{publishTime,jdbcType=TIMESTAMP},
+      #{preheatTime,jdbcType=TIMESTAMP},#{recommend,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LendProductPublish" >
+    insert into LEND_PRODUCT_PUBLISH
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lendProductPublishId != null" >
+        LEND_PRODUCT_PUBLISH_ID,
+      </if>
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID,
+      </if>
+      <if test="publishName != null" >
+        PUBLISH_NAME,
+      </if>
+      <if test="publishCode != null" >
+        PUBLISH_CODE,
+      </if>
+      <if test="publishBalanceType != null" >
+        PUBLISH_BALANCE_TYPE,
+      </if>
+      <if test="publishBalance != null" >
+        PUBLISH_BALANCE,
+      </if>
+      <if test="soldBalance != null" >
+        SOLD_BALANCE,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="publishState != null" >
+        PUBLISH_STATE,
+      </if>
+      <if test="publishTime != null" >
+        PUBLISH_TIME,
+      </if>
+      <if test="preheatTime != null" >
+        PREHEAT_TIME,
+      </if>
+      <if test="recommend != null" >
+        RECOMMEND,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lendProductPublishId != null" >
+        #{lendProductPublishId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendProductId != null" >
+        #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="publishName != null" >
+        #{publishName,jdbcType=VARCHAR},
+      </if>
+      <if test="publishCode != null" >
+        #{publishCode,jdbcType=VARCHAR},
+      </if>
+      <if test="publishBalanceType != null" >
+        #{publishBalanceType,jdbcType=CHAR},
+      </if>
+      <if test="publishBalance != null" >
+        #{publishBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="soldBalance != null" >
+        #{soldBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishState != null" >
+        #{publishState,jdbcType=CHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preheatTime != null" >
+        #{preheatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recommend != null" >
+        #{recommend,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+    <update id="updateLppStatus" parameterType="com.xt.cfp.core.pojo.LendProductPublish">
+        UPDATE LEND_PRODUCT_PUBLISH lpp
+           SET LPP.PUBLISH_STATE = #{publishState}
+        where LPP.LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId}
+    </update>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LendProductPublish" >
+    update LEND_PRODUCT_PUBLISH
+    <set >
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="publishName != null" >
+        PUBLISH_NAME = #{publishName,jdbcType=VARCHAR},
+      </if>
+      <if test="publishCode != null" >
+        PUBLISH_CODE = #{publishCode,jdbcType=VARCHAR},
+      </if>
+      <if test="publishBalanceType != null" >
+        PUBLISH_BALANCE_TYPE = #{publishBalanceType,jdbcType=CHAR},
+      </if>
+      <if test="publishBalance != null" >
+        PUBLISH_BALANCE = #{publishBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="soldBalance != null" >
+        SOLD_BALANCE = #{soldBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishState != null" >
+        PUBLISH_STATE = #{publishState,jdbcType=CHAR},
+      </if>
+      <if test="publishTime != null" >
+        PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preheatTime != null" >
+        PREHEAT_TIME = #{preheatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recommend != null" >
+        RECOMMEND = #{recommend,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LendProductPublish" >
+    update LEND_PRODUCT_PUBLISH
+    set LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      PUBLISH_NAME = #{publishName,jdbcType=VARCHAR},
+      PUBLISH_CODE = #{publishCode,jdbcType=VARCHAR},
+      PUBLISH_BALANCE_TYPE = #{publishBalanceType,jdbcType=CHAR},
+      PUBLISH_BALANCE = #{publishBalance,jdbcType=DECIMAL},
+      SOLD_BALANCE = #{soldBalance,jdbcType=DECIMAL},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      PUBLISH_STATE = #{publishState,jdbcType=CHAR},
+      PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      RECOMMEND = #{recommend,jdbcType=VARCHAR},
+      PREHEAT_TIME = #{preheatTime,jdbcType=TIMESTAMP}
+    where LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="findBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select lend_pub.* from LEND_PRODUCT_PUBLISH lend_pub
+        <if test="_parameter.containsKey('productType')">
+            ,Lend_Product lend_pro
+        </if>
+
+        where (1=1)
+
+        <if test="_parameter.containsKey('productType')">
+          and lend_pub.lend_Product_Id = lend_pro.lend_Product_Id and lend_pro.product_Type=#{productType}
+        </if>
+        <if test="publishName != null">
+            and lend_pub.publish_Name=#{publishName}
+        </if>
+        <if test="lendProductId != null">
+            and lend_pub.lend_Product_Id=#{lendProductId}
+        </if>
+        <if test="bigEndDate != null">
+            <![CDATA[
+             and lend_pub.endDate < #{bigEndDate,jdbcType=DATE}
+            ]]>
+
+        </if>
+        <if test="startDate != null">
+            and to_char(lend_pub.startDate, 'yyyy-mm-dd') = to_char(#{startDate}, 'yyyy-mm-dd')
+        </if>
+        <if test="publishState != null">
+            and lend_pub.publish_State=#{publishState}
+        </if>
+    </select>
+    
+    <select id="findByLendProductId" parameterType="long" resultMap="BaseResultMap">
+        select * from LEND_PRODUCT_PUBLISH
+            where  lend_Product_Id=#{lendProductId}
+    </select>
+    
+    <select id="findAll" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from LEND_PRODUCT_PUBLISH
+        where lend_Product_Id = #{lendProductId}
+        order by LEND_PRODUCT_PUBLISH_ID desc
+    </select>
+    <select id="countFindAll" parameterType="java.util.Map" resultType="int">
+        select count(1) from LEND_PRODUCT_PUBLISH
+        where lend_Product_Id = #{lendProductId}
+    </select>
+    <select id="findById" parameterType="long" resultMap="BaseResultMap">
+        select * from LEND_PRODUCT_PUBLISH
+        where LEND_PRODUCT_PUBLISH_ID=#{value}
+    </select>
+    
+    <select id="getMaxPublishCodeByLendProductId" parameterType="Long" resultType="Integer">
+        select NVL(max(publish_Code),0) from LEND_PRODUCT_PUBLISH
+        where lend_Product_Id = #{value}
+    </select>
+
+    <select id="getMaxPublishIdByLendProductId" parameterType="Long" resultType="Long">
+        select NVL(max(LEND_PRODUCT_PUBLISH_ID),0) from LEND_PRODUCT_PUBLISH
+        where lend_Product_Id = #{value}
+    </select>
+    
+    <insert id="insertChannelDetail" parameterType="lPPublishChannelDetail" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="lpPublishChannelDetailId" order="BEFORE">
+            select SEQ_LP_PUB_CHANNEL_DETAIL.nextval as lpPublishChannelDetailId from dual
+        </selectKey>
+        INSERT INTO LP_PUBLISH_CHANNEL_DETAIL
+        (LP_PUBLISH_CHANNEL_DETAIL_ID,LEND_PRODUCT_PUBLISH_ID,CHANNEL,PUBLISH_BALANCE,PUBLISH_BALANCE_TYPE)
+        VALUES
+        (#{lpPublishChannelDetailId},#{lendProductPublishId},#{channel},#{publishBalance},#{publishBalanceType})
+    </insert>
+    
+    <select id="findChannelDetails" parameterType="long" resultMap="LP_PUBLISH_CHANNEL_DETAIL.BaseResultMap">
+        select * from LP_PUBLISH_CHANNEL_DETAIL
+        where lend_Product_Publish_Id = #{value}
+    </select>
+
+    <select id="getAndLockPublishById" parameterType="long" resultMap="BaseResultMap">
+        SELECT *
+          FROM LEND_PRODUCT_PUBLISH p
+         WHERE P.LEND_PRODUCT_PUBLISH_ID = #{value}
+        FOR UPDATE
+    </select>
+    
+    <select id="findAllBy" parameterType="com.xt.cfp.core.pojo.LendProductPublish" resultMap="BaseResultMap">
+        select * from LEND_PRODUCT_PUBLISH
+        where 1=1
+	    <include refid="where_findAllLendProductPublishByPage"/>
+        order by LEND_PRODUCT_PUBLISH_ID desc
+    </select>
+  
+  <!-- 根据发布状态和借款产品ID，查询出借产品发布明细 -->
+  <select id="getByPublishStateAndLendProductId" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.LendProductPublish" >
+    select 
+    <include refid="Base_Column_List" />
+    from LEND_PRODUCT_PUBLISH
+    where PUBLISH_STATE = #{publishState,jdbcType=CHAR} 
+    and LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL}
+    order by LEND_PRODUCT_PUBLISH_ID desc
+  </select>
+    
+    <!-- 查询理财发布产品 状态为未开始和进行中  -->
+    <select id="getFinanceBids" resultMap="BaseResultMap">
+    	select lpp.*
+			  from lend_product_publish lpp, lend_product lp
+			  where lp.lend_product_id = lpp.lend_product_id
+			    and lp.product_type = '2'
+			    and lpp.publish_state in ('1', '2') 
+			    and (lpp.start_date is not null or lpp.end_date is not null)
+    </select>
+ </mapper>

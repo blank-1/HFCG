@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RATE_USER" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RateUser" >
+    <id column="RATE_USER_ID" property="rateUserId" jdbcType="DECIMAL" />
+    <result column="RATE_PRODUCT_ID" property="rateProductId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="SOURCE" property="source" jdbcType="CHAR" />
+    <result column="TOTAL_TIMES" property="totalTimes" jdbcType="DECIMAL" />
+    <result column="USED_TIMES" property="usedTimes" jdbcType="DECIMAL" />
+    <result column="SURPLUS_TIMES" property="surplusTimes" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="rateUserVO" type="com.xt.cfp.core.pojo.ext.RateUserVO" extends="BaseResultMap">
+  	<result column="loginName" property="loginName" jdbcType="VARCHAR" />
+  	<result column="realName" property="realName" jdbcType="VARCHAR" />
+  	<result column="mobileNo" property="mobileNo" jdbcType="VARCHAR" />
+  	<result column="rateProductName" property="rateProductName" jdbcType="VARCHAR" />
+    <result column="rateValue" property="rateValue" jdbcType="DECIMAL" />
+    <result column="usageScenario" property="usageScenario" jdbcType="CHAR" />
+    <result column="condition" property="condition" jdbcType="VARCHAR" />
+    <result column="isOverlay" property="isOverlay" jdbcType="CHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    RATE_USER_ID, RATE_PRODUCT_ID, USER_ID, SOURCE, TOTAL_TIMES, USED_TIMES, SURPLUS_TIMES, 
+    STATUS, START_DATE, END_DATE, ADMIN_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from RATE_USER
+    where RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL}
+    <if test="lock != null">
+      for update
+    </if>
+  </select>
+  <select id="getRateUserById" resultMap="BaseResultMap" parameterType="java.lang.Long"  >
+    select 
+    <include refid="Base_Column_List" />
+    from RATE_USER
+    where RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL}
+  </select>
+    <select id="getNextPK" resultType="long" >
+    	SELECT SEQ_RATE_USER.NEXTVAL FROM dual
+  	</select>
+   <select id="selectRateUserNotDeadLineByPrimaryKey" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.RateUser">
+    select 
+    <include refid="Base_Column_List" />
+    from RATE_USER r where  r.end_date &lt; #{startDate,jdbcType=TIMESTAMP} and  r.status !=2 and r.status !=3
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RATE_USER
+    where RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.RateUser" >
+  	<selectKey keyProperty="rateUserId" order="BEFORE" resultType="long">
+      SELECT SEQ_RATE_USER.NEXTVAL as rateUserId FROM dual
+    </selectKey>
+    insert into RATE_USER (RATE_USER_ID, RATE_PRODUCT_ID, USER_ID, 
+      SOURCE, TOTAL_TIMES, USED_TIMES, 
+      SURPLUS_TIMES, STATUS, START_DATE, 
+      END_DATE, ADMIN_ID)
+    values (#{rateUserId,jdbcType=DECIMAL}, #{rateProductId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{source,jdbcType=CHAR}, #{totalTimes,jdbcType=DECIMAL}, #{usedTimes,jdbcType=DECIMAL}, 
+      #{surplusTimes,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{adminId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.RateUser" >
+    insert into RATE_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rateUserId != null" >
+        RATE_USER_ID,
+      </if>
+      <if test="rateProductId != null" >
+        RATE_PRODUCT_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="source != null" >
+        SOURCE,
+      </if>
+      <if test="totalTimes != null" >
+        TOTAL_TIMES,
+      </if>
+      <if test="usedTimes != null" >
+        USED_TIMES,
+      </if>
+      <if test="surplusTimes != null" >
+        SURPLUS_TIMES,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rateUserId != null" >
+        #{rateUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="rateProductId != null" >
+        #{rateProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=CHAR},
+      </if>
+      <if test="totalTimes != null" >
+        #{totalTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="usedTimes != null" >
+        #{usedTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusTimes != null" >
+        #{surplusTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.RateUser" >
+    update RATE_USER
+    <set >
+      <if test="rateProductId != null" >
+        RATE_PRODUCT_ID = #{rateProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="source != null" >
+        SOURCE = #{source,jdbcType=CHAR},
+      </if>
+      <if test="totalTimes != null" >
+        TOTAL_TIMES = #{totalTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="usedTimes != null" >
+        USED_TIMES = #{usedTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusTimes != null" >
+        SURPLUS_TIMES = #{surplusTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RateUser" >
+    update RATE_USER
+    set RATE_PRODUCT_ID = #{rateProductId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      SOURCE = #{source,jdbcType=CHAR},
+      TOTAL_TIMES = #{totalTimes,jdbcType=DECIMAL},
+      USED_TIMES = #{usedTimes,jdbcType=DECIMAL},
+      SURPLUS_TIMES = #{surplusTimes,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=CHAR},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+    where RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL}
+  </update>
+  
+  
+  <!-- 加息券发放分页列表（数据） -->
+  <select id="getRateUserPaging" resultMap="rateUserVO" parameterType="map" >
+	select ru.*, ui.LOGIN_NAME as loginName, uix.REAL_NAME realName, uix.MOBILE_NO mobileNo, 
+	rp.RATE_PRODUCT_NAME as rateProductName, rp.RATE_VALUE as rateValue, rp.USAGE_SCENARIO as usageScenario, rp.CONDITION as condition
+	from RATE_USER ru
+	left join RATE_PRODUCT rp on ru.RATE_PRODUCT_ID = rp.RATE_PRODUCT_ID
+	left join USER_INFO_EXT uix on ru.USER_ID = uix.USER_ID
+	left join USER_INFO ui on ru.USER_ID = ui.USER_ID
+    <include refid="where_getRateUserPaging"/>
+    order by ru.RATE_USER_ID desc
+  </select>
+  
+  <!-- 加息券发放分页列表（数量） -->
+  <select id="count_getRateUserPaging" resultType="int" parameterType="map" >
+	select count(1) 
+	from RATE_USER ru
+	left join RATE_PRODUCT rp on ru.RATE_PRODUCT_ID = rp.RATE_PRODUCT_ID
+	left join USER_INFO_EXT uix on ru.USER_ID = uix.USER_ID
+	left join USER_INFO ui on ru.USER_ID = ui.USER_ID
+    <include refid="where_getRateUserPaging"/>
+  </select>
+  
+  <!-- 加息券发放分页列表（条件） -->
+  <sql id="where_getRateUserPaging">
+	where 1=1
+	<if test="rateUser != null">
+        
+    </if>
+    
+	<if test="customParams != null">
+		<if test="customParams.userName != null and customParams.userName != ''">
+          AND ui.LOGIN_NAME like '%${customParams.userName}%'
+        </if>
+        <if test="customParams.mobileNo != null and customParams.mobileNo != ''">
+          AND uix.MOBILE_NO = #{customParams.mobileNo}
+        </if>
+        <if test="customParams.usageScenario != null and customParams.usageScenario != ''">
+          AND rp.USAGE_SCENARIO = #{customParams.usageScenario}
+        </if>
+        <if test="customParams.status != null and customParams.status != ''">
+          AND ru.STATUS = #{customParams.status}
+        </if>
+	</if>
+  </sql>
+  
+  <!-- 批量添加（开始） -->
+  <insert id="addRateUserBatch"  parameterType="map">
+    insert into RATE_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        RATE_USER_ID,
+      <if test="rateUser.rateProductId != null" >
+        RATE_PRODUCT_ID,
+      </if>
+      <if test="rateUser.userId != null" >
+        USER_ID,
+      </if>
+      <if test="rateUser.source != null" >
+        SOURCE,
+      </if>
+      <if test="rateUser.totalTimes != null" >
+        TOTAL_TIMES,
+      </if>
+      <if test="rateUser.usedTimes != null" >
+        USED_TIMES,
+      </if>
+      <if test="rateUser.surplusTimes != null" >
+        SURPLUS_TIMES,
+      </if>
+      <if test="rateUser.status != null" >
+        STATUS,
+      </if>
+      <if test="rateUser.startDate != null" >
+        START_DATE,
+      </if>
+      <if test="rateUser.endDate != null" >
+        END_DATE,
+      </if>
+      <if test="rateUser.adminId != null" >
+        ADMIN_ID,
+      </if>
+    </trim>
+  <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+    select
+    <trim suffixOverrides="," >
+        #{item.rateUserId,jdbcType=DECIMAL},
+      <if test="rateUser.rateProductId != null" >
+        #{item.rateProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUser.userId != null" >
+        #{item.userId,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUser.source != null" >
+        #{item.source,jdbcType=CHAR},
+      </if>
+      <if test="rateUser.totalTimes != null" >
+        #{item.totalTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUser.usedTimes != null" >
+        #{item.usedTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUser.surplusTimes != null" >
+        #{item.surplusTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUser.status != null" >
+        #{item.status,jdbcType=CHAR},
+      </if>
+      <if test="rateUser.startDate != null" >
+        #{item.startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rateUser.endDate != null" >
+        #{item.endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rateUser.adminId != null" >
+        #{item.adminId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+    from dual
+  </foreach>
+  </insert>
+  <!-- 批量添加（结束） -->
+  <select id="findRateUsersByUserId" resultMap="rateUserVO" parameterType="map" >
+    SELECT RU.*, RP.RATE_VALUE as rateValue,rp.CONDITION as condition,rp.IS_OVERLAY as isOverlay
+	  FROM RATE_USER RU, RATE_PRODUCT RP
+	 WHERE RU.RATE_PRODUCT_ID = RP.RATE_PRODUCT_ID
+	   AND RU.SURPLUS_TIMES > 0
+       AND RU.USER_ID = #{userId,jdbcType=DECIMAL}
+	    <if test="status != null">
+	      and RU.status in  
+	      <foreach collection="status" item="statu" open="(" separator="," close=")">
+	          #{statu}
+	      </foreach>
+	    </if>
+	    <if test="nowDate != null">
+			<![CDATA[AND to_date(to_char(ru.START_DATE,'yyyy-MM-dd'),'yyyy-MM-dd') <= to_date(to_char(#{nowDate},'yyyy-MM-dd'),'yyyy-MM-dd')]]>
+			<![CDATA[AND to_date(to_char(ru.END_DATE,'yyyy-MM-dd'),'yyyy-MM-dd') >= to_date(to_char(#{nowDate},'yyyy-MM-dd'),'yyyy-MM-dd')]]>
+		</if>
+  </select>
+  
+  <!-- 根据加息券产品ID，查询发放数量 -->
+  <select id="getCountByRateProductId" resultType="int" parameterType="java.lang.Long" >
+  	select count(1) from RATE_USER ru where ru.RATE_PRODUCT_ID = #{rateProductId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- 更改加息券发放表状态 -->
+  <update id="changeRateUserStatus" parameterType="map" >
+    update RATE_USER
+    set STATUS = #{status,jdbcType=CHAR}
+    where RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 查询用户即将到期加息券数量 -->
+  <select id="getRateUserExpireCountByUserId" resultType="int" parameterType="map" >
+  	 select count(1) from RATE_USER ru 
+	 where (ru.STATUS = '0' or ru.STATUS = '1') 
+	 and ru.SURPLUS_TIMES > 0 
+	 and ru.USER_ID = #{userId}
+	 <![CDATA[  and to_date(to_char(ru.END_DATE ,'yyyy-MM-dd'),'yyyy-MM-dd') - to_date(to_char(#{nowDate} ,'yyyy-MM-dd'),'yyyy-MM-dd') = 3 ]]>
+  </select>
+  
+</mapper>

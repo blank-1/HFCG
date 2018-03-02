@@ -1,0 +1,146 @@
+@charset "utf-8";
+/* CSS Document */
+/*公共css*/
+.pjred{color: #fc5f65;}
+.pjBred{background: #fc5f65;color: #fff;border-radius: 4px;}
+.pjTip{color: #b0d3fb;}
+.pjWrong{color: #ff982b;}
+/*详情页css*/
+body,html{width: 100%;height:100%;background: #f5f5f5;}
+.l_title{width: 90%;height: 3rem;line-height: 3rem;font-size: 1.2rem;color: #333;text-indent: 2.4rem;margin-left: 5%;position: relative;}
+.l_title::before{position: absolute;width: 1.4rem;height: 1.4rem;background: #fc5f65;font-weight: normal;color: #fff;font-size: 1rem;line-height: 1.4rem;text-align: center;top: 50%;margin-top: -.7rem;left:0;text-indent: 0;border-radius: 2px;}
+.l_title_sheng{content: "省";}
+header{width: 100%;height: auto;overflow: hidden;background: #fff;border-top: solid 1px #e6e6e6;box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.1);}
+.dingxiang header{background: url(../images/icon/icon_dingxiang.png) 100% -0.8rem no-repeat #fff!important;background-size: 6rem!important;}
+header ul{width: 100%;height: auto;overflow: hidden;}
+header ul li{width: 100%}
+.l_headerInfo1{height: 10rem;position: relative;border-bottom: solid 1px #f4f4f4;}
+.l_headerInfo1>p:first-of-type{width: 100%;height: 4.5rem;text-align: center;font-size:2rem;line-height: 6rem;}
+.l_headerInfo1>p:first-of-type i{font-size: 3rem;}
+.l_headerInfo1>p:last-of-type{width: 10rem;height: 3rem;font-size: 1.2rem;text-align: center;line-height: 3rem;margin-left: -webkit-calc(50% - 5rem);margin-left: -moz-calc(50% - 5rem);margin-left: -ms-calc(50% - 5rem);margin-left: calc(50% - 5rem);position: relative;}
+.l_headerInfo1>p:last-of-type::before,.l_headerInfo1>p:last-of-type::after{content: "";position: absolute;width: 3rem;height: 1px;background: #ff5e61;top: 50%;/* margin-top: -1px; */}
+.l_headerInfo1>p:last-of-type::before{left: -2.8rem;}
+.l_headerInfo1>p:last-of-type::after{right: -2.8rem;}
+.l_headerInfo2,.l_headerInfo3,.l_headerInfo4{width: 33%;float: left;height: 5rem;}
+.l_headerInfo2 p,.l_headerInfo3 p,.l_headerInfo4 p{width: 100%;text-align: center;font-size: 1.2rem;color: #333;margin: 1rem 0;}
+.l_headerInfo2 p i,.l_headerInfo3 p i,.l_headerInfo4 p i{font-size: 1rem;}
+.l_tipIcon{position:relative;}
+.l_tipIcon::after{content: "";position: absolute;width: 5rem;height: 1.4rem;color: #fff;line-height: 1.4rem;text-align: center;padding-left: .6rem;font-size: 1rem;background: url(../images/icon/icon_tips.png) left no-repeat;background-size: 100% 100%;top: 4%;z-index: 9;right: -6rem;transform-origin: left center;-webkit-transform-origin: left center;-moz-transform-origin: left center;	-webkit-animation: tipicon 5s linear infinite; -moz-animation: tipicon 5s linear infinite; animation: tipicon 5s linear infinite;}
+.l_hasDone::after{content: "已结清"}
+.l_backing::after{content: "回款中"}
+.l_freeze::after{content: "已冻结"}
+.l_hasSheng::after{content: "已生效"}
+.l_hasZhuan::after{content: "已转出"}
+.l_shenqingZhuan::after{content: "申请转出"}
+.l_hasDian::after{content: "已转出"}
+.l_zhuanIng::after{content: "转让中"}
+.l_hasDoneper::after{content: "提前结清"}
+.l_headerInfo2 p:first-child,.l_headerInfo3 p:first-child,.l_headerInfo4 p:first-child{margin-bottom: 0}
+.l_headerInfo2 p:last-child,.l_headerInfo3 p:last-child,.l_headerInfo4 p:last-child{margin-top: 0}
+.l_headerInfo1 font{ color: #666; position: absolute; bottom: 1rem; left: 0; width: 100%; text-align: center; }
+.l_midInfo{width: 100%;height: auto;margin-top: 1.4rem;background: #fff;}
+.l_midInfo ul li{width: 100%;font-size: 1rem;color: #333;text-align: center;border-bottom: solid 1px #e6e6e6;height: 3ren;line-height: 3rem;overflow: hidden;}
+.l_midInfo ul li p{width: 33.33%;height: 3rem;float:left;}
+.dingxiang .l_inputPassword{display: block;position: absolute;top: 0;left: 0;z-index: 9;width: 100%;height: 8rem;background: #fff;}
+.swal2-modal h2{font-size: 1.2rem!important;}
+.l_zName{display: none;}
+.l_addM font{bottom: 2.4rem;}
+.l_addM .l_zName{bottom: .6rem;display: block;}
+.l_addM .l_headerInfo1{height: 12rem;}
+
+@keyframes tipicon {
+  2%{
+    transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+  }
+  4%{
+    transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    -moz-transform: rotate(-15deg);
+  }
+  6%{
+    transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+  }
+  8%{
+    transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    -moz-transform: rotate(-15deg);
+  }
+  10%{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes tipicon {
+  2%{
+    transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+  }
+  4%{
+    transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    -moz-transform: rotate(-15deg);
+  }
+  6%{
+    transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+  }
+  8%{
+    transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    -moz-transform: rotate(-15deg);
+  }
+  10%{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+  }
+}
+@-moz-keyframes tipicon {
+  2%{
+    transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+  }
+  4%{
+    transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    -moz-transform: rotate(-15deg);
+  }
+  6%{
+    transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+  }
+  8%{
+    transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    -moz-transform: rotate(-15deg);
+  }
+  10%{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+  }
+}

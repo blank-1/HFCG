@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="APP_START_PAGE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.AppStartPage" >
+    <id column="APP_START_PAGE_ID" property="appStartPageId" jdbcType="DECIMAL" />
+    <result column="APP_TYPE" property="appType" jdbcType="CHAR" />
+    <result column="PAGE_TITLE" property="pageTitle" jdbcType="VARCHAR" />
+    <result column="PIC_URL" property="picUrl" jdbcType="VARCHAR" />
+    <result column="PIC_PATH" property="picPath" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+    <result column="ADMIN_DISPLAY_NAME" property="adminDisplayName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    APP_START_PAGE_ID, APP_TYPE, PAGE_TITLE, PIC_URL, PIC_PATH, STATUS, UPDATE_TIME, 
+    ADMIN_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    asp.*,
+    (select ai.DISPLAY_NAME from ADMIN_INFO ai where ai.ADMIN_ID = asp.ADMIN_ID) as ADMIN_DISPLAY_NAME
+    from APP_START_PAGE asp
+    where APP_START_PAGE_ID = #{appStartPageId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from APP_START_PAGE
+    where APP_START_PAGE_ID = #{appStartPageId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.AppStartPage" >
+    <selectKey keyProperty="appStartPageId" order="BEFORE" resultType="long">
+      SELECT SEQ_APP_START_PAGE.NEXTVAL as appStartPageId FROM dual
+    </selectKey>
+    insert into APP_START_PAGE (APP_START_PAGE_ID, APP_TYPE, PAGE_TITLE, 
+      PIC_URL, PIC_PATH, STATUS, 
+      UPDATE_TIME, ADMIN_ID)
+    values (#{appStartPageId,jdbcType=DECIMAL}, #{appType,jdbcType=CHAR}, #{pageTitle,jdbcType=VARCHAR}, 
+      #{picUrl,jdbcType=VARCHAR}, #{picPath,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{adminId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.AppStartPage" >
+    insert into APP_START_PAGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appStartPageId != null" >
+        APP_START_PAGE_ID,
+      </if>
+      <if test="appType != null" >
+        APP_TYPE,
+      </if>
+      <if test="pageTitle != null" >
+        PAGE_TITLE,
+      </if>
+      <if test="picUrl != null" >
+        PIC_URL,
+      </if>
+      <if test="picPath != null" >
+        PIC_PATH,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appStartPageId != null" >
+        #{appStartPageId,jdbcType=DECIMAL},
+      </if>
+      <if test="appType != null" >
+        #{appType,jdbcType=CHAR},
+      </if>
+      <if test="pageTitle != null" >
+        #{pageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="picPath != null" >
+        #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.AppStartPage" >
+    update APP_START_PAGE
+    <set >
+      <if test="appType != null" >
+        APP_TYPE = #{appType,jdbcType=CHAR},
+      </if>
+      <if test="pageTitle != null" >
+        PAGE_TITLE = #{pageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        PIC_URL = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="picPath != null" >
+        PIC_PATH = #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where APP_START_PAGE_ID = #{appStartPageId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.AppStartPage" >
+    update APP_START_PAGE
+    set APP_TYPE = #{appType,jdbcType=CHAR},
+      PAGE_TITLE = #{pageTitle,jdbcType=VARCHAR},
+      PIC_URL = #{picUrl,jdbcType=VARCHAR},
+      PIC_PATH = #{picPath,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+    where APP_START_PAGE_ID = #{appStartPageId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 根据App类型获取数据 -->
+  <select id="getByAppType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from APP_START_PAGE
+    where APP_TYPE = #{appType,jdbcType=CHAR}
+  </select>
+  
+  <!-- 分页查询-列表 -->
+  <select id="findAppStartPageByPage" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+	select 
+    asp.*,
+    (select ai.DISPLAY_NAME from ADMIN_INFO ai where ai.ADMIN_ID = asp.ADMIN_ID) as ADMIN_DISPLAY_NAME
+    from APP_START_PAGE asp
+    order by asp.APP_START_PAGE_ID desc
+  </select>
+  
+  <!-- 分页查询-数量 -->
+  <select id="count_findAppStartPageByPage" resultType="int" parameterType="java.util.HashMap">
+    select count(1) from APP_START_PAGE
+  </select>
+</mapper>

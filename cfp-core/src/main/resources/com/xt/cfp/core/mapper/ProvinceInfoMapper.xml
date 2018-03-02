@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PROVINCE_INFO" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.ProvinceInfo" >
+    <id column="PROVINCE_ID" property="provinceId" jdbcType="DECIMAL" />
+    <result column="PROVINCE_NAME" property="provinceName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PROVINCE_ID, PROVINCE_NAME
+  </sql>
+  <select id="getAllProvinceInfo" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROVINCE_INFO
+  </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from PROVINCE_INFO
+        where PROVINCE_ID=#{provinceId}
+    </select>
+</mapper>

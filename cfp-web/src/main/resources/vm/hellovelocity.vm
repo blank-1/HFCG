@@ -1,0 +1,17 @@
+<html>
+<title>hello！Lizhiwo_wo！</title>
+<body>
+    #set($foo = "Velocity")
+Hello $foo World!  欢迎您~~~~~~~~~~~~
+<table>
+    <tr>
+        <td>ID</td><td>姓名</td><td>地址</td>
+    </tr>
+##    #foreach ($s in $listBean)
+##        <tr>
+##            <td>$s.userId</td><td>$s.userName</td><td>$s.address</td>
+##        </tr>
+##    #end
+</table>
+</body>
+</html>

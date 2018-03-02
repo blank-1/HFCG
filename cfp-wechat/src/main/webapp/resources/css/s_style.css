@@ -1,0 +1,146 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{
+	margin: 0;padding:0;
+	list-style: none;
+}
+*{/* 去除高亮 */
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
+	-webkit-user-select: none;
+	-moz-user-focus: none;
+	-moz-user-select: none;
+}
+body,html{
+	width: 100%;
+	height: 100%;
+	/* overflow: hidden; */
+	position: relative;
+	background: #f5f9fa;
+}
+html{
+	font-size:62.5%;
+}
+.wrapper{
+	width:100%;
+	height: 100%;
+	z-index: 1;
+	position: absolute;
+}
+.scroller{
+    width:100%;
+    height: auto;
+    padding-top:3rem;
+}
+.scroller ul li{
+	height:4rem;
+	border-bottom:1px #E1E3EB solid;
+	padding:1rem;
+	background: #fff;
+}
+.scroller ul li dl dt{
+	width:50%;
+	float:left;
+	line-height:2rem;
+	text-align:left;
+}
+.scroller ul li dl dt .s_money{
+	font-size:1.6rem;
+	color:#47A9DB;
+}
+.scroller ul li dl dt .s_describe{
+	font-size:1.2rem;
+	color:#a4adbe;
+}
+.scroller ul li dl dt .s_username{
+	font-size:1.6rem;
+	color:#878F9F;
+}
+.scroller ul li dl dd{
+	width:50%;
+	float:right;
+	line-height:2rem;
+	text-align:right;
+}
+.scroller ul li dl dd img{
+	width:7rem;
+}
+.scroller ul li dl dd .s_time{
+	font-size:1.2rem;
+	color:#a4adbe;
+}
+.scroller ul li dl dd .s_user{
+	font-size:1.6rem;
+	color:#7C8597;
+}
+
+.scroller .s_invitation_list li{
+	height:6rem;
+	padding:0rem 1rem;
+}
+
+.scroller .s_invitation_list li dt{
+	padding:1rem 0rem;
+}
+
+.actGotop{
+	width:4rem;
+	height:4rem;
+	position:fixed;
+	bottom:1rem;
+	right:1rem;
+	z-index:999;
+}
+.actGotop img{
+	width:4rem;
+	height:4rem;
+}
+.l_lastTips{width: 100%; height: 60px; line-height: 60px; font-size: 1.4rem; color: #ccc; text-align:center; }
+.l_tab{width: 100%;height: 3rem;background: #fff;border-bottom:solid 1px #ccc; position:fixed; top:0; left:0;overflow: hidden;z-index: 999999;padding-bottom: 3px;}
+.l_tab span{width: 25%;height: 3rem;line-height:3rem;display: block;float: left;color: #afafaf;font-size: 1.4rem;text-align: center;}
+.l_tabFocus{border-bottom:solid 3px #f4536e;color: #4b4b4b!important;font-weight: bolder;}
+.scroller p.s_money{padding-left: 3.5rem;position: relative;}
+
+
+li[data-level="1"] p.s_money::before{content: "一级";display: block;width: 3rem;height: 1.6rem;line-height: 1.6rem;background: #ecc580;border-radius:1.6rem;text-align: center;color: #fff;position: absolute;left: 0;top:0.2rem;font-size: 1.2rem;}
+li[data-level="2"] p.s_money::before{content: "二级";display: block;width: 3rem;height: 1.6rem;line-height: 1.6rem;background: #c9d1d7;border-radius:1.6rem;text-align: center;color: #fff;position: absolute;left: 0;top:0.2rem;font-size: 1.2rem;}
+li[data-level="3"] p.s_money::before{content: "三级";display: block;width: 3rem;height: 1.6rem;line-height: 1.6rem;background: #d5a677;border-radius:1.6rem;text-align: center;color: #fff;position: absolute;left: 0;top:0.2rem;font-size: 1.2rem;}
+
+.l_noData{
+  width: 100%;
+  text-align: center;
+  display: none;
+}
+.l_noData img{
+  width: 50%;
+  margin: 10% 0 0 0;
+}
+.l_noData p{
+  text-align: center;
+  font-size: 1.6rem;
+  color: #777778;
+  margin: 15% 0;
+}
+.l_noData a{
+  display: block;
+  width: 40%;
+  border: solid 1px #3bc2ff;  /*20151215财富派官微颜色修改需求 By Liumiao*/
+  color: #3bc2ff;   /*20151215财富派官微颜色修改需求 By Liumiao*/
+  font-size: 2rem;
+  margin: 25% 30%;
+}
+.w_noDate{
+	width:60%;
+	position:absolute;
+	left:50%;
+	top:30%;
+	margin:  0 -30%;
+}
+.w_noDate img{
+	width:100%;
+	height:100%;	
+}
+
+
+
+

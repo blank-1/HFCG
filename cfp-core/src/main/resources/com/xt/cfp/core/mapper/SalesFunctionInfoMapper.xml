@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SL_FUNCTION_INFO" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.SalesFunctionInfo" >
+    <id column="FUNCTION_ID" property="functionId" jdbcType="DECIMAL" />
+    <result column="FUNCTION_CODE" property="functionCode" jdbcType="VARCHAR" />
+    <result column="FUNCTION_NAME" property="functionName" jdbcType="VARCHAR" />
+    <result column="FUNCTION_DESC" property="functionDesc" jdbcType="VARCHAR" />
+    <result column="P_FUNCTION_ID" property="pFunctionId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FUNCTION_ID, FUNCTION_CODE, FUNCTION_NAME, FUNCTION_DESC, P_FUNCTION_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from SL_FUNCTION_INFO
+    where FUNCTION_ID = #{functionId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from SL_FUNCTION_INFO
+    where FUNCTION_ID = #{functionId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.SalesFunctionInfo" >
+    <selectKey keyProperty="functionId" order="BEFORE" resultType="long">
+      SELECT SEQ_SL_FUNCTION_INFO.NEXTVAL as functionId FROM dual
+    </selectKey>
+    insert into SL_FUNCTION_INFO (FUNCTION_ID, FUNCTION_CODE, FUNCTION_NAME, 
+      FUNCTION_DESC, P_FUNCTION_ID)
+    values (#{functionId,jdbcType=DECIMAL}, #{functionCode,jdbcType=VARCHAR}, #{functionName,jdbcType=VARCHAR}, 
+      #{functionDesc,jdbcType=VARCHAR}, #{pFunctionId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.SalesFunctionInfo" >
+    insert into SL_FUNCTION_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="functionId != null" >
+        FUNCTION_ID,
+      </if>
+      <if test="functionCode != null" >
+        FUNCTION_CODE,
+      </if>
+      <if test="functionName != null" >
+        FUNCTION_NAME,
+      </if>
+      <if test="functionDesc != null" >
+        FUNCTION_DESC,
+      </if>
+      <if test="pFunctionId != null" >
+        P_FUNCTION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="functionId != null" >
+        #{functionId,jdbcType=DECIMAL},
+      </if>
+      <if test="functionCode != null" >
+        #{functionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionName != null" >
+        #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="functionDesc != null" >
+        #{functionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pFunctionId != null" >
+        #{pFunctionId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.SalesFunctionInfo" >
+    update SL_FUNCTION_INFO
+    <set >
+      <if test="functionCode != null" >
+        FUNCTION_CODE = #{functionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionName != null" >
+        FUNCTION_NAME = #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="functionDesc != null" >
+        FUNCTION_DESC = #{functionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pFunctionId != null" >
+        P_FUNCTION_ID = #{pFunctionId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where FUNCTION_ID = #{functionId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.SalesFunctionInfo" >
+    update SL_FUNCTION_INFO
+    set FUNCTION_CODE = #{functionCode,jdbcType=VARCHAR},
+      FUNCTION_NAME = #{functionName,jdbcType=VARCHAR},
+      FUNCTION_DESC = #{functionDesc,jdbcType=VARCHAR},
+      P_FUNCTION_ID = #{pFunctionId,jdbcType=DECIMAL}
+    where FUNCTION_ID = #{functionId,jdbcType=DECIMAL}
+  </update>
+
+
+  <!-- 查询所有 -->
+  <select id="findAllFunction" resultMap="BaseResultMap">
+    select * from SL_FUNCTION_INFO
+  </select>
+
+  <!-- 根据父ID查询 -->
+  <select id="findFunctionByPid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from SL_FUNCTION_INFO
+    where P_FUNCTION_ID = #{pFunctionId,jdbcType=DECIMAL}
+  </select>
+
+  <!-- 根据Code查询 -->
+  <select id="findFunctionByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from SL_FUNCTION_INFO
+    where FUNCTION_CODE = #{pFunctionId,jdbcType=VARCHAR}
+  </select>
+
+  <!-- 根据角色ID查询权限列表 -->
+  <select id="findFunctionByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    fi.*
+    from SL_FUNCTION_INFO fi, SL_ROLE_FUNCTION rf
+    where fi.FUNCTION_ID = rf.FUNCTION_ID
+    and rf.ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </select>
+</mapper>

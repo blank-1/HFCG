@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CRM_FRAN_EMP" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CrmFranEmp" >
+    <id column="STAFF_ID" property="staffId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="FRANCHISE_ID" property="franchiseId" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="join_time" property="joinTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="StaffVO" type="com.xt.cfp.core.pojo.ext.crm.StaffVO" >
+    <result column="staff_id" property="id" jdbcType="DECIMAL" />
+    <result column="real_name" property="name" jdbcType="VARCHAR" />
+    <result column="mobile_no" property="mobile" jdbcType="VARCHAR" />
+    <result column="invitation_code" property="code" jdbcType="VARCHAR" />
+    <result column="franchise_name" property="franchise" jdbcType="VARCHAR" />
+    <result column="franchise_id" property="franId" jdbcType="VARCHAR" />
+    <result column="org_name" property="org" jdbcType="VARCHAR" />
+    <result column="org_id" property="oId" jdbcType="DECIMAL" />
+    <result column="role_name" property="role" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleId" jdbcType="DECIMAL" />
+    <result column="join_time" property="joinTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="StaffTop" type="com.xt.cfp.core.pojo.ext.crm.StaffTop" >
+    <result column="staff_id" property="id" jdbcType="DECIMAL" />
+    <result column="user_id" property="userId" jdbcType="DECIMAL" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="franchise_name" property="franchinseName" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="DECIMAL" />
+    <result column="dis" property="disAccount" jdbcType="DECIMAL" />
+    <result column="gdis" property="gDisAccount" jdbcType="DECIMAL" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="genName" property="genName" jdbcType="VARCHAR" />
+    <result column="genCode" property="genCode" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="UserExtMap" type="com.xt.cfp.core.pojo.UserInfoExt" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="RESIDENT_ADDRESS" property="residentAddress" jdbcType="DECIMAL" />
+    <result column="AVATAR" property="avatar" jdbcType="DECIMAL" />
+    <result column="SEX" property="sex" jdbcType="CHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+    <result column="MOBILE_NO" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="EDUCATION_LEVEL" property="educationLevel" jdbcType="CHAR" />
+    <result column="REC_USER_ID" property="recUserId" jdbcType="DECIMAL" />
+    <result column="IS_VERIFIED" property="isVerified" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="TransforStaff" type="com.xt.cfp.core.pojo.ext.crm.TransforStaff" >
+    <result column="staff_id" property="id" jdbcType="DECIMAL" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="franchise_name" property="franchinseName" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STAFF_ID, USER_ID, FRANCHISE_ID, STATUS,ORG_ID,CODE,PASSWORD,MOBILE,NAME,JOIN_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_FRAN_EMP
+    where STAFF_ID = #{staffId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_FRAN_EMP
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  <select id="findCrmFramEmpByMobileNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_FRAN_EMP
+    where MOBILE = #{mobile,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_FRAN_EMP
+    where STAFF_ID = #{staffId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CrmFranEmp" >
+  <selectKey keyProperty="staffId" order="BEFORE" resultType="long">
+		SELECT SEQ_CRM_FRAN_EMP.NEXTVAL as staffId FROM dual
+	</selectKey>
+    insert into CRM_FRAN_EMP (STAFF_ID, USER_ID, FRANCHISE_ID, 
+      STATUS,ORG_ID,CODE,PASSWORD,MOBILE,NAME,JOIN_TIME)
+    values (#{staffId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{franchiseId,jdbcType=DECIMAL}, 
+      #{status,jdbcType=CHAR}, #{orgId,jdbcType=DECIMAL}, #{code,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{joinTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CrmFranEmp" >
+    insert into CRM_FRAN_EMP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        STAFF_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="franchiseId != null" >
+        FRANCHISE_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="joinTime != null" >
+        JOIN_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        #{staffId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="franchiseId != null" >
+        #{franchiseId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null" >
+        #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CrmFranEmp" >
+    update CRM_FRAN_EMP
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="franchiseId != null" >
+        FRANCHISE_ID = #{franchiseId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+       ORG_ID = #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null" >
+        CODE=#{code,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD=#{password,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE=#{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null" >
+        JOIN_TIME=#{joinTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where STAFF_ID = #{staffId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CrmFranEmp" >
+    update CRM_FRAN_EMP
+    set USER_ID=#{userId,jdbcType=DECIMAL},
+      FRANCHISE_ID=#{franchiseId,jdbcType=DECIMAL},
+      STATUS=#{status,jdbcType=CHAR},
+      ORG_ID=#{orgId,jdbcType=DECIMAL},
+      CODE=#{code,jdbcType=VARCHAR},
+      PASSWORD=#{password,jdbcType=VARCHAR},
+      MOBILE=#{mobile,jdbcType=VARCHAR},
+      NAME=#{name,jdbcType=VARCHAR}
+    where STAFF_ID = #{staffId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="selectStaffList" resultMap="StaffVO" parameterType="map" >
+    select e.staff_id,e.name,e.mobile,c.invitation_code,f.franchise_name,f.franchise_id,
+    o.org_name,o.org_id,r.role_name,r.role_id,e.join_time,
+	case when e.status =1 then '正常' else '禁用' end status
+	from CRM_FRAN_EMP e
+	left join USER_INFO_EXT ue on ue.user_id=e.user_id
+	left join INVITATION_CODE c on c.user_id=e.user_id
+	left join CRM_FRANCHISE f on f.franchise_id=e.franchise_id  
+	left join CRM_ORG o on o.org_id=e.org_id
+	left join CRM_STAFF_ROLE rm on rm.staff_id=e.staff_id
+	left join CRM_ROLE r on r.role_id=rm.role_id
+	<where>
+		1=1
+		<if test="staffName != null">
+			and e.name like '%${staffName}%'
+		</if>
+		<if test="franId != null">
+			and f.franchise_id = #{franId,jdbcType=DECIMAL}
+		</if>
+		<if test="ids != null">
+			and <![CDATA[(${ids})]]>
+		</if>
+		<if test="moblie != null">
+			and e.mobile like '${moblie}%'
+		</if>
+		<if test="orgCode != null">
+			and o.org_code like '${orgCode}%'
+		</if>
+        and e.STATUS in('1','2','3')
+	</where>
+	order by e.staff_id desc
+  </select>
+  <select id="count_selectStaffList" resultType="int" parameterType="map" >
+    select count(1)
+	from CRM_FRAN_EMP e
+	left join USER_INFO_EXT ue on ue.user_id=e.user_id
+	left join INVITATION_CODE c on c.user_id=e.user_id
+	left join CRM_FRANCHISE f on f.franchise_id=e.franchise_id  
+	left join CRM_ORG o on o.org_id=e.org_id
+	left join CRM_STAFF_ROLE rm on rm.staff_id=e.staff_id
+	left join CRM_ROLE r on r.role_id=rm.role_id
+	<where>
+		1=1
+		<if test="staffName != null">
+			and e.name like '%${staffName}%'
+		</if>
+		<if test="franId != null">
+			and f.franchise_id = #{franId,jdbcType=DECIMAL}
+		</if>
+		<if test="ids != null">
+			and <![CDATA[(${ids})]]>
+		</if>
+		<if test="moblie != null">
+		and e.mobile like '${moblie}%'
+		</if>
+		<if test="orgCode != null">
+			and o.org_code like '${orgCode}%'
+		</if>
+	</where>
+  </select>
+  <select id="selectStaffById" resultMap="StaffVO" parameterType="long" >
+    select e.staff_id,e.name,e.mobile,c.invitation_code,f.franchise_name,f.franchise_id,
+    o.org_name,o.org_id,r.role_name,r.role_id,e.join_time,
+	case when e.status =1 then '正常' else '禁用' end status
+	from CRM_FRAN_EMP e
+	left join USER_INFO_EXT ue on ue.user_id=e.user_id
+	left join INVITATION_CODE c on c.user_id=e.user_id
+	left join CRM_FRANCHISE f on f.franchise_id=e.franchise_id  
+	left join CRM_ORG o on o.org_id=e.org_id
+	left join CRM_STAFF_ROLE rm on rm.staff_id=e.staff_id
+	left join CRM_ROLE r on r.role_id=rm.role_id
+	where e.staff_id = #{staffId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectStaffByOrgId" resultMap="StaffVO" parameterType="map" >
+  	select e.staff_id,e.name,e.mobile,c.invitation_code,f.franchise_name,f.franchise_id,
+    o.org_name,o.org_id,r.role_name,r.role_id,e.join_time,
+	case when e.status =1 then '正常' else '禁用' end status
+	from CRM_FRAN_EMP e
+	left join USER_INFO_EXT ue on ue.user_id=e.user_id
+	left join INVITATION_CODE c on c.user_id=e.user_id
+	left join CRM_FRANCHISE f on f.franchise_id=e.franchise_id  
+	left join CRM_ORG o on o.org_id=e.org_id
+	left join CRM_STAFF_ROLE rm on rm.staff_id=e.staff_id
+	left join CRM_ROLE r on r.role_id=rm.role_id
+    <where>
+    	1=1
+    	<if test="orgId != null">
+    		and e.ORG_ID = #{orgId,jdbcType=VARCHAR}
+    	</if>
+    </where>
+    order by e.staff_id desc
+  </select>
+  
+  <select id="count_selectStaffByOrgId" resultType="int" parameterType="map" >
+  	select count(1)
+	from CRM_FRAN_EMP e
+	left join USER_INFO_EXT ue on ue.user_id=e.user_id
+	left join INVITATION_CODE c on c.user_id=e.user_id
+	left join CRM_FRANCHISE f on f.franchise_id=e.franchise_id  
+	left join CRM_ORG o on o.org_id=e.org_id
+	left join CRM_STAFF_ROLE rm on rm.staff_id=e.staff_id
+	left join CRM_ROLE r on r.role_id=rm.role_id
+    <where>
+    	1=1
+    	<if test="orgId != null">
+    	 and e.ORG_ID = #{orgId,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectOrgStaffByOrgCode" resultMap="BaseResultMap" parameterType="map" >
+  	select * from CRM_FRAN_EMP e
+    left join crm_org o on o.org_id=e.org_id
+    <where>
+    	1=1
+    	<if test="orgCode != null">
+    		and o.org_code like '${orgCode}%'
+    	</if>
+    </where>
+  </select>
+  
+  
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_FRAN_EMP
+    where MOBILE = #{mobile,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectStaffTop" resultMap="StaffTop" parameterType="map">
+		select cfe.staff_id,cfe.mobile,cfe.user_id,cfe.name,NVL(c.accoount,0) account,co.org_name,cf.franchise_name,
+		NVL(c.dis,0) dis ,NVL(c.gdis,0) gdis , uie2.real_name genName,ic.invitation_code genCode,co.org_code from (
+		  select b.p_customer_id userId,sum(b.account) accoount,sum(b.dis) dis
+		  ,sum(b.gdis) gdis from (
+		      select cfc.p_customer_id,a.userId,a.account,a.dis,a.gdis from CRM_FRAN_CUSTOMER cfc
+		        left join (
+		        	 <!-- 计算客户的总金额 -->
+		             select d.userId,d.account,e.dis,g.gdis from (
+			               select lo.lend_user_id userId,sum(lo.buy_balance) account from lend_order lo 
+		                   left join lend_order_bid_detail lobd on lo.lend_order_id=lobd.lend_order_id
+		                   where lo.order_state IN ('1', '2', '5', '6') and lobd.status=1
+	               		   <if test="startTime != null and endTime != null">
+	               				and lo.buy_time <![CDATA[>=]]> to_date(#{startTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+	               				and lo.buy_time <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'YYYY-MM-DD')
+	               		   </if>
+			               group by lo.lend_user_id 
+		             )d
+		             <!-- 计算客户总折标金额 -->
+		             left join (
+		                  select f.lend_user_id,sum(f.dis) dis from(
+			                    select lo2.lend_user_id,lo2.buy_balance*lo2.time_limit/(case lo2.time_limit_type when '1' then 365 else 12 end) dis 
+			                    from lend_order lo2
+                          		left join lend_order_bid_detail lobd on lo2.lend_order_id=lobd.lend_order_id
+                         		where lo2.order_state IN ('1', '2', '5', '6') and lobd.status=1
+			               		<if test="startTime != null and endTime != null">
+			               			and lo2.buy_time <![CDATA[>=]]> to_date(#{startTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+			               			and lo2.buy_time <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'YYYY-MM-DD')
+			               		</if>
+		                  )f
+		                  group by f.lend_user_id
+		             ) e 
+		             on e.lend_user_id=d.userId
+				            <!-- 计算客户按日总折标金额 -->
+				left join (
+				select f1.lend_user_id,sum(f1.dis) gdis from(
+				select lo2.lend_user_id,lo2.buy_balance/(select
+				last_day(add_months(trunc(sysdate, 'yyyy'), 11)) - trunc(sysdate,
+				'yyyy') + 1 total_day_year
+				from dual)* (select add_months(trunc(lo2.agreement_start_date, 'dd'),
+				lp.due_time)-trunc(lo2.agreement_start_date,'dd') + 1 total_day from
+				dual) dis
+				from lend_order lo2
+				left join lend_order_bid_detail lobd on
+				lo2.lend_order_id=lobd.lend_order_id
+				left join creditor_rights cr on cr.lend_order_id = lo2.lend_order_id
+				left join loan_application lap on
+				lap.loan_application_id=cr.loan_application_id
+				left join loan_product lp on lp.loan_product_id=lap.loan_product_id
+				where lo2.order_state IN ('1', '2', '5', '6') and lobd.status=1
+				<if test="startTime != null and endTime != null">
+					and lo2.buy_time <![CDATA[>=]]>
+				to_date(#{startTime,jdbcType=VARCHAR},'YYYY-MM-DD')
+				and lo2.buy_time <![CDATA[<=]]>
+					to_date(#{endTime,jdbcType=VARCHAR},'YYYY-MM-DD')
+				</if>
+				)f1
+				group by f1.lend_user_id
+				) g
+				on g.lend_user_id=e.lend_user_id  
+				             <!-- 计算客户按日总折标金额 -->   
+		             
+		             
+		        ) a
+		      on cfc.customer_id=a.userId
+		  )b 
+		  group by b.p_customer_id
+		)c
+		right join CRM_FRAN_EMP cfe
+		on cfe.status=1 and cfe.user_id= c.userId
+		left join crm_org co on co.org_id=cfe.org_id 
+		left join crm_franchise cf on cf.franchise_id=cfe.franchise_id
+		left join user_info_ext uie on uie.user_id=cfe.user_id
+    	left join user_info_ext uie2 on uie2.user_id=uie.rec_user_id
+    	left join invitation_code ic on ic.user_id=uie2.user_id
+		<where>
+			1=1
+			<if test="franId != null ">
+				and cf.franchise_id=#{franId,jdbcType=DECIMAL}
+			</if>
+			<if test="orgCode != null">
+				<if test="userId != null">
+					and (co.org_code like '${orgCode}0%' or cfe.user_id = #{userId,jdbcType=DECIMAL})
+				</if>
+				<if test="userId == null">
+					and co.org_code like '${orgCode}0%'
+				</if>
+			</if>
+		</where>
+		order by
+		<if test="order == null ">
+			c.accoount desc nulls last
+		</if>
+		<if test="order != null ">
+			c.dis desc nulls last
+		</if>
+		,cfe.staff_id
+  </select>
+  <select id="count_selectStaffTop" resultType="int" parameterType="map">
+		select count(1) from (
+		  select b.p_customer_id userId,sum(b.account) accoount,sum(b.dis) dis from (
+		      select cfc.p_customer_id,a.userId,a.account,a.dis from CRM_FRAN_CUSTOMER cfc
+		        left join (
+		        	 <!-- 计算客户的总金额 -->
+		             select d.userId,d.account,e.dis from (
+			               select lo.lend_user_id userId,sum(lo.buy_balance) account from lend_order lo 
+		                   left join lend_order_bid_detail lobd on lo.lend_order_id=lobd.lend_order_id
+		                   where lo.order_state IN ('1', '2', '5', '6') and lobd.status=1
+	               		   <if test="startTime != null and endTime != null">
+	               				and lo.buy_time <![CDATA[>=]]> to_date(#{startTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+	               				and lo.buy_time <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'YYYY-MM-DD')
+	               		   </if>
+			               group by lo.lend_user_id 
+		             )d
+		             <!-- 计算客户总折标金额 -->
+		             left join (
+		                  select f.lend_user_id,sum(f.dis) dis from(
+			                   	select lo2.lend_user_id,lo2.buy_balance*lo2.time_limit/(case lo2.time_limit_type when '1' then 365 else 12 end) dis 
+			                    from lend_order lo2
+                          		left join lend_order_bid_detail lobd on lo2.lend_order_id=lobd.lend_order_id
+                         		where lo2.order_state IN ('1', '2', '5', '6') and lobd.status=1
+			               		<if test="startTime != null and endTime != null">
+			               			and lo2.buy_time <![CDATA[>=]]> to_date(#{startTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+			               			and lo2.buy_time <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'YYYY-MM-DD')
+			               		</if>
+		                  )f
+		                  group by f.lend_user_id
+		             ) e 
+		             on e.lend_user_id=d.userId
+		        ) a
+		      on cfc.customer_id=a.userId
+		  )b 
+		  group by b.p_customer_id
+		)c
+		right join CRM_FRAN_EMP cfe
+		on cfe.status=1 and cfe.user_id= c.userId
+		left join crm_org co on co.org_id=cfe.org_id 
+		left join crm_franchise cf on cf.franchise_id=cfe.franchise_id
+		left join user_info_ext uie on uie.user_id=cfe.user_id
+    	left join user_info_ext uie2 on uie2.user_id=uie.rec_user_id
+    	left join invitation_code ic on ic.user_id=uie2.user_id
+		<where>
+			1=1
+			<if test="franId != null ">
+				and cf.franchise_id=#{franId,jdbcType=DECIMAL}
+			</if>
+			<if test="orgCode != null">
+				<if test="userId != null">
+					and (co.org_code like '${orgCode}0%' or cfe.user_id = #{userId,jdbcType=DECIMAL})
+				</if>
+				<if test="userId == null">
+					and co.org_code like '${orgCode}0%'
+				</if>
+			</if>
+		</where>
+  </select>
+  <select id="selectStaffInUserExt" resultMap="UserExtMap" parameterType="java.lang.Long" >
+    select ue.user_id,ue.rec_user_id from user_info_ext ue 
+	where ue.user_id in (
+	      select NVL(e.user_id,0) from crm_fran_emp e
+	) 
+  </select>
+  <select id="selectStaffCustomer" resultMap="UserExtMap" parameterType="java.lang.Long" >
+    select ue.user_id,ue.rec_user_id from user_info_ext ue 
+	where ue.rec_user_id=#{recId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectTransforStaff" resultMap="TransforStaff" parameterType="map" >
+    select e.staff_id,e.name,e.mobile,f.franchise_name,o.org_name,r.role_name from crm_fran_emp e
+	left join crm_franchise f on f.franchise_id=e.franchise_id
+	left join crm_org o on o.org_id=e.org_id
+	left join crm_staff_role so on so.staff_id=e.staff_id
+	left join crm_role r on r.role_id=so.role_id
+	<where>
+		<if test="mobile != null">
+			e.mobile=#{mobile,jdbcType=VARCHAR}
+		</if>
+	</where>
+  </select>
+  <select id="countUserOrderAmount" resultType="java.math.BigDecimal" parameterType="map" >
+  		select sum(account) from(
+  			select NVL(sum(lo.buy_balance),0) account from lend_order lo 
+	        left join lend_order_bid_detail lobd on lo.lend_order_id=lobd.lend_order_id
+	        <where>
+	        	1=1
+	        	<if test="userId != null">
+	        		and lo.lend_user_id=#{userId,jdbcType=DECIMAL}
+	        	</if>
+	        		and lo.order_state IN ('1', '2', '5', '6')  and lobd.status=1   
+	        	<if test="startTime != null and endTime != null">
+	       			and lo.buy_time <![CDATA[>=]]> to_date(#{startTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+	       			and lo.buy_time <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'YYYY-MM-DD')
+	       		</if>
+	        </where> 
+  		) a
+        <!-- group by a.lend_user_id -->
+  </select>
+  <select id="countUserOrderDisAmount" resultType="java.math.BigDecimal" parameterType="map" >
+  		select sum(dis) from(
+  			select NVL(lo2.buy_balance*lo2.time_limit/(case lo2.time_limit_type when '1' then 365 else 12 end),0) dis 
+	        from lend_order lo2
+	        left join lend_order_bid_detail lobd on lo2.lend_order_id=lobd.lend_order_id
+	        <where>
+	        	1=1
+	        	<if test="userId != null">
+	        		and lo2.lend_user_id=#{userId,jdbcType=DECIMAL}
+	        	</if>
+	        		and lo2.order_state IN ('1', '2', '5', '6') and lobd.status=1
+	        	<if test="startTime != null and endTime != null">
+	       			and lo2.buy_time <![CDATA[>=]]> to_date(#{startTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+	       			and lo2.buy_time <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'YYYY-MM-DD')
+	       		</if>
+	        </where> 
+  		) a
+        <!-- group by a.lend_user_id -->
+  </select>
+  
+  <!-- 根据客户ID，查询加盟商客户表条数 -->
+  <select id="getCrmFranCustomerCountByCustomerId" resultType="int" parameterType="java.lang.Long" >
+    select count(1) from CRM_FRAN_CUSTOMER
+    where CUSTOMER_ID = #{customerId,jdbcType=DECIMAL}
+  </select>
+</mapper>

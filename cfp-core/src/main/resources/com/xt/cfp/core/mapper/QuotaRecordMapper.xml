@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="QUOTA_RECORD" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.QuotaRecord" >
+    <id column="QUOTA_RECORD_ID" property="quotaRecordId" jdbcType="DECIMAL" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="DECIMAL" />
+    <result column="CONTRACT_BEGIN" property="contractBegin" jdbcType="TIMESTAMP" />
+    <result column="CONTRACT_END" property="contractEnd" jdbcType="TIMESTAMP" />
+    <result column="SINGLE_MAXIMUM_AMOUNT" property="singleMaximumAmount" jdbcType="DECIMAL" />
+    <result column="ANNUAL_MAXIMUM_LIMIT" property="annualMaximumLimit" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    QUOTA_RECORD_ID, ENTERPRISE_ID, CONTRACT_BEGIN, CONTRACT_END, SINGLE_MAXIMUM_AMOUNT, 
+    ANNUAL_MAXIMUM_LIMIT, CREATE_TIME, LAST_UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from QUOTA_RECORD
+    where QUOTA_RECORD_ID = #{quotaRecordId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from QUOTA_RECORD
+    where QUOTA_RECORD_ID = #{quotaRecordId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.QuotaRecord" >
+  	<selectKey keyProperty="quotaRecordId" order="BEFORE" resultType="long">
+      SELECT SEQ_QUOTA_RECORD.NEXTVAL as quotaRecordId FROM dual
+    </selectKey>
+    insert into QUOTA_RECORD (QUOTA_RECORD_ID, ENTERPRISE_ID, CONTRACT_BEGIN, 
+      CONTRACT_END, SINGLE_MAXIMUM_AMOUNT, ANNUAL_MAXIMUM_LIMIT, 
+      CREATE_TIME, LAST_UPDATE_TIME)
+    values (#{quotaRecordId,jdbcType=DECIMAL}, #{enterpriseId,jdbcType=DECIMAL}, #{contractBegin,jdbcType=TIMESTAMP}, 
+      #{contractEnd,jdbcType=TIMESTAMP}, #{singleMaximumAmount,jdbcType=DECIMAL}, #{annualMaximumLimit,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.QuotaRecord" >
+    insert into QUOTA_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="quotaRecordId != null" >
+        QUOTA_RECORD_ID,
+      </if>
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID,
+      </if>
+      <if test="contractBegin != null" >
+        CONTRACT_BEGIN,
+      </if>
+      <if test="contractEnd != null" >
+        CONTRACT_END,
+      </if>
+      <if test="singleMaximumAmount != null" >
+        SINGLE_MAXIMUM_AMOUNT,
+      </if>
+      <if test="annualMaximumLimit != null" >
+        ANNUAL_MAXIMUM_LIMIT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="quotaRecordId != null" >
+        #{quotaRecordId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterpriseId != null" >
+        #{enterpriseId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractBegin != null" >
+        #{contractBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractEnd != null" >
+        #{contractEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="singleMaximumAmount != null" >
+        #{singleMaximumAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="annualMaximumLimit != null" >
+        #{annualMaximumLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.QuotaRecord" >
+    update QUOTA_RECORD
+    <set >
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractBegin != null" >
+        CONTRACT_BEGIN = #{contractBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractEnd != null" >
+        CONTRACT_END = #{contractEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="singleMaximumAmount != null" >
+        SINGLE_MAXIMUM_AMOUNT = #{singleMaximumAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="annualMaximumLimit != null" >
+        ANNUAL_MAXIMUM_LIMIT = #{annualMaximumLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where QUOTA_RECORD_ID = #{quotaRecordId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.QuotaRecord" >
+    update QUOTA_RECORD
+    set ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL},
+      CONTRACT_BEGIN = #{contractBegin,jdbcType=TIMESTAMP},
+      CONTRACT_END = #{contractEnd,jdbcType=TIMESTAMP},
+      SINGLE_MAXIMUM_AMOUNT = #{singleMaximumAmount,jdbcType=DECIMAL},
+      ANNUAL_MAXIMUM_LIMIT = #{annualMaximumLimit,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+    where QUOTA_RECORD_ID = #{quotaRecordId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getAllByEnterpriseId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from QUOTA_RECORD
+    where ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL}
+    order by QUOTA_RECORD_ID desc
+  </select>
+</mapper>

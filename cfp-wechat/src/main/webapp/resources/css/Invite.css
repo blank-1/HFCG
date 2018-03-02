@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+/*公共css*/
+.pjred{color: #fc5f65;}
+.pjBred{background: #fc5f65;color: #fff;border-radius: 4px;}
+.pjTip{color: #b0d3fb;}
+.pjWrong{color: #ff982b;}
+/*邀请页css*/
+body{background: #f5f5f5;}
+.l_title{width: 100%;height: 4rem;line-height: 4rem;font-size: 1.2rem;text-align: center;}
+.l_list{width: 100%;height: auto;max-height: 70%;background: #fff;color:#333;text-align: center;padding-top: 3rem;line-height: 3rem;position: relative;overflow-y: auto;}
+.l_list>li{width: 100%;height: 3rem;}
+.l_list>li:first-of-type{position: fixed;;top: 4rem;left:0;background: #fff;}
+.l_list>li:nth-of-type(2n){background: #fafafa;}
+.l_list>li>span{display: block;float: left;width: 33%;height: 3rem;box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;}
+.l_list>li>span:nth-of-type(1){padding-left: 5%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden; }
+.l_list>li>span:nth-of-type(3){padding-right: 5%;}
+.l_noData{position: absolute;width: 50%;left: 25%;top: 40%;display: none;}

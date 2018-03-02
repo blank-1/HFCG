@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FUNCTION_URL" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.FunctionUrl" >
+    <id column="URL_ID" property="urlId" jdbcType="DECIMAL" />
+    <result column="FUNCTION_ID" property="functionId" jdbcType="DECIMAL" />
+    <result column="URL_INFO" property="urlInfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    URL_ID, FUNCTION_ID, URL_INFO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from FUNCTION_URL
+    where URL_ID = #{urlId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from FUNCTION_URL
+    where URL_ID = #{urlId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.FunctionUrl" >
+     <selectKey keyProperty="urlId" order="BEFORE" resultType="long">
+      SELECT SEQ_FUNCTION_URL.NEXTVAL as urlId FROM dual
+    </selectKey>
+    insert into FUNCTION_URL (URL_ID, FUNCTION_ID, URL_INFO
+      )
+    values (#{urlId,jdbcType=DECIMAL}, #{functionId,jdbcType=DECIMAL}, #{urlInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.FunctionUrl" >
+    insert into FUNCTION_URL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="urlId != null" >
+        URL_ID,
+      </if>
+      <if test="functionId != null" >
+        FUNCTION_ID,
+      </if>
+      <if test="urlInfo != null" >
+        URL_INFO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="urlId != null" >
+        #{urlId,jdbcType=DECIMAL},
+      </if>
+      <if test="functionId != null" >
+        #{functionId,jdbcType=DECIMAL},
+      </if>
+      <if test="urlInfo != null" >
+        #{urlInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.FunctionUrl" >
+    update FUNCTION_URL
+    <set >
+      <if test="functionId != null" >
+        FUNCTION_ID = #{functionId,jdbcType=DECIMAL},
+      </if>
+      <if test="urlInfo != null" >
+        URL_INFO = #{urlInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where URL_ID = #{urlId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.FunctionUrl" >
+    update FUNCTION_URL
+    set FUNCTION_ID = #{functionId,jdbcType=DECIMAL},
+      URL_INFO = #{urlInfo,jdbcType=VARCHAR}
+    where URL_ID = #{urlId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 根据权限ID获取URL列表 -->
+  <select id="getUrlByFunctionId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from FUNCTION_URL
+    where FUNCTION_ID = #{functionId,jdbcType=DECIMAL}
+  </select>
+</mapper>

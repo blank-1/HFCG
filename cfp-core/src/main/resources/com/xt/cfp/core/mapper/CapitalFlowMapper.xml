@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CAPITAL_FLOW" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CapitalFlow" >
+    <id column="FLOW_ID" property="flowId" jdbcType="DECIMAL" />
+    <result column="SCHEDULE_ID" property="scheduleId" jdbcType="DECIMAL" />
+    <result column="OPERATION_TYPE" property="operationType" jdbcType="DECIMAL" />
+    <result column="FROM_USER" property="fromUser" jdbcType="DECIMAL" />
+    <result column="TO_USER" property="toUser" jdbcType="DECIMAL" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="BUSINESS_ID" property="businessId" jdbcType="DECIMAL" />
+    <result column="BUSINESS_FLOW" property="businessFlow" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FLOW_ID, SCHEDULE_ID, OPERATION_TYPE, FROM_USER, TO_USER, AMOUNT, START_TIME, END_TIME, 
+    BUSINESS_ID, BUSINESS_FLOW, RESULT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CAPITAL_FLOW
+    where FLOW_ID = #{flowId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CAPITAL_FLOW
+    where FLOW_ID = #{flowId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CapitalFlow" >
+    <selectKey order="BEFORE" keyProperty="flowId" resultType="long">
+      SELECT SEQ_CAPITAL_FLOW.NEXTVAL as flowId FROM DUAL
+    </selectKey>
+    insert into CAPITAL_FLOW (FLOW_ID, SCHEDULE_ID, OPERATION_TYPE, 
+      FROM_USER, TO_USER, AMOUNT, 
+      START_TIME, END_TIME, BUSINESS_ID, 
+      BUSINESS_FLOW, RESULT)
+    values (#{flowId,jdbcType=DECIMAL}, #{scheduleId,jdbcType=DECIMAL}, #{operationType,jdbcType=DECIMAL}, 
+      #{fromUser,jdbcType=DECIMAL}, #{toUser,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{businessId,jdbcType=DECIMAL}, 
+      #{businessFlow,jdbcType=VARCHAR}, #{result,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CapitalFlow" >
+    <selectKey order="BEFORE" keyProperty="flowId" resultType="long">
+      SELECT SEQ_CAPITAL_FLOW.NEXTVAL as flowId FROM DUAL
+    </selectKey>
+    insert into CAPITAL_FLOW
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        FLOW_ID,
+      </if>
+      <if test="scheduleId != null" >
+        SCHEDULE_ID,
+      </if>
+      <if test="operationType != null" >
+        OPERATION_TYPE,
+      </if>
+      <if test="fromUser != null" >
+        FROM_USER,
+      </if>
+      <if test="toUser != null" >
+        TO_USER,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="businessId != null" >
+        BUSINESS_ID,
+      </if>
+      <if test="businessFlow != null" >
+        BUSINESS_FLOW,
+      </if>
+      <if test="result != null" >
+        RESULT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        #{flowId,jdbcType=DECIMAL},
+      </if>
+      <if test="scheduleId != null" >
+        #{scheduleId,jdbcType=DECIMAL},
+      </if>
+      <if test="operationType != null" >
+        #{operationType,jdbcType=DECIMAL},
+      </if>
+      <if test="fromUser != null" >
+        #{fromUser,jdbcType=DECIMAL},
+      </if>
+      <if test="toUser != null" >
+        #{toUser,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=DECIMAL},
+      </if>
+      <if test="businessFlow != null" >
+        #{businessFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CapitalFlow" >
+    update CAPITAL_FLOW
+    <set >
+      <if test="scheduleId != null" >
+        SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL},
+      </if>
+      <if test="operationType != null" >
+        OPERATION_TYPE = #{operationType,jdbcType=DECIMAL},
+      </if>
+      <if test="fromUser != null" >
+        FROM_USER = #{fromUser,jdbcType=DECIMAL},
+      </if>
+      <if test="toUser != null" >
+        TO_USER = #{toUser,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="businessId != null" >
+        BUSINESS_ID = #{businessId,jdbcType=DECIMAL},
+      </if>
+      <if test="businessFlow != null" >
+        BUSINESS_FLOW = #{businessFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        RESULT = #{result,jdbcType=DECIMAL},
+      </if>
+      <if test="message != null" >
+        MESSAGE = #{message,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where FLOW_ID = #{flowId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CapitalFlow" >
+    update CAPITAL_FLOW
+    set SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL},
+      OPERATION_TYPE = #{operationType,jdbcType=DECIMAL},
+      FROM_USER = #{fromUser,jdbcType=DECIMAL},
+      TO_USER = #{toUser,jdbcType=DECIMAL},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      BUSINESS_ID = #{businessId,jdbcType=DECIMAL},
+      BUSINESS_FLOW = #{businessFlow,jdbcType=VARCHAR},
+      RESULT = #{result,jdbcType=DECIMAL}
+    where FLOW_ID = #{flowId,jdbcType=DECIMAL}
+  </update>
+  <select id="findByCondition" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from CAPITAL_FLOW
+    <where>
+      1=1
+      <if test="flowId != null" >
+        and FLOW_ID = #{flowId,jdbcType=DECIMAL}
+      </if>
+      <if test="scheduleId != null" >
+        and SCHEDULE_ID = #{scheduleId,jdbcType=DECIMAL}
+      </if>
+      <if test="operationType != null" >
+        and OPERATION_TYPE = #{operationType,jdbcType=DECIMAL}
+      </if>
+      <if test="fromUser != null" >
+        and FROM_USER = #{fromUser,jdbcType=DECIMAL}
+      </if>
+      <if test="toUser != null" >
+        and TO_USER = #{toUser,jdbcType=DECIMAL}
+      </if>
+      <if test="amount != null" >
+        and AMOUNT = #{amount,jdbcType=DECIMAL}
+      </if>
+      <if test="startTime != null" >
+        and START_TIME = #{startTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null" >
+        and END_TIME = #{endTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="businessId != null" >
+        and BUSINESS_ID = #{businessId,jdbcType=DECIMAL}
+      </if>
+      <if test="businessFlow != null" >
+        and BUSINESS_FLOW = #{businessFlow,jdbcType=VARCHAR}
+      </if>
+      <if test="result != null" >
+        and RESULT = #{result,jdbcType=DECIMAL}
+      </if>
+    </where>
+     order by FLOW_ID
+  </select>
+</mapper>

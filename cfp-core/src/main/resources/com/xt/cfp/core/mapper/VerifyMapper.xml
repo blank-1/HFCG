@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="VERIFY" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.Verify" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="RESULT" property="result" jdbcType="CHAR" />
+    <result column="VERIFY_SUGGESTION" property="verifySuggestion" jdbcType="VARCHAR" />
+    <result column="VERIFY_TIME" property="verifyTime" jdbcType="TIMESTAMP" />
+    <result column="VERIFY_TYPE" property="verifyType" jdbcType="CHAR" />
+  </resultMap>
+
+  <resultMap id="VerifyVO" type="com.xt.cfp.core.pojo.ext.VerifyVO" extends="BaseResultMap" >
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, LOAN_APPLICATION_ID, USER_ID, RESULT, VERIFY_SUGGESTION, VERIFY_TIME, VERIFY_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from VERIFY
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getVerifyByApplicationId" resultMap="VerifyVO" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />,ai.LOGIN_NAME userName
+    from VERIFY V  LEFT JOIN ADMIN_INFO AI on v.USER_ID = ai.ADMIN_ID
+    where LOAN_APPLICATION_ID = #{value}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from VERIFY
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.Verify" >
+    insert into VERIFY (ID, LOAN_APPLICATION_ID, USER_ID, 
+      RESULT, VERIFY_SUGGESTION, VERIFY_TIME, 
+      VERIFY_TYPE)
+    values (#{id,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{result,jdbcType=CHAR}, #{verifySuggestion,jdbcType=VARCHAR}, #{verifyTime,jdbcType=TIMESTAMP}, 
+      #{verifyType,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.Verify" >
+    <selectKey keyProperty="id" order="BEFORE" resultType="long">
+      SELECT SEQ_VERIFY.NEXTVAL as id FROM dual
+    </selectKey>
+    insert into VERIFY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="result != null" >
+        RESULT,
+      </if>
+      <if test="verifySuggestion != null" >
+        VERIFY_SUGGESTION,
+      </if>
+      <if test="verifyTime != null" >
+        VERIFY_TIME,
+      </if>
+      <if test="verifyType != null" >
+        VERIFY_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=CHAR},
+      </if>
+      <if test="verifySuggestion != null" >
+        #{verifySuggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyTime != null" >
+        #{verifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyType != null" >
+        #{verifyType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.Verify" >
+    update VERIFY
+    <set >
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="result != null" >
+        RESULT = #{result,jdbcType=CHAR},
+      </if>
+      <if test="verifySuggestion != null" >
+        VERIFY_SUGGESTION = #{verifySuggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyTime != null" >
+        VERIFY_TIME = #{verifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyType != null" >
+        VERIFY_TYPE = #{verifyType,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.Verify" >
+    update VERIFY
+    set LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      RESULT = #{result,jdbcType=CHAR},
+      VERIFY_SUGGESTION = #{verifySuggestion,jdbcType=VARCHAR},
+      VERIFY_TIME = #{verifyTime,jdbcType=TIMESTAMP},
+      VERIFY_TYPE = #{verifyType,jdbcType=CHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

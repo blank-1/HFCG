@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FEESITEM" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.FeesItem" >
+    <id column="FEES_ITEM_ID" property="feesItemId" jdbcType="DECIMAL" />
+    <result column="ITEM_KIND" property="itemKind" jdbcType="CHAR" />
+    <result column="ITEM_TYPE" property="itemType" jdbcType="VARCHAR" />
+    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+    <result column="ITEM_DESC" property="itemDesc" jdbcType="VARCHAR" />
+    <result column="FEES_RATE" property="feesRate" jdbcType="DECIMAL" />
+    <result column="RADICES_TYPE" property="radicesType" jdbcType="CHAR" />
+    <result column="RADICE_NAME" property="radiceName" jdbcType="VARCHAR" />
+    <result column="RADICE_LOGIC" property="radiceLogic" jdbcType="VARCHAR" />
+    <result column="ITEM_STATE" property="itemState" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FEES_ITEM_ID, ITEM_KIND, ITEM_TYPE, ITEM_NAME, ITEM_DESC, FEES_RATE, RADICES_TYPE, 
+    RADICE_NAME, RADICE_LOGIC, ITEM_STATE, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from FEES_ITEM
+    where FEES_ITEM_ID = #{feesItemId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from FEES_ITEM
+    where FEES_ITEM_ID = #{feesItemId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.FeesItem" >
+	<selectKey keyProperty="feesItemId" order="BEFORE" resultType="long">
+      SELECT SEQ_FEES_ITEM.NEXTVAL as feesItemId FROM dual
+    </selectKey>
+    insert into FEES_ITEM (FEES_ITEM_ID, ITEM_KIND, ITEM_TYPE, 
+      ITEM_NAME, ITEM_DESC, FEES_RATE, 
+      RADICES_TYPE, RADICE_NAME, RADICE_LOGIC, 
+      ITEM_STATE, CREATE_TIME)
+    values (#{feesItemId,jdbcType=DECIMAL}, #{itemKind,jdbcType=CHAR}, #{itemType,jdbcType=VARCHAR}, 
+      #{itemName,jdbcType=VARCHAR}, #{itemDesc,jdbcType=VARCHAR}, #{feesRate,jdbcType=DECIMAL}, 
+      #{radicesType,jdbcType=CHAR}, #{radiceName,jdbcType=VARCHAR}, #{radiceLogic,jdbcType=VARCHAR}, 
+      #{itemState,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.FeesItem" >
+    <selectKey keyProperty="feesItemId" order="BEFORE" resultType="long">
+      SELECT SEQ_FEES_ITEM.NEXTVAL as feesItemId FROM dual
+    </selectKey>
+    insert into FEES_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feesItemId != null" >
+        FEES_ITEM_ID,
+      </if>
+      <if test="itemKind != null" >
+        ITEM_KIND,
+      </if>
+      <if test="itemType != null" >
+        ITEM_TYPE,
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME,
+      </if>
+      <if test="itemDesc != null" >
+        ITEM_DESC,
+      </if>
+      <if test="feesRate != null" >
+        FEES_RATE,
+      </if>
+      <if test="radicesType != null" >
+        RADICES_TYPE,
+      </if>
+      <if test="radiceName != null" >
+        RADICE_NAME,
+      </if>
+      <if test="radiceLogic != null" >
+        RADICE_LOGIC,
+      </if>
+      <if test="itemState != null" >
+        ITEM_STATE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feesItemId != null" >
+        #{feesItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemKind != null" >
+        #{itemKind,jdbcType=CHAR},
+      </if>
+      <if test="itemType != null" >
+        #{itemType,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDesc != null" >
+        #{itemDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="feesRate != null" >
+        #{feesRate,jdbcType=DECIMAL},
+      </if>
+      <if test="radicesType != null" >
+        #{radicesType,jdbcType=CHAR},
+      </if>
+      <if test="radiceName != null" >
+        #{radiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="radiceLogic != null" >
+        #{radiceLogic,jdbcType=VARCHAR},
+      </if>
+      <if test="itemState != null" >
+        #{itemState,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.FeesItem" >
+    update FEES_ITEM
+    <set >
+      <if test="itemKind != null" >
+        ITEM_KIND = #{itemKind,jdbcType=CHAR},
+      </if>
+      <if test="itemType != null" >
+        ITEM_TYPE = #{itemType,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDesc != null" >
+        ITEM_DESC = #{itemDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="feesRate != null" >
+        FEES_RATE = #{feesRate,jdbcType=DECIMAL},
+      </if>
+      <if test="radicesType != null" >
+        RADICES_TYPE = #{radicesType,jdbcType=CHAR},
+      </if>
+      <if test="radiceName != null" >
+        RADICE_NAME = #{radiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="radiceLogic != null" >
+        RADICE_LOGIC = #{radiceLogic,jdbcType=VARCHAR},
+      </if>
+      <if test="itemState != null" >
+        ITEM_STATE = #{itemState,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FEES_ITEM_ID = #{feesItemId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.FeesItem" >
+    update FEES_ITEM
+    set ITEM_KIND = #{itemKind,jdbcType=CHAR},
+      ITEM_TYPE = #{itemType,jdbcType=VARCHAR},
+      ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      ITEM_DESC = #{itemDesc,jdbcType=VARCHAR},
+      FEES_RATE = #{feesRate,jdbcType=DECIMAL},
+      RADICES_TYPE = #{radicesType,jdbcType=CHAR},
+      RADICE_NAME = #{radiceName,jdbcType=VARCHAR},
+      RADICE_LOGIC = #{radiceLogic,jdbcType=VARCHAR},
+      ITEM_STATE = #{itemState,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where FEES_ITEM_ID = #{feesItemId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 下面是自由方法********************************************************************************************************************** -->
+  
+  <select id="getFeesItemsByTypeAndKind" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.FeesItem">
+        select * from FEES_ITEM
+        where ITEM_KIND=#{itemKind,jdbcType=CHAR} and ITEM_TYPE = #{itemType}
+        and ITEM_STATE=#{itemState,jdbcType=CHAR}
+    </select>
+    
+    <select id="findById" resultMap="BaseResultMap" parameterType="Long">
+        SELECT *
+        FROM
+        FEES_ITEM
+        where FEES_ITEM_ID = #{value}
+    </select>
+    
+    <!--处理分页开始-->
+    <select id="findAllFeesItemPaging" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.FeesItem">
+        SELECT * FROM
+        FEES_ITEM
+        where 1=1
+        <if test="itemName != null">
+            and ITEM_NAME like '%${itemName}%'
+        </if>
+        <if test="itemDesc != null">
+            and ITEM_DESC like '%${itemDesc}%'
+        </if>
+        <if test="itemStateAll != null">
+            <if test="itemStateAll != -1">
+                and ITEM_STATE = #{itemStateAll}
+            </if>
+        </if>
+        order by FEES_ITEM_ID desc
+    </select>
+    <select id="count_findAllFeesItemPaging" resultType="Integer" parameterType="com.xt.cfp.core.pojo.FeesItem">
+        SELECT
+        count(1)
+        FROM
+        FEES_ITEM
+        where 1=1
+        <if test="itemName != null">
+            and ITEM_NAME like '%${itemName}%'
+        </if>
+        <if test="itemDesc != null">
+            and ITEM_DESC like '%${itemDesc}%'
+        </if>
+        <if test="itemStateAll != null">
+            <if test="itemStateAll != -1">
+                and ITEM_STATE = #{itemStateAll}
+            </if>
+        </if>
+    </select>
+    <!-- 判断费用是否被出借产品使用 -->
+    <select id="disableLoanProductFees" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.FeesItem">
+        select fi.*
+        from LOAN_PRODUCT_FEES_ITEM lpfi
+        left join FEES_ITEM fi
+        on lpfi.FEES_ITEM_ID = fi.FEES_ITEM_ID
+        left join LOAN_PRODUCT lp
+        on lpfi.LOAN_PRODUCT_ID = lp.LOAN_PRODUCT_ID
+        where fi.FEES_ITEM_ID = #{feesItemId}
+    </select>
+
+    <select id="findFeesByName" resultMap="BaseResultMap" parameterType="String">
+        select * from FEES_ITEM
+        where ITEM_NAME = #{itemName}
+    </select>
+    
+    <!--处理借款页面修改回显费用-->
+    <select id="feesItemByLoanProductId" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.FeesItem">
+        select *
+        from FEES_ITEM fs
+        where fs.FEES_ITEM_ID in
+        (select a.FEES_ITEM_ID
+        from LOAN_PRODUCT_FEES_ITEM a
+        where a.LOAN_PRODUCT_ID = #{feesItemId})
+        and ITEM_KIND =#{itemKind}
+    </select>
+</mapper>

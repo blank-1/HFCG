@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MORTGAGE_CAR_SNAPSHOT">
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.MortgageCarSnapshot">
+    <id column="MORTGAGE_CAR_ID" jdbcType="DECIMAL" property="mortgageCarId" />
+    <result column="CAR_LOAN_ID" jdbcType="DECIMAL" property="carLoanId" />
+    <result column="ARRIVED" jdbcType="CHAR" property="arrived" />
+    <result column="AUTOMOBILE_BRAND" jdbcType="VARCHAR" property="automobileBrand" />
+    <result column="CAR_MODEL" jdbcType="VARCHAR" property="carModel" />
+    <result column="MARKET_PRICE" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="FRAME_NUMBER" jdbcType="VARCHAR" property="frameNumber" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="STATE" jdbcType="CHAR" property="state" />
+    <result column="CHANGE_DESC" jdbcType="VARCHAR" property="changeDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    MORTGAGE_CAR_ID, CAR_LOAN_ID, ARRIVED, AUTOMOBILE_BRAND, CAR_MODEL, MARKET_PRICE, 
+    FRAME_NUMBER, CREATE_TIME, LAST_UPDATE_TIME, STATE, CHANGE_DESC
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from MORTGAGE_CAR_SNAPSHOT
+    where MORTGAGE_CAR_ID = #{mortgageCarId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from MORTGAGE_CAR_SNAPSHOT
+    where MORTGAGE_CAR_ID = #{mortgageCarId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.MortgageCarSnapshot">
+	<selectKey keyProperty="mortgageCarId" order="BEFORE" resultType="long">
+      SELECT SEQ_MORTGAGE_CAR.NEXTVAL as mortgageCarId FROM dual
+    </selectKey>
+    insert into MORTGAGE_CAR_SNAPSHOT (MORTGAGE_CAR_ID, CAR_LOAN_ID, ARRIVED, 
+      AUTOMOBILE_BRAND, CAR_MODEL, MARKET_PRICE, 
+      FRAME_NUMBER, CREATE_TIME, LAST_UPDATE_TIME, 
+      STATE, CHANGE_DESC)
+    values (#{mortgageCarId,jdbcType=DECIMAL}, #{carLoanId,jdbcType=DECIMAL}, #{arrived,jdbcType=CHAR}, 
+      #{automobileBrand,jdbcType=VARCHAR}, #{carModel,jdbcType=VARCHAR}, #{marketPrice,jdbcType=DECIMAL}, 
+      #{frameNumber,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=CHAR}, #{changeDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.MortgageCarSnapshot">
+    insert into MORTGAGE_CAR_SNAPSHOT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mortgageCarId != null">
+        MORTGAGE_CAR_ID,
+      </if>
+      <if test="carLoanId != null">
+        CAR_LOAN_ID,
+      </if>
+      <if test="arrived != null">
+        ARRIVED,
+      </if>
+      <if test="automobileBrand != null">
+        AUTOMOBILE_BRAND,
+      </if>
+      <if test="carModel != null">
+        CAR_MODEL,
+      </if>
+      <if test="marketPrice != null">
+        MARKET_PRICE,
+      </if>
+      <if test="frameNumber != null">
+        FRAME_NUMBER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateTime != null">
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="changeDesc != null">
+        CHANGE_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mortgageCarId != null">
+        #{mortgageCarId,jdbcType=DECIMAL},
+      </if>
+      <if test="carLoanId != null">
+        #{carLoanId,jdbcType=DECIMAL},
+      </if>
+      <if test="arrived != null">
+        #{arrived,jdbcType=CHAR},
+      </if>
+      <if test="automobileBrand != null">
+        #{automobileBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="carModel != null">
+        #{carModel,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="frameNumber != null">
+        #{frameNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="changeDesc != null">
+        #{changeDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.MortgageCarSnapshot">
+    update MORTGAGE_CAR_SNAPSHOT
+    <set>
+      <if test="carLoanId != null">
+        CAR_LOAN_ID = #{carLoanId,jdbcType=DECIMAL},
+      </if>
+      <if test="arrived != null">
+        ARRIVED = #{arrived,jdbcType=CHAR},
+      </if>
+      <if test="automobileBrand != null">
+        AUTOMOBILE_BRAND = #{automobileBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="carModel != null">
+        CAR_MODEL = #{carModel,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        MARKET_PRICE = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="frameNumber != null">
+        FRAME_NUMBER = #{frameNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="changeDesc != null">
+        CHANGE_DESC = #{changeDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MORTGAGE_CAR_ID = #{mortgageCarId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.MortgageCarSnapshot">
+    update MORTGAGE_CAR_SNAPSHOT
+    set CAR_LOAN_ID = #{carLoanId,jdbcType=DECIMAL},
+      ARRIVED = #{arrived,jdbcType=CHAR},
+      AUTOMOBILE_BRAND = #{automobileBrand,jdbcType=VARCHAR},
+      CAR_MODEL = #{carModel,jdbcType=VARCHAR},
+      MARKET_PRICE = #{marketPrice,jdbcType=DECIMAL},
+      FRAME_NUMBER = #{frameNumber,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      STATE = #{state,jdbcType=CHAR},
+      CHANGE_DESC = #{changeDesc,jdbcType=VARCHAR}
+    where MORTGAGE_CAR_ID = #{mortgageCarId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getListByCarLoanId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MORTGAGE_CAR_SNAPSHOT
+    where CAR_LOAN_ID = #{carLoanId,jdbcType=DECIMAL}
+    order by MORTGAGE_CAR_ID asc
+  </select>
+
+  <select id="getTotalPriceByCardLoanId" resultType="java.math.BigDecimal" parameterType="java.lang.Long" >
+    select
+      sum(MARKET_PRICE)
+    from MORTGAGE_CAR_SNAPSHOT
+    where CAR_LOAN_ID = #{carLoanId,jdbcType=DECIMAL} and STATE = '0'
+  </select>
+
+
+  <select id="getMortgageCarSnapshotPaging" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from MORTGAGE_CAR_SNAPSHOT
+    <where>
+      <if test="mortgageCarSnapshot != null">
+        <if test="mortgageCarSnapshot.carLoanId != null">
+          AND CAR_LOAN_ID = #{mortgageCarSnapshot.carLoanId}
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+    order by MORTGAGE_CAR_ID asc
+  </select>
+  <select id="count_getMortgageCarSnapshotPaging" resultType="int" parameterType="map">
+    select
+    count(1)
+    from MORTGAGE_CAR_SNAPSHOT
+    <where>
+      <if test="mortgageCarSnapshot != null">
+        <if test="mortgageCarSnapshot.carLoanId != null">
+          AND CAR_LOAN_ID = #{mortgageCarSnapshot.carLoanId}
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+  </select>
+
+</mapper>

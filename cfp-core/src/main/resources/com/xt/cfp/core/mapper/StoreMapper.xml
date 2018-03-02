@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="STORE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.Store" >
+    <id column="STORE_ID" property="storeId" jdbcType="DECIMAL" />
+    <result column="PROVINCE_ID" property="provinceId" jdbcType="DECIMAL" />
+    <result column="CITY_ID" property="cityId" jdbcType="DECIMAL" />
+    <result column="STORE_NAME" property="storeName" jdbcType="VARCHAR" />
+    <result column="STORE_DESC" property="storeDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STORE_ID, PROVINCE_ID, CITY_ID, STORE_NAME, STORE_DESC
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from STORE
+    where STORE_ID = #{storeId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from STORE
+    where STORE_ID = #{storeId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.Store" >
+    <selectKey keyProperty="storeId" order="BEFORE" resultType="long">
+      SELECT SEQ_STORE.NEXTVAL as storeId FROM dual
+    </selectKey>
+    insert into STORE (STORE_ID, PROVINCE_ID, CITY_ID, 
+      STORE_NAME, STORE_DESC)
+    values (#{storeId,jdbcType=DECIMAL}, #{provinceId,jdbcType=DECIMAL}, #{cityId,jdbcType=DECIMAL}, 
+      #{storeName,jdbcType=VARCHAR}, #{storeDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.Store" >
+    insert into STORE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        STORE_ID,
+      </if>
+      <if test="provinceId != null" >
+        PROVINCE_ID,
+      </if>
+      <if test="cityId != null" >
+        CITY_ID,
+      </if>
+      <if test="storeName != null" >
+        STORE_NAME,
+      </if>
+      <if test="storeDesc != null" >
+        STORE_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=DECIMAL},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=DECIMAL},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=DECIMAL},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDesc != null" >
+        #{storeDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.Store" >
+    update STORE
+    <set >
+      <if test="provinceId != null" >
+        PROVINCE_ID = #{provinceId,jdbcType=DECIMAL},
+      </if>
+      <if test="cityId != null" >
+        CITY_ID = #{cityId,jdbcType=DECIMAL},
+      </if>
+      <if test="storeName != null" >
+        STORE_NAME = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDesc != null" >
+        STORE_DESC = #{storeDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where STORE_ID = #{storeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.Store" >
+    update STORE
+    set PROVINCE_ID = #{provinceId,jdbcType=DECIMAL},
+      CITY_ID = #{cityId,jdbcType=DECIMAL},
+      STORE_NAME = #{storeName,jdbcType=VARCHAR},
+      STORE_DESC = #{storeDesc,jdbcType=VARCHAR}
+    where STORE_ID = #{storeId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="findAllStore" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from STORE
+  </select>
+</mapper>

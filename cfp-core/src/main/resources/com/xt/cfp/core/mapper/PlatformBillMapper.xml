@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PLATFORM_BILL" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.PlatformBill" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="REGIS_TIME" property="regisTime" jdbcType="TIMESTAMP" />
+    <result column="FAST_INVEST_TIME" property="fastInvestTime" jdbcType="TIMESTAMP" />
+    <result column="INVEST_VALUE" property="investValue" jdbcType="DECIMAL" />
+    <result column="INVEST_RANKING" property="investRanking" jdbcType="DECIMAL" />
+    <result column="PROFIT_VALUE" property="profitValue" jdbcType="DECIMAL" />
+    <result column="PROFIT_RANKING" property="profitRanking" jdbcType="DECIMAL" />
+    <result column="GET_VOUCHER" property="getVoucher" jdbcType="DECIMAL" />
+    <result column="USE_VOUCHER" property="useVoucher" jdbcType="DECIMAL" />
+    <result column="LIKE_BID_CYCLE" property="likeBidCycle" jdbcType="DECIMAL" />
+    <result column="INVITE_NUMBER" property="inviteNumber" jdbcType="DECIMAL" />
+    <result column="INVITE_RANKING" property="inviteRanking" jdbcType="DECIMAL" />
+    <result column="ISVIEW" property="isview" jdbcType="DECIMAL" />
+    <result column="FAST_VIEW_TIME" property="fastViewTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, REAL_NAME, REGIS_TIME, FAST_INVEST_TIME, INVEST_VALUE, INVEST_RANKING, PROFIT_VALUE, 
+    PROFIT_RANKING, GET_VOUCHER, USE_VOUCHER, LIKE_BID_CYCLE, INVITE_NUMBER, INVITE_RANKING, 
+    ISVIEW, FAST_VIEW_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PLATFORM_BILL
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PLATFORM_BILL
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.PlatformBill" >
+    insert into PLATFORM_BILL (USER_ID, REAL_NAME, REGIS_TIME, 
+      FAST_INVEST_TIME, INVEST_VALUE, INVEST_RANKING, 
+      PROFIT_VALUE, PROFIT_RANKING, GET_VOUCHER, 
+      USE_VOUCHER, LIKE_BID_CYCLE, INVITE_NUMBER, 
+      INVITE_RANKING, ISVIEW, FAST_VIEW_TIME
+      )
+    values (#{userId,jdbcType=DECIMAL}, #{realName,jdbcType=VARCHAR}, #{regisTime,jdbcType=TIMESTAMP}, 
+      #{fastInvestTime,jdbcType=TIMESTAMP}, #{investValue,jdbcType=DECIMAL}, #{investRanking,jdbcType=DECIMAL}, 
+      #{profitValue,jdbcType=DECIMAL}, #{profitRanking,jdbcType=DECIMAL}, #{getVoucher,jdbcType=DECIMAL}, 
+      #{useVoucher,jdbcType=DECIMAL}, #{likeBidCycle,jdbcType=DECIMAL}, #{inviteNumber,jdbcType=DECIMAL}, 
+      #{inviteRanking,jdbcType=DECIMAL}, #{isview,jdbcType=DECIMAL}, #{fastViewTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.PlatformBill" >
+    insert into PLATFORM_BILL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="realName != null" >
+        REAL_NAME,
+      </if>
+      <if test="regisTime != null" >
+        REGIS_TIME,
+      </if>
+      <if test="fastInvestTime != null" >
+        FAST_INVEST_TIME,
+      </if>
+      <if test="investValue != null" >
+        INVEST_VALUE,
+      </if>
+      <if test="investRanking != null" >
+        INVEST_RANKING,
+      </if>
+      <if test="profitValue != null" >
+        PROFIT_VALUE,
+      </if>
+      <if test="profitRanking != null" >
+        PROFIT_RANKING,
+      </if>
+      <if test="getVoucher != null" >
+        GET_VOUCHER,
+      </if>
+      <if test="useVoucher != null" >
+        USE_VOUCHER,
+      </if>
+      <if test="likeBidCycle != null" >
+        LIKE_BID_CYCLE,
+      </if>
+      <if test="inviteNumber != null" >
+        INVITE_NUMBER,
+      </if>
+      <if test="inviteRanking != null" >
+        INVITE_RANKING,
+      </if>
+      <if test="isview != null" >
+        ISVIEW,
+      </if>
+      <if test="fastViewTime != null" >
+        FAST_VIEW_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="regisTime != null" >
+        #{regisTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fastInvestTime != null" >
+        #{fastInvestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="investValue != null" >
+        #{investValue,jdbcType=DECIMAL},
+      </if>
+      <if test="investRanking != null" >
+        #{investRanking,jdbcType=DECIMAL},
+      </if>
+      <if test="profitValue != null" >
+        #{profitValue,jdbcType=DECIMAL},
+      </if>
+      <if test="profitRanking != null" >
+        #{profitRanking,jdbcType=DECIMAL},
+      </if>
+      <if test="getVoucher != null" >
+        #{getVoucher,jdbcType=DECIMAL},
+      </if>
+      <if test="useVoucher != null" >
+        #{useVoucher,jdbcType=DECIMAL},
+      </if>
+      <if test="likeBidCycle != null" >
+        #{likeBidCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="inviteNumber != null" >
+        #{inviteNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="inviteRanking != null" >
+        #{inviteRanking,jdbcType=DECIMAL},
+      </if>
+      <if test="isview != null" >
+        #{isview,jdbcType=DECIMAL},
+      </if>
+      <if test="fastViewTime != null" >
+        #{fastViewTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.PlatformBill" >
+    update PLATFORM_BILL
+    <set >
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="regisTime != null" >
+        REGIS_TIME = #{regisTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fastInvestTime != null" >
+        FAST_INVEST_TIME = #{fastInvestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="investValue != null" >
+        INVEST_VALUE = #{investValue,jdbcType=DECIMAL},
+      </if>
+      <if test="investRanking != null" >
+        INVEST_RANKING = #{investRanking,jdbcType=DECIMAL},
+      </if>
+      <if test="profitValue != null" >
+        PROFIT_VALUE = #{profitValue,jdbcType=DECIMAL},
+      </if>
+      <if test="profitRanking != null" >
+        PROFIT_RANKING = #{profitRanking,jdbcType=DECIMAL},
+      </if>
+      <if test="getVoucher != null" >
+        GET_VOUCHER = #{getVoucher,jdbcType=DECIMAL},
+      </if>
+      <if test="useVoucher != null" >
+        USE_VOUCHER = #{useVoucher,jdbcType=DECIMAL},
+      </if>
+      <if test="likeBidCycle != null" >
+        LIKE_BID_CYCLE = #{likeBidCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="inviteNumber != null" >
+        INVITE_NUMBER = #{inviteNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="inviteRanking != null" >
+        INVITE_RANKING = #{inviteRanking,jdbcType=DECIMAL},
+      </if>
+      <if test="isview != null" >
+        ISVIEW = #{isview,jdbcType=DECIMAL},
+      </if>
+      <if test="fastViewTime != null" >
+        FAST_VIEW_TIME = #{fastViewTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.PlatformBill" >
+    update PLATFORM_BILL
+    set REAL_NAME = #{realName,jdbcType=VARCHAR},
+      REGIS_TIME = #{regisTime,jdbcType=TIMESTAMP},
+      FAST_INVEST_TIME = #{fastInvestTime,jdbcType=TIMESTAMP},
+      INVEST_VALUE = #{investValue,jdbcType=DECIMAL},
+      INVEST_RANKING = #{investRanking,jdbcType=DECIMAL},
+      PROFIT_VALUE = #{profitValue,jdbcType=DECIMAL},
+      PROFIT_RANKING = #{profitRanking,jdbcType=DECIMAL},
+      GET_VOUCHER = #{getVoucher,jdbcType=DECIMAL},
+      USE_VOUCHER = #{useVoucher,jdbcType=DECIMAL},
+      LIKE_BID_CYCLE = #{likeBidCycle,jdbcType=DECIMAL},
+      INVITE_NUMBER = #{inviteNumber,jdbcType=DECIMAL},
+      INVITE_RANKING = #{inviteRanking,jdbcType=DECIMAL},
+      ISVIEW = #{isview,jdbcType=DECIMAL},
+      FAST_VIEW_TIME = #{fastViewTime,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+</mapper>

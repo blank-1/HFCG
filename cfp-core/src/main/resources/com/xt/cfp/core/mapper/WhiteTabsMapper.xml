@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="WHITE_TABS" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.WhiteTabs" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="SOURCE" property="source" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+      USER_ID, SOURCE
+  </sql>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from WHITE_TABS
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from WHITE_TABS
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.WhiteTabs" >
+    insert into WHITE_TABS (  USER_ID,    SOURCE)
+    values (  #{userId,jdbcType=DECIMAL},  #{source,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.WhiteTabs" >
+    insert into WHITE_TABS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="source != null" >
+        SOURCE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.WhiteTabs" >
+    update WHITE_TABS
+    <set >
+      <if test="source != null" >
+        SOURCE = #{source,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.WhiteTabs" >
+    update WHITE_TABS
+    set   SOURCE = #{source,jdbcType=VARCHAR} 
+    where USER_ID = #{userId,jdbcType=DECIMAL}     
+  </update>
+  
+  <select id="countUserId" parameterType="java.lang.Long" resultType="int" >
+  	select count(1) from   WHITE_TABS  WT where WT.USER_ID = #{userId}   
+  </select>
+  
+  <select id="isSaleInvite" parameterType="java.lang.Long" resultType="int" >
+  
+ with iwt as ( select * from invite_white_tabs ) 
+select  count(1) 
+  from (select di.user_pid
+          from distribution_invite di
+         where di.user_id = #{userId}
+           and di.user_pid not in (select wi.user_id from white_tabs wi) 
+           and di.user_id in (select iwt.user_id from  iwt)
+           and di.user_pid in (select iwt.user_id from iwt))
+  </select>
+</mapper>

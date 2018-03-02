@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RIGHTSREPAYMENTDETAIL">
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RightsRepaymentDetail">
+        <id column="RIGHTS_REPAYMENT_DETAIL_ID" property="rightsRepaymentDetailId" jdbcType="DECIMAL"/>
+        <result column="CREDITOR_RIGHTS_ID" property="creditorRightsId" jdbcType="DECIMAL"/>
+        <result column="LOAN_ACCOUNT_ID" property="loanAccountId" jdbcType="DECIMAL"/>
+        <result column="LEND_ACCOUNT_ID" property="lendAccountId" jdbcType="DECIMAL"/>
+        <result column="REPAYMENT_PLAN_ID" property="repaymentPlanId" jdbcType="DECIMAL"/>
+        <result column="SECTION_CODE" property="sectionCode" jdbcType="DECIMAL"/>
+        <result column="PROPORTION" property="proportion" jdbcType="DECIMAL"/>
+        <result column="REPAYMENT_DAY_PLANNED" property="repaymentDayPlanned" jdbcType="TIMESTAMP"/>
+        <result column="SHOULD_CAPITAL" property="shouldCapital" jdbcType="DECIMAL"/>
+        <result column="SHOULD_INTEREST" property="shouldInterest" jdbcType="DECIMAL"/>
+        <result column="SHOULD_BALANCE" property="shouldBalance" jdbcType="DECIMAL"/>
+        <result column="SHOULD_CAPITAL2" property="shouldCapital2" jdbcType="DECIMAL"/>
+        <result column="SHOULD_INTEREST2" property="shouldInterest2" jdbcType="DECIMAL"/>
+        <result column="SHOULD_BALANCE2" property="shouldBalance2" jdbcType="DECIMAL"/>
+        <result column="FACT_CALITAL" property="factCalital" jdbcType="DECIMAL"/>
+        <result column="FACT_INTEREST" property="factInterest" jdbcType="DECIMAL"/>
+        <result column="FACT_BALANCE" property="factBalance" jdbcType="DECIMAL"/>
+        <result column="IS_PAY_OFF" property="isPayOff" jdbcType="CHAR"/>
+        <result column="IS_DELAY" property="isDelay" jdbcType="CHAR"/>
+        <result column="DEPAL_FINE" property="depalFine" jdbcType="DECIMAL"/>
+        <result column="DELAY_DAYS" property="delayDays" jdbcType="DECIMAL"/>
+        <result column="RIGHTS_DETAIL_STATE" property="rightsDetailState" jdbcType="CHAR"/>
+    </resultMap>
+    
+    <!-- 回款日历，月列表数据封装 -->
+	<resultMap id="MonthListDataMap" type="com.xt.cfp.core.pojo.ext.PaymentMonthListDataVO" >
+		<result column="day" property="day" jdbcType="DECIMAL" />
+	    <result column="leg" property="leg" jdbcType="DECIMAL" />
+	</resultMap>
+	<!-- 回款日历，天汇总数据封装 -->
+	<resultMap id="DaySummaryDataMap" type="com.xt.cfp.core.pojo.ext.PaymentDaySummaryDataVO" >
+		<result column="moneyTime" property="moneyTime" jdbcType="VARCHAR" />
+	    <result column="moneyDay" property="moneyDay" jdbcType="DECIMAL" />
+	</resultMap>
+	<!-- 回款日历，天列表数据封装 -->
+	<resultMap id="DayListDataMap" type="com.xt.cfp.core.pojo.ext.PaymentDayListDataVO" >
+		<result column="pjType" property="pjType" jdbcType="DECIMAL" />
+	    <result column="title" property="title" jdbcType="VARCHAR" />
+	    <result column="benOrLi" property="benOrLi" jdbcType="DECIMAL" />
+	    <result column="timerAll" property="timerAll" jdbcType="DECIMAL" />
+	    <result column="timmerNow" property="timmerNow" jdbcType="DECIMAL" />
+	    <result column="backMoney" property="backMoney" jdbcType="DECIMAL" />
+	    <result column="limitTime" property="limitTime" jdbcType="VARCHAR" />
+	    <result column="hasBackOrNot" property="hasBackOrNot" jdbcType="DECIMAL" />
+	</resultMap>
+
+    <sql id="Base_Column_List">
+    RIGHTS_REPAYMENT_DETAIL_ID, CREDITOR_RIGHTS_ID, LOAN_ACCOUNT_ID, LEND_ACCOUNT_ID, 
+    REPAYMENT_PLAN_ID, SECTION_CODE,PROPORTION, REPAYMENT_DAY_PLANNED, SHOULD_CAPITAL, SHOULD_INTEREST,
+    SHOULD_BALANCE, SHOULD_CAPITAL2, SHOULD_INTEREST2, SHOULD_BALANCE2, FACT_CALITAL, 
+    FACT_INTEREST, FACT_BALANCE, IS_PAY_OFF, IS_DELAY, DEPAL_FINE, DELAY_DAYS, RIGHTS_DETAIL_STATE
+  </sql>
+
+    <select id="bugfix_getNeedReAwardRs" resultMap="BaseResultMap" parameterType="map">
+        SELECT rrd.*
+        FROM RIGHTS_REPAYMENT_DETAIL rrd, CREDITOR_RIGHTS cr
+        WHERE rrd.CREDITOR_RIGHTS_ID = cr.CREDITOR_RIGHTS_ID AND rrd.RIGHTS_DETAIL_STATE IN ('2', '4') AND
+        rrd.REPAYMENT_DAY_PLANNED <![CDATA[>=]]> #{sDate} AND
+        rrd.REPAYMENT_DAY_PLANNED <![CDATA[<]]> #{eDate} AND
+        cr.LOAN_APPLICATION_ID IN (SELECT lp.LOAN_APPLICATION_ID
+        FROM LOAN_PUBLISH lp
+        WHERE lp.AWARD_POINT = '2') AND
+        rrd.RIGHTS_REPAYMENT_DETAIL_ID NOT IN (SELECT ad.RIGHTS_REPAYMENT_DETAIL_ID
+        FROM AWARD_DETAIL ad
+        WHERE ad.AWARD_TIME <![CDATA[>=]]> #{sDate} AND
+        ad.AWARD_POINT = '2')
+        ORDER BY rrd.REPAYMENT_DAY_PLANNED DESC, rrd.RIGHTS_REPAYMENT_DETAIL_ID DESC
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from RIGHTS_REPAYMENT_DETAIL
+        where RIGHTS_REPAYMENT_DETAIL_ID = #{rightsRepaymentDetailId,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from RIGHTS_REPAYMENT_DETAIL
+    where RIGHTS_REPAYMENT_DETAIL_ID = #{rightsRepaymentDetailId,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.RightsRepaymentDetail">
+        <selectKey keyProperty="rightsRepaymentDetailId" resultType="java.lang.Long" order="BEFORE">
+            select SEQ_RIGHTS_REPAYMENT_DETAIL.nextval as rightsRepaymentDetailId from dual
+        </selectKey>
+        insert into RIGHTS_REPAYMENT_DETAIL (RIGHTS_REPAYMENT_DETAIL_ID, CREDITOR_RIGHTS_ID,
+        LOAN_ACCOUNT_ID, LEND_ACCOUNT_ID, REPAYMENT_PLAN_ID,
+        SECTION_CODE,PROPORTION, REPAYMENT_DAY_PLANNED, SHOULD_CAPITAL,
+        SHOULD_INTEREST, SHOULD_BALANCE, SHOULD_CAPITAL2,
+        SHOULD_INTEREST2, SHOULD_BALANCE2, FACT_CALITAL,
+        FACT_INTEREST, FACT_BALANCE, IS_PAY_OFF,
+        IS_DELAY, DEPAL_FINE, DELAY_DAYS,
+        RIGHTS_DETAIL_STATE)
+        values (#{rightsRepaymentDetailId,jdbcType=DECIMAL}, #{creditorRightsId,jdbcType=DECIMAL},
+        #{loanAccountId,jdbcType=DECIMAL}, #{lendAccountId,jdbcType=DECIMAL}, #{repaymentPlanId,jdbcType=DECIMAL},
+        #{sectionCode,jdbcType=DECIMAL},#{proportion,jdbcType=DECIMAL}, #{repaymentDayPlanned,jdbcType=DATE},
+        #{shouldCapital,jdbcType=DECIMAL},
+        #{shouldInterest,jdbcType=DECIMAL}, #{shouldBalance,jdbcType=DECIMAL}, #{shouldCapital2,jdbcType=DECIMAL},
+        #{shouldInterest2,jdbcType=DECIMAL}, #{shouldBalance2,jdbcType=DECIMAL}, #{factCalital,jdbcType=DECIMAL},
+        #{factInterest,jdbcType=DECIMAL}, #{factBalance,jdbcType=DECIMAL}, #{isPayOff,jdbcType=CHAR},
+        #{isDelay,jdbcType=CHAR}, #{depalFine,jdbcType=DECIMAL}, #{delayDays,jdbcType=DECIMAL},
+        #{rightsDetailState,jdbcType=CHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.RightsRepaymentDetail">
+        insert into RIGHTS_REPAYMENT_DETAIL
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rightsRepaymentDetailId != null">
+                RIGHTS_REPAYMENT_DETAIL_ID,
+            </if>
+            <if test="creditorRightsId != null">
+                CREDITOR_RIGHTS_ID,
+            </if>
+            <if test="loanAccountId != null">
+                LOAN_ACCOUNT_ID,
+            </if>
+            <if test="lendAccountId != null">
+                LEND_ACCOUNT_ID,
+            </if>
+            <if test="repaymentPlanId != null">
+                REPAYMENT_PLAN_ID,
+            </if>
+            <if test="sectionCode != null">
+                SECTION_CODE,
+            </if>
+            <if test="proportion != null">
+                PROPORTION,
+            </if>
+            <if test="repaymentDayPlanned != null">
+                REPAYMENT_DAY_PLANNED,
+            </if>
+            <if test="shouldCapital != null">
+                SHOULD_CAPITAL,
+            </if>
+            <if test="shouldInterest != null">
+                SHOULD_INTEREST,
+            </if>
+            <if test="shouldBalance != null">
+                SHOULD_BALANCE,
+            </if>
+            <if test="shouldCapital2 != null">
+                SHOULD_CAPITAL2,
+            </if>
+            <if test="shouldInterest2 != null">
+                SHOULD_INTEREST2,
+            </if>
+            <if test="shouldBalance2 != null">
+                SHOULD_BALANCE2,
+            </if>
+            <if test="factCalital != null">
+                FACT_CALITAL,
+            </if>
+            <if test="factInterest != null">
+                FACT_INTEREST,
+            </if>
+            <if test="factBalance != null">
+                FACT_BALANCE,
+            </if>
+            <if test="isPayOff != null">
+                IS_PAY_OFF,
+            </if>
+            <if test="isDelay != null">
+                IS_DELAY,
+            </if>
+            <if test="depalFine != null">
+                DEPAL_FINE,
+            </if>
+            <if test="delayDays != null">
+                DELAY_DAYS,
+            </if>
+            <if test="rightsDetailState != null">
+                RIGHTS_DETAIL_STATE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rightsRepaymentDetailId != null">
+                #{rightsRepaymentDetailId,jdbcType=DECIMAL},
+            </if>
+            <if test="creditorRightsId != null">
+                #{creditorRightsId,jdbcType=DECIMAL},
+            </if>
+            <if test="loanAccountId != null">
+                #{loanAccountId,jdbcType=DECIMAL},
+            </if>
+            <if test="lendAccountId != null">
+                #{lendAccountId,jdbcType=DECIMAL},
+            </if>
+            <if test="repaymentPlanId != null">
+                #{repaymentPlanId,jdbcType=DECIMAL},
+            </if>
+            <if test="sectionCode != null">
+                #{sectionCode,jdbcType=DECIMAL},
+            </if>
+            <if test="proportion != null">
+                #{proportion,jdbcType=DECIMAL},
+            </if>
+            <if test="repaymentDayPlanned != null">
+                #{repaymentDayPlanned,jdbcType=DATE},
+            </if>
+            <if test="shouldCapital != null">
+                #{shouldCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="shouldInterest != null">
+                #{shouldInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="shouldBalance != null">
+                #{shouldBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="shouldCapital2 != null">
+                #{shouldCapital2,jdbcType=DECIMAL},
+            </if>
+            <if test="shouldInterest2 != null">
+                #{shouldInterest2,jdbcType=DECIMAL},
+            </if>
+            <if test="shouldBalance2 != null">
+                #{shouldBalance2,jdbcType=DECIMAL},
+            </if>
+            <if test="factCalital != null">
+                #{factCalital,jdbcType=DECIMAL},
+            </if>
+            <if test="factInterest != null">
+                #{factInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="factBalance != null">
+                #{factBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="isPayOff != null">
+                #{isPayOff,jdbcType=CHAR},
+            </if>
+            <if test="isDelay != null">
+                #{isDelay,jdbcType=CHAR},
+            </if>
+            <if test="depalFine != null">
+                #{depalFine,jdbcType=DECIMAL},
+            </if>
+            <if test="delayDays != null">
+                #{delayDays,jdbcType=DECIMAL},
+            </if>
+            <if test="rightsDetailState != null">
+                #{rightsDetailState,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.RightsRepaymentDetail">
+        update RIGHTS_REPAYMENT_DETAIL
+        <set>
+            <if test="creditorRightsId != null">
+                CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL},
+            </if>
+            <if test="loanAccountId != null">
+                LOAN_ACCOUNT_ID = #{loanAccountId,jdbcType=DECIMAL},
+            </if>
+            <if test="lendAccountId != null">
+                LEND_ACCOUNT_ID = #{lendAccountId,jdbcType=DECIMAL},
+            </if>
+            <if test="repaymentPlanId != null">
+                REPAYMENT_PLAN_ID = #{repaymentPlanId,jdbcType=DECIMAL},
+            </if>
+            <if test="sectionCode != null">
+                SECTION_CODE = #{sectionCode,jdbcType=DECIMAL},
+            </if>
+             <if test="proportion != null">
+                 PROPORTION = #{proportion,jdbcType=DECIMAL},
+            </if>
+            <if test="repaymentDayPlanned != null">
+                REPAYMENT_DAY_PLANNED = #{repaymentDayPlanned,jdbcType=TIMESTAMP},
+            </if>
+            <if test="shouldCapital != null">
+                SHOULD_CAPITAL = #{shouldCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="shouldInterest != null">
+                SHOULD_INTEREST = #{shouldInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="shouldBalance != null">
+                SHOULD_BALANCE = #{shouldBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="shouldCapital2 != null">
+                SHOULD_CAPITAL2 = #{shouldCapital2,jdbcType=DECIMAL},
+            </if>
+            <if test="shouldInterest2 != null">
+                SHOULD_INTEREST2 = #{shouldInterest2,jdbcType=DECIMAL},
+            </if>
+            <if test="shouldBalance2 != null">
+                SHOULD_BALANCE2 = #{shouldBalance2,jdbcType=DECIMAL},
+            </if>
+            <if test="factCalital != null">
+                FACT_CALITAL = #{factCalital,jdbcType=DECIMAL},
+            </if>
+            <if test="factInterest != null">
+                FACT_INTEREST = #{factInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="factBalance != null">
+                FACT_BALANCE = #{factBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="isPayOff != null">
+                IS_PAY_OFF = #{isPayOff,jdbcType=CHAR},
+            </if>
+            <if test="isDelay != null">
+                IS_DELAY = #{isDelay,jdbcType=CHAR},
+            </if>
+            <if test="depalFine != null">
+                DEPAL_FINE = #{depalFine,jdbcType=DECIMAL},
+            </if>
+            <if test="delayDays != null">
+                DELAY_DAYS = #{delayDays,jdbcType=DECIMAL},
+            </if>
+            <if test="rightsDetailState != null">
+                RIGHTS_DETAIL_STATE = #{rightsDetailState,jdbcType=CHAR},
+            </if>
+        </set>
+        where RIGHTS_REPAYMENT_DETAIL_ID = #{rightsRepaymentDetailId,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RightsRepaymentDetail">
+    update RIGHTS_REPAYMENT_DETAIL
+    set CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL},
+      LOAN_ACCOUNT_ID = #{loanAccountId,jdbcType=DECIMAL},
+      LEND_ACCOUNT_ID = #{lendAccountId,jdbcType=DECIMAL},
+      REPAYMENT_PLAN_ID = #{repaymentPlanId,jdbcType=DECIMAL},
+      SECTION_CODE = #{sectionCode,jdbcType=DECIMAL},
+      PROPORTION = #{proportion,jdbcType=DECIMAL},
+      REPAYMENT_DAY_PLANNED = #{repaymentDayPlanned,jdbcType=TIMESTAMP},
+      SHOULD_CAPITAL = #{shouldCapital,jdbcType=DECIMAL},
+      SHOULD_INTEREST = #{shouldInterest,jdbcType=DECIMAL},
+      SHOULD_BALANCE = #{shouldBalance,jdbcType=DECIMAL},
+      SHOULD_CAPITAL2 = #{shouldCapital2,jdbcType=DECIMAL},
+      SHOULD_INTEREST2 = #{shouldInterest2,jdbcType=DECIMAL},
+      SHOULD_BALANCE2 = #{shouldBalance2,jdbcType=DECIMAL},
+      FACT_CALITAL = #{factCalital,jdbcType=DECIMAL},
+      FACT_INTEREST = #{factInterest,jdbcType=DECIMAL},
+      FACT_BALANCE = #{factBalance,jdbcType=DECIMAL},
+      IS_PAY_OFF = #{isPayOff,jdbcType=CHAR},
+      IS_DELAY = #{isDelay,jdbcType=CHAR},
+      DEPAL_FINE = #{depalFine,jdbcType=DECIMAL},
+      DELAY_DAYS = #{delayDays,jdbcType=DECIMAL},
+      RIGHTS_DETAIL_STATE = #{rightsDetailState,jdbcType=CHAR}
+    where RIGHTS_REPAYMENT_DETAIL_ID = #{rightsRepaymentDetailId,jdbcType=DECIMAL}
+  </update>
+
+    <!-- 根据债权ID获取详细列表 -->
+    <select id="getDetailListByRightsId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select * from RIGHTS_REPAYMENT_DETAIL where CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL} order by SECTION_CODE asc
+
+  </select>
+
+    <select id="getRightsRepaymentDetailsByPlanId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        RIGHTS_REPAYMENT_DETAIL.RIGHTS_REPAYMENT_DETAIL_ID, RIGHTS_REPAYMENT_DETAIL.CREDITOR_RIGHTS_ID, RIGHTS_REPAYMENT_DETAIL.LOAN_ACCOUNT_ID,
+        RIGHTS_REPAYMENT_DETAIL.LEND_ACCOUNT_ID,
+    RIGHTS_REPAYMENT_DETAIL.REPAYMENT_PLAN_ID, RIGHTS_REPAYMENT_DETAIL.SECTION_CODE,RIGHTS_REPAYMENT_DETAIL.PROPORTION, RIGHTS_REPAYMENT_DETAIL.REPAYMENT_DAY_PLANNED,
+    RIGHTS_REPAYMENT_DETAIL.SHOULD_CAPITAL, RIGHTS_REPAYMENT_DETAIL.SHOULD_INTEREST,
+    RIGHTS_REPAYMENT_DETAIL.SHOULD_BALANCE, RIGHTS_REPAYMENT_DETAIL.SHOULD_CAPITAL2, RIGHTS_REPAYMENT_DETAIL.SHOULD_INTEREST2, RIGHTS_REPAYMENT_DETAIL.SHOULD_BALANCE2,
+    RIGHTS_REPAYMENT_DETAIL.FACT_CALITAL,
+    RIGHTS_REPAYMENT_DETAIL.FACT_INTEREST, RIGHTS_REPAYMENT_DETAIL.FACT_BALANCE, RIGHTS_REPAYMENT_DETAIL.IS_PAY_OFF, RIGHTS_REPAYMENT_DETAIL.IS_DELAY,
+    RIGHTS_REPAYMENT_DETAIL.DEPAL_FINE, RIGHTS_REPAYMENT_DETAIL.DELAY_DAYS, RIGHTS_REPAYMENT_DETAIL.RIGHTS_DETAIL_STATE
+        from RIGHTS_REPAYMENT_DETAIL,CREDITOR_RIGHTS
+        where  RIGHTS_REPAYMENT_DETAIL.CREDITOR_RIGHTS_ID = CREDITOR_RIGHTS.CREDITOR_RIGHTS_ID
+        and REPAYMENT_PLAN_ID=#{repaymentPlanId,jdbcType=DECIMAL}
+        and CREDITOR_RIGHTS.CHANNEL_TYPE = '2'
+        <!--已生效债权，排除-->
+        and CREDITOR_RIGHTS.RIGHTS_STATE = '0'
+    </select>
+
+    <select id="getDetailByRightsId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from RIGHTS_REPAYMENT_DETAIL
+        <where>
+            <if test="_parameter.containsKey('creditorRightsId')">
+                and CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL}
+            </if>
+            <if test="_parameter.containsKey('sectionCode')">
+                and SECTION_CODE = #{sectionCode,jdbcType=DECIMAL}
+            </if>
+
+        </where>
+    </select>
+    <update id="updateMap" parameterType="com.xt.cfp.core.pojo.RightsRepaymentDetail">
+        update RIGHTS_REPAYMENT_DETAIL
+        <set>
+        <if test="_parameter.containsKey('creditorRightsId')">
+            CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('loanAccountId')">
+            LOAN_ACCOUNT_ID = #{loanAccountId,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('lendAccountId')">
+            LEND_ACCOUNT_ID = #{lendAccountId,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('repaymentPlanId')">
+            REPAYMENT_PLAN_ID = #{repaymentPlanId,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('sectionCode')">
+            SECTION_CODE = #{sectionCode,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('proportion')">
+            PROPORTION = #{proportion,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('repaymentDayPlanned')">
+            REPAYMENT_DAY_PLANNED = #{repaymentDayPlanned,jdbcType=DATE},
+        </if>
+        <if test="_parameter.containsKey('shouldCapital')">
+            SHOULD_CAPITAL = #{shouldCapital,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('shouldInterest')">
+            SHOULD_INTEREST = #{shouldInterest,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('shouldBalance')">
+            SHOULD_BALANCE = #{shouldBalance,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('shouldCapital2')">
+            SHOULD_CAPITAL2 = #{shouldCapital2,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('shouldInterest2')">
+            SHOULD_INTEREST2 = #{shouldInterest2,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('shouldBalance2')">
+            SHOULD_BALANCE2 = #{shouldBalance2,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('factCalital')">
+            FACT_CALITAL = #{factCalital,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('factInterest')">
+            FACT_INTEREST = #{factInterest,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('factBalance')">
+            FACT_BALANCE = #{factBalance,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('isPayOff')">
+            IS_PAY_OFF = #{isPayOff,jdbcType=CHAR},
+        </if>
+        <if test="_parameter.containsKey('isDelay')">
+            IS_DELAY = #{isDelay,jdbcType=CHAR},
+        </if>
+        <if test="_parameter.containsKey('depalFine')">
+            DEPAL_FINE = #{depalFine,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('delayDays')">
+            DELAY_DAYS = #{delayDays,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('rightsDetailState')">
+            RIGHTS_DETAIL_STATE = #{rightsDetailState,jdbcType=CHAR},
+        </if>
+        </set>
+        where RIGHTS_REPAYMENT_DETAIL_ID=#{rightsRepaymentDetailId,jdbcType=DECIMAL}
+    </update>
+    
+    <select id="findBy" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 SELECT * FROM RIGHTS_REPAYMENT_DETAIL
+		<where>
+			<if test="_parameter.containsKey('creditorRightsId')">
+	            <if test="creditorRightsId != null and creditorRightsId != ''">
+	                CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL}
+	            </if>
+	        </if>
+			<if test="_parameter.containsKey('sectionCodeList')">
+	            <if test="sectionCodeList != null and sectionCodeList != '' ">
+	            	<foreach collection="sectionCodeList" open="and section_code IN (" close=")" item="status" separator=", ">
+		              #{status}
+		            </foreach>
+	            </if>
+	        </if>
+        </where>
+        ORDER BY SECTION_CODE ASC
+	</select>
+	
+	<select id="repairRightsRepaymentDetailData" resultType="com.xt.cfp.core.pojo.ext.RepairRightsRepaymentDetailData">
+		with aa as(
+			select  rrd.proportion,rrd.creditor_rights_id,cdd.carry_cr_id 
+			  from creditorright_deal_detail cdd,
+			       creditor_rights           cr,
+			       rights_repayment_detail   rrd,
+			       creditorright_transfer_apply cta 
+			 where cdd.creditor_rights_apply_id = cta.creditor_rights_apply_id
+			      and cta.apply_cr_id = cr.creditor_rights_id 
+			      and rrd.creditor_rights_id = cr.creditor_rights_id
+			      and cdd.carry_cr_id is not null group by rrd.proportion,rrd.creditor_rights_id,cdd.carry_cr_id 
+			 order by cdd.carry_cr_id asc
+			 )
+			
+			select  min(rrd.proportion) as errorproportion , min(rrd.should_interest * 100/rp.should_interest)  as newproportion,
+			    min(aa.proportion) as oldproportion ,rrd.creditor_rights_id as newrightsid ,min(aa.creditor_rights_id) as oldrightsid 
+			  from creditorright_deal_detail cdd,
+			       creditor_rights           cr,
+			       rights_repayment_detail   rrd,
+			       repayment_plan               rp,
+			       aa
+			 where cdd.carry_cr_id = cr.creditor_rights_id
+			      and rrd.creditor_rights_id = cr.creditor_rights_id 
+			       and rp.repayment_plan_id = rrd.repayment_plan_id
+			       and rrd.RIGHTS_DETAIL_STATE not in ('7', '5')
+			       and aa.carry_cr_id=rrd.creditor_rights_id
+			       group by rrd.creditor_rights_id
+			order by rrd.creditor_rights_id
+	</select>
+	
+	
+	  <update id="updateMultiyMap" parameterType="com.xt.cfp.core.pojo.RightsRepaymentDetail">
+        update RIGHTS_REPAYMENT_DETAIL
+        <set>
+        <if test="_parameter.containsKey('loanAccountId')">
+            LOAN_ACCOUNT_ID = #{loanAccountId,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('lendAccountId')">
+            LEND_ACCOUNT_ID = #{lendAccountId,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('repaymentPlanId')">
+            REPAYMENT_PLAN_ID = #{repaymentPlanId,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('sectionCode')">
+            SECTION_CODE = #{sectionCode,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('proportion')">
+            PROPORTION = #{proportion,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('repaymentDayPlanned')">
+            REPAYMENT_DAY_PLANNED = #{repaymentDayPlanned,jdbcType=DATE},
+        </if>
+        <if test="_parameter.containsKey('shouldCapital')">
+            SHOULD_CAPITAL = #{shouldCapital,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('shouldInterest')">
+            SHOULD_INTEREST = #{shouldInterest,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('shouldBalance')">
+            SHOULD_BALANCE = #{shouldBalance,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('shouldCapital2')">
+            SHOULD_CAPITAL2 = #{shouldCapital2,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('shouldInterest2')">
+            SHOULD_INTEREST2 = #{shouldInterest2,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('shouldBalance2')">
+            SHOULD_BALANCE2 = #{shouldBalance2,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('factCalital')">
+            FACT_CALITAL = #{factCalital,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('factInterest')">
+            FACT_INTEREST = #{factInterest,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('factBalance')">
+            FACT_BALANCE = #{factBalance,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('isPayOff')">
+            IS_PAY_OFF = #{isPayOff,jdbcType=CHAR},
+        </if>
+        <if test="_parameter.containsKey('isDelay')">
+            IS_DELAY = #{isDelay,jdbcType=CHAR},
+        </if>
+        <if test="_parameter.containsKey('depalFine')">
+            DEPAL_FINE = #{depalFine,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('delayDays')">
+            DELAY_DAYS = #{delayDays,jdbcType=DECIMAL},
+        </if>
+        <if test="_parameter.containsKey('rightsDetailState')">
+            RIGHTS_DETAIL_STATE = #{rightsDetailState,jdbcType=CHAR},
+        </if>
+        </set>
+        where CREDITOR_RIGHTS_ID=#{creditorRightsId,jdbcType=DECIMAL}
+    </update>
+    
+    <select id="getRightsRepaymentDetailsAndOrderByPlanId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        RIGHTS_REPAYMENT_DETAIL.RIGHTS_REPAYMENT_DETAIL_ID, RIGHTS_REPAYMENT_DETAIL.CREDITOR_RIGHTS_ID, RIGHTS_REPAYMENT_DETAIL.LOAN_ACCOUNT_ID,
+        RIGHTS_REPAYMENT_DETAIL.LEND_ACCOUNT_ID,
+    RIGHTS_REPAYMENT_DETAIL.REPAYMENT_PLAN_ID, RIGHTS_REPAYMENT_DETAIL.SECTION_CODE,RIGHTS_REPAYMENT_DETAIL.PROPORTION, RIGHTS_REPAYMENT_DETAIL.REPAYMENT_DAY_PLANNED,
+    RIGHTS_REPAYMENT_DETAIL.SHOULD_CAPITAL, RIGHTS_REPAYMENT_DETAIL.SHOULD_INTEREST,
+    RIGHTS_REPAYMENT_DETAIL.SHOULD_BALANCE, RIGHTS_REPAYMENT_DETAIL.SHOULD_CAPITAL2, RIGHTS_REPAYMENT_DETAIL.SHOULD_INTEREST2, RIGHTS_REPAYMENT_DETAIL.SHOULD_BALANCE2,
+    RIGHTS_REPAYMENT_DETAIL.FACT_CALITAL,
+    RIGHTS_REPAYMENT_DETAIL.FACT_INTEREST, RIGHTS_REPAYMENT_DETAIL.FACT_BALANCE, RIGHTS_REPAYMENT_DETAIL.IS_PAY_OFF, RIGHTS_REPAYMENT_DETAIL.IS_DELAY,
+    RIGHTS_REPAYMENT_DETAIL.DEPAL_FINE, RIGHTS_REPAYMENT_DETAIL.DELAY_DAYS, RIGHTS_REPAYMENT_DETAIL.RIGHTS_DETAIL_STATE,
+    LOBD.LEND_ORDER_ID   lendOrderId
+        from RIGHTS_REPAYMENT_DETAIL,CREDITOR_RIGHTS
+        left join LEND_ORDER_BID_DETAIL LOBD ON LOBD.CREDITOR_RIGHTS_ID = CREDITOR_RIGHTS.CREDITOR_RIGHTS_ID
+        where  RIGHTS_REPAYMENT_DETAIL.CREDITOR_RIGHTS_ID = CREDITOR_RIGHTS.CREDITOR_RIGHTS_ID
+        and REPAYMENT_PLAN_ID=#{repaymentPlanId,jdbcType=DECIMAL}
+        and CREDITOR_RIGHTS.CHANNEL_TYPE = '2'
+        <!--已生效债权，排除-->
+        and CREDITOR_RIGHTS.RIGHTS_STATE = '0'
+    </select>
+    
+   <select id="getAllRightsRepaymentDetailsByPlanId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        	rrd.*
+        from RIGHTS_REPAYMENT_DETAIL rrd
+        where  
+          rrd.REPAYMENT_PLAN_ID=#{repaymentPlanId,jdbcType=DECIMAL}
+    </select>
+    
+    <!-- 回款日历，获取指定月份的回款总额 -->
+    <select id="getSumShouldBalanceByMonth" resultType="BigDecimal" parameterType="map">
+	    select NVL(sum(rrd.SHOULD_BALANCE2), 0) sumShouldBalance
+		from RIGHTS_REPAYMENT_DETAIL rrd
+		inner join CREDITOR_RIGHTS cr on rrd.creditor_rights_id = cr.creditor_rights_id 
+		where cr.lend_user_id = #{userId,jdbcType=DECIMAL}
+		<![CDATA[ and rrd.repayment_day_planned >= trunc(to_date(#{repaymentDate,jdbcType=VARCHAR},'yyyy-mm'),'mm') ]]>
+		<![CDATA[ and rrd.repayment_day_planned <= trunc(last_day(to_date(#{repaymentDate,jdbcType=VARCHAR},'yyyy-mm'))) ]]>
+    </select>
+    
+    <!-- 回款日历，获取指定月份的回款列表数据 -->
+    <select id="getMonthListDataByMonth" resultMap="MonthListDataMap" parameterType="map">
+	    select to_char(rrd.repayment_day_planned,'dd') as day, count(rrd.repayment_day_planned) as leg 
+		from RIGHTS_REPAYMENT_DETAIL rrd 
+		inner join CREDITOR_RIGHTS cr on rrd.creditor_rights_id = cr.creditor_rights_id 
+		where cr.lend_user_id = #{userId,jdbcType=DECIMAL}
+		<![CDATA[ and rrd.repayment_day_planned >= trunc(to_date(#{repaymentDate,jdbcType=VARCHAR},'yyyy-mm'),'mm') ]]>
+		<![CDATA[ and rrd.repayment_day_planned <= trunc(last_day(to_date(#{repaymentDate,jdbcType=VARCHAR},'yyyy-mm'))) ]]>
+		group by rrd.repayment_day_planned order by rrd.repayment_day_planned asc
+    </select>
+    
+    <!-- 回款日历，获取指定天的回款汇总数据 -->
+    <select id="getDaySummaryDataByDay" resultMap="DaySummaryDataMap" parameterType="map">
+		select count(1) moneyTime,
+		sum(rrd.should_balance2) moneyDay
+		from RIGHTS_REPAYMENT_DETAIL rrd
+		inner join CREDITOR_RIGHTS cr on rrd.creditor_rights_id = cr.creditor_rights_id
+		where cr.lend_user_id = #{userId,jdbcType=DECIMAL} 
+		<![CDATA[ and rrd.repayment_day_planned = to_date(#{repaymentDate,jdbcType=VARCHAR},'yyyy-mm-dd') ]]>
+    </select>
+    
+    <!-- 回款日历，获取指定天的回款列表数据 -->
+    <select id="getDayListDataByDay" resultMap="DayListDataMap" parameterType="map">
+		select la.loan_type pjType, 
+		lp.loan_title title, 
+		case 
+	  		when cr.FROM_WHERE = '1' then (select count(1) from RIGHTS_REPAYMENT_DETAIL rrd1 where rrd1.creditor_rights_id = cr.creditor_rights_id)
+	  		when cr.FROM_WHERE = '2' then (select count(1) from RIGHTS_REPAYMENT_DETAIL rrd2 where rrd2.creditor_rights_id = (select cibc.cr_id_before_change from CREDITOR_RIGHTS_HISTORY cibc where cibc.cr_id_after_change = cr.creditor_rights_id))
+		end timerAll,
+		rrd.section_code timmerNow,
+		case 
+		  when (rrd.should_capital2 > 0 and rrd.should_interest2 > 0) then 2 
+		  when (rrd.should_capital2 > 0) then 1 
+		  when (rrd.should_interest2 > 0) then 0
+		  else 3
+		end benOrLi,
+		rrd.should_balance2 backMoney,
+		to_char(rrd.repayment_day_planned,'yyyy-mm-dd') limitTime,
+		rrd.is_pay_off hasBackOrNot
+		from RIGHTS_REPAYMENT_DETAIL rrd
+		inner join CREDITOR_RIGHTS cr on rrd.creditor_rights_id = cr.creditor_rights_id
+		inner join LOAN_PUBLISH lp on cr.loan_application_id = lp.loan_application_id
+		inner join LOAN_APPLICATION la on lp.loan_application_id = la.loan_application_id
+		where cr.lend_user_id = #{userId,jdbcType=DECIMAL} 
+		<![CDATA[ and rrd.repayment_day_planned = to_date(#{repaymentDate,jdbcType=VARCHAR},'yyyy-mm-dd') ]]>
+    </select>
+    
+</mapper>

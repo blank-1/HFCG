@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CRM_FRAN_CUSTOMER" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CrmFranCustomer" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="CUSTOMER_ID" property="customerId" jdbcType="DECIMAL" />
+    <result column="P_CUSTOMER_ID" property="pCustomerId" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CUSTOMER_ID, P_CUSTOMER_ID, CREATE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_FRAN_CUSTOMER
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_FRAN_CUSTOMER
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CrmFranCustomer" >
+  <selectKey keyProperty="id" order="BEFORE" resultType="long">
+		SELECT SEQ_CRM_FRAN_CUSTOMER.NEXTVAL as id FROM dual
+	</selectKey>
+    insert into CRM_FRAN_CUSTOMER (ID, CUSTOMER_ID, P_CUSTOMER_ID, CREATE_DATE)
+    values (#{id,jdbcType=DECIMAL}, #{customerId,jdbcType=DECIMAL}, #{pCustomerId,jdbcType=DECIMAL}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CrmFranCustomer" >
+    insert into CRM_FRAN_CUSTOMER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="customerId != null" >
+        CUSTOMER_ID,
+      </if>
+      <if test="pCustomerId != null" >
+        P_CUSTOMER_ID,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=DECIMAL},
+      </if>
+      <if test="pCustomerId != null" >
+        #{pCustomerId,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CrmFranCustomer" >
+    update CRM_FRAN_CUSTOMER
+    <set >
+      <if test="customerId != null" >
+        CUSTOMER_ID = #{customerId,jdbcType=DECIMAL},
+      </if>
+      <if test="pCustomerId != null" >
+        P_CUSTOMER_ID = #{pCustomerId,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CrmFranCustomer" >
+    update CRM_FRAN_CUSTOMER
+    set CUSTOMER_ID = #{customerId,jdbcType=DECIMAL},
+      P_CUSTOMER_ID = #{pCustomerId,jdbcType=DECIMAL},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="selectStaffCustomer" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_FRAN_CUSTOMER
+    <where>
+    	1=1
+    	<if test="pCustomerId != null">
+    		and P_CUSTOMER_ID = #{pCustomerId,jdbcType=DECIMAL}
+    	</if>
+    	<if test="customerId != null">
+    		and CUSTOMER_ID = #{customerId,jdbcType=DECIMAL}
+    	</if>
+    </where>
+  </select>
+</mapper>

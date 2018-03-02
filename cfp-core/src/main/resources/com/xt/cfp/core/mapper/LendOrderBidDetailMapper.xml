@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LENDORDERBIDDETAIL">
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LendOrderBidDetail" >
+        <id column="DETAIL_ID" property="detailId" jdbcType="DECIMAL" />
+        <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+        <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+        <result column="BUY_BALANCE" property="buyBalance" jdbcType="DECIMAL" />
+        <result column="STATUS" property="status" jdbcType="DECIMAL" />
+        <result column="BUY_DATE" property="buyDate" jdbcType="TIMESTAMP" />
+        <result column="CREDITOR_RIGHTS_ID" property="creditorRightsId" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <resultMap id="LenderRecordVO" type="com.xt.cfp.core.pojo.ext.LenderRecordVO" >
+        <id column="lenderName" property="lenderName" jdbcType="VARCHAR" />
+        <result column="lendAmount" property="lendAmount" jdbcType="DECIMAL" />
+        <result column="lendTime" property="lendTime" jdbcType="TIMESTAMP" />
+        <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+        <result column="loType" property="loType" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        DETAIL_ID, LEND_ORDER_ID, LOAN_APPLICATION_ID, BUY_BALANCE, STATUS, BUY_DATE,CREDITOR_RIGHTS_ID
+    </sql>
+
+    <resultMap type="com.xt.cfp.core.pojo.ext.LenderVO" id="lender">
+        <result column="factBalance" property="factBalance" jdbcType="DECIMAL" />
+        <result column="lenderLoginName" property="lenderLoginName" jdbcType="VARCHAR" />
+        <result column="lenderRealName" property="lenderRealName" jdbcType="VARCHAR" />
+        <result column="rightState" property="rightState" jdbcType="VARCHAR" />
+        <result column="buyPrice" property="buyPrice" jdbcType="DECIMAL" />
+        <result column="waitTotalpayMent" property="waitTotalpayMent" jdbcType="DECIMAL" />
+        <result column="lendTime" property="lendTime" jdbcType="TIMESTAMP" />
+        <result column="completeTime" property="completeTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <select id="findByLendOrderId" parameterType="map" resultMap="BaseResultMap">
+        SELECT lobd.*
+          FROM LEND_ORDER_BID_DETAIL lobd
+         WHERE LOBD.LEND_ORDER_ID = #{lendOrderId}
+        <if test="statusList != null">
+             <foreach collection="statusList" open="AND LOBD.STATUS IN (" close=")" item="status" separator=", ">
+                 #{status}
+             </foreach>
+        </if>
+    </select>
+
+    <select id="findByLoanApplicationId" parameterType="map"  resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from LEND_ORDER_BID_DETAIL LOBD
+        where LOAN_APPLICATION_ID=#{loanApplicationId,jdbcType=DECIMAL}
+        <if test="statusList != null">
+            <foreach collection="statusList" open="AND LOBD.STATUS IN (" close=")" item="status" separator=", ">
+                #{status}
+            </foreach>
+        </if>
+    </select>
+    <select id="findBy" parameterType="com.xt.cfp.core.pojo.LendOrderBidDetail"  resultMap="BaseResultMap"  >
+        select
+        <include refid="Base_Column_List" />
+        from LEND_ORDER_BID_DETAIL
+        <where>
+            <if test="lendOrderId != null" >
+                and LEND_ORDER_ID=#{lendOrderId,jdbcType=DECIMAL}
+            </if>
+            <if test="loanApplicationId != null" >
+                and LOAN_APPLICATION_ID=#{loanApplicationId,jdbcType=DECIMAL}
+            </if>
+            <if test="status != null" >
+                and STATUS=#{status,jdbcType=CHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="getLendOrderBidDetailByCreditorRightsId" parameterType="com.xt.cfp.core.pojo.LendOrderBidDetail"  resultMap="BaseResultMap"  >
+        select
+        <include refid="Base_Column_List" />
+        from LEND_ORDER_BID_DETAIL
+        where CREDITOR_RIGHTS_ID =  #{creditorRightsId}
+    </select>
+
+
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.LendOrderBidDetail" >
+        <selectKey keyProperty="detailId" order="BEFORE" resultType="long">
+            SELECT SEQ_LEND_ORDER_BID_DETAIL.NEXTVAL as detailId FROM dual
+        </selectKey>
+        insert into LEND_ORDER_BID_DETAIL
+        (DETAIL_ID,LEND_ORDER_ID,LOAN_APPLICATION_ID,BUY_BALANCE,STATUS,BUY_DATE)
+        values
+        (#{detailId,jdbcType=DECIMAL},#{lendOrderId,jdbcType=DECIMAL},#{loanApplicationId,jdbcType=DECIMAL},#{buyBalance,jdbcType=DECIMAL},#{status,jdbcType=CHAR},#{buyDate,jdbcType=TIMESTAMP})
+    </insert>
+
+    <update id="update" parameterType="com.xt.cfp.core.pojo.LendOrderBidDetail" >
+        update LEND_ORDER_BID_DETAIL
+        <set>
+            <if test="buyBalance != null">
+                BUY_BALANCE = #{buyBalance},
+            </if>
+            <if test="status != null">
+                STATUS = #{status},
+            </if>
+            <if test="creditorRightsId != null">
+                CREDITOR_RIGHTS_ID = #{creditorRightsId},
+            </if>
+
+        </set>
+        where DETAIL_ID= #{detailId}
+    </update>
+
+    <select id="sumByLoanPdtIdAndLendOrderId" parameterType="java.util.Map" resultType="java.math.BigDecimal">
+       <!--  select nvl(sum(BUY_BALANCE),0) BUY_BALANCE
+        from LEND_ORDER_BID_DETAIL
+        where
+        LEND_ORDER_ID=#{lendOrderId}
+         and LOAN_APPLICATION_ID in (select LOAN_APPLICATION_ID from LOAN_APPLICATION where LOAN_PRODUCT_ID = #{loanProductId})
+         and status='1' -->
+         
+                  
+ 		select  nvl(sum(BUY_BALANCE),0) BUY_BALANCE
+        from LEND_ORDER_BID_DETAIL lobd
+        where
+        lobd.LEND_ORDER_ID in ( select l.lend_order_id from lend_order l where l.customer_account_id = #{customAccountId} and l.lend_order_pid = #{lendOrderId} )  
+       
+       <if test="loanProductId != null">
+         and   LOAN_APPLICATION_ID in (select la.LOAN_APPLICATION_ID from LOAN_APPLICATION la where LOAN_PRODUCT_ID = #{loanProductId})
+       </if>
+       
+         and status in ('0','1') 
+         
+         
+    </select>
+    <select id="sumByLoanApplicationId" parameterType="java.util.Map" resultType="java.math.BigDecimal">
+        select nvl(sum(BUY_BALANCE),0) BUY_BALANCE
+        from LEND_ORDER_BID_DETAIL
+        where
+          LOAN_APPLICATION_ID =#{loanApplicationId,jdbcType=DECIMAL}
+          and STATUS = #{status,jdbcType=CHAR}
+
+    </select>
+    <select id="getSumCreByUserAndLoanApp" parameterType="java.util.Map" resultType="java.math.BigDecimal">
+        select sum(BUY_BALANCE)
+        from LEND_ORDER_BID_DETAIL
+        where
+         and LOAN_APPLICATION_ID=#{loanApplicationId,jdbcType=DECIMAL}
+         and LEND_ORDER_ID in (select LEND_ORDER_ID from LEND_ORDER where LEND_USER_ID=#{userId})
+         and status='1'
+    </select>
+
+    <!--投标记录 前台使用-->
+    <select id="findLendOrderDetailPaging" resultMap="LenderRecordVO" parameterType="map">
+        select lobd.BUY_BALANCE lendAmount,u.login_name lenderName,lobd.BUY_DATE lendTime, u.USER_ID userId,
+        case when lo.lend_order_pid is null then '0' else (
+          case when (select lo1.product_type from LEND_ORDER lo1 where lo1.lend_order_id=lo.lend_order_pid)=2 then '1' else '0' end
+        ) end as loType 
+        from LEND_ORDER_BID_DETAIL lobd left join LEND_ORDER lo on LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID 
+        left join USER_INFO u on LO.LEND_USER_ID = U.USER_ID
+        left join creditor_rights cr on cr.lend_order_id = lobd.lend_order_id 
+        where  LOBD.STATUS=#{status} and lobd.LOAN_APPLICATION_ID = #{loanApplicationId} and lo.product_type != '3' 
+       <!--  <if test="displayState != null">1显示，2隐藏
+   			and lo.DISPLAY_STATE = #{displayState,jdbcType=CHAR}
+   		</if> -->
+   		 and (cr.channel_type != '1' or cr.channel_type is null)
+        order by lendTime desc
+    </select>
+    <select id="count_findLendOrderDetailPaging" resultType="int" parameterType="map">
+         select count(1)
+          from LEND_ORDER_BID_DETAIL lobd
+        left join LEND_ORDER lo
+        on LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID left join USER_INFO
+        u on LO.LEND_USER_ID = U.USER_ID
+        left join creditor_rights cr on cr.lend_order_id = lobd.lend_order_id 
+        where  LOBD.STATUS=#{status} and lobd.LOAN_APPLICATION_ID = #{loanApplicationId} and lo.product_type != '3'
+        <!-- <if test="displayState != null">1显示，2隐藏
+   			and lo.DISPLAY_STATE = #{displayState,jdbcType=CHAR}
+   		</if> -->
+   		and (cr.channel_type != '1' or cr.channel_type is null)
+    </select>
+    
+    <select id="getCreditorRightsLenderPaging" resultMap="LenderRecordVO" parameterType="map">
+		 
+		SELECT LO.Buy_Balance LENDAMOUNT,
+			       U.LOGIN_NAME   LENDERNAME,
+             LO.Buy_Time   LENDTIME
+        FROM 
+             LEND_ORDER                           LO,
+             USER_INFO                               U,
+             CREDITORRIGHT_DEAL_DETAIL    CDD,
+             CREDITORRIGHT_TRANSFER_APPLY CTA
+       WHERE CTA.CREDITOR_RIGHTS_APPLY_ID = CDD.Creditor_Rights_Apply_Id
+        
+         AND LO.LEND_USER_ID = U.USER_ID
+         AND CDD.LEND_ORDER_ID = LO.LEND_ORDER_ID 
+         AND LO.PRODUCT_TYPE = '3'
+         AND LO.ORDER_STATE != '0'
+         AND CTA.CREDITOR_RIGHTS_APPLY_ID  = #{creditorRightsApplyId}
+       GROUP BY LO.Buy_Balance, U.LOGIN_NAME, LO.Buy_Time
+       ORDER BY LO.Buy_Time DESC
+    </select>
+	<select id="count_getCreditorRightsLenderPaging" resultType="int" parameterType="map">
+		 select count(0) from (
+			 SELECT LO.Buy_Balance LENDAMOUNT,
+					       U.LOGIN_NAME   LENDERNAME,
+		             LO.Buy_Time   LENDTIME
+		        FROM 
+		             LEND_ORDER                           LO,
+		             USER_INFO                               U,
+		             CREDITORRIGHT_DEAL_DETAIL    CDD,
+		             CREDITORRIGHT_TRANSFER_APPLY CTA
+		       WHERE CTA.CREDITOR_RIGHTS_APPLY_ID = CDD.Creditor_Rights_Apply_Id
+		        
+		         AND LO.LEND_USER_ID = U.USER_ID
+		         AND CDD.LEND_ORDER_ID = LO.LEND_ORDER_ID 
+		         AND LO.PRODUCT_TYPE = '3'
+		         AND LO.ORDER_STATE != '0'
+		         AND CTA.CREDITOR_RIGHTS_APPLY_ID = #{creditorRightsApplyId}
+		       GROUP BY LO.Buy_Balance, U.LOGIN_NAME, LO.Buy_Time
+		       ORDER BY LO.Buy_Time DESC
+		 )
+    </select>
+
+    <!--投标记录 后台使用-->
+    <select id="getLendOrderDetail" resultMap="lender" parameterType="map">
+        select lobd.BUY_BALANCE buyPrice
+ ,lobd.BUY_DATE lendTime
+ ,  UE.REAL_NAME lenderRealName,
+      U.LOGIN_NAME lenderLoginName,0 factBalance,0 waitTotalpayMent
+
+ from LEND_ORDER_BID_DETAIL lobd
+        left join LEND_ORDER lo
+        on LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID left join USER_INFO
+        u on LO.LEND_USER_ID = U.USER_ID
+          LEFT JOIN USER_INFO_EXT ue ON U.USER_ID = UE.USER_ID
+        where  LOBD.STATUS=#{status} and lobd.LOAN_APPLICATION_ID = #{loanApplicationId}
+        order by lendTime desc
+    </select>
+    <select id="count_getLendOrderDetail" resultType="int" parameterType="map">
+        select count(1)
+        from LEND_ORDER_BID_DETAIL lobd
+        left join LEND_ORDER lo
+        on LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID left join USER_INFO
+        u on LO.LEND_USER_ID = U.USER_ID
+          LEFT JOIN USER_INFO_EXT ue ON LOBD.LEND_ORDER_ID = UE.USER_ID
+        where  LOBD.STATUS=#{status} and lobd.LOAN_APPLICATION_ID = #{loanApplicationId}
+    </select>
+
+	<select id="getByLendOrderId" parameterType="map" resultMap="BaseResultMap">
+        SELECT *
+          FROM LEND_ORDER_BID_DETAIL p
+         WHERE P.LEND_ORDER_ID = #{lendOrderId}
+         AND   P.STATUS = #{status}
+    </select>
+
+	<select id="getLendOrderBidDetailByLendOrderBidIdAndCustomAccId" parameterType="map" resultMap="BaseResultMap">
+        select * 
+		  from LEND_ORDER_BID_DETAIL
+		 where LEND_ORDER_ID in (select l.lend_order_id
+		                           from lend_order l
+		                          where  1=1
+		                          	<if test="accountId != null">
+		                          	 and l.customer_account_id = #{accountId}
+		                            </if>
+		                          	<if test="lendOrderId != null">
+		                          	  and l.lend_order_pid = #{lendOrderId}
+		                            </if>
+		                            )
+		   and status in ('0', '1') 
+    </select>
+    
+    <!-- 省心计划投资出借列表（数据） -->
+    <select id="findSXJHLendOrderDetailPaging" resultMap="LenderRecordVO" parameterType="map">
+        select lobd.BUY_BALANCE lendAmount, u.LOGIN_NAME lenderName, lobd.BUY_DATE lendTime, u.USER_ID userId
+        from LEND_ORDER_BID_DETAIL lobd
+        left join LEND_ORDER lo on lo.LEND_ORDER_ID = lobd.LEND_ORDER_ID
+        left join USER_INFO u on lo.LEND_USER_ID = u.USER_ID
+        where lobd.STATUS=#{status}
+        and lo.LEND_PRODUCT_PUBLISH_ID=#{lendProductPublishId}
+        order by lobd.BUY_DATE desc
+    </select>
+    <!-- 省心计划投资出借列表（总数） -->
+    <select id="count_findSXJHLendOrderDetailPaging" resultType="int" parameterType="map">
+        select count(1)
+        from LEND_ORDER_BID_DETAIL lobd
+        left join LEND_ORDER lo on lo.LEND_ORDER_ID = lobd.LEND_ORDER_ID
+        left join USER_INFO u on lo.LEND_USER_ID = u.USER_ID
+        where lobd.STATUS=#{status}
+        and lo.LEND_PRODUCT_PUBLISH_ID=#{lendProductPublishId}
+    </select>
+    
+</mapper>

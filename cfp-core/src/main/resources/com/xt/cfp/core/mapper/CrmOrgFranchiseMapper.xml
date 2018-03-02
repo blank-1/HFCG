@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CRM_ORG_FRANCHISE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CrmOrgFranchise" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="FRANCHISE_ID" property="franchiseId" jdbcType="DECIMAL" />
+    <result column="JOIN_TIME" property="joinTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ORG_ID, FRANCHISE_ID,JOIN_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ORG_FRANCHISE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_ORG_FRANCHISE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CrmOrgFranchise" >
+  	<selectKey keyProperty="id" order="BEFORE" resultType="long">
+      SELECT SEQ_CRM_ORG_FRANCHISE.NEXTVAL as id FROM dual
+    </selectKey>
+    insert into CRM_ORG_FRANCHISE (ID, ORG_ID, FRANCHISE_ID,JOIN_TIME
+      )
+    values (#{id,jdbcType=DECIMAL}, #{orgId,jdbcType=DECIMAL}, #{franchiseId,jdbcType=DECIMAL}, #{joinTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CrmOrgFranchise" >
+    insert into CRM_ORG_FRANCHISE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="franchiseId != null" >
+        FRANCHISE_ID,
+      </if>
+      <if test="joinTime != null" >
+        JOIN_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="franchiseId != null" >
+        #{franchiseId,jdbcType=DECIMAL},
+      </if>
+      <if test="joinTime != null" >
+        #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CrmOrgFranchise" >
+    update CRM_ORG_FRANCHISE
+    <set >
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="franchiseId != null" >
+        FRANCHISE_ID = #{franchiseId,jdbcType=DECIMAL},
+      </if>
+      <if test="joinTime != null" >
+        JOIN_TIME = #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CrmOrgFranchise" >
+    update CRM_ORG_FRANCHISE
+    set ORG_ID = #{orgId,jdbcType=DECIMAL},
+      FRANCHISE_ID = #{franchiseId,jdbcType=DECIMAL},
+      JOIN_TIME = #{joinTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

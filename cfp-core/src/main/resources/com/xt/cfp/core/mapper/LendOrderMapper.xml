@@ -1,0 +1,2420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LENDORDER">
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LendOrder">
+        <id column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL"/>
+        <result column="CUSTOMER_ACCOUNT_ID" property="customerAccountId" jdbcType="DECIMAL"/>
+        <result column="LEND_PRODUCT_ID" property="lendProductId" jdbcType="DECIMAL"/>
+        <result column="LEND_PRODUCT_PUBLISH_ID" property="lendProductPublishId" jdbcType="DECIMAL"/>
+        <result column="IN_CARD_ID" property="inCardId" jdbcType="DECIMAL"/>
+        <result column="CURRENT_PROFIT" property="currentProfit" jdbcType="DECIMAL"/>
+        <result column="CURRENT_PROFIT2" property="currentProfit2" jdbcType="DECIMAL"/>
+        <result column="OUT_CARD_ID" property="outCardId" jdbcType="DECIMAL"/>
+        <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL"/>
+        <result column="LEND_USER_ID" property="lendUserId" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_TYPE" property="productType" jdbcType="CHAR"/>
+        <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR"/>
+        <result column="LEND_ORDER_NAME" property="lendOrderName" jdbcType="VARCHAR"/>
+        <result column="UNIT_ORDER_CODE" property="unitOrderCode" jdbcType="VARCHAR"/>
+        <result column="RENEW_ORDER_CODE" property="renewOrderCode" jdbcType="VARCHAR"/>
+        <result column="USE_TOTAL_HOSTORY_ORDER" property="useTotalHostoryOrder" jdbcType="CHAR"/>
+        <result column="BUY_TIME" property="buyTime" jdbcType="TIMESTAMP"/>
+        <result column="AGREEMENT_START_DATE" property="agreementStartDate" jdbcType="TIMESTAMP"/>
+        <result column="COMPLETION_DATE" property="completionDate" jdbcType="TIMESTAMP"/>
+        <result column="AGREEMENT_END_DATE" property="agreementEndDate" jdbcType="TIMESTAMP"/>
+        <result column="CLOSING_OVER_DATE" property="closingOverDate" jdbcType="TIMESTAMP"/>
+        <result column="BUY_BALANCE" property="buyBalance" jdbcType="DECIMAL"/>
+        <result column="FOR_LEND_BALANCE" property="forLendBalance" jdbcType="DECIMAL"/>
+        <result column="ORDER_STATE" property="orderState" jdbcType="CHAR"/>
+        <result column="PAY_TIME" property="payTime" jdbcType="TIMESTAMP"/>
+        <result column="DISPLAY_STATE" property="displayState" jdbcType="CHAR"/>
+        <result column="RECORD_TIME" property="recordTime" jdbcType="TIMESTAMP"/>
+        <result column="SALER_PERSONNEL" property="salerPersonnel" jdbcType="DECIMAL"/>
+        <result column="SALER_CODE" property="salerCode" jdbcType="VARCHAR"/>
+        <result column="SALER_NAME" property="salerName" jdbcType="VARCHAR"/>
+        <result column="RECORDER_PERSONNEL" property="recorderPersonnel" jdbcType="DECIMAL"/>
+        <result column="RECORDER_CODE" property="recorderCode" jdbcType="VARCHAR"/>
+        <result column="RECORDER_NAME" property="recorderName" jdbcType="VARCHAR"/>
+        <result column="PROFIT_RATE" property="profitRate" jdbcType="DECIMAL"/>
+        <result column="CLOSING_TYPE" property="closingType" jdbcType="CHAR"/>
+        <result column="CLOSING_DATE" property="closingDate" jdbcType="DECIMAL"/>
+        <result column="TIME_LIMIT_TYPE" property="timeLimitType" jdbcType="CHAR"/>
+        <result column="TIME_LIMIT" property="timeLimit" jdbcType="DECIMAL"/>
+        <result column="TO_INTEREST_POINT" property="toInterestPoint" jdbcType="CHAR"/>
+        <result column="RENEWAL_CYCLE_TYPE" property="renewalCycleType" jdbcType="CHAR"/>
+        <result column="RENEWAL_TYPE" property="renewalType" jdbcType="CHAR"/>
+        <result column="RENEWAL" property="renewal" jdbcType="DECIMAL"/>
+        <result column="THE_RETURN_METHOD" property="theReturnMethod" jdbcType="CHAR"/>
+        <result column="DRAW_CASH_TIME" property="drawCashTime" jdbcType="TIMESTAMP"/>
+        <result column="FINANCIA_DRAW_CASH_TIME" property="financiaDrawCashTime" jdbcType="TIMESTAMP"/>
+        <result column="LENDUSER_NAME" property="lendUserName" jdbcType="VARCHAR"/>
+        <result column="LEND_ORDER_PID" property="lendOrderPId" jdbcType="DECIMAL"/>
+        <result column="IS_USE_VOUCHER" property="isUseVoucher" jdbcType="CHAR"/>
+        <result column="PROFIT_RETURN_CONFIG" property="profitReturnConfig" jdbcType="CHAR"/>
+    </resultMap>
+
+    <resultMap id="lendOrderExtProductResultMap" type="com.xt.cfp.core.pojo.ext.LendOrderExtProduct"
+               extends="BaseResultMap">
+        <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName"/>
+        <result column="PRODUCT_STATE" jdbcType="VARCHAR" property="productState"/>
+        <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName"/>
+        <result column="GUARANTEE_TYPE" jdbcType="CHAR" property="guaranteeType"/>
+        <result column="STARTS_AT" jdbcType="DECIMAL" property="startsAt"/>
+        <result column="PUBLISH_CODE" jdbcType="VARCHAR" property="publishCode"/>
+        <result column="ORDER_CODE" jdbcType="VARCHAR" property="orderCode"/>
+        <result column="REAL_NAME" jdbcType="VARCHAR" property="realName"/>
+        <result column="MOBILE_NO" jdbcType="VARCHAR" property="mobileNo"/>
+        <result column="ID_CARD" jdbcType="VARCHAR" property="idCard"/>
+        <result column="PROFIT_RATE_MAX" jdbcType="DECIMAL" property="profitRateMax"/>
+        <result column="PUBLISH_NAME" jdbcType="VARCHAR" property="publishName"/>
+        
+    </resultMap>
+    
+    <resultMap id="LendListResultMap" type="com.xt.cfp.core.pojo.ext.LendAndLoanVO" extends="LOANAPPLICATION.BaseResultMap">
+      <result column="LOAN_TITLE" property="loanTitle" jdbcType="VARCHAR"/>
+      <result column="BUY_BALANCE" property="buyBalance" jdbcType="DECIMAL"/>
+      <result column="FACT_BALANCE" property="factBalance" jdbcType="DECIMAL"/>
+      <result column="WAITBACK_BALANCE" property="waitBackBalance" jdbcType="DECIMAL"/>
+      <result column="SHOULD_BALANCE" property="shouldBalance" jdbcType="DECIMAL"/>
+      <result column="BUY_DATE" property="buyDate" jdbcType="DATE"/>
+      <result column="REAL_NAME" property="realName" jdbcType="VARCHAR"/>
+      <result column="CREDITOR_RIGHTS_ID" property="creditorRightsId" jdbcType="DECIMAL"/>
+      <result column="ANNUAL_RATE" property="annualRate" jdbcType="DECIMAL"/>
+      <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL"/>
+      <result column="CYCLE_COUNTS" property="cycleCounts" jdbcType="DECIMAL"/>
+      <result column="CYCLE_VALUE" property="cycleValue" jdbcType="DECIMAL"/>
+      <result column="REPAYMENT_TYPE" property="repaymentType" jdbcType="CHAR" />
+      <result column="LEND_USER_ID" property="lendUserId" jdbcType="DECIMAL" />
+      <result column="LOAN_PRODUCT_ID" property="loanProductId" jdbcType="DECIMAL" />
+  	</resultMap>
+  	
+  	<resultMap id="LendOrderDetailVOResultMap" type="com.xt.cfp.core.pojo.ext.LendOrderDetailVO" >
+        <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName"/>
+        <result column="TIME_LIMIT" jdbcType="VARCHAR" property="timeLimit"/>
+        <result column="TIME_LIMIT_TYPE" jdbcType="VARCHAR" property="timeLimitType"/>
+        <result column="STARTS_AT" jdbcType="VARCHAR" property="startsAt"/>
+        <result column="PUBLISH_BALANCE" jdbcType="VARCHAR" property="publishBalance"/>
+        <result column="TO_INTEREST_POINT" jdbcType="VARCHAR" property="toInterestPoint"/>
+        <result column="GUARANTEE_TYPE" jdbcType="VARCHAR" property="guaranteeType"/>
+        <result column="LOAN_APPLICATION_ID" jdbcType="VARCHAR" property="loanApplicationId"/>
+        <result column="LOAN_APPLICATION_NAME" jdbcType="VARCHAR" property="loanApplicationName"/>
+        <result column="CONFIRM_BALANCE" jdbcType="VARCHAR" property="confirmBalance"/>
+        <result column="REAL_NAME" jdbcType="VARCHAR" property="realName"/>
+        <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime"/>
+        <result column="AMOUNT" jdbcType="VARCHAR" property="amount"/>
+        <result column="RECHARGE_CODE" jdbcType="VARCHAR" property="rechargeCode"/>
+        <result column="AMOUNT_TYPE" jdbcType="VARCHAR" property="amountType"/>
+        <result column="CHANNEL_NAME" jdbcType="VARCHAR" property="channelName"/>
+        <result column="STATUS" jdbcType="VARCHAR" property="status"/>
+        <result column="PROFIT_RATE_MAX" property="profitRateMax" jdbcType="DECIMAL"/>
+        <result column="PUBLISH_NAME" jdbcType="VARCHAR" property="publishName"/>
+    </resultMap>
+	
+	<resultMap id="LendOrderVO" type="com.xt.cfp.core.pojo.ext.phonesell.LendOrderVO" >
+	    <result column="LOGIN" property="adminCode" jdbcType="VARCHAR" />
+	    <result column="DISPLAY_NAME" property="adminName" jdbcType="VARCHAR" />
+	    <result column="LOGIN_NAME" property="userCode" jdbcType="VARCHAR" />
+	    <result column="REAL_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="BUY_TIME" property="time" jdbcType="TIMESTAMP" />
+	    <result column="BUY_BALANCE" property="amount" jdbcType="DECIMAL" />
+	    <result column="ORDER_CODE" property="orderNO" jdbcType="VARCHAR" />
+	    <result column="LEND_ORDER_NAME" property="productName" jdbcType="VARCHAR" />
+	    <result column="ORDER_STATE" property="status" jdbcType="VARCHAR" />
+	    <result column="PRODUCT_TYPE" property="productType" jdbcType="VARCHAR" />
+	    <result column="LEND_ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="FeesResultMap" type="com.xt.cfp.core.pojo.FeesItem" >
+	    <id column="FEES_ITEM_ID" property="feesItemId" jdbcType="DECIMAL" />
+	    <result column="ITEM_KIND" property="itemKind" jdbcType="CHAR" />
+	    <result column="ITEM_TYPE" property="itemType" jdbcType="VARCHAR" />
+	    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+	    <result column="ITEM_DESC" property="itemDesc" jdbcType="VARCHAR" />
+	    <result column="FEES_RATE" property="feesRate" jdbcType="DECIMAL" />
+	    <result column="RADICES_TYPE" property="radicesType" jdbcType="CHAR" />
+	    <result column="RADICE_NAME" property="radiceName" jdbcType="VARCHAR" />
+	    <result column="RADICE_LOGIC" property="radiceLogic" jdbcType="VARCHAR" />
+	    <result column="ITEM_STATE" property="itemState" jdbcType="CHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+    <resultMap id="InvestmentVO" type="com.xt.cfp.core.pojo.ext.crm.InvestmentVO" >
+        <result column="orderNo" property="orderNo" jdbcType="VARCHAR" />
+        <result column="isFirst" property="isFirst" jdbcType="VARCHAR" />
+        <result column="productName" property="productName" jdbcType="VARCHAR" />
+        <result column="customeLoginName" property="customeLoginName" jdbcType="VARCHAR" />
+        <result column="butTime" property="butTime" jdbcType="TIMESTAMP" />
+        <result column="customeName" property="customeName" jdbcType="DECIMAL" />
+        <result column="mobileNo" property="mobileNo" jdbcType="VARCHAR" />
+        <result column="source" property="source" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="fname" property="fname" jdbcType="VARCHAR" />
+        <result column="staffName" property="staffName" jdbcType="VARCHAR" />
+        <result column="orgName" property="orgName" jdbcType="VARCHAR" />
+        <result column="buyBalance" property="buyBalance" jdbcType="DECIMAL" />
+        <result column="userId" property="userId" jdbcType="DECIMAL" />
+        <result column="lendOrderId" property="lendOrderId" jdbcType="DECIMAL" />
+        <result column="genId" property="genId" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <select id="getAndLockById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        SELECT *
+          FROM LEND_ORDER lo
+         WHERE LO.LEND_ORDER_ID = #{value} for update
+    </select>
+
+    <select id="investmentList" resultMap="InvestmentVO" parameterType="map">
+		with b AS (
+		     SELECT CFE.USER_ID,CFE.NAME,CASE WHEN CF.FRANCHISE_NAME is not null THEN CF.FRANCHISE_NAME
+		     ELSE (
+		            select cff.FRANCHISE_NAME from CRM_ORG coo
+		            LEFT JOIN CRM_ORG_FRANCHISE coff ON COFf.ORG_ID = COo.ORG_ID
+		            LEFT JOIN CRM_FRANCHISE cff ON CFf.FRANCHISE_ID = COFf.FRANCHISE_ID
+		            WHERE 1 = 1 
+		            AND <![CDATA[length(COO.ORG_CODE) < length(CO.ORG_CODE)]]>
+		            <if test="customParams.code != null and customParams.code != ''">
+			            and COO.ORG_CODE like '' || #{customParams.code,jdbcType=VARCHAR}||'%'
+			        </if>
+		            and coo.ORG_TYPE = '2' and rownum = 1
+		    ) END fname,CF.FRANCHISE_ID,CO.ORG_NAME
+		    FROM CRM_FRAN_EMP cfe
+		    LEFT JOIN CRM_ORG co ON CFE.ORG_ID = CO.ORG_ID
+		    LEFT JOIN CRM_FRANCHISE cf ON CF.FRANCHISE_ID = CFE.FRANCHISE_ID
+		    WHERE 1 = 1 
+		    <if test="customParams != null">
+	            <if test="customParams.code != null and customParams.code != ''">
+	                and  CO.ORG_CODE LIKE '' || #{customParams.code,jdbcType=VARCHAR}||'0%'
+	            </if>
+	            <if test="customParams.franchiseeId != null and customParams.franchiseeId != ''">
+	                and  CF.FRANCHISE_ID = #{customParams.franchiseeId,jdbcType=DECIMAL}
+	            </if>
+	            <if test="customParams.userId != null and customParams.userId != ''">
+	                or  cfe.user_id = #{customParams.userId,jdbcType=DECIMAL}
+	            </if>
+	        </if>
+		    AND CFE.USER_ID IS NOT NULL
+		),
+		c AS (
+		     SELECT ue.*,ui.name,ui.invitation_code,ui.fname,ui.ORG_NAME,ui.FRANCHISE_ID,ICC.INVITATION_CODE code,ui.USER_ID gen
+		     FROM USER_INFO_EXT ue
+		     RIGHT JOIN (
+		                SELECT ic.*, u.name, u.fname, u.FRANCHISE_ID, u.ORG_NAME FROM INVITATION_CODE ic
+		                RIGHT JOIN (SELECT * FROM b) u 
+		                ON IC.USER_ID = U.USER_ID) ui
+		                ON UE.REC_USER_ID = UI.USER_ID
+		     LEFT JOIN INVITATION_CODE icc ON UE.USER_ID = icc.user_id
+		     WHERE UE.USER_ID IS NOT NULL
+		),
+		a AS (
+		     SELECT * FROM c
+		     UNION ALL
+		     SELECT ue.*,b.name,ic.invitation_code,b.fname,b.ORG_NAME,b.FRANCHISE_ID,ICC.INVITATION_CODE code,b.user_id gen
+		     FROM user_info_ext ue
+		     RIGHT JOIN b ON UE.USER_ID = B.USER_ID
+		     LEFT JOIN INVITATION_CODE ic ON UE.USER_ID = ic.user_id
+		     LEFT JOIN User_info u ON UE.REC_USER_ID = U.USER_ID
+		     LEFT JOIN INVITATION_CODE icc ON U.USER_ID = icc.user_id
+		)
+		
+		SELECT LO.ORDER_CODE orderNo,LO.LEND_ORDER_NAME productName,LO.BUY_BALANCE buyBalance,customer.real_name customeName,LO.BUY_TIME butTime,
+	    customer.mobile_no mobileNo,LO.ORDER_STATE status,customer.fname fname,customer.name staffName,INFO.LOGIN_NAME customeLoginName,
+	    orr.RESOURCE_DESC source, customer.org_name orgName,LO.LEND_USER_ID userId,lo.LEND_ORDER_ID lendOrderId,customer.gen genId
+	  	from LEND_ORDER lo
+	  	left join USER_INFO info on LO.LEND_USER_ID = INFO.USER_ID
+	  	left join ORDER_RESOURCE_MAPPING orm on LO.LEND_ORDER_ID = orm.order_id and orm.resource_type = 0
+	  	left join ORDER_RESOURCE orr on orm.RESOURCE_ID = orr.RESOURCE_ID
+	  	left join(
+	        		SELECT * FROM a
+			        UNION (
+			              SELECT ue1.*,a.real_name name,a.code invitation_code,a.fname,a.ORG_NAME,a.FRANCHISE_ID,icc1.INVITATION_CODE code,a.gen gen
+			              FROM USER_INFO_EXT ue1
+			              RIGHT JOIN c a ON UE1.REC_USER_ID = a.user_id AND a.user_id != ue1.user_id
+			              LEFT JOIN INVITATION_CODE icc1 ON UE1.USER_ID = icc1.user_id
+			              WHERE ue1.USER_ID IS NOT NULL
+			        )
+			        UNION ALL (
+			                  SELECT ue2.*, b.real_name name,b.code invitation_code,b.fname,b.ORG_NAME,b.FRANCHISE_ID,icc2.INVITATION_CODE code,b.gen gen
+			                  FROM USER_INFO_EXT ue2
+			                  RIGHT JOIN (
+			                              SELECT ue1.*, a.real_name name,a.code invitation_code,a.fname,a.ORG_NAME,a.FRANCHISE_ID,icc1.INVITATION_CODE code,a.gen gen
+			                              FROM USER_INFO_EXT ue1
+			                              RIGHT JOIN c a ON UE1.REC_USER_ID = a.user_id AND a.user_id != ue1.user_id
+			                              LEFT JOIN INVITATION_CODE icc1 ON UE1.USER_ID = icc1.user_id
+			                              WHERE ue1.USER_ID IS NOT NULL
+			                              ) b
+			                  ON UE2.REC_USER_ID = b.user_id AND b.user_id != ue2.user_id
+			                  LEFT JOIN INVITATION_CODE icc2 ON UE2.USER_ID = icc2.user_id
+			                  WHERE ue2.USER_ID IS NOT NULL
+			        )
+	  	)customer
+	  	on LO.LEND_USER_ID = customer.user_id
+	  	where customer.user_id is not null 
+	  	<if test="customParams.moboleNo != null and customParams.moboleNo != ''">
+            and customer.mobile_no LIKE '%' || #{customParams.moboleNo,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="customParams.customeName != null and customParams.customeName != ''">
+            and customer.real_name LIKE '%' || #{customParams.customeName,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="customParams.status != null and customParams.status != ''">
+            and lo.ORDER_STATE  = #{customParams.status,jdbcType=VARCHAR}
+        </if>
+        <if test="customParams.staffName != null and customParams.staffName != ''">
+            and customer.name LIKE '%' || #{customParams.staffName,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="customParams != null">
+            <!--添加时间查询-->
+            <if test="customParams.timeInterval != null">
+                <if test="customParams.timeInterval.startTime != null">
+                    <![CDATA[ and lo.BUY_TIME >= #{customParams.timeInterval.startTime}]]>
+                </if>
+                <if test="customParams.timeInterval.endTime != null">
+                    <![CDATA[ and lo.BUY_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY]]>
+                </if>
+            </if>
+        </if>
+        order by orderno desc
+    </select>
+
+    <select id="count_investmentList" resultType="int" parameterType="java.lang.Long">
+        with b AS (
+		     		SELECT CFE.USER_ID,CFE.NAME,CASE WHEN CF.FRANCHISE_NAME is not null THEN CF.FRANCHISE_NAME
+				    ELSE (
+				            select cff.FRANCHISE_NAME from CRM_ORG coo
+				            LEFT JOIN CRM_ORG_FRANCHISE coff ON COFf.ORG_ID = COo.ORG_ID
+				            LEFT JOIN CRM_FRANCHISE cff ON CFf.FRANCHISE_ID = COFf.FRANCHISE_ID
+				            WHERE 1 = 1 
+				            AND <![CDATA[length(COO.ORG_CODE) < length(CO.ORG_CODE)]]>
+				            <if test="customParams.code != null and customParams.code != ''">
+					            and COO.ORG_CODE like '' || #{customParams.code,jdbcType=VARCHAR}||'%'
+					        </if>
+				            and coo.ORG_TYPE = '2' and rownum = 1
+				    ) END fname,CF.FRANCHISE_ID,CO.ORG_NAME
+				    FROM CRM_FRAN_EMP cfe
+				    LEFT JOIN CRM_ORG co ON CFE.ORG_ID = CO.ORG_ID
+				    LEFT JOIN CRM_FRANCHISE cf ON CF.FRANCHISE_ID = CFE.FRANCHISE_ID
+				    WHERE 1 = 1 
+				    <if test="customParams != null">
+			            <if test="customParams.code != null and customParams.code != ''">
+			                and  CO.ORG_CODE LIKE '' || #{customParams.code,jdbcType=VARCHAR}||'0%'
+			            </if>
+			            <if test="customParams.franchiseeId != null and customParams.franchiseeId != ''">
+			                and  CF.FRANCHISE_ID = #{customParams.franchiseeId,jdbcType=DECIMAL}
+			            </if>
+			            <if test="customParams.userId != null and customParams.userId != ''">
+			                or  cfe.user_id = #{customParams.userId,jdbcType=DECIMAL}
+			            </if>
+			        </if>
+				    AND CFE.USER_ID IS NOT NULL
+		),
+		c AS (
+		     SELECT ue.*,ui.name,ui.invitation_code,ui.fname,ui.ORG_NAME,ui.FRANCHISE_ID,ICC.INVITATION_CODE code,ui.USER_ID gen
+		     FROM USER_INFO_EXT ue
+		     RIGHT JOIN (
+		                SELECT ic.*, u.name, u.fname, u.FRANCHISE_ID, u.ORG_NAME FROM INVITATION_CODE ic
+		                RIGHT JOIN (SELECT * FROM b) u 
+		                ON IC.USER_ID = U.USER_ID) ui
+		                ON UE.REC_USER_ID = UI.USER_ID
+		     LEFT JOIN INVITATION_CODE icc ON UE.USER_ID = icc.user_id
+		     WHERE UE.USER_ID IS NOT NULL
+		),
+		a AS (
+		     SELECT * FROM c
+		     UNION ALL
+		     SELECT ue.*,b.name,ic.invitation_code,b.fname,b.ORG_NAME,b.FRANCHISE_ID,ICC.INVITATION_CODE code,b.user_id gen
+		     FROM user_info_ext ue
+		     RIGHT JOIN b ON UE.USER_ID = B.USER_ID
+		     LEFT JOIN INVITATION_CODE ic ON UE.USER_ID = ic.user_id
+		     LEFT JOIN User_info u ON UE.REC_USER_ID = U.USER_ID
+		     LEFT JOIN INVITATION_CODE icc ON U.USER_ID = icc.user_id
+		)
+
+        SELECT count(1) from LEND_ORDER lo
+	  	left join USER_INFO info on LO.LEND_USER_ID = INFO.USER_ID
+	  	left join ORDER_RESOURCE_MAPPING orm on LO.LEND_ORDER_ID = orm.order_id and orm.resource_type = 0
+	  	left join ORDER_RESOURCE orr on orm.RESOURCE_ID = orr.RESOURCE_ID
+	  	left join(
+	        		SELECT * FROM a
+			        UNION (
+			              SELECT ue1.*,a.real_name name,a.code invitation_code,a.fname,a.ORG_NAME,a.FRANCHISE_ID,icc1.INVITATION_CODE code,a.gen gen
+			              FROM USER_INFO_EXT ue1
+			              RIGHT JOIN c a ON UE1.REC_USER_ID = a.user_id AND a.user_id != ue1.user_id
+			              LEFT JOIN INVITATION_CODE icc1 ON UE1.USER_ID = icc1.user_id
+			              WHERE ue1.USER_ID IS NOT NULL
+			        )
+			        UNION ALL (
+			                  SELECT ue2.*, b.real_name name,b.code invitation_code,b.fname,b.ORG_NAME,b.FRANCHISE_ID,icc2.INVITATION_CODE code,b.gen gen
+			                  FROM USER_INFO_EXT ue2
+			                  RIGHT JOIN (
+			                              SELECT ue1.*, a.real_name name,a.code invitation_code,a.fname,a.ORG_NAME,a.FRANCHISE_ID,icc1.INVITATION_CODE code,a.gen gen
+			                              FROM USER_INFO_EXT ue1
+			                              RIGHT JOIN c a ON UE1.REC_USER_ID = a.user_id AND a.user_id != ue1.user_id
+			                              LEFT JOIN INVITATION_CODE icc1 ON UE1.USER_ID = icc1.user_id
+			                              WHERE ue1.USER_ID IS NOT NULL
+			                              ) b
+			                  ON UE2.REC_USER_ID = b.user_id AND b.user_id != ue2.user_id
+			                  LEFT JOIN INVITATION_CODE icc2 ON UE2.USER_ID = icc2.user_id
+			                  WHERE ue2.USER_ID IS NOT NULL
+			        )
+	  	)customer
+	  	on LO.LEND_USER_ID = customer.user_id
+	  	where customer.user_id is not null 
+	  	<if test="customParams.moboleNo != null and customParams.moboleNo != ''">
+            and customer.mobile_no LIKE '%' || #{customParams.moboleNo,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="customParams.customeName != null and customParams.customeName != ''">
+            and customer.real_name LIKE '%' || #{customParams.customeName,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="customParams.status != null and customParams.status != ''">
+            and lo.ORDER_STATE  = #{customParams.status,jdbcType=VARCHAR}
+        </if>
+        <if test="customParams.staffName != null and customParams.staffName != ''">
+            and customer.name LIKE '%' || #{customParams.staffName,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="customParams != null">
+            <!--添加时间查询-->
+            <if test="customParams.timeInterval != null">
+                <if test="customParams.timeInterval.startTime != null">
+                    <![CDATA[ and lo.BUY_TIME >= #{customParams.timeInterval.startTime}]]>
+                </if>
+                <if test="customParams.timeInterval.endTime != null">
+                    <![CDATA[ and lo.BUY_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY]]>
+                </if>
+            </if>
+        </if>
+    </select>
+
+    <select id="getLenderInformationPaging" resultMap="lendOrderExtProductResultMap" parameterType="java.lang.Long">
+	  select ue.mobile_no,
+	       ue.real_name,
+	       ui.login_name,
+	       ue.id_card,
+	       lo.lend_order_id,
+	       ld.buy_balance,
+	       lo.product_type
+	  from lend_order lo
+	  left join lend_order_bid_detail ld on lo.lend_order_id = ld.lend_order_id
+	  left join user_info ui on lo.lend_user_id = ui.user_id
+	  left join user_info_ext ue on ui.user_id = ue.user_id
+	 where ld.loan_application_id = #{loanApplicationId,jdbcType=DECIMAL}
+	 and ld.STATUS = '0'
+	 order by lo.buy_time
+  </select>
+
+    <select id="count_getLenderInformationPaging" resultType="int" parameterType="java.lang.Long">
+	  select count(1)
+	  from lend_order lo
+	  left join lend_order_bid_detail ld on lo.lend_order_id = ld.lend_order_id
+	  left join user_info ui on lo.lend_user_id = ui.user_id
+	  left join user_info_ext ue on ui.user_id = ue.user_id
+	 where ld.loan_application_id = #{loanApplicationId,jdbcType=DECIMAL}
+	 and ld.STATUS = '0'
+  </select>
+
+    <select id="getAllMyFinanceListPaging" resultMap="lendOrderExtProductResultMap" parameterType="map">
+  	select lpp.publish_name, 
+       lpp.publish_code,
+       lo.closing_type,
+       lo.closing_date,
+       lo.profit_rate,
+       lo.buy_balance,
+       lo.order_state,
+       lp.to_interest_point,
+       lp.lend_product_id,
+       lo.lend_user_id,
+       lo.buy_time,
+       lo.time_limit_type,
+       lo.agreement_end_date,
+       lo.time_limit,
+       lo.lend_order_id,
+       lo.current_profit2
+  from (select * from lend_order where product_Type = '2') lo
+  left join lend_product lp on lo.lend_product_id = lp.lend_product_id
+  left join lend_product_publish lpp on lo.lend_product_publish_id =
+                                        lpp.lend_product_publish_id
+  where lo.lend_user_id = #{userId,jdbcType=DECIMAL}
+  and lo.order_state != 0
+  <if test="bondState != ''">
+  	<if test="bondState == 0"><!-- 理财中 -->
+  		and lo.order_state = '1'
+  	</if>
+  	<if test="bondState == 1"><!-- 授权期结束 -->
+  		and lo.order_state = '6'
+  	</if>
+  	<if test="bondState == 2"><!-- 已结清 -->
+  		and lo.order_state = '2'
+  	</if>
+  </if>
+  <if test="timeLimit != ''">
+  		and lo.time_limit = #{timeLimit,jdbcType=DECIMAL}
+  </if>
+  order by lo.buy_time desc
+  </select>
+
+    <select id="count_getAllMyFinanceListPaging" parameterType="map" resultType="int">
+  	select count(1)
+  from (select * from lend_order where product_Type = '2') lo
+  left join lend_product lp on lo.lend_product_id = lp.lend_product_id
+  left join lend_product_publish lpp on lo.lend_product_publish_id =
+                                        lpp.lend_product_publish_id
+  where lo.lend_user_id = #{userId,jdbcType=DECIMAL}
+  and lo.order_state != 0
+  <if test="bondState != ''">
+  	<if test="bondState == 0"><!-- 理财中 -->
+  		and lo.order_state = '1'
+  	</if>
+  	<if test="bondState == 1"><!-- 授权期结束 -->
+  		and lo.order_state = '6'
+  	</if>
+  	<if test="bondState == 2"><!-- 已结清 -->
+  		and lo.order_state = '2'
+  	</if>
+  </if>
+  <if test="timeLimit != ''">
+  		and lo.time_limit = #{timeLimit,jdbcType=DECIMAL}
+  </if>
+  </select>
+  
+  <select id="getRealChangeInterest" resultType="java.math.BigDecimal" parameterType="Long">
+  	select sum(FACT_INTEREST1)
+    from (select cs.lend_order_id,
+                 (select sum(FACT_INTEREST) FACT_INTEREST
+                    from rights_repayment_detail rrd
+                   where rrd.creditor_rights_id = cs.creditor_rights_id) FACT_INTEREST1
+            from creditor_rights cs
+           where cs.lend_order_id = #{lendOrderId,jdbcType=DECIMAL})
+  </select>
+  
+   <sql id="Base_Column_List">
+    LEND_ORDER_ID, CUSTOMER_ACCOUNT_ID, LEND_PRODUCT_ID, LEND_PRODUCT_PUBLISH_ID, IN_CARD_ID, 
+    CURRENT_PROFIT, CURRENT_PROFIT2, OUT_CARD_ID, LOAN_APPLICATION_ID, LEND_USER_ID, 
+    PRODUCT_TYPE, ORDER_CODE, LEND_ORDER_NAME, UNIT_ORDER_CODE, RENEW_ORDER_CODE, USE_TOTAL_HOSTORY_ORDER, 
+    BUY_TIME, AGREEMENT_START_DATE, COMPLETION_DATE, AGREEMENT_END_DATE, CLOSING_OVER_DATE, 
+    BUY_BALANCE, FOR_LEND_BALANCE, ORDER_STATE, PAY_TIME, DISPLAY_STATE, RECORD_TIME, 
+    SALER_PERSONNEL, SALER_CODE, SALER_NAME, RECORDER_PERSONNEL, RECORDER_CODE, RECORDER_NAME, 
+    PROFIT_RATE, CLOSING_TYPE, CLOSING_DATE, TIME_LIMIT_TYPE, TIME_LIMIT, TO_INTEREST_POINT, 
+    RENEWAL_CYCLE_TYPE, RENEWAL_TYPE, RENEWAL, THE_RETURN_METHOD, DRAW_CASH_TIME, FINANCIA_DRAW_CASH_TIME,LEND_ORDER_PID,IS_USE_VOUCHER,PROFIT_RETURN_CONFIG
+  </sql>
+
+    <select id="findAndLockById" resultMap="BaseResultMap" parameterType="long">
+        select
+        <include refid="Base_Column_List"/>
+        from LEND_ORDER
+        where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL} for update
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="long">
+        select
+        <include refid="Base_Column_List"/>
+        from LEND_ORDER
+        where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="long">
+    delete from LEND_ORDER
+    where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.LendOrder">
+        <selectKey keyProperty="lendOrderId" resultType="long" order="BEFORE">
+            select SEQ_LEND_ORDER.nextval as lendOrderId from dual
+        </selectKey>
+        insert into LEND_ORDER (LEND_ORDER_ID, CUSTOMER_ACCOUNT_ID, LEND_PRODUCT_ID,
+        LEND_PRODUCT_PUBLISH_ID, IN_CARD_ID, CURRENT_PROFIT,
+        CURRENT_PROFIT2, OUT_CARD_ID, LOAN_APPLICATION_ID,
+        LEND_USER_ID, PRODUCT_TYPE, ORDER_CODE,
+        LEND_ORDER_NAME, UNIT_ORDER_CODE, RENEW_ORDER_CODE,
+        USE_TOTAL_HOSTORY_ORDER, BUY_TIME, AGREEMENT_START_DATE,
+        COMPLETION_DATE, AGREEMENT_END_DATE, CLOSING_OVER_DATE,
+        BUY_BALANCE, FOR_LEND_BALANCE, ORDER_STATE,
+        PAY_TIME, DISPLAY_STATE, RECORD_TIME,
+        SALER_PERSONNEL, SALER_CODE, SALER_NAME,
+        RECORDER_PERSONNEL, RECORDER_CODE, RECORDER_NAME,
+        PROFIT_RATE, CLOSING_TYPE, CLOSING_DATE,
+        TIME_LIMIT_TYPE, TIME_LIMIT, TO_INTEREST_POINT,
+        RENEWAL_CYCLE_TYPE, RENEWAL_TYPE, RENEWAL,
+        THE_RETURN_METHOD, DRAW_CASH_TIME, FINANCIA_DRAW_CASH_TIME,LEND_ORDER_PID,IS_USE_VOUCHER,PROFIT_RETURN_CONFIG
+        )
+        values (#{lendOrderId,jdbcType=DECIMAL}, #{customerAccountId,jdbcType=DECIMAL},
+        #{lendProductId,jdbcType=DECIMAL},
+        #{lendProductPublishId,jdbcType=DECIMAL}, #{inCardId,jdbcType=DECIMAL}, #{currentProfit,jdbcType=DECIMAL},
+        #{currentProfit2,jdbcType=DECIMAL}, #{outCardId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL},
+        #{lendUserId,jdbcType=DECIMAL}, #{productType,jdbcType=CHAR}, #{orderCode,jdbcType=VARCHAR},
+        #{lendOrderName,jdbcType=VARCHAR}, #{unitOrderCode,jdbcType=VARCHAR}, #{renewOrderCode,jdbcType=VARCHAR},
+        #{useTotalHostoryOrder,jdbcType=CHAR}, #{buyTime,jdbcType=TIMESTAMP}, #{agreementStartDate,jdbcType=TIMESTAMP},
+        #{completionDate,jdbcType=TIMESTAMP}, #{agreementEndDate,jdbcType=TIMESTAMP},
+        #{closingOverDate,jdbcType=TIMESTAMP},
+        #{buyBalance,jdbcType=DECIMAL}, #{forLendBalance,jdbcType=DECIMAL}, #{orderState,jdbcType=CHAR},
+        #{payTime,jdbcType=TIMESTAMP}, #{displayState,jdbcType=CHAR}, #{recordTime,jdbcType=TIMESTAMP},
+        #{salerPersonnel,jdbcType=DECIMAL}, #{salerCode,jdbcType=VARCHAR}, #{salerName,jdbcType=VARCHAR},
+        #{recorderPersonnel,jdbcType=DECIMAL}, #{recorderCode,jdbcType=VARCHAR}, #{recorderName,jdbcType=VARCHAR},
+        #{profitRate,jdbcType=DECIMAL}, #{closingType,jdbcType=CHAR}, #{closingDate,jdbcType=DECIMAL},
+        #{timeLimitType,jdbcType=CHAR}, #{timeLimit,jdbcType=DECIMAL}, #{toInterestPoint,jdbcType=CHAR},
+        #{renewalCycleType,jdbcType=CHAR}, #{renewalType,jdbcType=CHAR}, #{renewal,jdbcType=DECIMAL},
+        #{theReturnMethod,jdbcType=CHAR}, #{drawCashTime,jdbcType=TIMESTAMP}, #{financiaDrawCashTime,jdbcType=TIMESTAMP},
+        #{lendOrderPId,jdbcType=DECIMAL},#{isUseVoucher,jdbcType=CHAR},#{profitReturnConfig,jdbcType=CHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LendOrder">
+        insert into LEND_ORDER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lendOrderId != null">
+                LEND_ORDER_ID,
+            </if>
+            <if test="customerAccountId != null">
+                CUSTOMER_ACCOUNT_ID,
+            </if>
+            <if test="lendProductId != null">
+                LEND_PRODUCT_ID,
+            </if>
+            <if test="lendProductPublishId != null">
+                LEND_PRODUCT_PUBLISH_ID,
+            </if>
+            <if test="inCardId != null">
+                IN_CARD_ID,
+            </if>
+            <if test="currentProfit != null">
+                CURRENT_PROFIT,
+            </if>
+            <if test="currentProfit2 != null">
+                CURRENT_PROFIT2,
+            </if>
+            <if test="outCardId != null">
+                OUT_CARD_ID,
+            </if>
+            <if test="loanApplicationId != null">
+                LOAN_APPLICATION_ID,
+            </if>
+            <if test="lendUserId != null">
+                LEND_USER_ID,
+            </if>
+            <if test="productType != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="orderCode != null">
+                ORDER_CODE,
+            </if>
+            <if test="lendOrderName != null">
+                LEND_ORDER_NAME,
+            </if>
+            <if test="unitOrderCode != null">
+                UNIT_ORDER_CODE,
+            </if>
+            <if test="renewOrderCode != null">
+                RENEW_ORDER_CODE,
+            </if>
+            <if test="useTotalHostoryOrder != null">
+                USE_TOTAL_HOSTORY_ORDER,
+            </if>
+            <if test="buyTime != null">
+                BUY_TIME,
+            </if>
+            <if test="agreementStartDate != null">
+                AGREEMENT_START_DATE,
+            </if>
+            <if test="completionDate != null">
+                COMPLETION_DATE,
+            </if>
+            <if test="agreementEndDate != null">
+                AGREEMENT_END_DATE,
+            </if>
+            <if test="closingOverDate != null">
+                CLOSING_OVER_DATE,
+            </if>
+            <if test="buyBalance != null">
+                BUY_BALANCE,
+            </if>
+            <if test="forLendBalance != null">
+                FOR_LEND_BALANCE,
+            </if>
+            <if test="orderState != null">
+                ORDER_STATE,
+            </if>
+            <if test="payTime != null">
+                PAY_TIME,
+            </if>
+            <if test="displayState != null">
+                DISPLAY_STATE,
+            </if>
+            <if test="recordTime != null">
+                RECORD_TIME,
+            </if>
+            <if test="salerPersonnel != null">
+                SALER_PERSONNEL,
+            </if>
+            <if test="salerCode != null">
+                SALER_CODE,
+            </if>
+            <if test="salerName != null">
+                SALER_NAME,
+            </if>
+            <if test="recorderPersonnel != null">
+                RECORDER_PERSONNEL,
+            </if>
+            <if test="recorderCode != null">
+                RECORDER_CODE,
+            </if>
+            <if test="recorderName != null">
+                RECORDER_NAME,
+            </if>
+            <if test="profitRate != null">
+                PROFIT_RATE,
+            </if>
+            <if test="closingType != null">
+                CLOSING_TYPE,
+            </if>
+            <if test="closingDate != null">
+                CLOSING_DATE,
+            </if>
+            <if test="timeLimitType != null">
+                TIME_LIMIT_TYPE,
+            </if>
+            <if test="timeLimit != null">
+                TIME_LIMIT,
+            </if>
+            <if test="toInterestPoint != null">
+                TO_INTEREST_POINT,
+            </if>
+            <if test="renewalCycleType != null">
+                RENEWAL_CYCLE_TYPE,
+            </if>
+            <if test="renewalType != null">
+                RENEWAL_TYPE,
+            </if>
+            <if test="renewal != null">
+                RENEWAL,
+            </if>
+            <if test="theReturnMethod != null">
+                THE_RETURN_METHOD,
+            </if>
+            <if test="drawCashTime != null">
+                DRAW_CASH_TIME,
+            </if>
+            <if test="financiaDrawCashTime != null">
+                FINANCIA_DRAW_CASH_TIME,
+            </if>
+            <if test="lendOrderPId != null">
+                LEND_ORDER_PID,
+            </if>
+            <if test="isUseVoucher != null">
+                IS_USE_VOUCHER,
+            </if>
+            <if test="profitReturnConfig != null">
+                PROFIT_RETURN_CONFIG,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lendOrderId != null">
+                #{lendOrderId,jdbcType=DECIMAL},
+            </if>
+            <if test="customerAccountId != null">
+                #{customerAccountId,jdbcType=DECIMAL},
+            </if>
+            <if test="lendProductId != null">
+                #{lendProductId,jdbcType=DECIMAL},
+            </if>
+            <if test="lendProductPublishId != null">
+                #{lendProductPublishId,jdbcType=DECIMAL},
+            </if>
+            <if test="inCardId != null">
+                #{inCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="currentProfit != null">
+                #{currentProfit,jdbcType=DECIMAL},
+            </if>
+            <if test="currentProfit2 != null">
+                #{currentProfit2,jdbcType=DECIMAL},
+            </if>
+            <if test="outCardId != null">
+                #{outCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="loanApplicationId != null">
+                #{loanApplicationId,jdbcType=DECIMAL},
+            </if>
+            <if test="lendUserId != null">
+                #{lendUserId,jdbcType=DECIMAL},
+            </if>
+            <if test="productType != null">
+                #{productType,jdbcType=CHAR},
+            </if>
+            <if test="orderCode != null">
+                #{orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="lendOrderName != null">
+                #{lendOrderName,jdbcType=VARCHAR},
+            </if>
+            <if test="unitOrderCode != null">
+                #{unitOrderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="renewOrderCode != null">
+                #{renewOrderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="useTotalHostoryOrder != null">
+                #{useTotalHostoryOrder,jdbcType=CHAR},
+            </if>
+            <if test="buyTime != null">
+                #{buyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementStartDate != null">
+                #{agreementStartDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="completionDate != null">
+                #{completionDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementEndDate != null">
+                #{agreementEndDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="closingOverDate != null">
+                #{closingOverDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="buyBalance != null">
+                #{buyBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="forLendBalance != null">
+                #{forLendBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="orderState != null">
+                #{orderState,jdbcType=CHAR},
+            </if>
+            <if test="payTime != null">
+                #{payTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="displayState != null">
+                #{displayState,jdbcType=CHAR},
+            </if>
+            <if test="recordTime != null">
+                #{recordTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="salerPersonnel != null">
+                #{salerPersonnel,jdbcType=DECIMAL},
+            </if>
+            <if test="salerCode != null">
+                #{salerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="salerName != null">
+                #{salerName,jdbcType=VARCHAR},
+            </if>
+            <if test="recorderPersonnel != null">
+                #{recorderPersonnel,jdbcType=DECIMAL},
+            </if>
+            <if test="recorderCode != null">
+                #{recorderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="recorderName != null">
+                #{recorderName,jdbcType=VARCHAR},
+            </if>
+            <if test="profitRate != null">
+                #{profitRate,jdbcType=DECIMAL},
+            </if>
+            <if test="closingType != null">
+                #{closingType,jdbcType=CHAR},
+            </if>
+            <if test="closingDate != null">
+                #{closingDate,jdbcType=DECIMAL},
+            </if>
+            <if test="timeLimitType != null">
+                #{timeLimitType,jdbcType=CHAR},
+            </if>
+            <if test="timeLimit != null">
+                #{timeLimit,jdbcType=DECIMAL},
+            </if>
+            <if test="toInterestPoint != null">
+                #{toInterestPoint,jdbcType=CHAR},
+            </if>
+            <if test="renewalCycleType != null">
+                #{renewalCycleType,jdbcType=CHAR},
+            </if>
+            <if test="renewalType != null">
+                #{renewalType,jdbcType=CHAR},
+            </if>
+            <if test="renewal != null">
+                #{renewal,jdbcType=DECIMAL},
+            </if>
+            <if test="theReturnMethod != null">
+                #{theReturnMethod,jdbcType=CHAR},
+            </if>
+            <if test="drawCashTime != null">
+                #{drawCashTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="financiaDrawCashTime != null">
+                #{financiaDrawCashTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lendOrderPId != null">
+                #{lendOrderPId,jdbcType=DECIMAL},
+            </if>
+            <if test="isUseVoucher != null">
+                #{isUseVoucher,jdbcType=CHAR},
+            </if>
+            <if test="profitReturnConfig != null">
+                #{profitReturnConfig,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LendOrder">
+        update LEND_ORDER
+        <set>
+            <if test="customerAccountId != null">
+                CUSTOMER_ACCOUNT_ID = #{customerAccountId,jdbcType=DECIMAL},
+            </if>
+            <if test="lendProductId != null">
+                LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+            </if>
+            <if test="lendProductPublishId != null">
+                LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId,jdbcType=DECIMAL},
+            </if>
+            <if test="inCardId != null">
+                IN_CARD_ID = #{inCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="currentProfit != null">
+                CURRENT_PROFIT = #{currentProfit,jdbcType=DECIMAL},
+            </if>
+            <if test="currentProfit2 != null">
+                CURRENT_PROFIT2 = #{currentProfit2,jdbcType=DECIMAL},
+            </if>
+            <if test="outCardId != null">
+                OUT_CARD_ID = #{outCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="loanApplicationId != null">
+                LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+            </if>
+            <if test="lendUserId != null">
+                LEND_USER_ID = #{lendUserId,jdbcType=DECIMAL},
+            </if>
+            <if test="productType != null">
+                PRODUCT_TYPE = #{productType,jdbcType=CHAR},
+            </if>
+            <if test="orderCode != null">
+                ORDER_CODE = #{orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="lendOrderName != null">
+                LEND_ORDER_NAME = #{lendOrderName,jdbcType=VARCHAR},
+            </if>
+            <if test="unitOrderCode != null">
+                UNIT_ORDER_CODE = #{unitOrderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="renewOrderCode != null">
+                RENEW_ORDER_CODE = #{renewOrderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="useTotalHostoryOrder != null">
+                USE_TOTAL_HOSTORY_ORDER = #{useTotalHostoryOrder,jdbcType=CHAR},
+            </if>
+            <if test="buyTime != null">
+                BUY_TIME = #{buyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementStartDate != null">
+                AGREEMENT_START_DATE = #{agreementStartDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="completionDate != null">
+                COMPLETION_DATE = #{completionDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementEndDate != null">
+                AGREEMENT_END_DATE = #{agreementEndDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="closingOverDate != null">
+                CLOSING_OVER_DATE = #{closingOverDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="buyBalance != null">
+                BUY_BALANCE = #{buyBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="forLendBalance != null">
+                FOR_LEND_BALANCE = #{forLendBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="orderState != null">
+                ORDER_STATE = #{orderState,jdbcType=CHAR},
+            </if>
+            <if test="payTime != null">
+                PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="displayState != null">
+                DISPLAY_STATE = #{displayState,jdbcType=CHAR},
+            </if>
+            <if test="recordTime != null">
+                RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="salerPersonnel != null">
+                SALER_PERSONNEL = #{salerPersonnel,jdbcType=DECIMAL},
+            </if>
+            <if test="salerCode != null">
+                SALER_CODE = #{salerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="salerName != null">
+                SALER_NAME = #{salerName,jdbcType=VARCHAR},
+            </if>
+            <if test="recorderPersonnel != null">
+                RECORDER_PERSONNEL = #{recorderPersonnel,jdbcType=DECIMAL},
+            </if>
+            <if test="recorderCode != null">
+                RECORDER_CODE = #{recorderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="recorderName != null">
+                RECORDER_NAME = #{recorderName,jdbcType=VARCHAR},
+            </if>
+            <if test="profitRate != null">
+                PROFIT_RATE = #{profitRate,jdbcType=DECIMAL},
+            </if>
+            <if test="closingType != null">
+                CLOSING_TYPE = #{closingType,jdbcType=CHAR},
+            </if>
+            <if test="closingDate != null">
+                CLOSING_DATE = #{closingDate,jdbcType=DECIMAL},
+            </if>
+            <if test="timeLimitType != null">
+                TIME_LIMIT_TYPE = #{timeLimitType,jdbcType=CHAR},
+            </if>
+            <if test="timeLimit != null">
+                TIME_LIMIT = #{timeLimit,jdbcType=DECIMAL},
+            </if>
+            <if test="toInterestPoint != null">
+                TO_INTEREST_POINT = #{toInterestPoint,jdbcType=CHAR},
+            </if>
+            <if test="renewalCycleType != null">
+                RENEWAL_CYCLE_TYPE = #{renewalCycleType,jdbcType=CHAR},
+            </if>
+            <if test="renewalType != null">
+                RENEWAL_TYPE = #{renewalType,jdbcType=CHAR},
+            </if>
+            <if test="renewal != null">
+                RENEWAL = #{renewal,jdbcType=DECIMAL},
+            </if>
+            <if test="theReturnMethod != null">
+                THE_RETURN_METHOD = #{theReturnMethod,jdbcType=CHAR},
+            </if>
+            <if test="drawCashTime != null">
+                DRAW_CASH_TIME = #{drawCashTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="financiaDrawCashTime != null">
+                FINANCIA_DRAW_CASH_TIME = #{financiaDrawCashTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lendOrderPId != null">
+                LEND_ORDER_PID = #{lendOrderPId,jdbcType=DECIMAL},
+            </if>
+            <if test="isUseVoucher != null">
+                IS_USE_VOUCHER = #{isUseVoucher,jdbcType=CHAR},
+            </if>
+            <if test="profitReturnConfig != null">
+                PROFIT_RETURN_CONFIG = #{profitReturnConfig,jdbcType=CHAR},
+            </if>
+        </set>
+        where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LendOrder">
+    update LEND_ORDER
+    set CUSTOMER_ACCOUNT_ID = #{customerAccountId,jdbcType=DECIMAL},
+      LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId,jdbcType=DECIMAL},
+      IN_CARD_ID = #{inCardId,jdbcType=DECIMAL},
+      CURRENT_PROFIT = #{currentProfit,jdbcType=DECIMAL},
+      CURRENT_PROFIT2 = #{currentProfit2,jdbcType=DECIMAL},
+      OUT_CARD_ID = #{outCardId,jdbcType=DECIMAL},
+      LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      LEND_USER_ID = #{lendUserId,jdbcType=DECIMAL},
+      PRODUCT_TYPE = #{productType,jdbcType=CHAR},
+      ORDER_CODE = #{orderCode,jdbcType=VARCHAR},
+      LEND_ORDER_NAME = #{lendOrderName,jdbcType=VARCHAR},
+      UNIT_ORDER_CODE = #{unitOrderCode,jdbcType=VARCHAR},
+      RENEW_ORDER_CODE = #{renewOrderCode,jdbcType=VARCHAR},
+      USE_TOTAL_HOSTORY_ORDER = #{useTotalHostoryOrder,jdbcType=CHAR},
+      BUY_TIME = #{buyTime,jdbcType=TIMESTAMP},
+      AGREEMENT_START_DATE = #{agreementStartDate,jdbcType=TIMESTAMP},
+      COMPLETION_DATE = #{completionDate,jdbcType=TIMESTAMP},
+      AGREEMENT_END_DATE = #{agreementEndDate,jdbcType=TIMESTAMP},
+      CLOSING_OVER_DATE = #{closingOverDate,jdbcType=TIMESTAMP},
+      BUY_BALANCE = #{buyBalance,jdbcType=DECIMAL},
+      FOR_LEND_BALANCE = #{forLendBalance,jdbcType=DECIMAL},
+      ORDER_STATE = #{orderState,jdbcType=CHAR},
+      PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      DISPLAY_STATE = #{displayState,jdbcType=CHAR},
+      RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      SALER_PERSONNEL = #{salerPersonnel,jdbcType=DECIMAL},
+      SALER_CODE = #{salerCode,jdbcType=VARCHAR},
+      SALER_NAME = #{salerName,jdbcType=VARCHAR},
+      RECORDER_PERSONNEL = #{recorderPersonnel,jdbcType=DECIMAL},
+      RECORDER_CODE = #{recorderCode,jdbcType=VARCHAR},
+      RECORDER_NAME = #{recorderName,jdbcType=VARCHAR},
+      PROFIT_RATE = #{profitRate,jdbcType=DECIMAL},
+      CLOSING_TYPE = #{closingType,jdbcType=CHAR},
+      CLOSING_DATE = #{closingDate,jdbcType=DECIMAL},
+      TIME_LIMIT_TYPE = #{timeLimitType,jdbcType=CHAR},
+      TIME_LIMIT = #{timeLimit,jdbcType=DECIMAL},
+      TO_INTEREST_POINT = #{toInterestPoint,jdbcType=CHAR},
+      RENEWAL_CYCLE_TYPE = #{renewalCycleType,jdbcType=CHAR},
+      RENEWAL_TYPE = #{renewalType,jdbcType=CHAR},
+      RENEWAL = #{renewal,jdbcType=DECIMAL},
+      THE_RETURN_METHOD = #{theReturnMethod,jdbcType=CHAR},
+      DRAW_CASH_TIME = #{drawCashTime,jdbcType=TIMESTAMP},
+      FINANCIA_DRAW_CASH_TIME = #{financiaDrawCashTime,jdbcType=TIMESTAMP},
+      LEND_ORDER_PID = #{lendOrderPId,jdbcType=DECIMAL},
+      IS_USE_VOUCHER = #{isUseVoucher,jdbcType=CHAR},
+      PROFIT_RETURN_CONFIG = #{profitReturnConfig,jdbcType=CHAR}
+    where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+  </update>
+    <update id="updateMap" parameterType="java.util.Map">
+        update LEND_ORDER
+        <set>
+            <if test="_parameter.containsKey('forLendBalance')">
+                FOR_LEND_BALANCE = #{forLendBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('currentProfit')">
+                CURRENT_PROFIT = #{currentProfit,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('currentProfit2')">
+                CURRENT_PROFIT2 = #{currentProfit2,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('orderState')">
+                ORDER_STATE = #{orderState,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('agreementStartDate')">
+                AGREEMENT_START_DATE = #{agreementStartDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('agreementEndDate')">
+                AGREEMENT_END_DATE = #{agreementEndDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="_parameter.containsKey('profitReturnConfig')">
+                PROFIT_RETURN_CONFIG = #{profitReturnConfig,jdbcType=TIMESTAMP},
+            </if>
+
+        </set>
+        where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+    </update>
+    <select id="getFinancialPlanListByPage" resultMap="lendOrderExtProductResultMap" parameterType="map">
+        select lo.*,lp.product_name,lp.product_state,lp.profit_rate_max,ui.login_name,lpp.publish_code,lpp.publish_name from (select * from lend_order o where
+        o.product_Type = '2' and o.order_state in ('1','2','6')) lo left join user_info ui on lo.lend_user_id = ui.user_id left join lend_product lp on
+        lo.lend_product_id = lp.lend_product_id
+        left join lend_product_publish lpp on lo.lend_product_publish_id = lpp.lend_product_publish_id
+        where 1=1
+        <include refid="where_getFinancialPlanListByPage"/>
+        order by lo.lend_order_id desc
+    </select>
+
+    <select id="count_getFinancialPlanListByPage" resultType="int" parameterType="map">
+        select count(1) from (select * from lend_order o where o.product_Type = '2' and o.order_state in ('1','2','6')) lo left join user_info ui on
+        lo.lend_user_id = ui.user_id left join lend_product lp on lo.lend_product_id = lp.lend_product_id
+        left join lend_product_publish lpp on lo.lend_product_publish_id = lpp.lend_product_publish_id
+        where 1=1
+        <include refid="where_getFinancialPlanListByPage"/>
+    </select>
+
+    <select id="getTotalAward" resultType="BigDecimal" parameterType="long">
+        select NVL(SUM(ad.AWARD_BALANCE), 0) AWARD_BALANCE from AWARD_DETAIL ad
+        left join lend_order lo on AD.LEND_ORDER_ID = LO.LEND_ORDER_ID
+        <where>
+
+            LO.LEND_USER_ID = #{value}
+
+        </where>
+    </select>
+    <select id="getTotalLendAmount" resultType="BigDecimal" parameterType="map">
+        select NVL(SUM(LO.BUY_BALANCE), 0) BUY_BALANCE from LEND_ORDER lo
+        left join LEND_ORDER_BID_DETAIL lobd on lo.LEND_ORDER_ID = lobd.LEND_ORDER_ID and LOBD.STATUS in ('1','0')
+        <where>
+            <if test='userId != null and userId != ""'>
+                AND lo.LEND_USER_ID = #{userId}
+            </if>
+            <if test='loanApplicationId != null and loanApplicationId != ""'>
+                AND LOBD.LOAN_APPLICATION_ID = #{loanApplicationId}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getTotalLendAmountByUserId" resultType="BigDecimal" parameterType="map">
+		SELECT NVL(SUM(LO.BUY_BALANCE), 0) BUY_BALANCE
+		  FROM LEND_ORDER_BID_DETAIL LOBD, LEND_ORDER LO, USER_INFO UI
+		 WHERE LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+		   AND LO.LEND_USER_ID = #{userId}
+		   AND LO.LEND_USER_ID = UI.USER_ID
+		   AND LOBD.STATUS = '1'
+		   AND LO.ORDER_STATE IN ('1', '2', '6', '5')
+		   AND UI.TYPE = '0'
+		   AND ( (LO.product_type = '1' and LO.lend_order_pid is null ) or (LO.product_type = '2' and LO.lend_order_pid is null ) or ( LO.product_type = '3' ) )
+ 			AND LO.LEND_ORDER_PID is null 
+		   <if test="month != null and month != ''">
+
+               and to_char(LO.PAY_TIME,'YYYYMM') = #{month}
+           </if>
+    </select>
+
+    <select id="isFirstLend" resultType="BigDecimal" parameterType="java.lang.Long">
+		SELECT NVL(SUM(LO.BUY_BALANCE), 0) BUY_BALANCE
+		  FROM LEND_ORDER_BID_DETAIL LOBD, LEND_ORDER LO, USER_INFO UI
+   		 <![CDATA[
+		  WHERE LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+		   AND LO.LEND_USER_ID = #{value}
+		   AND LO.LEND_USER_ID = UI.USER_ID
+		   AND LOBD.STATUS = '1'
+		   AND LO.ORDER_STATE IN ('1', '2', '6')  
+		   AND LO.PRODUCT_TYPE <> '2' 
+		   AND UI.TYPE = '0'
+			]]>
+    </select>
+
+    <select id="getFirstLendOrderDate" resultMap="BaseResultMap" parameterType="java.lang.Long">
+
+		   select * from (SELECT lo.*
+      FROM LEND_ORDER_BID_DETAIL LOBD, LEND_ORDER LO, USER_INFO UI
+     WHERE LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+       AND LO.LEND_USER_ID = #{userId}
+       AND LO.LEND_USER_ID = UI.USER_ID
+       AND LOBD.STATUS = '1'
+       AND LO.ORDER_STATE IN ('1', '2', '6')
+		   AND UI.TYPE = '0'
+       order by buy_time asc
+       ) where   rownum = 1
+		  
+    </select>
+
+
+    <select id="getMonthLendAmountSum" parameterType="java.lang.Long"  resultType="java.util.HashMap">
+      select t.monthfmt monthfmt,sum(BUY_BALANCE) interest from
+
+        (
+        SELECT lo.*,TO_CHAR (lo.BUY_TIME, 'YYYYMM') monthfmt
+        FROM LEND_ORDER_BID_DETAIL LOBD, LEND_ORDER LO, USER_INFO UI
+        WHERE LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+
+        AND LO.LEND_USER_ID = UI.USER_ID
+
+        AND LOBD.STATUS = '1'
+         and LO.LEND_USER_ID=#{userId}
+        and lo.ORDER_STATE in ('1','2','5','6')
+
+        ) t group by t.monthfmt
+
+    </select>
+	
+	<!-- 投资过万数量 -->
+	<select id="getTenThousandSumByLendOrder" parameterType="java.util.HashMap"  resultType="java.lang.Integer">
+		select sum(count) from(
+			select nvl(count(1),0) count from lend_order lo 
+			left join lend_order_bid_detail lobd on lobd.lend_order_id=lo.lend_order_id
+			left join user_info ui on ui.user_id=lo.lend_user_id
+			where lo.order_state in ('1', '2','5', '6') and lobd.status='1' and ui.type='0' and lo.buy_balance>10000
+			and lo.lend_user_id in (${ids})
+			<if test="startTime != null and endTime != null">
+				and lo.buy_time <![CDATA[>=]]> to_date(#{startTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+				and lo.buy_time <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'YYYY-MM-DD')
+		    </if>
+			group by lo.lend_user_id
+		)
+    </select>
+    
+    <!-- 有效邀请数量 -->
+    <select id="getValidUserNum" parameterType="java.util.HashMap"  resultType="java.lang.Integer">
+    	select sum(count) from(
+    		select nvl(count(1),0) count from lend_order lo 
+			left join lend_order_bid_detail lobd on lobd.lend_order_id=lo.lend_order_id
+			left join user_info ui on ui.user_id=lo.lend_user_id
+			where lo.order_state in ('1', '2','5', '6') and lobd.status='1' and ui.type='0' and lo.buy_balance>0
+			and lo.lend_user_id in (${ids})
+			<if test="startTime != null and endTime != null">
+				and lo.buy_time <![CDATA[>=]]> to_date(#{startTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+				and lo.buy_time <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'YYYY-MM-DD')
+		    </if>
+			group by lo.lend_user_id
+    	)
+    </select>
+	
+    <!-- 分页查询公用where语句 -->
+    <sql id="where_getFinancialPlanListByPage">
+        <if test="searchFinancialName != null">
+            <if test="searchFinancialName != ''">
+                and lpp.publish_name like '%${searchFinancialName}%'
+            </if>
+        </if>
+        <if test="searchPeriods != null">
+            <if test="searchPeriods != ''">
+                and lpp.publish_code like '%${searchPeriods}%'
+            </if>
+        </if>
+
+        <if test="searchLeanUserName != null">
+            <if test="searchLeanUserName != ''">
+                and ui.login_name like '%${searchLeanUserName}%'
+            </if>
+        </if>
+        <if test="searchBeginTime != null">
+            <if test="searchBeginTime != ''">
+                <![CDATA[
+	      	and  lo.buy_Time >= to_date(#{searchBeginTime},'yyyy-MM-dd')
+	    	]]>
+            </if>
+        </if>
+        <if test="searchEndTime != null">
+            <if test="searchEndTime != ''">
+                <![CDATA[
+      		and  lo.buy_Time <= to_date(#{searchEndTime},'yyyy-MM-dd')
+      		]]>
+            </if>
+        </if>
+        
+        <if test="searchState != null">
+            <if test="searchState != ''">
+      			and lo.order_state = #{searchState}
+            </if>
+        </if>
+        
+        <if test="userId != null">
+            <if test="userId != ''">
+      			and lo.lend_user_id = #{userId}
+            </if>
+        </if>
+
+        <if test="searchT != null">
+            <if test="searchT != ''">
+                <choose>
+                    <when test="searchT == 'T_1'">
+                        <![CDATA[
+      					and to_char(lo.buy_Time,'yyyy-MM-dd') >= to_char(sysdate,'yyyy-MM-dd')
+      				]]>
+                    </when>
+                    <when test="searchT == 'T_7'">
+                        <![CDATA[
+      					and to_char(lo.buy_Time,'yyyy-MM-dd') >= to_char(sysdate - interval '7' day,'yyyy-MM-dd')
+      				]]>
+                    </when>
+                    <when test="searchT == 'T_3'">
+                        <![CDATA[
+      					and to_char(lo.buy_Time,'yyyy-MM-dd') >= to_char(sysdate - interval '3' month,'yyyy-MM-dd')
+      				]]>
+                    </when>
+                    <when test="searchT == 'T_6'">
+                        <![CDATA[
+      					and to_char(lo.buy_Time,'yyyy-MM-dd') >= to_char(sysdate - interval '6' month,'yyyy-MM-dd')
+      				]]>
+                    </when>
+                    <when test="searchT == 'T_12'">
+                        <![CDATA[
+      					and to_char(lo.buy_Time,'yyyy-MM-dd') >= to_char(sysdate - interval '12' month,'yyyy-MM-dd')
+      				]]>
+                    </when>
+                </choose>
+            </if>
+        </if>
+    </sql>
+    <select id="findFinancialPlanById" resultMap="lendOrderExtProductResultMap" parameterType="long">
+  	select lo.*,
+        lp.product_name,
+        lp.product_state,
+        lp.guarantee_type,
+        ui.real_name,
+        lpp.publish_code,
+        lpp.publish_name,
+        lp.starts_at,
+        lo.lend_user_id,
+        lo.buy_time,
+        lo.CUSTOMER_ACCOUNT_ID,
+        lp.PROFIT_RATE_MAX
+   from (select * from lend_order where product_Type = '2') lo
+   left join user_info_ext ui on lo.lend_user_id = ui.user_id
+   left join lend_product lp on lo.lend_product_id = lp.lend_product_id
+   left join lend_product_publish lpp on lo.lend_product_publish_id =
+                                         lpp.lend_product_publish_id
+  where lo.lend_order_id = #{lendOrderId}
+  </select>
+
+    <select id="findHaveBalanceOrder" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from LEND_ORDER
+        where 
+        	1=1
+      
+        <if test="orderStateList != null">
+            and ORDER_STATE in
+            <foreach collection="orderStateList" item="orderState" open="(" separator="," close=")">
+                #{orderState}
+            </foreach>
+        </if>
+        <if test="_parameter.containsKey('productType')">
+            <if test="productType != 0">
+                and PRODUCT_TYPE = #{productType}
+            </if>
+
+        </if>
+    </select>
+
+    <select id="getTotalHoldFinancePlan" resultType="BigDecimal" parameterType="map">
+
+        SELECT NVL(SUM(LO.BUY_BALANCE), 0) BUY_BALANCE
+		  FROM LEND_ORDER_BID_DETAIL LOBD, LEND_ORDER LO, USER_INFO UI
+		 WHERE LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+		   AND LO.LEND_USER_ID = #{userId}
+		   AND LO.LEND_USER_ID = UI.USER_ID
+		   and PRODUCT_TYPE = '2'
+		   AND LO.ORDER_STATE IN ('1', '6', '5')
+		   AND UI.TYPE = '0'
+    </select>
+
+    <select id="getLendOrderByPayId" parameterType="long" resultMap="BaseResultMap">
+    SELECT lo.*
+      FROM LEND_ORDER lo
+           INNER JOIN ORDER_PAY_RELATIONS opr
+              ON LO.LEND_ORDER_ID = OPR.LEND_ORDER_ID
+     WHERE OPR.PAY_ID = #{value}
+  </select>
+  
+      <select id="getLendUserByUserId" parameterType="long" resultMap="BaseResultMap">
+		    select  lo.* from lend_order lo where lo.lend_user_id in(
+			select  di.user_id from distribution_invite di where di.user_pid in
+			(select   ui.user_id from user_info ui left join 
+			user_info_ext uie on  ui.user_id =uie.user_id where ui.user_id= #{value}) )and lo.product_type=1  and lo.order_state=5
+  </select>
+
+    <select id="getCycleBuySituation" resultMap="lendOrderExtProductResultMap" parameterType="java.lang.String">
+		SELECT U.LOGIN_NAME, LO.BUY_BALANCE, LO.BUY_TIME
+		  FROM LEND_PRODUCT_PUBLISH LPP,
+		       LEND_PRODUCT         LP,
+		       LEND_ORDER           LO,
+		       USER_INFO            U
+		 WHERE LP.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+		   AND LP.LEND_PRODUCT_ID = LO.LEND_PRODUCT_ID
+		   AND LO.LEND_USER_ID = U.USER_ID
+		   AND LO.PRODUCT_TYPE = 2
+		   AND LO.ORDER_STATE in (1, 2, 5)
+		   AND LO.LEND_PRODUCT_PUBLISH_ID = LPP.LEND_PRODUCT_PUBLISH_ID
+		   AND LPP.LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId}
+  </select>
+
+    <select id="getNewestProfit" resultType="java.math.BigDecimal" parameterType="long">
+        select CURRENT_PROFIT2 from LEND_ORDER_NEWEST_PROFIT
+        where LEND_ORDER_ID = #{lendOrderId}
+    </select>
+
+
+    <select id="getLendOrderRecent" resultMap="BaseResultMap" parameterType="map">
+        select * from (
+        SELECT *
+        from LEND_ORDER
+        where LEND_USER_ID = #{userId}
+        <!--  去除未支付的订单  -->
+        <![CDATA[
+        and ORDER_STATE in (1,2,5,7)
+      ]]>
+      <!--  去除省心计划的子订单  -->
+        <![CDATA[
+        and LEND_ORDER_PID is null
+      ]]>
+      
+        ORDER BY BUY_TIME DESC
+        )
+        <![CDATA[
+      where rownum <= #{rows}
+      		]]>
+    </select>
+
+	<!-- 订单管理-订单列表-【开始】 -->
+    <select id="getLendOrderPaging" resultMap="BaseResultMap" parameterType="map">
+    select uix.REAL_NAME as LENDUSER_NAME, lo.* ,
+	(select DISTINCT la.APPLICATION_STATE from LEND_ORDER_BID_DETAIL lobd, LOAN_APPLICATION la where lobd.LOAN_APPLICATION_ID = la.LOAN_APPLICATION_ID and lobd.LEND_ORDER_ID = lo.LEND_ORDER_ID) as rightingState,
+	(select count(1) from ORDER_PAY_RELATIONS opr, PAY_ORDER po where opr.PAY_ID = po.PAY_ID and po.STATUS = '1' and opr.LEND_ORDER_ID = lo.LEND_ORDER_ID) as orderPayState
+	from LEND_ORDER lo left join user_info_ext uix on lo.LEND_USER_ID = uix.USER_ID
+        left join CREDITOR_RIGHTS r on lo.LEND_ORDER_ID = R.LEND_ORDER_ID
+        <include refid="where_getLendOrderPaging"/>
+        ORDER BY lo.LEND_ORDER_ID DESC
+    </select>
+    <select id="count_getLendOrderPaging" resultType="int" parameterType="map">
+        select count(1)
+        from LEND_ORDER lo left join USER_INFO_EXT uix on lo.LEND_USER_ID = uix.USER_ID
+        left join CREDITOR_RIGHTS r on lo.LEND_ORDER_ID = R.LEND_ORDER_ID
+        <include refid="where_getLendOrderPaging"/>
+    </select>
+    <sql id="where_getLendOrderPaging">
+    	where  (R.CHANNEL_TYPE ='2' OR R.CHANNEL_TYPE IS NULL)
+		<if test="lendOrder != null">
+	       
+	    </if>
+	    <if test="customParams != null">
+	       <if test="customParams.searchOrderCode != null">
+		       <if test="customParams.searchOrderCode != ''">
+		         and lo.ORDER_CODE like '%${customParams.searchOrderCode}%'
+		       </if>
+		   </if>
+		   <if test="customParams.searchLendUserName != null">
+		       <if test="customParams.searchLendUserName != ''">
+		         and uix.REAL_NAME like '%${customParams.searchLendUserName}%'
+		       </if>
+		   </if>
+		   <if test="customParams.searchLendOrderName != null">
+		       <if test="customParams.searchLendOrderName != ''">
+		         and lo.LEND_ORDER_NAME like '%${customParams.searchLendOrderName}%'
+		       </if>
+		   </if>
+		   <if test="customParams.searchProductType != null">
+		       <if test="customParams.searchProductType != ''">
+		         and lo.PRODUCT_TYPE like '%${customParams.searchProductType}%'
+		       </if>
+		   </if>
+			<if test="customParams.searchBeginTime != null">
+	            <if test="customParams.searchBeginTime != ''">
+		            <![CDATA[
+			      		and lo.BUY_TIME >= to_date(#{customParams.searchBeginTime},'yyyy-MM-dd')
+			    	]]>
+	            </if>
+	        </if>
+	        <if test="customParams.searchEndTime != null">
+	            <if test="customParams.searchEndTime != ''">
+	            <![CDATA[
+	      			and lo.BUY_TIME <= to_date(#{customParams.searchEndTime},'yyyy-MM-dd')
+	      		]]>
+	            </if>
+	        </if>
+	        <if test="customParams.searchOrderPayState != null">
+		       <if test="customParams.searchOrderPayState != ''">
+		       	and (select count(1) from ORDER_PAY_RELATIONS opr, PAY_ORDER po where opr.PAY_ID = po.PAY_ID and po.STATUS = '1' and opr.LEND_ORDER_ID = lo.LEND_ORDER_ID) = #{customParams.searchOrderPayState}
+		       </if>
+		   </if>
+		   
+	    </if>
+    </sql>
+    <!-- 订单管理-订单列表-【结束】 -->
+  
+  <select id="getLendOrderListBy" resultMap="lendOrderExtProductResultMap" parameterType="map">
+  	SELECT LO.ORDER_CODE,
+  			LO.BUY_TIME,
+	       LO.LEND_ORDER_ID,
+	       LP.PRODUCT_NAME,
+	       LO.LEND_ORDER_NAME,
+	       LO.BUY_BALANCE,
+	       LO.PRODUCT_TYPE,
+	       LO.ORDER_STATE
+	  FROM LEND_ORDER LO
+	  LEFT JOIN LEND_PRODUCT LP
+	    ON LO.LEND_PRODUCT_ID = LP.LEND_PRODUCT_ID
+	 WHERE LO.LEND_USER_ID = #{lendUserId} and lo.DISPLAY_STATE = '1'
+    <if test="orderCode != null and orderCode != ''" >
+      AND LO.ORDER_CODE LIKE '%${orderCode}%'
+    </if>
+    <if test="orderState != null and orderState != ''" >
+	    <if test="orderState == 1" >    	<!-- 未支付 -->
+	      AND LO.ORDER_STATE = 0
+	    </if>
+	    <if test="orderState == 2" >    	<!-- 支付成功-->
+	      AND LO.ORDER_STATE in (1,2,5,6)
+	    </if>
+	    <if test="orderState == 3" >    	<!-- 撤销 -->
+	      AND LO.ORDER_STATE in (3,4,7)
+	    </if>
+    </if>
+    <if test="startDate != null and startDate != ''" >
+      <![CDATA[AND LO.BUY_TIME >= to_date(#{startDate},'yyyy-MM-dd')]]>
+    </if>
+    <if test="endDate != null and endDate != ''" >
+    <![CDATA[AND LO.BUY_TIME <= to_date(#{endDate},'yyyy-MM-dd')]]>
+    </if>
+    ORDER BY LO.BUY_TIME DESC
+  </select>
+  <select id="count_getLendOrderListBy" resultType="int" parameterType="map">
+	SELECT COUNT(1)
+	  FROM LEND_ORDER LO
+	  LEFT JOIN LEND_PRODUCT LP
+	    ON LO.LEND_PRODUCT_ID = LP.LEND_PRODUCT_ID
+	WHERE LO.LEND_USER_ID = #{lendUserId} and lo.DISPLAY_STATE = '1'
+    <if test="orderCode != null and orderCode != ''" >
+      AND LO.ORDER_CODE LIKE '%${orderCode}%'
+    </if>
+    <if test="orderState != null and orderState != ''" >
+	    <if test="orderState == 1" >    	<!-- 未支付 -->
+	      AND LO.ORDER_STATE = 0
+	    </if>
+	    <if test="orderState == 2" >    	<!-- 支付成功-->
+	      AND LO.ORDER_STATE in (1,2,5,6)
+	    </if>
+	    <if test="orderState == 3" >    	<!-- 撤销 -->
+	      AND LO.ORDER_STATE in (3,4,7)
+	    </if>
+    </if>
+    <if test="startDate != null and startDate != ''" >
+      <![CDATA[AND LO.BUY_TIME >= to_date(#{startDate},'yyyy-MM-dd')]]>
+    </if>
+    <if test="endDate != null and endDate != ''" >
+    <![CDATA[AND LO.BUY_TIME <= to_date(#{endDate},'yyyy-MM-dd')]]>
+    </if>
+  </select>
+
+  <!-- 获得累计出借金额 -->
+  <select id="getAllBuyBalance" resultType="java.math.BigDecimal" parameterType="long">
+      select NVL(SUM(lo.BUY_BALANCE), 0) 
+      from LEND_ORDER lo, USER_INFO ui ,lend_order_bid_detail lobd
+      where lo.LEND_USER_ID = ui.USER_ID and lobd.lend_order_id=lo.lend_order_id
+      and ui."TYPE" = '0' and lobd.status='1'
+      and ( (lo.product_type = '1' and lo.lend_order_pid is null ) or (lo.product_type = '2' and lo.lend_order_pid is null ) or ( lo.product_type = '3' ))
+      and lo.ORDER_STATE in ('1','2','5','6')
+      <if test='_parameter != null'>
+      	and ui.USER_ID = #{_parameter}
+      </if>
+  </select>
+  
+  <select id="selectUserAllBuyBalanceByCondition" resultType="java.math.BigDecimal" parameterType="map">
+      select NVL(SUM(lo.BUY_BALANCE), 0) 
+      from LEND_ORDER lo, USER_INFO ui ,lend_order_bid_detail lobd
+      where lo.LEND_USER_ID = ui.USER_ID and lobd.lend_order_id=lo.lend_order_id
+      and ui."TYPE" = '0' and lobd.status='1'
+      and lo.ORDER_STATE in ('1','2','5','6')
+      <if test='userId != null'>
+		and ui.USER_ID = #{userId}
+      </if>
+      <if test="date != null and date != ''" >
+		 and <![CDATA[ LO.BUY_TIME <= to_date(#{date},'yyyy-MM-dd')]]>
+      </if>
+  </select>
+  
+  <select id="selectUserOrderNumByCondition" resultType="int" parameterType="map">
+      select count(1)
+      from LEND_ORDER lo, USER_INFO ui ,lend_order_bid_detail lobd,LEND_PRODUCT lp
+      where lo.LEND_USER_ID = ui.USER_ID 
+      and lo.product_type<![CDATA[<>]]>3
+      and lobd.lend_order_id=lo.lend_order_id 
+      and lo.lend_product_id=lp.lend_product_id
+      and ui."TYPE" = '0' and lobd.status in ('1','0')
+      and lo.ORDER_STATE in ('1','2','5','6')
+      <if test='userId != null'>
+		and ui.USER_ID = #{userId}
+      </if>
+      <if test="date != null and date != ''" >
+		and <![CDATA[ LO.BUY_TIME >= to_date(#{date},'yyyy-MM-dd')]]>
+      </if>
+      <if test='account != null'>
+		and LO.BUY_BALANCE >= #{account}
+      </if>
+      <if test='limitType != null'>
+		and lp.TIME_LIMIT_TYPE = #{limitType}
+      </if>
+      <if test='limit != null'>
+		and lp.TIME_LIMIT = #{limit}
+      </if>
+  </select>
+  
+   <!-- 出借人累计收益-->
+  <select id="getAllProfit" resultType="java.math.BigDecimal" parameterType="long">
+      
+        select NVL(SUM(lo.CURRENT_PROFIT2), 0)  CURRENT_PROFIT2
+        from LEND_ORDER lo, USER_INFO ui
+      <![CDATA[ where lo.LEND_USER_ID = ui.USER_ID
+         and ui."TYPE" = '0'
+         and CURRENT_PROFIT2 is not null
+         and ((lo.lend_order_pid is null and lo.product_type = '2' and
+             ( lo.agreement_end_date < sysdate or  lo.profit_return_config = '1'  ) ) or
+             (lo.lend_order_pid is null and lo.product_type <> '2'))]]>
+      <if test='_parameter != null'>
+      	and ui.USER_ID = #{_parameter}
+      </if>
+  </select>
+  
+  <select id="findLendListByUserId" resultMap="LendListResultMap" parameterType="map">
+        SELECT LA.LOAN_APPLICATION_ID,
+        		C.CREDITOR_RIGHTS_ID,
+		       LA.LOAN_APPLICATION_CODE,
+		       LA.LOAN_TYPE,
+		       LA.APPLICATION_STATE,
+		       U.REAL_NAME,
+		       LP.LOAN_TITLE,
+		       LOBD2.BUY_DATE,
+		       PRO.CYCLE_COUNTS,
+		       PRO.CYCLE_VALUE,
+		       PRO.ANNUAL_RATE,
+		       PRO.REPAYMENT_TYPE,
+		       LO.LEND_ORDER_ID,
+		       C.LEND_USER_ID,
+				PRO.LOAN_PRODUCT_ID,
+		       (SELECT SUM(LOBD.BUY_BALANCE)
+		          FROM LEND_ORDER_BID_DETAIL LOBD
+		         WHERE LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+		           AND LOBD.STATUS = 1) BUY_BALANCE,
+		       (SELECT SUM(LOR.FACT_CAPITAL) + SUM(LOR.FACT_INTEREST)
+		          FROM LEND_ORDER_RECEIVE LOR
+		         WHERE LO.LEND_ORDER_ID = LOR.LEND_ORDER_ID) FACT_BALANCE,
+		       (SELECT SUM(LOR.SHOULD_CAPITAL2) + SUM(LOR.SHOULD_INTEREST2) -
+		               SUM(LOR.FACT_CAPITAL) - SUM(LOR.FACT_INTEREST)
+		          FROM LEND_ORDER_RECEIVE LOR
+		         WHERE LO.LEND_ORDER_ID = LOR.LEND_ORDER_ID) WAITBACK_BALANCE,
+		       (SELECT SUM(LOR.SHOULD_CAPITAL2) + SUM(LOR.SHOULD_INTEREST2)
+		          FROM LEND_ORDER_RECEIVE LOR
+		         WHERE LO.LEND_ORDER_ID = LOR.LEND_ORDER_ID) SHOULD_BALANCE
+		  FROM CREDITOR_RIGHTS       C,
+		       LEND_ORDER            LO,
+		       LOAN_APPLICATION      LA,
+		       LOAN_PUBLISH          LP,
+		       LEND_ORDER_BID_DETAIL LOBD2,
+		       USER_INFO_EXT         U,
+		       LOAN_PRODUCT          PRO
+		 WHERE C.LEND_ORDER_ID = LO.LEND_ORDER_ID
+		   AND C.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+		   AND C.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+		   AND LO.LEND_ORDER_ID = LOBD2.LEND_ORDER_ID
+		   AND C.LOAN_USER_ID = U.USER_ID
+		   AND C.LEND_USER_ID = #{userId}
+		   AND PRO.LOAN_PRODUCT_ID = LA.LOAN_PRODUCT_ID
+        	<if test="startDate != null and startDate != ''" >
+		    	<![CDATA[AND LO.BUY_TIME >= to_date(#{startDate},'yyyy-MM-dd')]]>
+		    </if>
+		    <if test="endDate != null and endDate != ''" >
+		    	<![CDATA[AND LO.BUY_TIME <= to_date(#{endDate},'yyyy-MM-dd')]]>
+		    </if>
+
+              <if test="type != null and type != ''" >
+                  <![CDATA[AND lo.ORDER_STATE = #{type}]]>
+              </if>
+    </select>
+    
+    <select id="countfindLendListByUserId" resultType="int" parameterType="map">
+        SELECT COUNT(0)
+		  FROM LOAN_APPLICATION      LA,
+		       LEND_ORDER            LO,
+		       LEND_ORDER_BID_DETAIL LOBD,
+		       LEND_ORDER_RECEIVE    LOR,
+		       LOAN_PUBLISH          LP
+		 WHERE LA.LOAN_APPLICATION_ID = LO.LOAN_APPLICATION_ID
+		   AND LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+		   <!-- AND LO.LEND_ORDER_ID = LOR.LEND_ORDER_ID -->
+		   AND LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+		   AND LOBD.STATUS = 1
+		   AND LO.LEND_USER_ID = #{userId}
+		   <if test="startDate != null and startDate != ''" >
+		    	<![CDATA[AND LOBD.BUY_DATE >= to_date(#{startDate},'yyyy-MM-dd')]]>
+		    </if>
+		    <if test="endDate != null and endDate != ''" >
+		    	<![CDATA[AND LOBD.BUY_DATE <= to_date(#{endDate},'yyyy-MM-dd')]]>
+		    </if>
+		 GROUP BY LA.LOAN_APPLICATION_ID,
+		          LA.LOAN_TYPE,
+		          LP.LOAN_TITLE,
+		          LOBD.BUY_DATE,
+		          LA.APPLICATION_STATE
+    </select>
+    <select id="count_findLendListByUserId" resultType="int" parameterType="map">
+        SELECT  count(1)
+        FROM CREDITOR_RIGHTS       C,
+        LEND_ORDER            LO,
+        LOAN_APPLICATION      LA,
+        LOAN_PUBLISH          LP,
+        LEND_ORDER_BID_DETAIL LOBD2,
+        USER_INFO_EXT         U,
+        LOAN_PRODUCT          PRO
+        WHERE C.LEND_ORDER_ID = LO.LEND_ORDER_ID
+        AND C.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+        AND C.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+        AND LO.LEND_ORDER_ID = LOBD2.LEND_ORDER_ID
+        AND C.LOAN_USER_ID = U.USER_ID
+        AND C.LEND_USER_ID = #{userId}
+        AND PRO.LOAN_PRODUCT_ID = LA.LOAN_PRODUCT_ID
+        <if test="startDate != null and startDate != ''" >
+            <![CDATA[AND LO.BUY_TIME >= to_date(#{startDate},'yyyy-MM-dd')]]>
+        </if>
+        <if test="endDate != null and endDate != ''" >
+            <![CDATA[AND LO.BUY_TIME <= to_date(#{endDate},'yyyy-MM-dd')]]>
+        </if>
+        <if test="type != null and type != ''" >
+            <![CDATA[AND lo.ORDER_STATE = #{type}]]>
+        </if>
+    </select>
+
+    
+	<!-- 订单详情【开始】 -->
+	   	<!-- 第二部分（上） 理财情况-->
+	   	<select id="getOrderDetail2ALC" resultMap="LendOrderDetailVOResultMap" parameterType="long">
+	   		select lp.PRODUCT_NAME , lp.TIME_LIMIT , lp.TIME_LIMIT_TYPE , lp.PROFIT_RATE_MAX 
+			from LEND_ORDER lo, LEND_PRODUCT lp 
+			where lo.LEND_PRODUCT_ID = lp.LEND_PRODUCT_ID and lo.LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+	   	</select>
+	   	
+		<!-- 第二部分（下） 理财情况-->
+	   	<select id="getOrderDetail2BLC" resultMap="LendOrderDetailVOResultMap" parameterType="long">
+	   		select lep.STARTS_AT,
+			lpp.PUBLISH_BALANCE,lpp.PUBLISH_NAME,
+			(case when lep.TO_INTEREST_POINT = '6' then '到期还本付息' else '周期还息，到期还本' end) as TO_INTEREST_POINT,
+			(case when lep.GUARANTEE_TYPE = '1' then '本息保障' when lep.GUARANTEE_TYPE = '2' then '本金保障' else '无' end) as GUARANTEE_TYPE
+			from LEND_ORDER lo, LEND_PRODUCT lep, LEND_PRODUCT_PUBLISH lpp
+			where lo.LEND_PRODUCT_ID = lep.LEND_PRODUCT_ID
+			and lo.LEND_PRODUCT_PUBLISH_ID = lpp.LEND_PRODUCT_PUBLISH_ID
+			and lo.LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+	   	</select>
+	   	
+	   	<!-- 第二部分（上） 债权情况-->
+	   	<select id="getOrderDetail2AZQ" resultMap="LendOrderDetailVOResultMap" parameterType="long">
+	   		select la.LOAN_APPLICATION_ID, la.LOAN_APPLICATION_NAME 
+			from LEND_ORDER_BID_DETAIL lobd, LOAN_APPLICATION la 
+			where lobd.LOAN_APPLICATION_ID = la.LOAN_APPLICATION_ID and lobd.LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+	   	</select>
+	   	
+	   	<!-- 第二部分（下） 债权情况-->
+	   	<select id="getOrderDetail2BZQ" resultMap="LendOrderDetailVOResultMap" parameterType="long">
+	   		select lep.STARTS_AT,
+			la.CONFIRM_BALANCE,
+			'等额本息' as TO_INTEREST_POINT,
+			(case when lep.GUARANTEE_TYPE = '1' then '本息保障' when lep.GUARANTEE_TYPE = '2' then '本金保障' else '无' end) as GUARANTEE_TYPE
+			from LEND_ORDER_BID_DETAIL lobd, LOAN_APPLICATION la , LOAN_PRODUCT lop, LEND_PRODUCT lep
+			where lobd.LOAN_APPLICATION_ID = la.LOAN_APPLICATION_ID
+			and la.LOAN_PRODUCT_ID = lop.LOAN_PRODUCT_ID
+			and lop.LEND_PRODUCT_ID = lep.LEND_PRODUCT_ID
+			and lobd.LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+	   	</select>
+	   	
+	   	<!-- 第三部分（上） -->
+	   	<select id="getOrderDetail3A" resultMap="LendOrderDetailVOResultMap" parameterType="long">
+	   		select uix.REAL_NAME, po.CREATE_TIME, po.AMOUNT 
+			from ORDER_PAY_RELATIONS opr, PAY_ORDER po, USER_INFO_EXT uix
+			where opr.PAY_ID = po.PAY_ID and po.USER_ID = uix.USER_ID and po.STATUS = 1 and opr.LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+	   	</select>
+	   	
+	   	<!-- 第三部分（下） -->
+	   	<select id="getOrderDetail3B" resultMap="LendOrderDetailVOResultMap" parameterType="long">
+	   		select po.CREATE_TIME,
+			(case when pod.AMOUNT_TYPE = 1 then (select ro.RECHARGE_CODE from RECHARGE_ORDER ro where pod.DETAIL_ID = ro.DETAIL_ID and ro.STATUS = 1) else '--' end) as RECHARGE_CODE,
+			(case when pod.AMOUNT_TYPE = 0 then '余额' when pod.AMOUNT_TYPE = 1 then '充值' when pod.AMOUNT_TYPE = 2 then '财富券' else '--' end) as AMOUNT_TYPE,
+			(case when pod.AMOUNT_TYPE = 1 then (select rc.CHANNEL_NAME from RECHARGE_ORDER ro, RECHARGE_CHANNEL rc where pod.DETAIL_ID = ro.DETAIL_ID and ro.CHANNEL_CODE = rc.CHANNEL_CODE and ro.STATUS = 1) else '--' end) as CHANNEL_NAME,
+			pod.AMOUNT,
+			(case when po.STATUS = 1 then '支付成功' else '--' end) as STATUS
+			from ORDER_PAY_RELATIONS opr, PAY_ORDER po, PAY_ORDER_DETAIL pod 
+			where 1=1 
+			and opr.PAY_ID = po.PAY_ID
+			and po.PAY_ID = pod.PAY_ID
+			and po.STATUS = 1 
+			and opr.LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+	   	</select>
+	<!-- 订单详情【结束】 -->
+    
+    <!-- 导出加盟商数据报表 -->
+    <select id="exportAllianceExcel" resultType="java.util.LinkedHashMap" parameterType="map">
+       SELECT A.u_realName AS 用户姓名,
+         A.MOBILE_NO AS 用户手机号,
+         a.CREATE_TIME AS 注册时间,
+         a.r1_realName AS 一级推荐人,
+         a.R1_IC AS 一级推荐人邀请码,
+         a.r2_realName AS 二级推荐人,
+         a.R2_IC AS 二级推荐人邀请码,
+         a.r3_realName AS 三级推荐人,
+         a.R3_IC AS 三级推荐人邀请码,
+         cc.pay_time AS 首投时间,
+         LO.BUY_TIME AS 购买时间,
+         LP.LOAN_TITLE AS 投资项目,
+         LO.BUY_BALANCE AS 投资金额,
+         DECODE (LO.TIME_LIMIT_TYPE,
+                 '1', LO.TIME_LIMIT || '天',
+                 '2', LO.TIME_LIMIT || '个月')
+            AS 投资期限,
+         DECODE (LA.APPLICATION_STATE,
+                 '0', '草稿',
+                 '1', '风控审核中',
+                 '2', '发标审核中',
+                 '3', '投标中',
+                 '4', '放款审核中',
+                 '5', '待放款',
+                 '6', '还款中',
+                 '7', '已结清',
+                 '8', '已结清（提前还贷）',
+                 '9', '取消',
+                 'A', '流标')
+            AS 当前状态
+    FROM (SELECT UIE.REAL_NAME AS u_realName,
+                 UI.LOGIN_NAME,
+                 UIE.MOBILE_NO,
+                 UI.CREATE_TIME,
+                 UIE.ID_CARD,
+                 UIE.USER_ID AS u_userId,
+                 IC.INVITATION_CODE AS U_IC,
+                 UIE2.REAL_NAME AS r1_realName,
+                 UIE2.USER_ID AS r1_userId,
+                 IC2.INVITATION_CODE AS R1_IC,
+                 DECODE (UIE2.USER_ID, UIE3.USER_ID, NULL, UIE3.REAL_NAME)
+                    AS r2_realName,
+                 DECODE (UIE2.USER_ID, UIE3.USER_ID, NULL, UIE3.USER_ID)
+                    AS r2_userId,
+                 DECODE (UIE2.USER_ID, UIE3.USER_ID, NULL, IC3.INVITATION_CODE)
+                    AS R2_IC,
+                 DECODE (UIE3.USER_ID, UIE4.USER_ID, NULL, UIE4.REAL_NAME)
+                    AS r3_realName,
+                 DECODE (UIE3.USER_ID, UIE4.USER_ID, NULL, UIE4.USER_ID)
+                    AS r3_userId,
+                 DECODE (UIE3.USER_ID, UIE4.USER_ID, NULL, IC4.INVITATION_CODE)
+                    AS R3_IC,
+                 DECODE (UIE4.USER_ID, UIE5.USER_ID, NULL, UIE4.REAL_NAME)
+                    AS r4_realName,
+                 DECODE (UIE4.USER_ID, UIE5.USER_ID, NULL, UIE5.USER_ID)
+                    AS r4_userId,
+                 IC5.INVITATION_CODE AS R4_IC
+            FROM USER_INFO_EXT uie
+                 INNER JOIN USER_INFO UI ON UIE.USER_ID = UI.USER_ID
+                 INNER JOIN INVITATION_CODE IC ON UI.USER_ID = IC.USER_ID
+                 LEFT JOIN USER_INFO_EXT uie2
+                    ON UIE.REC_USER_ID = UIE2.USER_ID
+                 LEFT JOIN INVITATION_CODE IC2 ON UIE2.USER_ID = IC2.USER_ID
+                 LEFT JOIN USER_INFO_EXT uie3
+                    ON UIE2.REC_USER_ID = UIE3.USER_ID
+                 LEFT JOIN INVITATION_CODE IC3 ON UIE3.USER_ID = IC3.USER_ID
+                 LEFT JOIN USER_INFO_EXT uie4
+                    ON UIE3.REC_USER_ID = UIE4.USER_ID
+                 LEFT JOIN INVITATION_CODE IC4 ON UIE4.USER_ID = IC4.USER_ID
+                 LEFT JOIN user_info_ext uie5
+                    ON UIE4.REC_USER_ID = UIE5.USER_ID
+                 LEFT JOIN INVITATION_CODE IC5 ON UIE5.USER_ID = IC5.USER_ID
+           WHERE UI.TYPE = '0') a
+         INNER JOIN lend_order lo ON LO.LEND_USER_ID = a.u_userId
+         INNER JOIN LEND_ORDER_BID_DETAIL lobd
+            ON LOBD.LEND_ORDER_ID = LO.LEND_ORDER_ID
+         INNER JOIN loan_application la
+            ON LOBD.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+         INNER JOIN LOAN_PUBLISH lp
+            ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+         LEFT JOIN (  SELECT LO.LEND_USER_ID, MIN (LO.PAY_TIME) AS pay_time
+                        FROM lend_order lo
+                       WHERE LO.PAY_TIME IS NOT NULL
+                    GROUP BY LO.LEND_USER_ID) cc
+            ON a.u_userId = cc.LEND_USER_ID
+   WHERE     a.r4_userId IS NULL
+         <![CDATA[
+        AND LOBD.BUY_DATE >= TO_DATE (#{date}, 'yyyy-mm-dd')
+        AND LOBD.BUY_DATE < TO_DATE (#{endDate}, 'yyyy-mm-dd')
+        ]]>
+         AND LO.ORDER_STATE IN ('1', '2', '5', '6')
+ORDER BY a.u_userId DESC
+
+    </select>
+ <!-- 导出加盟商数据报表 -->
+    <select id="exportBewteenAllianceExcel" resultType="java.util.LinkedHashMap" parameterType="map">
+       SELECT A.u_realName AS 用户姓名,
+          A.MOBILE_NO AS 用户手机号,
+         a.CREATE_TIME AS 注册时间,
+         a.r1_realName AS 一级推荐人,
+         a.R1_IC AS 一级推荐人邀请码,
+         a.r2_realName AS 二级推荐人,
+         a.R2_IC AS 二级推荐人邀请码,
+         a.r3_realName AS 三级推荐人,
+         a.R3_IC AS 三级推荐人邀请码,
+         cc.pay_time AS 首投时间,
+         LO.BUY_TIME AS 购买时间,
+         LP.LOAN_TITLE AS 投资项目,
+         LO.BUY_BALANCE AS 投资金额,
+         DECODE (LO.TIME_LIMIT_TYPE,
+                 '1', LO.TIME_LIMIT || '天',
+                 '2', LO.TIME_LIMIT || '个月')
+            AS 投资期限,
+         DECODE (LA.APPLICATION_STATE,
+                 '0', '草稿',
+                 '1', '风控审核中',
+                 '2', '发标审核中',
+                 '3', '投标中',
+                 '4', '放款审核中',
+                 '5', '待放款',
+                 '6', '还款中',
+                 '7', '已结清',
+                 '8', '已结清（提前还贷）',
+                 '9', '取消',
+                 'A', '流标')
+            AS 当前状态
+    FROM (SELECT UIE.REAL_NAME AS u_realName,
+                 UI.LOGIN_NAME,
+                 UIE.MOBILE_NO,
+                 UI.CREATE_TIME,
+                 UIE.ID_CARD,
+                 UIE.USER_ID AS u_userId,
+                 IC.INVITATION_CODE AS U_IC,
+                 UIE2.REAL_NAME AS r1_realName,
+                 UIE2.USER_ID AS r1_userId,
+                 IC2.INVITATION_CODE AS R1_IC,
+                 DECODE (UIE2.USER_ID, UIE3.USER_ID, NULL, UIE3.REAL_NAME)
+                    AS r2_realName,
+                 DECODE (UIE2.USER_ID, UIE3.USER_ID, NULL, UIE3.USER_ID)
+                    AS r2_userId,
+                 DECODE (UIE2.USER_ID, UIE3.USER_ID, NULL, IC3.INVITATION_CODE)
+                    AS R2_IC,
+                 DECODE (UIE3.USER_ID, UIE4.USER_ID, NULL, UIE4.REAL_NAME)
+                    AS r3_realName,
+                 DECODE (UIE3.USER_ID, UIE4.USER_ID, NULL, UIE4.USER_ID)
+                    AS r3_userId,
+                 DECODE (UIE3.USER_ID, UIE4.USER_ID, NULL, IC4.INVITATION_CODE)
+                    AS R3_IC,
+                 DECODE (UIE4.USER_ID, UIE5.USER_ID, NULL, UIE4.REAL_NAME)
+                    AS r4_realName,
+                 DECODE (UIE4.USER_ID, UIE5.USER_ID, NULL, UIE5.USER_ID)
+                    AS r4_userId,
+                 IC5.INVITATION_CODE AS R4_IC
+            FROM USER_INFO_EXT uie
+                 INNER JOIN USER_INFO UI ON UIE.USER_ID = UI.USER_ID
+                 INNER JOIN INVITATION_CODE IC ON UI.USER_ID = IC.USER_ID
+                 LEFT JOIN USER_INFO_EXT uie2
+                    ON UIE.REC_USER_ID = UIE2.USER_ID
+                 LEFT JOIN INVITATION_CODE IC2 ON UIE2.USER_ID = IC2.USER_ID
+                 LEFT JOIN USER_INFO_EXT uie3
+                    ON UIE2.REC_USER_ID = UIE3.USER_ID
+                 LEFT JOIN INVITATION_CODE IC3 ON UIE3.USER_ID = IC3.USER_ID
+                 LEFT JOIN USER_INFO_EXT uie4
+                    ON UIE3.REC_USER_ID = UIE4.USER_ID
+                 LEFT JOIN INVITATION_CODE IC4 ON UIE4.USER_ID = IC4.USER_ID
+                 LEFT JOIN user_info_ext uie5
+                    ON UIE4.REC_USER_ID = UIE5.USER_ID
+                 LEFT JOIN INVITATION_CODE IC5 ON UIE5.USER_ID = IC5.USER_ID
+           WHERE UI.TYPE = '0') a
+         INNER JOIN lend_order lo ON LO.LEND_USER_ID = a.u_userId
+         INNER JOIN LEND_ORDER_BID_DETAIL lobd
+            ON LOBD.LEND_ORDER_ID = LO.LEND_ORDER_ID
+         INNER JOIN loan_application la
+            ON LOBD.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+         INNER JOIN LOAN_PUBLISH lp
+            ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+         LEFT JOIN (  SELECT LO.LEND_USER_ID, MIN (LO.PAY_TIME) AS pay_time
+                        FROM lend_order lo
+                       WHERE LO.PAY_TIME IS NOT NULL
+                    GROUP BY LO.LEND_USER_ID) cc
+            ON a.u_userId = cc.LEND_USER_ID
+   WHERE     a.r4_userId IS NULL
+         <![CDATA[
+        AND trunc(LOBD.BUY_DATE) >= TO_DATE (#{date}, 'yyyy-mm-dd')
+        AND trunc(LOBD.BUY_DATE)<= TO_DATE (#{endDate}, 'yyyy-mm-dd')
+        ]]>
+         AND LO.ORDER_STATE IN ('1', '2', '5', '6')
+ORDER BY a.u_userId DESC
+    </select>
+    <!--导出出借数据报表-->
+    <select id="exportLenderExcel"  resultType="java.util.LinkedHashMap"  parameterType="map">
+     SELECT a.LOAN_APPLICATION_CODE AS 标的编号,
+         a.ORDER_CODE AS 订单号,
+         a.年化利率,
+         a.还款方式,
+         a.用户名,
+         a.真实姓名,
+         a.手机号,
+         a.出借时间,
+         a.标期限,
+         a.标状态,
+         a.起始日期,
+         a.到期日期,
+         CONCAT(a.封闭截止日期  ,' ') as 封闭截止日期  ,
+         a.出借金额,
+         a.预计收益,
+         a.本人邀请码,
+         IC2.INVITATION_CODE AS 推荐人邀请码
+    FROM INVITATION_CODE ic2
+         RIGHT JOIN
+         (SELECT LA.LOAN_APPLICATION_ID,
+                 LA.LOAN_APPLICATION_CODE,
+                 LA.ANNUAL_RATE || '%' AS 年化利率,
+                 DECODE(LP1.REPAYMENT_TYPE,
+                 '1', '周期还本息',
+                 '2', '周期还息到期还本',
+                 '3', '到期还本息') AS 还款方式,
+                 UI.LOGIN_NAME AS 用户名,
+                 UIE.REAL_NAME AS 真实姓名,
+                 UIE.MOBILE_NO AS 手机号,
+                 LOBD.BUY_DATE AS 出借时间,
+                 UIE.REC_USER_ID,
+                 DECODE (LP.TIME_LIMIT_TYPE,
+                         '1', LP.TIME_LIMIT || '天',
+                         '2', LP.TIME_LIMIT || '个月')
+                    AS 标期限,
+                 DECODE (LA.APPLICATION_STATE,
+                         '0', '草稿',
+                         '1', '风控审核中',
+                         '2', '发标审核中',
+                         '3', '投标中',
+                         '4', '放款审核中',
+                         '5', '待放款',
+                         '6', '还款中',
+                         '7', '已结清',
+                         '8', '已结清（提前还贷）',
+                         '9', '取消',
+                         'A', '流标')
+                    AS 标状态,
+                 CR.AGREEMENT_START_DATE AS 起始日期,
+                 B.LAST_REPAYMENT_DATE AS 到期日期,
+                 LO.CLOSING_OVER_DATE AS 封闭截止日期,
+                 LOBD.BUY_BALANCE AS 出借金额,
+                 C.SUM_INTEREST AS 预计收益,
+                 LO.ORDER_CODE,
+                 LO.LEND_ORDER_ID,
+                 IC.INVITATION_CODE AS 本人邀请码
+            FROM LEND_ORDER_BID_DETAIL lobd
+                 INNER JOIN LEND_ORDER lo
+                    ON LOBD.LEND_ORDER_ID = LO.LEND_ORDER_ID
+                 INNER JOIN user_info ui ON LO.LEND_USER_ID = UI.USER_ID
+                 INNER JOIN USER_INFO_EXT uie ON LO.LEND_USER_ID = UIE.USER_ID
+                 INNER JOIN LOAN_APPLICATION la
+                    ON LOBD.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+                 INNER JOIN LOAN_PRODUCT LP1 ON LP1.LOAN_PRODUCT_ID = LA.LOAN_PRODUCT_ID
+                 INNER JOIN INVITATION_CODE ic ON IC.USER_ID = UI.USER_ID
+                 INNER JOIN LEND_PRODUCT lp
+                    ON LO.LEND_PRODUCT_ID = LP.LEND_PRODUCT_ID
+                 LEFT JOIN CREDITOR_RIGHTS CR ON LO.LEND_ORDER_ID = CR.LEND_ORDER_ID
+                 LEFT JOIN (
+                    SELECT RRD.CREDITOR_RIGHTS_ID, MAX(RRD.REPAYMENT_DAY_PLANNED) AS LAST_REPAYMENT_DATE FROM RIGHTS_REPAYMENT_DETAIL RRD GROUP BY RRD.CREDITOR_RIGHTS_ID
+                 ) B ON CR.CREDITOR_RIGHTS_ID = B.CREDITOR_RIGHTS_ID
+                 LEFT JOIN (
+                    SELECT SUM(LOR.SHOULD_INTEREST2) AS SUM_INTEREST, LOR.LEND_ORDER_ID FROM LEND_ORDER_RECEIVE LOR GROUP BY LOR.LEND_ORDER_ID
+                 ) C ON LO.LEND_ORDER_ID = C.LEND_ORDER_ID
+           WHERE     LO.PRODUCT_TYPE = '1'
+                 AND LO.PAY_TIME IS NOT NULL
+
+        <if test="customParams != null">
+            <!--添加时间查询-->
+            <if test="customParams.timeInterval.startTime != null">
+                <![CDATA[AND LO.BUY_TIME >= #{customParams.timeInterval.startTime}]]>
+            </if>
+            <if test="customParams.timeInterval.endTime != null">
+                <![CDATA[AND LO.BUY_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY
+          ]]>
+            </if>
+        </if>
+
+            ) a
+            ON IC2.USER_ID = a.REC_USER_ID
+        ORDER BY a.LOAN_APPLICATION_ID DESC, a.LEND_ORDER_ID DESC
+    </select>
+	<select id="getPhonesellOrders" resultMap="LendOrderVO" parameterType="map" >
+		select sai.login_name login,sai.display_name,ui.login_name,uie.real_name,lo.order_code,lo.lend_order_name,lo.buy_time,
+		lo.buy_balance,lo.order_state,lo.product_type,lo.lend_order_id from LEND_ORDER lo 
+		left join user_info ui on lo.lend_user_id=ui.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on lo.lend_user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="orderNo != null">
+	        	AND   lo.order_code  like '%${orderNo}%'
+	      	</if>
+	      	<if test="productName != null">
+	        	AND   lo.lend_order_name  like '%${productName}%'
+	      	</if>
+	      	<if test="status != null">
+	        	AND   lo.order_state  = #{status,jdbcType=DECIMAL}
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+        ORDER BY lo.buy_time DESC
+	</select>
+	<select id="count_getPhonesellOrders" resultType="int" parameterType="map" >
+		select count(1) from LEND_ORDER lo 
+		left join user_info ui on lo.lend_user_id=ui.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on lo.lend_user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="orderNo != null">
+	        	AND   lo.order_code  like '%${orderNo}%'
+	      	</if>
+	      	<if test="productName != null">
+	        	AND   lo.lend_order_name  like '%${productName}%'
+	      	</if>
+	      	<if test="status != null">
+	        	AND   lo.order_state  = #{status,jdbcType=DECIMAL}
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+	</select>
+	<select id="getPhonesellOrdersAccount" resultType="string" parameterType="map" >
+		select case when sum(lo.buy_balance) is null then 0 else sum(lo.buy_balance) end from LEND_ORDER lo 
+		left join user_info ui on lo.lend_user_id=ui.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on lo.lend_user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0 and (lo.order_state=1 or lo.order_state=2 or lo.order_state=5 or lo.order_state=6)
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="orderNo != null">
+	        	AND   lo.order_code  like '%${orderNo}%'
+	      	</if>
+	      	<if test="productName != null">
+	        	AND   lo.lend_order_name  like '%${productName}%'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+	    union all
+	    select case when sum(lo.buy_balance) is null then 0 else sum(lo.buy_balance) end from LEND_ORDER lo 
+		left join user_info ui on lo.lend_user_id=ui.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on lo.lend_user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0 and (lo.order_state=0 or lo.order_state=3 or lo.order_state=4 or lo.order_state=7)
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="orderNo != null">
+	        	AND   lo.order_code  like '%${orderNo}%'
+	      	</if>
+	      	<if test="productName != null">
+	        	AND   lo.lend_order_name  like '%${productName}%'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+	    union all
+	    select case when sum(lo.buy_balance) is null then 0 else sum(lo.buy_balance) end from LEND_ORDER lo 
+		left join user_info ui on lo.lend_user_id=ui.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on lo.lend_user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0 
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="orderNo != null">
+	        	AND   lo.order_code  like '%${orderNo}%'
+	      	</if>
+	      	<if test="productName != null">
+	        	AND   lo.lend_order_name  like '%${productName}%'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+	</select>
+	
+	<select id="findFeesByLoanId" resultMap="FeesResultMap" parameterType="java.lang.Long">
+    	select * from FEES_ITEM fi where fi.fees_item_id=
+		(
+			select lpfi.fees_item_id from LEND_PRODUCT_FEES_ITEM lpfi where lpfi.LEND_PRODUCT_ID = #{lendProId,jdbcType=DECIMAL}
+		)
+    </select>
+    
+    
+    <!--导出移动端数据报表(投资的)开始-->
+    <select id="exportMobileInfoExcel_lendOrder"  resultType="java.util.LinkedHashMap"  parameterType="map">
+		select 
+		ui.CREATE_TIME as 注册时间,
+		(select iv.VERIFIED_TIME from IDCARD_VERIFIED iv where iv.REAL_NAME = uie.REAL_NAME and iv.CARD_CODE = uie.ID_CARD and iv.VERIFIED_RESULT = 1 and ROWNUM = 1) as 认证时间,
+		uie.MOBILE_NO as 手机号,
+		ui.LOGIN_NAME as 用户名,
+		uie.REAL_NAME as 姓名,
+		uie.ID_CARD as 身份证,
+		lo.PAY_TIME as 投标时间,
+		(select tab.PAY_TIME from ( select lo.PAY_TIME,lo.LEND_USER_ID,rownum r from LEND_ORDER lo where lo.ORDER_STATE in (1,2,6) order by lo.LEND_ORDER_ID  ) tab where tab.r = 1 and tab.LEND_USER_ID = lo.LEND_USER_ID) as 首投时间,
+		lo.BUY_BALANCE as 投标金额,
+		(select count(1) from VOUCHER v where v.USER_ID = lo.LEND_USER_ID) as 财富券获得,
+		(select count(1) from VOUCHER v where v.USER_ID = lo.LEND_USER_ID and v.STATUS = 1) as 财富券使用,
+		(select ic.INVITATION_CODE from INVITATION_CODE ic where ic.TYPE = 0 and ic.USER_ID = lo.LEND_USER_ID) as 邀请码,
+		(select ic.INVITATION_CODE from INVITATION_CODE ic where ic.TYPE = 0 and ic.USER_ID = uie.REC_USER_ID) as 邀请人邀请码,
+		lo.ORDER_STATE as 订单状态
+		from LEND_ORDER lo
+		inner join ORDER_RESOURCE_MAPPING orm on orm.ORDER_ID = lo.LEND_ORDER_ID
+		left join USER_INFO ui on lo.LEND_USER_ID = ui.USER_ID
+		left join USER_INFO_EXT uie on lo.LEND_USER_ID = uie.USER_ID
+		where orm.RESOURCE_TYPE = 0
+		<if test="customParams != null"><!-- RESOURCE_TYPE=0.投资1.充值2.提现 -->
+            <!-- RESOURCE_ID=1.PC2.Wechat3.Android4.IOS -->
+			<if test="customParams.sourceType != null">
+                and orm.RESOURCE_ID = #{customParams.sourceType}
+            </if>
+            <!--时间查询-->
+            <if test="customParams.timeInterval.startTime != null">
+                <![CDATA[AND lo.PAY_TIME >= #{customParams.timeInterval.startTime}]]>
+            </if>
+            <if test="customParams.timeInterval.endTime != null">
+                <![CDATA[AND lo.PAY_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY]]>
+            </if>
+        </if>
+		order by lo.LEND_ORDER_ID asc
+    </select>
+    <!--导出移动端数据报表(投资的)结束-->
+
+    <!-- 找出需要退出的省心计划 -->
+    <select id="getNeedToQuitFinanceOrder" parameterType="java.util.Date" resultMap="BaseResultMap">
+        <![CDATA[
+        select *
+		  from LEND_ORDER lo, User_Account ua 
+		 where ua.acc_id = lo.customer_account_id 
+		   AND lo.AGREEMENT_END_DATE < #{now} 
+		   and lo.product_type = '2' 
+		   and lo.ORDER_STATE in ('1', '6') 
+          ]]>
+        
+    </select>
+
+    <!-- 找出需要退出的省心计划 -->
+    <select id="getLendOrderByPid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+       select * from LEND_ORDER lo where lo.LEND_ORDER_PID = #{lendOrderPId} 
+    </select>
+    
+    <!-- 找出需要退出中并且已结清的省心计划 -->
+    <select id="findFinanceClearForQuit" resultMap="BaseResultMap">
+              with abc as (
+               
+			   select lo.lend_order_id
+			  from lend_order lo
+			  left join lend_order lo1 on lo.lend_order_id = lo1.lend_order_pid
+			  left join lend_order_bid_detail llbd on lo1.lend_order_id =   llbd.lend_order_id
+			 where lo.product_type = '2'
+			   and lo.order_state = '6'
+			   and lo1.product_type in ('1', '3')
+			   and lo1.order_state in ('1', '3', '5', '6')
+			   group by lo.lend_order_id
+			   
+			               ) 
+			        
+			     select * from lend_order lo where lo.lend_order_id in   (
+			  select lo.lend_order_id
+			  from lend_order lo
+			  left join lend_order lo1 on lo.lend_order_id = lo1.lend_order_pid
+			  left join lend_order_bid_detail llbd on lo1.lend_order_id =   llbd.lend_order_id
+			 where lo.product_type = '2'
+			   and lo.order_state = '6'
+			   and lo1.product_type in ('1', '3')
+			   and lo1.order_state in ('0', '2', '4', '7')
+			   group by lo.lend_order_id
+			   ) and lo.lend_order_id not in (select * from abc)
+
+    </select>
+    
+    <!-- 根据订单id获取省心计划退出中的订单单 -->
+    <select id="findQuitFinanceOrderByIds" resultType="java.lang.Long" parameterType="map">
+   select cr.creditor_rights_id 
+   from lend_order lo, creditor_rights cr ,lend_order a
+      where lo.product_type = '2' 
+        and lo.order_state = '6' 
+        and a.lend_order_pid = lo.lend_order_id 
+        and cr.lend_order_id = a.lend_order_id
+        and cr.rights_state = '0' 
+    	
+        <if test="lendOrderIdList != null">
+            and a.LEND_ORDER_ID in
+            <foreach collection="lendOrderIdList" item="orderId" open="(" separator="," close=")">
+                #{orderId}
+            </foreach>
+        </if>
+
+    </select>
+    
+    <select id="getUserFirstOrLastInvestment" resultMap="BaseResultMap" parameterType="map">
+    	select buy_time from(
+       		select * from lend_order lo 
+       		<if test="order == null">
+				left join lend_order_bid_detail lobd on lobd.lend_order_id=lo.lend_order_id	
+			</if>
+       		<where>
+       			1=1
+       			<if test="userId != null">
+       				and lo.lend_user_id=#{userId,jdbcType=VARCHAR}
+       				<if test="order == null">
+						and lo.order_state in ('1', '2', '5', '6') and lobd.status='1'
+					</if>
+       			</if>
+       		</where>
+       		order by lo.lend_order_id
+       		<if test="order != null">desc</if>
+		)
+		where rownum=1
+    </select>
+
+    <select id="findUnRepayOrdersByFinanceOrder" resultMap="BaseResultMap" parameterType="long">
+    	select * from lend_order lo where lo.lend_order_pid = #{lendOrderId} and lo.order_state in ('1','5')   
+    </select>
+    
+    <select id="getFinancialPlanListByUserId" resultMap="BaseResultMap" parameterType="long">
+    	select * from lend_order lo where lo.lend_user_id =  #{userId} and lo.product_type = '2'  and  lo.order_state in ('1','2' ,'5' ,'6') 
+    </select>
+    
+    <select id="getFinancialWaitInterestByUserId" resultType="java.math.BigDecimal" parameterType="long">
+    	select nvl(sum(rrd.should_interest-rrd.fact_interest),0)
+		  from lend_order lod
+		  left join creditor_rights cr on cr.lend_order_id = lod.lend_order_id
+		  left join rights_repayment_detail rrd on rrd.creditor_rights_id =
+		                                           cr.creditor_rights_id
+		 where rrd.rights_detail_state in ('0', '1' , '3' )
+		   and lod.lend_order_pid in
+		       (select lo.lend_order_id
+		          from lend_order lo
+		         where lo.lend_user_id = #{userId}
+		           and lo.product_type = '2'
+		           and lo.order_state in ('1', '2', '5', '6')) 
+
+    </select>
+    
+    <!-- 【省心计划】查询某条省心计划，在投资金预期收益 -->
+    <select id="getFinancialWaitInterestByLendOrderId" resultType="java.math.BigDecimal" parameterType="long">
+    	select nvl(sum(rrd.should_interest - rrd.fact_interest),0)
+		from lend_order lod
+		left join creditor_rights cr on cr.lend_order_id = lod.lend_order_id
+		left join rights_repayment_detail rrd on rrd.creditor_rights_id = cr.creditor_rights_id
+		where rrd.rights_detail_state in ('0', '1' , '3' )
+		and lod.lend_order_pid in
+			(select lo.lend_order_id
+			from lend_order lo
+			where lo.lend_order_id = #{lendOrderId,jdbcType=DECIMAL}
+			and lo.product_type = '2'
+			and lo.order_state in ('1', '2', '5', '6'))
+    </select>
+    
+    <!-- 【省心计划】根据省心计划主出借订单ID，查询已经匹配到子标的出借总金额 -->
+    <select id="getAllBuyBalanceByLendOrderPid" resultType="java.math.BigDecimal" parameterType="long">
+      select NVL(SUM(lo.BUY_BALANCE), 0)
+      from LEND_ORDER lo, LEND_ORDER_BID_DETAIL lobd 
+      where lobd.LEND_ORDER_ID = lo.LEND_ORDER_ID
+      and lobd.STATUS = '1'
+      and lo.ORDER_STATE in ('1','2','5','6')
+      and lo.LEND_ORDER_PID = #{lendOrderPId,jdbcType=DECIMAL}
+    </select>
+    
+    <!-- 【省心计划】根据省心计划主出借订单ID，查询已经匹配到子标的已获奖励 -->
+    <select id="getAwardBalanceByLendOrderPid" resultType="java.math.BigDecimal" parameterType="long">
+      select NVL(sum(ad.AWARD_BALANCE),0)
+	  from LEND_ORDER lo 
+	  left join AWARD_DETAIL ad on lo.LEND_ORDER_ID = ad.LEND_ORDER_ID
+	  where lo.LEND_ORDER_PID = #{lendOrderPId,jdbcType=DECIMAL}
+	  and (ad.AWARD_TYPE is null or ad.AWARD_TYPE = '0')
+    </select>
+    
+    <!-- 【省心计划】根据子出借订单ID，查询已经子标的已获奖励 -->
+    <select id="getAwardBalanceByLendOrderId" resultType="java.math.BigDecimal" parameterType="long">
+      select NVL(sum(ad.AWARD_BALANCE),0)
+	  from LEND_ORDER lo 
+	  left join AWARD_DETAIL ad on lo.LEND_ORDER_ID = ad.LEND_ORDER_ID
+	  where lo.LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+	  and (ad.AWARD_TYPE is null or ad.AWARD_TYPE = '0')
+    </select>
+
+
+   <select id="selectMakedLoanAlso" parameterType = "map"  resultType = "int" >
+       SELECT count(1)
+               FROM lend_order lo
+               join lend_order_bid_detail lobd1
+                 on lo.lend_order_id = lobd1.lend_order_id
+              WHERE 
+                 lobd1.status in('1','0')
+                 and lo.order_state in 
+                 <foreach item="item" index="index" collection="querys" open="(" separator="," close=")">  
+         						 #{item}  
+     			 </foreach>  
+                and lo.lend_user_id =#{userId}
+    
+    </select>
+    
+    <select id="findAllValidFinanceOrder" resultMap="BaseResultMap">
+    	 select
+        <include refid="Base_Column_List"/>
+        from LEND_ORDER lo
+        where lo.ORDER_STATE  in ( '1' ,'2' , '5' , '6' )  and   lo.PRODUCT_TYPE = '2'   
+          <if test="_parameter.containsKey('startTime')">
+          <![CDATA[ and lo.BUY_TIME >= #{startTime} ]]>
+          </if>
+          <if test="_parameter.containsKey('endTime')">
+           <![CDATA[   and lo.BUY_TIME <= #{endTime} ]]>
+          </if>
+    </select>
+</mapper>

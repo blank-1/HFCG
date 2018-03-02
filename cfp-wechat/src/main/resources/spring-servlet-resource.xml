@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd   
+         http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="exceptionHandler" class="com.xt.cfp.wechat.exception.CfpHandlerExceptionResolver"/>
+
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg>
+                    <bean class="java.nio.charset.Charset" factory-method="forName">
+                        <constructor-arg value="UTF-8"/>
+                    </bean>
+                </constructor-arg>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <context:component-scan base-package="com.xt.cfp.wechat.controller"/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean class="com.xt.cfp.wechat.aop.UserCheckAop"/>
+    <mvc:resources mapping="/js/**" location="/resources/js/"/>
+    <mvc:resources mapping="/css/**" location="/resources/css/"/>
+    <mvc:resources mapping="/images/**" location="/resources/images/"/>
+    <mvc:resources mapping="/script/**" location="/resources/js/script/"/>
+
+    <mvc:resources mapping="/gamecss/**" location="/resources/game/css/"/>
+    <mvc:resources mapping="/gameimg/**" location="/resources/game/img/"/>
+    <mvc:resources mapping="/gamejs/**" location="/resources/game/js/"/>
+
+    <mvc:resources mapping="/cfpUploadPic/**" location="/cfpUploadPic/"/>
+
+    <mvc:interceptors>
+        <bean class="com.xt.cfp.wechat.interceptor.OpenAccountInterceptor">
+            <property name="notify" value="true" />
+            <property name="destination"  value="/apiCombine/openAccountNotice" />
+            <property name="urls">
+                <list>
+                    <value>person/account/overview</value>
+                </list>
+            </property>
+        </bean>
+    </mvc:interceptors>
+</beans>

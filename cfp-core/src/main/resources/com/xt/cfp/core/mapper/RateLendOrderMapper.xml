@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RATE_LEND_ORDER" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RateLendOrder" >
+    <id column="RATE_LEND_ORDER_ID" property="rateLendOrderId" jdbcType="DECIMAL" />
+    <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+    <result column="RATE_USER_ID" property="rateUserId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="RATE_TYPE" property="rateType" jdbcType="CHAR" />
+    <result column="AWARD_POINT" property="awardPoint" jdbcType="CHAR" />
+    <result column="RATE_VALUE" property="rateValue" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap type="com.xt.cfp.core.pojo.ext.RateLendOrderVO" id="rateLendOrderVOMap"  extends="BaseResultMap" >
+       <result column="CREDIT_RIGHTS_ID" property="creditRightsId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RATE_LEND_ORDER_ID, LEND_ORDER_ID, RATE_USER_ID, LOAN_APPLICATION_ID, RATE_TYPE, 
+    AWARD_POINT, RATE_VALUE, STATUS, CREATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RATE_LEND_ORDER
+    where RATE_LEND_ORDER_ID = #{rateLendOrderId,jdbcType=DECIMAL}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RATE_LEND_ORDER
+    where RATE_LEND_ORDER_ID = #{rateLendOrderId,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.RateLendOrder" >
+  	<selectKey keyProperty="rateLendOrderId" order="BEFORE" resultType="long">
+      SELECT SEQ_RATE_LEND_ORDER.NEXTVAL as rateLendOrderId FROM dual
+    </selectKey>
+    insert into RATE_LEND_ORDER (RATE_LEND_ORDER_ID, LEND_ORDER_ID, RATE_USER_ID, 
+      LOAN_APPLICATION_ID, RATE_TYPE, AWARD_POINT, 
+      RATE_VALUE, STATUS, CREATE_TIME
+      )
+    values (#{rateLendOrderId,jdbcType=DECIMAL}, #{lendOrderId,jdbcType=DECIMAL}, #{rateUserId,jdbcType=DECIMAL}, 
+      #{loanApplicationId,jdbcType=DECIMAL}, #{rateType,jdbcType=CHAR}, #{awardPoint,jdbcType=CHAR}, 
+      #{rateValue,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.RateLendOrder" >
+    insert into RATE_LEND_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rateLendOrderId != null" >
+        RATE_LEND_ORDER_ID,
+      </if>
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID,
+      </if>
+      <if test="rateUserId != null" >
+        RATE_USER_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="rateType != null" >
+        RATE_TYPE,
+      </if>
+      <if test="awardPoint != null" >
+        AWARD_POINT,
+      </if>
+      <if test="rateValue != null" >
+        RATE_VALUE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rateLendOrderId != null" >
+        #{rateLendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null" >
+        #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUserId != null" >
+        #{rateUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="rateType != null" >
+        #{rateType,jdbcType=CHAR},
+      </if>
+      <if test="awardPoint != null" >
+        #{awardPoint,jdbcType=CHAR},
+      </if>
+      <if test="rateValue != null" >
+        #{rateValue,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.RateLendOrder" >
+    update RATE_LEND_ORDER
+    <set >
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUserId != null" >
+        RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="rateType != null" >
+        RATE_TYPE = #{rateType,jdbcType=CHAR},
+      </if>
+      <if test="awardPoint != null" >
+        AWARD_POINT = #{awardPoint,jdbcType=CHAR},
+      </if>
+      <if test="rateValue != null" >
+        RATE_VALUE = #{rateValue,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RATE_LEND_ORDER_ID = #{rateLendOrderId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RateLendOrder" >
+    update RATE_LEND_ORDER
+    set LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL},
+      LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      RATE_TYPE = #{rateType,jdbcType=CHAR},
+      AWARD_POINT = #{awardPoint,jdbcType=CHAR},
+      RATE_VALUE = #{rateValue,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where RATE_LEND_ORDER_ID = #{rateLendOrderId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="findByLendOrderId" parameterType="map" resultMap="BaseResultMap"  >
+	   select 
+	 	   <include refid="Base_Column_List" />
+	    from RATE_LEND_ORDER
+	    where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}  and RATE_TYPE = #{rateType,jdbcType=CHAR}  
+	    <if test="_parameter.containsKey('status')">
+		    and STATUS = #{status}  
+	    </if>
+  </select>
+  
+  <select id="findAllByLendOrderId" parameterType="map" resultMap="BaseResultMap"  >
+	   select 
+	 	   <include refid="Base_Column_List" />
+	    from RATE_LEND_ORDER
+	    where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+	    <if test="_parameter.containsKey('status')">
+		    and STATUS = #{status}  
+	    </if>
+  </select>
+  
+  <select id="findByLoanApplicationIdAndRepaymentPlanId" parameterType="map" resultMap="BaseResultMap"  >
+	   select 
+	  	  rlo.*
+	    from RATE_LEND_ORDER  rlo  left join  REPAYMENT_PLAN rp on rlo.LOAN_APPLICATION_ID = rp.LOAN_APPLICATION_ID  
+	    where  1=1
+	    	<if test="_parameter.containsKey('loanApplicationId')">
+	    		and rlo.LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}      
+	    	</if>
+	    	and rlo.STATUS = '0'     
+	    	<if test="_parameter.containsKey('repaymentPlanId')">
+	    		and rp.REPAYMENT_PLAN_ID = #{repaymentPlanId}
+	    	</if>
+	    	and rp.CHANNEL_TYPE = '2' 
+  </select>
+  
+  <select id="getRateLendOrderCreditByUserId" parameterType="long" resultMap="rateLendOrderVOMap" >
+	  	select rlo.*, cr.creditor_rights_id CREDIT_RIGHTS_ID
+	            from rate_lend_order rlo, creditor_rights cr, lend_order lo
+	           where cr.lend_order_id = rlo.lend_order_id
+	             and rlo.lend_order_id = lo.lend_order_id
+	             and lo.lend_user_id=#{userId}
+  </select>
+
+  <select id="findByLendOrderIdAndType" parameterType="map" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from RATE_LEND_ORDER
+    where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}  and RATE_TYPE = #{rateType,jdbcType=CHAR}
+  </select>
+  
+</mapper>

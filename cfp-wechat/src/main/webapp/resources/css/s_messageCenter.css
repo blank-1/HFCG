@@ -1,0 +1,51 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.clear_10{clear:both; height:10px;}
+body{background:#f2f2f2;}
+.s_content{height:auto; background:#f2f2f2; overflow:hidden;}
+.headNav{width:100%; color:#999999; display:-webkit-box; background:#fff; position:fixed; top:0; left:0; z-index:999;}
+.headNav li{width:50%; padding:1rem 0; text-align:center; color:#ff5e61; font-size:1.4rem;}
+.headNav li a{color:#666;}
+.headNav .cur a{color:#ff5e61; position:relative;}
+.headNav .cur:after{content:""; width:6rem; height:3px; position:absolute; background:#ff5e61; bottom:0; margin-left:-5.8rem;}
+.couponList{width:100%; margin-top:3.5rem;
+	height:calc(100% - 3.5rem ); -webkit-height:calc(100% - 3.5rem - 50px); -moz-height:calc(100% - 3.5rem - 50px);-o-height: calc(100% - 3.5rem - 50px);}
+.page{width:100%; height:100%; overflow-y:scroll; overflow:auto;}
+.page::-webkit-scrollbar{display:none;}
+
+.line_01{width:90%; margin:1rem auto;}
+.line_01 b{background: #ddd; margin-top: 4px; display: inline-block; width:30%; height: 1px; _overflow: hidden; vertical-align: middle;}
+.line_01 span{display: inline-block; width:40%; vertical-align: middle;text-align: center; font-size:1.2rem; color:#333;}
+.line_01 span img{vertical-align: middle; width:1.5rem; margin-right:.5rem;}
+.endTime{color:#666; font-size:1.1rem; text-align:center;}
+.endTime span{color:#8ab1f7;}
+.messageBox{width:92%; margin:1rem auto 0; text-align:center; -moz-box-shadow: 0px 3px 5px #ccc;-webkit-box-shadow: 0px 3px 5px #ccc;box-shadow: 0px 3px 5px #ccc;}
+.boxbj01{background:#fff url(../images/icon/wl_01.png) no-repeat bottom left; background-size:contain;}
+.boxbj02{background:#fff url(../images/icon/wl_02.png) no-repeat bottom center; background-size:contain;}
+.boxbj03{background:#fff url(../images/icon/wl_03.png) no-repeat bottom right; background-size:contain;}
+.messageBox>p:nth-child(1) img{margin:1.5rem 0 1rem; width:3.5rem;}
+.messageBox>p:nth-child(2){font-size:1.6rem; color:#333;}
+.messageBox>p:nth-child(2) span{font-size:1.2rem;}
+.messageBox>p:nth-child(3){font-size:1.2rem; color:#999;padding:1rem 0 1.5rem;}
+.boxbj03>p:nth-child(2){font-size:1.2rem; letter-spacing:5px;}
+.boxbj03>p:nth-child(2) span{color:#ffba5a; font-size:1.6rem;}
+
+.newsList{width: 100%;height: auto;overflow: hidden;padding: 1rem 0;background: #fff;display: -webkit-box;margin:.5rem auto;-moz-box-shadow: 0px 1px 5px #ccc; 
+	-webkit-box-shadow: 0px 1px 5px #ccc; box-shadow: 0px 1px 5px #ccc;}
+.text-overflow{display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1;overflow: hidden;white-space: normal;}
+.newsList dd{width: 20%;height: auto;display: -webkit-flex;}
+.imgBox{width: 50%;height: auto;margin: .5rem auto 0;position: relative;}
+.imgBox img{width: 100%;height: auto;}
+.newsList dt{width: 75%;height: auto;line-height: 2rem;}
+.title{width: 100%;display: -webkit-flex;justify-content: space-between;}
+.title span:nth-child(1){font-size: 1.2rem;color: #333;}
+.title span:nth-child(2),.text-overflow{font-size: 1rem;color: #8f8f8f;}
+.Notice{width: 100%;margin-top: .2rem;display: -webkit-box;}
+.Notice i{width: 30%;display: block;color: #333;text-indent: 1.5rem;font-size: 1.2rem;background: url(../images/icon/news_03.png) no-repeat left center;
+	background-size: 1.2rem 1.2rem;}
+.Notice i:nth-child(2){background: url(../images/icon/news_04.png) no-repeat left center;background-size: 1.2rem 1.2rem;}
+.news{background: url(../images/icon/news_05.png) no-repeat left center!important;background-size: 1.2rem 1.2rem!important;}
+/*2017-6-27 占位图*/
+.messageImg{width:100%; margin:0 auto; text-align:center;}
+.messageImg img{width:20rem; margin:4rem 0 0;}
+.imgTip{width:100%; height:2rem; text-align:center; line-height:2rem; font-size:1.2rem; color:#666; margin:1rem 0;}

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CREDITORRIGHT_TRANSFER_APPLY" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CreditorRightsTransferApplication" >
+    <id column="CREDITOR_RIGHTS_APPLY_ID" property="creditorRightsApplyId" jdbcType="DECIMAL" />
+    <result column="APPLY_CR_ID" property="applyCrId" jdbcType="DECIMAL" />
+    <result column="APPLY_USER_ID" property="applyUserId" jdbcType="DECIMAL" />
+    <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="APPLY_PRICE" property="applyPrice" jdbcType="DECIMAL" />
+    <result column="WHEN_WORTH" property="whenWorth" jdbcType="DECIMAL" />
+    <result column="DONE_PRICE" property="donePrice" jdbcType="DECIMAL" />
+    <result column="DONE_TIME" property="doneTime" jdbcType="TIMESTAMP" />
+    <result column="BUS_STATUS" property="busStatus" jdbcType="CHAR" />
+    <result column="APPLY_TYPE" property="transType" jdbcType="CHAR" />
+    <result column="TIME_LIMIT" property="timeLimit" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="CreditorRightTransferApplyVO" type="com.xt.cfp.core.pojo.ext.CreditorRightTransferApplyVO" >
+  	<result column="creditorRightsApplyId" property="creditorRightsApplyId" jdbcType="DECIMAL" />
+  	<result column="loanApplicationId" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="loanApplicationName" property="loanApplicationName" jdbcType="VARCHAR" />
+    <result column="periodsNumber" property="periodsNumber" jdbcType="VARCHAR" />
+    <result column="whenWorth" property="whenWorth" jdbcType="DECIMAL" />
+    <result column="applyPrice" property="applyPrice" jdbcType="DECIMAL" />
+    <result column="discount" property="discount" jdbcType="DECIMAL" />
+    <result column="applyTime" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="applyEndTime" property="applyEndTime" jdbcType="TIMESTAMP" />
+    <result column="loginName" property="loginName" jdbcType="VARCHAR" />
+    <result column="realName" property="realName" jdbcType="VARCHAR" />
+    <result column="mobileNo" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="rightsState" property="rightsState" jdbcType="VARCHAR" />
+    <result column="turnState" property="turnState" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CREDITOR_RIGHTS_APPLY_ID, APPLY_CR_ID, APPLY_USER_ID,
+    APPLY_TIME, APPLY_PRICE, WHEN_WORTH, DONE_PRICE, DONE_TIME, BUS_STATUS, APPLY_TYPE, TIME_LIMIT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CREDITORRIGHT_TRANSFER_APPLY
+    where CREDITOR_RIGHTS_APPLY_ID = #{creditorRightsApplyId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getTransferApplyByApplyCreditorRightsId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from CREDITORRIGHT_TRANSFER_APPLY
+    where APPLY_CR_ID = #{creditorRightsId,jdbcType=DECIMAL}
+    ORDER BY APPLY_TIME DESC
+  </select>
+
+  <select id="getEffectiveTransferApplyByApplyByLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+   select * from CREDITORRIGHT_TRANSFER_APPLY ca left join CREDITOR_RIGHTS cr on CA.APPLY_CR_ID = CR.CREDITOR_RIGHTS_ID
+	where CR.LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL} and  BUS_STATUS = '0'
+  </select>
+
+  <select id="getTransferApplicationByLendOrderId" resultMap="BaseResultMap" parameterType="map" >
+   select a.* from CREDITORRIGHT_DEAL_DETAIL d left join CREDITORRIGHT_TRANSFER_APPLY a on D.CREDITOR_RIGHTS_APPLY_ID = A.CREDITOR_RIGHTS_APPLY_ID
+    where D.LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getEffectiveTransferApplyByCreditorRightsId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from CREDITORRIGHT_TRANSFER_APPLY
+    where APPLY_CR_ID = #{creditorRightsId,jdbcType=DECIMAL}
+    and BUS_STATUS = '0'
+    <!--转让中-->
+  </select>
+
+	<select id="getCreditorRightsTransferApplication" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from CREDITORRIGHT_TRANSFER_APPLY
+    where APPLY_CR_ID = #{creditorRightsId,jdbcType=DECIMAL}
+    <if test="busStatus != ''">
+    	and bus_status= #{busStatus,jdbcType=CHAR}
+    </if>
+  </select>
+
+
+
+  <select id="getCreditorRightsTransferApplicationForMatch" resultMap="BaseResultMap" parameterType="map" >
+    select
+    a.*
+    from CREDITORRIGHT_TRANSFER_APPLY a
+    left join CREDITOR_RIGHTS cr on A.APPLY_CR_ID = CR.CREDITOR_RIGHTS_ID
+    left join LOAN_APPLICATION la on cr.LOAN_APPLICATION_ID = la.LOAN_APPLICATION_ID
+    where 1=1
+    <if test="busStatus != ''">
+      and bus_status= #{busStatus,jdbcType=CHAR}
+    </if>
+    <if test="loanProductId != ''">
+      and la.LOAN_PRODUCT_ID = #{loanProductId}
+    </if>
+
+    ORDER by APPLY_TIME asc ,APPLY_PRICE asc
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CREDITORRIGHT_TRANSFER_APPLY
+    where CREDITOR_RIGHTS_APPLY_ID = #{creditorRightsApplyId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CreditorRightsTransferApplication" >
+    insert into CREDITORRIGHT_TRANSFER_APPLY (CREDITOR_RIGHTS_APPLY_ID, APPLY_CR_ID, APPLY_USER_ID,
+      APPLY_TIME, APPLY_PRICE, WHEN_WORTH, 
+      DONE_PRICE, DONE_TIME, BUS_STATUS, APPLY_TYPE, TIME_LIMIT
+      )
+    values (#{creditorRightsApplyId,jdbcType=DECIMAL}, #{applyCrId,jdbcType=DECIMAL},
+       #{applyUserId,jdbcType=DECIMAL},
+      #{applyTime,jdbcType=TIMESTAMP}, #{applyPrice,jdbcType=DECIMAL}, #{whenWorth,jdbcType=DECIMAL}, 
+      #{donePrice,jdbcType=DECIMAL}, #{doneTime,jdbcType=TIMESTAMP},
+      #{busStatus,jdbcType=CHAR},
+      #{transType,jdbcType=CHAR},#{timeLimit,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CreditorRightsTransferApplication" >
+    <selectKey order="BEFORE" keyProperty="creditorRightsApplyId" resultType="long">
+      SELECT SEQ_RIGHT_TRANSFER_APPLY.NEXTVAL as creditorRightsApplyId FROM DUAL
+    </selectKey>
+    insert into CREDITORRIGHT_TRANSFER_APPLY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="creditorRightsApplyId != null" >
+        CREDITOR_RIGHTS_APPLY_ID,
+      </if>
+      <if test="applyCrId != null" >
+        APPLY_CR_ID,
+      </if>
+      <if test="applyUserId != null" >
+        APPLY_USER_ID,
+      </if>
+      <if test="applyTime != null" >
+        APPLY_TIME,
+      </if>
+      <if test="applyPrice != null" >
+        APPLY_PRICE,
+      </if>
+      <if test="whenWorth != null" >
+        WHEN_WORTH,
+      </if>
+      <if test="donePrice != null" >
+        DONE_PRICE,
+      </if>
+      <if test="doneTime != null" >
+        DONE_TIME,
+      </if>
+      <if test="busStatus != null" >
+        BUS_STATUS,
+      </if>
+      <if test="transType != null" >
+        APPLY_TYPE,
+      </if>
+      <if test="timeLimit != null" >
+        TIME_LIMIT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="creditorRightsApplyId != null" >
+        #{creditorRightsApplyId,jdbcType=DECIMAL},
+      </if>
+      <if test="applyCrId != null" >
+        #{applyCrId,jdbcType=DECIMAL},
+      </if>
+      <if test="applyUserId != null" >
+        #{applyUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyPrice != null" >
+        #{applyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="whenWorth != null" >
+        #{whenWorth,jdbcType=DECIMAL},
+      </if>
+      <if test="donePrice != null" >
+        #{donePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="doneTime != null" >
+        #{doneTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="busStatus != null" >
+        #{busStatus,jdbcType=CHAR},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=CHAR},
+      </if>
+      <if test="timeLimit != null" >
+        #{timeLimit,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CreditorRightsTransferApplication" >
+    update CREDITORRIGHT_TRANSFER_APPLY
+    <set >
+      <if test="applyCrId != null" >
+        APPLY_CR_ID = #{applyCrId,jdbcType=DECIMAL},
+      </if>
+      <if test="applyUserId != null" >
+        APPLY_USER_ID = #{applyUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTime != null" >
+        APPLY_TIME = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyPrice != null" >
+        APPLY_PRICE = #{applyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="whenWorth != null" >
+        WHEN_WORTH = #{whenWorth,jdbcType=DECIMAL},
+      </if>
+      <if test="donePrice != null" >
+        DONE_PRICE = #{donePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="doneTime != null" >
+        DONE_TIME = #{doneTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="busStatus != null" >
+        BUS_STATUS = #{busStatus,jdbcType=CHAR},
+      </if>
+      <if test="transType != null" >
+        APPLY_TYPE =  #{transType,jdbcType=CHAR},
+      </if>
+      <if test="timeLimit != null" >
+        TIME_LIMIT = #{timeLimit,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CREDITOR_RIGHTS_APPLY_ID = #{creditorRightsApplyId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CreditorRightsTransferApplication" >
+    update CREDITORRIGHT_TRANSFER_APPLY
+    set APPLY_CR_ID = #{applyCrId,jdbcType=DECIMAL},
+
+      APPLY_USER_ID = #{applyUserId,jdbcType=DECIMAL},
+
+      APPLY_TIME = #{applyTime,jdbcType=TIMESTAMP},
+      APPLY_PRICE = #{applyPrice,jdbcType=DECIMAL},
+      WHEN_WORTH = #{whenWorth,jdbcType=DECIMAL},
+      DONE_PRICE = #{donePrice,jdbcType=DECIMAL},
+      DONE_TIME = #{doneTime,jdbcType=TIMESTAMP},
+      BUS_STATUS = #{busStatus,jdbcType=CHAR},
+      APPLY_TYPE =  #{transType,jdbcType=CHAR},
+      TIME_LIMIT = #{timeLimit,jdbcType=DECIMAL}
+    where CREDITOR_RIGHTS_APPLY_ID = #{creditorRightsApplyId,jdbcType=DECIMAL}
+  </update>
+  <select id="getByTypeAndApplyTimeAndStatus" parameterType="map" resultMap="BaseResultMap">
+    select * from CREDITORRIGHT_TRANSFER_APPLY cta where cta.APPLY_TYPE = #{type}
+    <if test="status != null">
+      <foreach collection="status" open="and cta.BUS_STATUS in (" separator="," close=")" item="st">
+        #{st}
+      </foreach>
+    </if>
+    <if test="applyTime != null and applyTime.startTime != null">
+      and cta.APPLY_TIME >= #{applyTime.startTime}
+    </if>
+    <if test="applyTime != null and applyTime.endTime != null">
+      <![CDATA[ and cta.APPLY_TIME < #{applyTime.endTime}]]>
+
+    </if>
+  </select>
+  
+  <select id="getAndLockedCreditorRightsTransferAppById" resultMap="BaseResultMap" parameterType="map" >
+    SELECT *
+	  FROM CREDITORRIGHT_TRANSFER_APPLY
+	 WHERE CREDITOR_RIGHTS_APPLY_ID = #{creditorRightsApplyId,jdbcType=DECIMAL}
+    <if test="isLock !='' ">
+      for update
+    </if>
+  </select>
+  
+  	<!-- 债权转让列表（数据） -->
+    <select id="getTransferApplyListByPage" resultMap="CreditorRightTransferApplyVO" parameterType="map">
+		select 
+		cta.CREDITOR_RIGHTS_APPLY_ID creditorRightsApplyId,
+		cr.LOAN_APPLICATION_ID loanApplicationId,
+		la.LOAN_APPLICATION_NAME loanApplicationName,
+		cta.WHEN_WORTH whenWorth,
+		cta.APPLY_PRICE applyPrice,
+		cta.APPLY_TIME applyTime,
+		ui.LOGIN_NAME loginName,
+		uie.REAL_NAME realName,
+		ui.MOBILE_NO mobileNo,
+		cr.RIGHTS_STATE rightsState,
+		cta.BUS_STATUS turnState
+		from CREDITORRIGHT_TRANSFER_APPLY cta 
+		left join CREDITOR_RIGHTS cr on cta.APPLY_CR_ID = cr.CREDITOR_RIGHTS_ID
+		left join LOAN_APPLICATION la on cr.LOAN_APPLICATION_ID = la.LOAN_APPLICATION_ID
+		left join USER_INFO ui on cta.APPLY_USER_ID = ui.USER_ID
+		left join USER_INFO_EXT uie on cta.APPLY_USER_ID = uie.USER_ID
+        <include refid="where_getTransferApplyListByPage"/>
+        order by cta.CREDITOR_RIGHTS_APPLY_ID desc
+    </select>
+
+	<!-- 债权转让列表（条数） -->
+    <select id="count_getTransferApplyListByPage" resultType="int" parameterType="map">
+        select count(1)
+		from CREDITORRIGHT_TRANSFER_APPLY cta 
+		left join CREDITOR_RIGHTS cr on cta.APPLY_CR_ID = cr.CREDITOR_RIGHTS_ID
+		left join LOAN_APPLICATION la on cr.LOAN_APPLICATION_ID = la.LOAN_APPLICATION_ID
+		left join USER_INFO ui on cta.APPLY_USER_ID = ui.USER_ID
+		left join USER_INFO_EXT uie on cta.APPLY_USER_ID = uie.USER_ID
+        <include refid="where_getTransferApplyListByPage"/>
+    </select>
+    
+    <!-- 分页查询公用where语句 -->
+    <sql id="where_getTransferApplyListByPage">
+    	where 1=1
+        <if test="searchLoanApplicationName != null">
+            <if test="searchLoanApplicationName != ''">
+                and la.LOAN_APPLICATION_NAME like '%${searchLoanApplicationName}%'
+            </if>
+        </if>
+        <if test="searchLoginName != null">
+            <if test="searchLoginName != ''">
+                and ui.LOGIN_NAME like '%${searchLoginName}%'
+            </if>
+        </if>
+        <if test="searchMobileNo != null">
+            <if test="searchMobileNo != ''">
+                and ui.MOBILE_NO = #{searchMobileNo}
+            </if>
+        </if>
+        <if test="searchBeginTime != null">
+            <if test="searchBeginTime != ''">
+                <![CDATA[
+		      		and  cta.APPLY_TIME >= to_date(#{searchBeginTime},'yyyy-MM-dd')
+		    	]]>
+            </if>
+        </if>
+        <if test="searchEndTime != null">
+            <if test="searchEndTime != ''">
+                <![CDATA[
+	      			and  cta.APPLY_TIME <= to_date(#{searchEndTime},'yyyy-MM-dd')
+	      		]]>
+            </if>
+        </if>
+        <if test="searchRightsState != null">
+            <if test="searchRightsState != ''">
+      			and cr.RIGHTS_STATE = #{searchRightsState}
+            </if>
+        </if>
+        <if test="searchTurnState != null">
+            <if test="searchTurnState != ''">
+      			and cta.BUS_STATUS = #{searchTurnState}
+            </if>
+        </if>
+    </sql>
+    
+</mapper>

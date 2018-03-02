@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* CSS Document */
+.l_repaymentList{width: 100%;height: 100%;display: block;background: #f4f4f4;position: fixed; top: 0; left: 0; z-index: 9;overflow: auto; }
+.l_repaymentList>p:nth-child(1){width: 90%;height: 3rem;padding: 1rem 5%;font-size: 0.8rem;line-height: 1.5rem;background: #ffedcf;color:#767d89; }
+.l_repaymentList>p:nth-child(1) span{display: block;width: 100%;}
+.l_repaymentList>p:nth-child(2){width: 100%;height: 3rem;font-size: 1rem;color: #fff;line-height: 3rem; background:#76d5ff;overflow: hidden;}
+.l_repaymentList>p:nth-child(2)>span,.l_repaymentList>ul>li>span{display: block;width:26%;text-align: center; float: left;}
+.l_repaymentList>p:nth-child(2)>span:first-child,.l_repaymentList>ul>li>span:first-child{width: 20%;}
+.l_repaymentList>ul{width: 100%;height:-webkit-calc(100% - 8rem);height:-moz-calc(100% - 8rem);height:-o-calc(100% - 8rem);height:-ms-calc(100% - 8rem);height:calc(100% - 8rem);overflow: auto;background: #f4f4f4;}
+.l_repaymentList>ul>li{width: 100%;height: 3rem;border-bottom: solid 1px #e6e6e6;color: #333;font-size: 1rem;line-height: 3rem;overflow: hidden;background: #fff;}
+.l_repaymentList>p:nth-child(1) span>i,.l_repaymentList>ul>li>span>i{color: #ff5e62;}

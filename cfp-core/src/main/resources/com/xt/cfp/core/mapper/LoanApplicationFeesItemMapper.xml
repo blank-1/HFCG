@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LOAN_APPLICATION_FEES_ITEM" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LoanApplicationFeesItem" >
+    <id column="LOAN_APPLICATION_FEES_ITEM_ID" property="loanApplicationFeesItemId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="CHARGE_CYCLE" property="chargeCycle" jdbcType="DECIMAL" />
+    <result column="WORKFLOW_RATIO" property="workflowRatio" jdbcType="DECIMAL" />
+    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+    <result column="ITEM_TYPE" property="itemType" jdbcType="VARCHAR" />
+    <result column="FEES_RATE" property="feesRate" jdbcType="DECIMAL" />
+    <result column="RADICES_TYPE" property="radicesType" jdbcType="CHAR" />
+    <result column="RADICE_LOGIC" property="radiceLogic" jdbcType="VARCHAR" />
+    <result column="RADICE_NAME" property="radiceName" jdbcType="VARCHAR" />
+    <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LOAN_APPLICATION_FEES_ITEM_ID, LOAN_APPLICATION_ID, CHARGE_CYCLE, WORKFLOW_RATIO, 
+    ITEM_NAME, ITEM_TYPE, FEES_RATE, RADICES_TYPE, RADICE_LOGIC, RADICE_NAME, MAIN_LOAN_APPLICATION_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LOAN_APPLICATION_FEES_ITEM
+    where LOAN_APPLICATION_FEES_ITEM_ID = #{loanApplicationFeesItemId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getByLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from LOAN_APPLICATION_FEES_ITEM
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  <select id="getByLoanApplicationIdAndFeePoint" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.LoanApplicationFeesItem" >
+    select
+    <include refid="Base_Column_List" />
+    from LOAN_APPLICATION_FEES_ITEM
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+      and CHARGE_CYCLE=#{chargeCycle,jdbcType=DECIMAL}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LOAN_APPLICATION_FEES_ITEM
+    where LOAN_APPLICATION_FEES_ITEM_ID = #{loanApplicationFeesItemId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加  -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LoanApplicationFeesItem" >
+    <selectKey keyProperty="loanApplicationFeesItemId" order="BEFORE" resultType="long">
+        SELECT SEQ_LOAN_APPLICATION_FEES_ITEM.NEXTVAL as loanApplicationFeesItemId FROM dual
+    </selectKey>
+    insert into LOAN_APPLICATION_FEES_ITEM (LOAN_APPLICATION_FEES_ITEM_ID, LOAN_APPLICATION_ID, 
+      CHARGE_CYCLE, WORKFLOW_RATIO, ITEM_NAME, 
+      ITEM_TYPE, FEES_RATE, RADICES_TYPE, 
+      RADICE_LOGIC, RADICE_NAME, MAIN_LOAN_APPLICATION_ID)
+    values (#{loanApplicationFeesItemId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, 
+      #{chargeCycle,jdbcType=DECIMAL}, #{workflowRatio,jdbcType=DECIMAL}, #{itemName,jdbcType=VARCHAR}, 
+      #{itemType,jdbcType=VARCHAR}, #{feesRate,jdbcType=DECIMAL}, #{radicesType,jdbcType=CHAR}, 
+      #{radiceLogic,jdbcType=VARCHAR}, #{radiceName,jdbcType=VARCHAR}, #{mainLoanApplicationId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LoanApplicationFeesItem" >
+    insert into LOAN_APPLICATION_FEES_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loanApplicationFeesItemId != null" >
+        LOAN_APPLICATION_FEES_ITEM_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="chargeCycle != null" >
+        CHARGE_CYCLE,
+      </if>
+      <if test="workflowRatio != null" >
+        WORKFLOW_RATIO,
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME,
+      </if>
+      <if test="itemType != null" >
+        ITEM_TYPE,
+      </if>
+      <if test="feesRate != null" >
+        FEES_RATE,
+      </if>
+      <if test="radicesType != null" >
+        RADICES_TYPE,
+      </if>
+      <if test="radiceLogic != null" >
+        RADICE_LOGIC,
+      </if>
+      <if test="radiceName != null" >
+        RADICE_NAME,
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loanApplicationFeesItemId != null" >
+        #{loanApplicationFeesItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeCycle != null" >
+        #{chargeCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="workflowRatio != null" >
+        #{workflowRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemType != null" >
+        #{itemType,jdbcType=VARCHAR},
+      </if>
+      <if test="feesRate != null" >
+        #{feesRate,jdbcType=DECIMAL},
+      </if>
+      <if test="radicesType != null" >
+        #{radicesType,jdbcType=CHAR},
+      </if>
+      <if test="radiceLogic != null" >
+        #{radiceLogic,jdbcType=VARCHAR},
+      </if>
+      <if test="radiceName != null" >
+        #{radiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LoanApplicationFeesItem" >
+    update LOAN_APPLICATION_FEES_ITEM
+    <set >
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeCycle != null" >
+        CHARGE_CYCLE = #{chargeCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="workflowRatio != null" >
+        WORKFLOW_RATIO = #{workflowRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemType != null" >
+        ITEM_TYPE = #{itemType,jdbcType=VARCHAR},
+      </if>
+      <if test="feesRate != null" >
+        FEES_RATE = #{feesRate,jdbcType=DECIMAL},
+      </if>
+      <if test="radicesType != null" >
+        RADICES_TYPE = #{radicesType,jdbcType=CHAR},
+      </if>
+      <if test="radiceLogic != null" >
+        RADICE_LOGIC = #{radiceLogic,jdbcType=VARCHAR},
+      </if>
+      <if test="radiceName != null" >
+        RADICE_NAME = #{radiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where LOAN_APPLICATION_FEES_ITEM_ID = #{loanApplicationFeesItemId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LoanApplicationFeesItem" >
+    update LOAN_APPLICATION_FEES_ITEM
+    set LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      CHARGE_CYCLE = #{chargeCycle,jdbcType=DECIMAL},
+      WORKFLOW_RATIO = #{workflowRatio,jdbcType=DECIMAL},
+      ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      ITEM_TYPE = #{itemType,jdbcType=VARCHAR},
+      FEES_RATE = #{feesRate,jdbcType=DECIMAL},
+      RADICES_TYPE = #{radicesType,jdbcType=CHAR},
+      RADICE_LOGIC = #{radiceLogic,jdbcType=VARCHAR},
+      RADICE_NAME = #{radiceName,jdbcType=VARCHAR},
+      MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+    where LOAN_APPLICATION_FEES_ITEM_ID = #{loanApplicationFeesItemId,jdbcType=DECIMAL}
+  </update>
+</mapper>

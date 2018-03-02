@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CUSTOMER_WORK_SNAPSHOT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CustomerWorkSnapshot" >
+    <id column="SNAPSHOT_ID" property="snapshotId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="WORKING_ADDR" property="workingAddr" jdbcType="DECIMAL" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="COMPANY_NATURE" property="companyNature" jdbcType="CHAR" />
+    <result column="COMPANY_PHONE" property="companyPhone" jdbcType="VARCHAR" />
+    <result column="POST" property="post" jdbcType="VARCHAR" />
+    <result column="JOIN_DATE" property="joinDate" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SNAPSHOT_ID, LOAN_APPLICATION_ID, WORKING_ADDR, COMPANY_NAME, COMPANY_NATURE, COMPANY_PHONE, 
+    POST, JOIN_DATE, STATUS, MAIN_LOAN_APPLICATION_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_WORK_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CUSTOMER_WORK_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CustomerWorkSnapshot" >
+  	<selectKey keyProperty="snapshotId" order="BEFORE" resultType="long">
+      SELECT SEQ_CUSTOMER_WORK_SNAPSHOT.NEXTVAL as snapshotId FROM dual
+    </selectKey>
+    insert into CUSTOMER_WORK_SNAPSHOT (SNAPSHOT_ID, LOAN_APPLICATION_ID, WORKING_ADDR, 
+      COMPANY_NAME, COMPANY_NATURE, COMPANY_PHONE, 
+      POST, JOIN_DATE, STATUS, MAIN_LOAN_APPLICATION_ID
+      )
+    values (#{snapshotId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, #{workingAddr,jdbcType=DECIMAL}, 
+      #{companyName,jdbcType=VARCHAR}, #{companyNature,jdbcType=CHAR}, #{companyPhone,jdbcType=VARCHAR}, 
+      #{post,jdbcType=VARCHAR}, #{joinDate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{mainLoanApplicationId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CustomerWorkSnapshot" >
+    insert into CUSTOMER_WORK_SNAPSHOT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        SNAPSHOT_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="workingAddr != null" >
+        WORKING_ADDR,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+      <if test="companyNature != null" >
+        COMPANY_NATURE,
+      </if>
+      <if test="companyPhone != null" >
+        COMPANY_PHONE,
+      </if>
+      <if test="post != null" >
+        POST,
+      </if>
+      <if test="joinDate != null" >
+        JOIN_DATE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        #{snapshotId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="workingAddr != null" >
+        #{workingAddr,jdbcType=DECIMAL},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNature != null" >
+        #{companyNature,jdbcType=CHAR},
+      </if>
+      <if test="companyPhone != null" >
+        #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="joinDate != null" >
+        #{joinDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CustomerWorkSnapshot" >
+    update CUSTOMER_WORK_SNAPSHOT
+    <set >
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="workingAddr != null" >
+        WORKING_ADDR = #{workingAddr,jdbcType=DECIMAL},
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNature != null" >
+        COMPANY_NATURE = #{companyNature,jdbcType=CHAR},
+      </if>
+      <if test="companyPhone != null" >
+        COMPANY_PHONE = #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        POST = #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="joinDate != null" >
+        JOIN_DATE = #{joinDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CustomerWorkSnapshot" >
+    update CUSTOMER_WORK_SNAPSHOT
+    set LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      WORKING_ADDR = #{workingAddr,jdbcType=DECIMAL},
+      COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      COMPANY_NATURE = #{companyNature,jdbcType=CHAR},
+      COMPANY_PHONE = #{companyPhone,jdbcType=VARCHAR},
+      POST = #{post,jdbcType=VARCHAR},
+      JOIN_DATE = #{joinDate,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR},
+      MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 根据借款申请ID加载一条工作数据 -->
+  <select id="getWorkByLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_WORK_SNAPSHOT
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- by mainid -->
+  <select id="getWorkByMainLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_WORK_SNAPSHOT
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </select>
+</mapper>

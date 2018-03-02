@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ACTIVITY_BINDING" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.ActivityBinding" >
+    <id column="BINDING_ID" property="bindingId" jdbcType="DECIMAL" />
+    <result column="MOBILE_NO" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="OPEN_ID" property="openId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="USAGE_FREQUENCY" property="usageFrequency" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BINDING_ID, MOBILE_NO, OPEN_ID, CREATE_TIME, USAGE_FREQUENCY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ACTIVITY_BINDING
+    where BINDING_ID = #{bindingId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getActivityBindingByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ACTIVITY_BINDING
+    where OPEN_ID = #{openId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getActivityBindingByPhone" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ACTIVITY_BINDING
+    where MOBILE_NO = #{phone,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ACTIVITY_BINDING
+    where BINDING_ID = #{bindingId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.ActivityBinding" >
+  <selectKey keyProperty="bindingId" order="BEFORE" resultType="long">
+      SELECT SEQ_ACTIVITY_BINDING.NEXTVAL as bindingId FROM dual
+    </selectKey>
+    insert into ACTIVITY_BINDING (BINDING_ID, MOBILE_NO, OPEN_ID, 
+      CREATE_TIME, USAGE_FREQUENCY)
+    values (#{bindingId,jdbcType=DECIMAL}, #{mobileNo,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{usageFrequency,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.ActivityBinding" >
+    insert into ACTIVITY_BINDING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bindingId != null" >
+        BINDING_ID,
+      </if>
+      <if test="mobileNo != null" >
+        MOBILE_NO,
+      </if>
+      <if test="openId != null" >
+        OPEN_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="usageFrequency != null">
+      	USAGE_FREQUENCY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bindingId != null" >
+        #{bindingId,jdbcType=DECIMAL},
+      </if>
+      <if test="mobileNo != null" >
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usageFrequency != null">
+      	#{usageFrequency,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.ActivityBinding" >
+    update ACTIVITY_BINDING
+    <set >
+      <if test="mobileNo != null" >
+        MOBILE_NO = #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        OPEN_ID = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usageFrequency != null">
+      	USAGE_FREQUENCY = #{usageFrequency,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where BINDING_ID = #{bindingId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.ActivityBinding" >
+    update ACTIVITY_BINDING
+    set MOBILE_NO = #{mobileNo,jdbcType=VARCHAR},
+      OPEN_ID = #{openId,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      USAGE_FREQUENCY = #{usageFrequency,jdbcType=DECIMAL}
+    where BINDING_ID = #{bindingId,jdbcType=DECIMAL}
+  </update>
+</mapper>

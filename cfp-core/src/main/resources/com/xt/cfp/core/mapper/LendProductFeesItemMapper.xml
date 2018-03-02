@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LEND_PRODUCT_FEES_ITEM" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LendProductFeesItem" >
+    <id column="LPFI_ID" property="lpfiId" jdbcType="DECIMAL" />
+    <result column="LEND_PRODUCT_ID" property="lendProductId" jdbcType="DECIMAL" />
+    <result column="FEES_ITEM_ID" property="feesItemId" jdbcType="DECIMAL" />
+    <result column="CHARGE_POINT" property="chargePoint" jdbcType="CHAR" />
+    <result column="WORKFLOW_RATIO" property="workflowRatio" jdbcType="DECIMAL" />
+    <association property="feesItem" column="FEES_ITEM_ID" select="FEESITEM.findById"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LPFI_ID, LEND_PRODUCT_ID, FEES_ITEM_ID, CHARGE_POINT, WORKFLOW_RATIO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LEND_PRODUCT_FEES_ITEM
+    where LPFI_ID = #{lpfiId,jdbcType=DECIMAL}
+  </select>
+
+
+  <select id="findAllProductFeesItemsByLendOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+   Select lpfi.* from LEND_PRODUCT_FEES_ITEM lpfi left join LEND_ORDER lo on LPFI.LEND_PRODUCT_ID = LO.LEND_PRODUCT_ID
+where LO.LEND_ORDER_ID = #{value}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LEND_PRODUCT_FEES_ITEM
+    where LPFI_ID = #{lpfiId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LendProductFeesItem" >
+  	<selectKey resultType="long" keyProperty="lpfiId" order="BEFORE">
+        select SEQ_LEND_PRO_FEES_ITEM.nextval as lpfiId from dual
+    </selectKey>
+    insert into LEND_PRODUCT_FEES_ITEM (LPFI_ID, LEND_PRODUCT_ID, FEES_ITEM_ID, 
+      CHARGE_POINT, WORKFLOW_RATIO)
+    values (#{lpfiId,jdbcType=DECIMAL}, #{lendProductId,jdbcType=DECIMAL}, #{feesItemId,jdbcType=DECIMAL}, 
+      #{chargePoint,jdbcType=CHAR}, #{workflowRatio,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LendProductFeesItem" >
+    insert into LEND_PRODUCT_FEES_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lpfiId != null" >
+        LPFI_ID,
+      </if>
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID,
+      </if>
+      <if test="feesItemId != null" >
+        FEES_ITEM_ID,
+      </if>
+      <if test="chargePoint != null" >
+        CHARGE_POINT,
+      </if>
+      <if test="workflowRatio != null" >
+        WORKFLOW_RATIO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lpfiId != null" >
+        #{lpfiId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendProductId != null" >
+        #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="feesItemId != null" >
+        #{feesItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="chargePoint != null" >
+        #{chargePoint,jdbcType=CHAR},
+      </if>
+      <if test="workflowRatio != null" >
+        #{workflowRatio,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LendProductFeesItem" >
+    update LEND_PRODUCT_FEES_ITEM
+    <set >
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="feesItemId != null" >
+        FEES_ITEM_ID = #{feesItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="chargePoint != null" >
+        CHARGE_POINT = #{chargePoint,jdbcType=CHAR},
+      </if>
+      <if test="workflowRatio != null" >
+        WORKFLOW_RATIO = #{workflowRatio,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where LPFI_ID = #{lpfiId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LendProductFeesItem" >
+    update LEND_PRODUCT_FEES_ITEM
+    set LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      FEES_ITEM_ID = #{feesItemId,jdbcType=DECIMAL},
+      CHARGE_POINT = #{chargePoint,jdbcType=CHAR},
+      WORKFLOW_RATIO = #{workflowRatio,jdbcType=DECIMAL}
+    where LPFI_ID = #{lpfiId,jdbcType=DECIMAL}
+  </update>
+  <select id="findAll" resultMap="BaseResultMap">
+	SELECT * FROM LEND_PRODUCT_FEES_ITEM
+  </select>
+  
+  <delete id="deleteById" parameterType="Long">
+        delete from LEND_PRODUCT_FEES_ITEM
+        where LEND_PRODUCT_ID = #{lendProductId}
+    </delete>
+</mapper>

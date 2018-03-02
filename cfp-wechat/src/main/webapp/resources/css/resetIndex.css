@@ -1,0 +1,61 @@
+﻿@charset "utf-8";
+/* CSS Document */
+html, body, div, span, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,abbr, address, cite, code,del, dfn, em, img, ins, kbd, q, samp,small, strong, sub, sup, var,b, i,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary,time, mark, audio, video{margin:0;padding:0;border:0; outline:0;vertical-align:baseline;font-style: normal;}
+html,ul,li,ol,p,h1,h2,h3,h4,h5,h6,dl,dt,dd{margin:0;padding:0;}
+html{font-family:Tahoma,Arial,Roboto,”Droid Sans”,”Helvetica Neue”,”Droid Sans Fallback”,”Heiti SC”,sans-self,Microsoft YaHei;box-sizing:border-box;-webkit-font-smoothing:antialiased;text-shadow:1px 1px 1px rgba(0,0,0,0.004);}/*使字体更加清晰*/
+html,body{width: 100%;height: 100%; background: #fff;background:rgba(245,249,250,1.0);min-width: 320px; }/* 页面背景宽高设置 */
+li{list-style:none;	}
+a{text-decoration:none; }
+a:link {color: #3bc2ff;}     /* 未访问的链接 */
+a:visited {color: #3bc2ff;}  /* 已访问的链接 */
+a:hover {color: #3bc2ff;}    /* 当有鼠标悬停在链接上 */
+a:active {color: #3bc2ff;}   /* 被选择的链接 */
+img{border:none;}
+input,button,select,textarea{outline:none; /*cursor: pointer;*/ -webkit-appearance: none;border-radius: 0;padding: 0;}/*清除input，textarea输入框的默认样式*/
+input{ cursor: pointer; -webkit-appearance: none;border:solid 1px rgba(0,0,0,0.1);text-indent: 1rem;} 
+input[type=button],input[type=submit],input[type=file],button{ cursor: pointer; -webkit-appearance: none;border: none;text-indent:0;-webkit-user-select:​none;-moz-user-select:​none;} /*防止按钮的文字内容被选中*/
+textarea{resize:none}/*清除input，textarea输入框的默认样式*/
+/*input中placeholder颜色*/
+::-webkit-input-placeholder { color: rgba(0,0,0,0.2);text-indent: 1rem; } /* WebKit browsers */
+:-moz-placeholder { color: rgba(0,0,0,0.2);text-indent: 1rem; } /* Mozilla Firefox 4 to 18 */ 
+::-moz-placeholder {  color: rgba(0,0,0,0.2);text-indent: 1rem; } /* Mozilla Firefox 19+ */
+:-ms-input-placeholder { color: rgba(0,0,0,0.2);text-indent: 1rem; }/* Internet Explorer 10+ */ 
+.noNum::-webkit-textfield-decoration-container {background-color: #fff;}/*清除input在type=num时候的上下按钮*/
+.noNum::-webkit-inner-spin-button {-webkit-appearance: none;}/*清除input在type=num时候的上下按钮*/
+.noNum::-webkit-outer-spin-button {-webkit-appearance: none;	/* 有无看不出差别 */ }/*清除input在type=num时候的上下按钮*/
+.clearfix{zoom:1; }
+.clearfix::after{content:''; clear:both; display:table; height:0;}
+*{-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent; /* For some Androids */  }
+.saoFen{color:#f4536e !important;}/*项目中的标准色1*/
+.mainText{color: rgba(149,176,204,1.0) !important;}/*项目中的标准色2*/
+.link{color: #3bc2ff !important;}/*项目中的标准色3*/
+.saoFenB{background:#f4536e !important;border: solid 1px #f4536e !important;}/*项目中的标准背景色1*/
+.linkB{background: #3bc2ff !important;border: solid 1px #3bc2ff !important;}/*项目中的标准背景色3*/
+.l_errr{width: 80%; height: 3rem; border-radius: 3rem; text-align: center; font-size: 1.6rem; color: #fff; background: rgba(0,0,0,0.3); line-height: 3rem; position: fixed; top:30%; left: 10%; display: none;z-index: 9999; }
+.l_disable{background:rgba(202,202,202,1.0) !important;; color: rgba(152,152,152,1.0) !important;border: solid 1px rgba(202,202,202,1.0) !important; } 
+.l_pswBtn{width:2 rem; height: 2rem; position: absolute; top:0.5rem; right: 1rem; background:url(../images/p2_login_img2.png) 50% 50% no-repeat; background-size: 80%; border: none; }
+.l_pswC{background:url(../images/p2_login_img1.png) 50% 50% no-repeat; background-size: 80%; }
+.mask{width: 100%; height: 100%; position: fixed; top: 0; z-index: 999; background: rgba(0,0,0,0.6); display: block; }
+.TextBox{width: 100%; height: 70%; position: fixed; bottom: 0; z-index: 1000; background: #fff; }
+.TextBox p:first-child{font-size: 1.8rem; color: #4b4b4b; font-weight: bolder; text-indent: 4%; margin:4% 0 ; }
+.TextBox p:first-child span{display: block; float: right; width: 2rem; height: 2rem; border-radius:100%; text-align: center; font-size:1.9rem; line-height: 2rem; color: #fff; background: rgba(0,0,0,0.1); transform: rotate(45deg); -webkit-transform: rotate(45deg); text-indent: 0; margin-right:4% }
+.TextBox p:last-child{font-size:1.2rem; color: #4b4b4b; width: 90%; margin-left: 5%; height: 82%; overflow-y: scroll; }
+button,input{border-radius:4px; }
+.arrow{position: relative; padding-right:1.4rem; }
+.arrow::after{content: ""; width: 0.6rem; height: 0.6rem; transform:rotate(-45deg); -webkit-transform:rotate(-45deg); border-right:solid 1px #3bc2ff; border-bottom:solid 1px #3bc2ff; border-radius: 2px; display: block; position: absolute; right: 0.6rem; top: 0.4rem; }
+.forKeyBoard{position: relative;}
+.iconShadow{background: #e54e67 !important;}
+.l_returnTop{width: 3rem;height: 3rem; background:url(../images/icon_returnTop.png) no-repeat 50% 50% #3bc2ff;background-size: 1.5rem; opacity: 0.4;border-radius:0.5rem;position: fixed;right:2%;bottom: 10%;display: none;}
+.l_mask{position: fixed;z-index: 9999;width: 100%;height: 100%;left: 0;top: 0;background: rgba(0,0,0,0.5);display: none;}
+#box,.l_sections,.l_sections li{width: 100%; height: 100%; overflow: hidden; background: rgb(50,50,50);  }
+.l_sections{width: 400%; position: relative; }
+.l_sections li{width: 25%; font-size: 0; float: left; z-index: 9999;}
+
+body{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}

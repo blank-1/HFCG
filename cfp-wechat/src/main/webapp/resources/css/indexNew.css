@@ -1,0 +1,110 @@
+﻿@charset "utf-8";
+/* CSS Document */
+header{width: 100%;height:8%;background:#4bc8ff url(../images/icon_logo2.png) no-repeat 5% 50%;background-size: 30%;position: relative; }
+header span{display:block;width: 4rem;height:100%;float: right;background: url(../images/icon_index0.png) 50% 50% no-repeat;background-size: 70%;}
+header p{color: #fff;width: 50%;height: 4rem; line-height: 4rem; position: absolute;top: 50%;margin-top: -2rem;right: 14%;text-align: right;font-size: 1.2rem;opacity:0.8;}
+section{width: 100%;height: 92%;background:#f5f9fa;}
+section>ul{width: 77%;height: 12%;border-bottom:solid 1px #ccc;padding: 2% 5% 2% 18%; font-size: 1rem;color: #a4adbe;overflow: hidden;}
+section p{width: 100%;font-size: 1.2rem;text-align: center;color: #8997aa;line-height: 5rem;}
+section>ul li:first-child{font-size: 1.6rem;}
+section>ul li:nth-child(2n){float: right;text-align: right;}
+section>ul li:nth-child(2n+1){float: left;text-align: left;}
+section>ul:first-child{width:100%;height: 26%;background:#76d5ff;text-align: center;border: none;padding: 4% 0 0 0; position:relative;}
+section>ul:first-child li{width: 100%; color: #fff;text-align: center;}
+section>ul:nth-child(3){background: url(../images/icon_index1.png) 5% 50% no-repeat #fff;background-size: 8%;}
+section>ul:nth-child(4){background: url(../images/icon_index2.png) 5% 50% no-repeat #fff;background-size: 8%;}
+section>ul:nth-child(5){background: url(../images/icon_index3.png) 5% 50% no-repeat #fff;background-size: 8%;}
+section>ul:nth-child(6){background: url(../images/icon_index4.png) 5% 50% no-repeat #fff;background-size: 8%;}
+section>ul li{width: 50%;height: 50%;line-height: 200%;}
+.l_hasLogin li:nth-child(2n){font-size: 3rem;line-height: 4rem;height: 40%;}
+.l_hasLogin li:nth-child(2n+1){font-size: 1rem;line-height: 2rem;height: 10%;}
+.l_noLogin img{width: 14%;margin: 0 43% 2% 43%;}
+.l_noLogin::after{content: "精选理财包，最安心的理财方式";display: block;font-size: 1rem;color: #fff;width: 100%;/* height: 1rem; */text-align: center;line-height: -1rem}
+button{width: 7rem;height: 2rem;font-size: 1.4rem;line-height: 1rem; position: absolute;bottom: 10%;left: 50%;margin-left: -3.5rem;color: #fff;background: transparent;border: solid 1px #fff;border-radius: 4px;}
+#l_swiperBox{width: 100%;height: 18%;background: url(../images/icon_Logo3.png) 50% 50% no-repeat #d5dee0;background-size: 20%;position: relative;}
+.l_hasLogin::after{content: "";display: block;width:1rem;height: 1rem;border-right: solid 2px #fff;border-bottom: solid 2px #fff;transform:rotate(-45deg); -webkit-transform:rotate(-45deg);position: absolute;top: 50%;right: 6%;margin-top:-0.5rem; }
+@media all and (orientation : landscape) { 
+/*横屏样式*/
+	header{background-size: 14%; }
+	header span{background-size: 40%;}
+	header p{font-size:0.6rem;right: 10%;}
+	section{overflow: hidden;}
+	section>ul{width: 48%;height: 20%;border-bottom:solid 1px #ccc;padding: 1% 5% 1% 12%; font-size: 1rem;color: #a4adbe;overflow: hidden;float: right;}
+	section p{width: 35%;font-size: 0.8rem;color: #fff;line-height: 1.2rem;position: fixed;bottom: 1rem;left: 0;}
+	section>ul li:first-child{font-size: 1rem;}
+	section>ul:first-child{width: 35%;height: 80%;padding: 0;margin-top:6rem;float: left;}
+	section>ul:first-child li{width: 100%; color: #fff;text-align: center;}
+	section>ul li{line-height: 2rem;font-size: 0.8rem;}
+	section>ul:nth-child(3){margin-top: 6rem;}
+	.l_hasLogin li:nth-child(2n){font-size: 1.4rem;line-height: 3rem;height: 20%;}
+	.l_hasLogin li:nth-child(2n+1){font-size: 0.6rem;line-height: 3rem;height: 8%;}
+	.l_noLogin img{width: 30%;margin: 8% 20% 0 20%;}
+	.l_noLogin::after{font-size: 0.6rem;}
+	button{width: 5rem;height: 2rem;font-size: 1rem;line-height: 1rem; position: absolute;bottom: 44%;left: 50%;margin-left: -2.5rem;}
+	#l_swiperBox{width: 100%;height: 6rem;position: fixed;}
+	/*for iPhone 5/5S*/
+	@media screen and (min-width: 500px) and (max-width: 570px) {
+		section p{bottom: 0.4rem;}
+		button{height: 1.6rem;}
+		section>ul{height: 17%;}
+		section>ul li{font-size:0.4rem;line-height: 1.5rem; }
+		section>ul li:first-child{font-size: 0.8rem;}
+	}
+	/*for iPhone 6/6S*/
+	@media screen and (min-width: 580px) and (max-width: 629px) {
+		section p{bottom: 0.4rem;}
+		button{height: 1.6rem;}
+		section>ul{height: 17%;}
+		section>ul li{font-size:0.4rem;line-height: 1.5rem; }
+		section>ul li:first-child{font-size: 0.8rem;}
+	}
+	/*for iPhone 6p/6Sp*/
+	@media screen and (min-width: 630px) and (max-width: 740px) {
+		section p{bottom: 0.4rem;}
+		button{height: 1.6rem;}
+		section>ul{height: 17%;}
+		section>ul li{font-size:0.4rem;line-height: 1.5rem; }
+		section>ul li:first-child{font-size: 0.8rem;}
+	}	
+	/*for iPad*/
+	@media screen and (min-width: 1000px) and (max-width: 1030px) {
+		section>ul{height: 20%;}
+	}
+	@media screen and (min-width: 1200px) {
+		section p{bottom: 0.4rem;}
+		button{height: 1.2rem;bottom: 50%;}
+		section>ul{height: 17%;}
+		section>ul li{font-size:0.4rem;line-height: 1.5rem; }
+		section>ul li:first-child{font-size: 0.8rem;}
+		.l_noLogin img{margin: 2% 20% 0 20%;}
+	}
+} 
+@media all and (orientation : portrait){
+/*竖屏时样式*/
+	/*for iPhone 4/4S*/
+	@media screen and (max-height: 490px) {
+		section p{line-height: 3rem;}
+	}
+	/*for iPhone 5/5S*/
+	@media screen and (min-height: 500px) and (max-height: 570px) {
+		section p{line-height: 4.8rem;}
+		button{bottom: 16%;}
+		section>ul li{line-height: 240%;}
+	}
+	/*for iPhone 6/6S*/
+	@media screen and (min-height: 580px) and (max-height: 629px) {
+		section>ul li{line-height: 240%;}
+	}
+	/*for iPhone 6p/6Sp*/
+	@media screen and (min-height: 630px) and (max-height: 740px) {
+		section p{line-height: 5.5rem;}
+		button{bottom: 18%;}
+		section>ul li{line-height: 280%;}
+	}	
+	/*for iPad*/
+	@media screen and (min-height: 1000px) and (max-height: 1030px) {
+		section>ul li:first-child{font-size: 1.4rem;}
+		section p{line-height: 2.6rem;font-size: 1rem;}
+		button{bottom: 8%;}
+	}
+} 

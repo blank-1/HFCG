@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ENTERPRISE_INFO" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.EnterpriseInfo" >
+    <id column="ENTERPRISE_ID" property="enterpriseId" jdbcType="DECIMAL" />
+    <result column="ENTERPRISE_NAME" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="ENTERPRISE_TYPE" property="enterpriseType" jdbcType="CHAR" />
+    <result column="LEGAL_PERSON_NAME" property="legalPersonName" jdbcType="VARCHAR" />
+    <result column="LEGAL_PERSON_CODE" property="legalPersonCode" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_NUMBER" property="accountNumber" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+    <result column="TAX_REGISTRATION_CODE" property="taxRegistrationCode" jdbcType="VARCHAR" />
+    <result column="BUSINESS_REGISTRATION_NUMBER" property="businessRegistrationNumber" jdbcType="VARCHAR" />
+    <result column="OPERATING_PERIOD" property="operatingPeriod" jdbcType="DECIMAL" />
+    <result column="REGISTERED_CAPITAL" property="registeredCapital" jdbcType="DECIMAL" />
+    <result column="OPERATING_RANGE" property="operatingRange" jdbcType="VARCHAR" />
+    <result column="INFORMATION" property="information" jdbcType="VARCHAR" />
+    <result column="MAIN_REVENUE" property="mainRevenue" jdbcType="DECIMAL" />
+    <result column="GROSS_PROFIT" property="grossProfit" jdbcType="DECIMAL" />
+    <result column="NET_PROFIT" property="netProfit" jdbcType="DECIMAL" />
+    <result column="TOTAL_ASSETS" property="totalAssets" jdbcType="DECIMAL" />
+    <result column="NET_ASSETS" property="netAssets" jdbcType="DECIMAL" />
+    <result column="CONTRACT_BEGIN" property="contractBegin" jdbcType="TIMESTAMP" />
+    <result column="CONTRACT_END" property="contractEnd" jdbcType="TIMESTAMP" />
+    <result column="SINGLE_MAXIMUM_AMOUNT" property="singleMaximumAmount" jdbcType="DECIMAL" />
+    <result column="ANNUAL_MAXIMUM_LIMIT" property="annualMaximumLimit" jdbcType="DECIMAL" />
+    <result column="ANNUAL_RESIDUAL_AMOUNT" property="annualResidualAmount" jdbcType="DECIMAL" />
+    <result column="STATE" property="state" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="PLAYFORM_ID" property="platformId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="EnterpriseInfoExt" type="com.xt.cfp.core.pojo.ext.EnterpriseInfoExt" extends="BaseResultMap">
+    <result property="avilableValue" column="AVAIL_VALUE" jdbcType="DECIMAL" />
+    <result property="freezeValue" column="FROZE_VALUE" jdbcType="DECIMAL" />
+    <result property="value" column="VALUE" jdbcType="DECIMAL" />
+    <result property="borrowCount" column="BORROW_COUNT" javaType="java.lang.Long"/>
+    <result property="bondUserCount" column="BONDUSER_COUNT" javaType="java.lang.Long"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ENTERPRISE_ID, ENTERPRISE_NAME, ENTERPRISE_TYPE, LEGAL_PERSON_NAME, LEGAL_PERSON_CODE, 
+    ACCOUNT_NUMBER, ORGANIZATION_CODE, TAX_REGISTRATION_CODE, BUSINESS_REGISTRATION_NUMBER, 
+    OPERATING_PERIOD, REGISTERED_CAPITAL, OPERATING_RANGE, INFORMATION, MAIN_REVENUE, 
+    GROSS_PROFIT, NET_PROFIT, TOTAL_ASSETS, NET_ASSETS, CONTRACT_BEGIN, CONTRACT_END, 
+    SINGLE_MAXIMUM_AMOUNT, ANNUAL_MAXIMUM_LIMIT, ANNUAL_RESIDUAL_AMOUNT, STATE, CREATE_TIME, 
+    LAST_UPDATE_TIME,USER_ID, PLAYFORM_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_INFO
+    where ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ENTERPRISE_INFO
+    where ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.EnterpriseInfo" >
+    <selectKey keyProperty="enterpriseId" order="BEFORE" resultType="long">
+      SELECT SEQ_ENTERPRISE_INFO.NEXTVAL as enterpriseId FROM dual
+    </selectKey>
+    insert into ENTERPRISE_INFO (ENTERPRISE_ID, ENTERPRISE_NAME, ENTERPRISE_TYPE, 
+      LEGAL_PERSON_NAME, LEGAL_PERSON_CODE, ACCOUNT_NUMBER, 
+      ORGANIZATION_CODE, TAX_REGISTRATION_CODE, 
+      BUSINESS_REGISTRATION_NUMBER, OPERATING_PERIOD, 
+      REGISTERED_CAPITAL, OPERATING_RANGE, INFORMATION, 
+      MAIN_REVENUE, GROSS_PROFIT, NET_PROFIT, 
+      TOTAL_ASSETS, NET_ASSETS, CONTRACT_BEGIN, 
+      CONTRACT_END, SINGLE_MAXIMUM_AMOUNT, ANNUAL_MAXIMUM_LIMIT, 
+      ANNUAL_RESIDUAL_AMOUNT, STATE, CREATE_TIME, 
+      LAST_UPDATE_TIME,USER_ID,PLAYFORM_ID)
+    values (#{enterpriseId,jdbcType=DECIMAL}, #{enterpriseName,jdbcType=VARCHAR}, #{enterpriseType,jdbcType=CHAR}, 
+      #{legalPersonName,jdbcType=VARCHAR}, #{legalPersonCode,jdbcType=VARCHAR}, #{accountNumber,jdbcType=VARCHAR}, 
+      #{organizationCode,jdbcType=VARCHAR}, #{taxRegistrationCode,jdbcType=VARCHAR}, 
+      #{businessRegistrationNumber,jdbcType=VARCHAR}, #{operatingPeriod,jdbcType=DECIMAL}, 
+      #{registeredCapital,jdbcType=DECIMAL}, #{operatingRange,jdbcType=VARCHAR}, #{information,jdbcType=VARCHAR}, 
+      #{mainRevenue,jdbcType=DECIMAL}, #{grossProfit,jdbcType=DECIMAL}, #{netProfit,jdbcType=DECIMAL}, 
+      #{totalAssets,jdbcType=DECIMAL}, #{netAssets,jdbcType=DECIMAL}, #{contractBegin,jdbcType=TIMESTAMP}, 
+      #{contractEnd,jdbcType=TIMESTAMP}, #{singleMaximumAmount,jdbcType=DECIMAL}, #{annualMaximumLimit,jdbcType=DECIMAL}, 
+      #{annualResidualAmount,jdbcType=DECIMAL}, #{state,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP},#{userId,jdbcType=DECIMAL},#{platformId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.EnterpriseInfo" >
+    insert into ENTERPRISE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID,
+      </if>
+      <if test="enterpriseName != null" >
+        ENTERPRISE_NAME,
+      </if>
+      <if test="enterpriseType != null" >
+        ENTERPRISE_TYPE,
+      </if>
+      <if test="legalPersonName != null" >
+        LEGAL_PERSON_NAME,
+      </if>
+      <if test="legalPersonCode != null" >
+        LEGAL_PERSON_CODE,
+      </if>
+      <if test="accountNumber != null" >
+        ACCOUNT_NUMBER,
+      </if>
+      <if test="organizationCode != null" >
+        ORGANIZATION_CODE,
+      </if>
+      <if test="taxRegistrationCode != null" >
+        TAX_REGISTRATION_CODE,
+      </if>
+      <if test="businessRegistrationNumber != null" >
+        BUSINESS_REGISTRATION_NUMBER,
+      </if>
+      <if test="operatingPeriod != null" >
+        OPERATING_PERIOD,
+      </if>
+      <if test="registeredCapital != null" >
+        REGISTERED_CAPITAL,
+      </if>
+      <if test="operatingRange != null" >
+        OPERATING_RANGE,
+      </if>
+      <if test="information != null" >
+        INFORMATION,
+      </if>
+      <if test="mainRevenue != null" >
+        MAIN_REVENUE,
+      </if>
+      <if test="grossProfit != null" >
+        GROSS_PROFIT,
+      </if>
+      <if test="netProfit != null" >
+        NET_PROFIT,
+      </if>
+      <if test="totalAssets != null" >
+        TOTAL_ASSETS,
+      </if>
+      <if test="netAssets != null" >
+        NET_ASSETS,
+      </if>
+      <if test="contractBegin != null" >
+        CONTRACT_BEGIN,
+      </if>
+      <if test="contractEnd != null" >
+        CONTRACT_END,
+      </if>
+      <if test="singleMaximumAmount != null" >
+        SINGLE_MAXIMUM_AMOUNT,
+      </if>
+      <if test="annualMaximumLimit != null" >
+        ANNUAL_MAXIMUM_LIMIT,
+      </if>
+      <if test="annualResidualAmount != null" >
+        ANNUAL_RESIDUAL_AMOUNT,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="platformId  != null" >
+        PLAYFORM_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enterpriseId != null" >
+        #{enterpriseId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterpriseName != null" >
+        #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseType != null" >
+        #{enterpriseType,jdbcType=CHAR},
+      </if>
+      <if test="legalPersonName != null" >
+        #{legalPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonCode != null" >
+        #{legalPersonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNumber != null" >
+        #{accountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationCode != null" >
+        #{organizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRegistrationCode != null" >
+        #{taxRegistrationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessRegistrationNumber != null" >
+        #{businessRegistrationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingPeriod != null" >
+        #{operatingPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="registeredCapital != null" >
+        #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="operatingRange != null" >
+        #{operatingRange,jdbcType=VARCHAR},
+      </if>
+      <if test="information != null" >
+        #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="mainRevenue != null" >
+        #{mainRevenue,jdbcType=DECIMAL},
+      </if>
+      <if test="grossProfit != null" >
+        #{grossProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="netProfit != null" >
+        #{netProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="totalAssets != null" >
+        #{totalAssets,jdbcType=DECIMAL},
+      </if>
+      <if test="netAssets != null" >
+        #{netAssets,jdbcType=DECIMAL},
+      </if>
+      <if test="contractBegin != null" >
+        #{contractBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractEnd != null" >
+        #{contractEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="singleMaximumAmount != null" >
+        #{singleMaximumAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="annualMaximumLimit != null" >
+        #{annualMaximumLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="annualResidualAmount != null" >
+        #{annualResidualAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="platformId != null" >
+        #{platformId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.EnterpriseInfo" >
+    update ENTERPRISE_INFO
+    <set >
+      <if test="enterpriseName != null" >
+        ENTERPRISE_NAME = #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseType != null" >
+        ENTERPRISE_TYPE = #{enterpriseType,jdbcType=CHAR},
+      </if>
+      <if test="legalPersonName != null" >
+        LEGAL_PERSON_NAME = #{legalPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonCode != null" >
+        LEGAL_PERSON_CODE = #{legalPersonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNumber != null" >
+        ACCOUNT_NUMBER = #{accountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationCode != null" >
+        ORGANIZATION_CODE = #{organizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRegistrationCode != null" >
+        TAX_REGISTRATION_CODE = #{taxRegistrationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessRegistrationNumber != null" >
+        BUSINESS_REGISTRATION_NUMBER = #{businessRegistrationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingPeriod != null" >
+        OPERATING_PERIOD = #{operatingPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="registeredCapital != null" >
+        REGISTERED_CAPITAL = #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="operatingRange != null" >
+        OPERATING_RANGE = #{operatingRange,jdbcType=VARCHAR},
+      </if>
+      <if test="information != null" >
+        INFORMATION = #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="mainRevenue != null" >
+        MAIN_REVENUE = #{mainRevenue,jdbcType=DECIMAL},
+      </if>
+      <if test="grossProfit != null" >
+        GROSS_PROFIT = #{grossProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="netProfit != null" >
+        NET_PROFIT = #{netProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="totalAssets != null" >
+        TOTAL_ASSETS = #{totalAssets,jdbcType=DECIMAL},
+      </if>
+      <if test="netAssets != null" >
+        NET_ASSETS = #{netAssets,jdbcType=DECIMAL},
+      </if>
+      <if test="contractBegin != null" >
+        CONTRACT_BEGIN = #{contractBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractEnd != null" >
+        CONTRACT_END = #{contractEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="singleMaximumAmount != null" >
+        SINGLE_MAXIMUM_AMOUNT = #{singleMaximumAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="annualMaximumLimit != null" >
+        ANNUAL_MAXIMUM_LIMIT = #{annualMaximumLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="annualResidualAmount != null" >
+        ANNUAL_RESIDUAL_AMOUNT = #{annualResidualAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="platformId  != null" >
+        PLAYFORM_ID = #{platformId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.EnterpriseInfo" >
+    update ENTERPRISE_INFO
+    set ENTERPRISE_NAME = #{enterpriseName,jdbcType=VARCHAR},
+      ENTERPRISE_TYPE = #{enterpriseType,jdbcType=CHAR},
+      LEGAL_PERSON_NAME = #{legalPersonName,jdbcType=VARCHAR},
+      LEGAL_PERSON_CODE = #{legalPersonCode,jdbcType=VARCHAR},
+      ACCOUNT_NUMBER = #{accountNumber,jdbcType=VARCHAR},
+      ORGANIZATION_CODE = #{organizationCode,jdbcType=VARCHAR},
+      TAX_REGISTRATION_CODE = #{taxRegistrationCode,jdbcType=VARCHAR},
+      BUSINESS_REGISTRATION_NUMBER = #{businessRegistrationNumber,jdbcType=VARCHAR},
+      OPERATING_PERIOD = #{operatingPeriod,jdbcType=DECIMAL},
+      REGISTERED_CAPITAL = #{registeredCapital,jdbcType=DECIMAL},
+      OPERATING_RANGE = #{operatingRange,jdbcType=VARCHAR},
+      INFORMATION = #{information,jdbcType=VARCHAR},
+      MAIN_REVENUE = #{mainRevenue,jdbcType=DECIMAL},
+      GROSS_PROFIT = #{grossProfit,jdbcType=DECIMAL},
+      NET_PROFIT = #{netProfit,jdbcType=DECIMAL},
+      TOTAL_ASSETS = #{totalAssets,jdbcType=DECIMAL},
+      NET_ASSETS = #{netAssets,jdbcType=DECIMAL},
+      CONTRACT_BEGIN = #{contractBegin,jdbcType=TIMESTAMP},
+      CONTRACT_END = #{contractEnd,jdbcType=TIMESTAMP},
+      SINGLE_MAXIMUM_AMOUNT = #{singleMaximumAmount,jdbcType=DECIMAL},
+      ANNUAL_MAXIMUM_LIMIT = #{annualMaximumLimit,jdbcType=DECIMAL},
+      ANNUAL_RESIDUAL_AMOUNT = #{annualResidualAmount,jdbcType=DECIMAL},
+      STATE = #{state,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      USER_ID = #{userId,jdbcType=DECIMAL}
+      , PLAYFORM_ID = #{platformId ,jdbcType=DECIMAL}
+    where ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 分页查询-数据 -->
+  <select id="findAllEnterpriseInfoByPage" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_INFO
+    <include refid="where_findAllEnterpriseInfoByPage"/>
+    ORDER BY ENTERPRISE_ID DESC
+  </select>
+  
+  <!-- 分页查询-数量 -->
+  <select id="count_findAllEnterpriseInfoByPage" resultType="int" parameterType="java.util.HashMap">
+    SELECT count(1) from ENTERPRISE_INFO 
+    <include refid="where_findAllEnterpriseInfoByPage"/>
+  </select>
+  
+  <!-- 分页查询-条件 -->
+  <sql id="where_findAllEnterpriseInfoByPage">
+   	where 1=1
+	<if test="searchEnterpriseName != null">
+       <if test="searchEnterpriseName != ''">
+         and ENTERPRISE_NAME like '%${searchEnterpriseName}%'
+       </if>
+   	</if>
+   	<if test="searchEnterpriseType != null">
+       <if test="searchEnterpriseType != ''">
+         and ENTERPRISE_TYPE = #{searchEnterpriseType}
+       </if>
+   	</if>
+   	<if test="searchState != null">
+       <if test="searchState != ''">
+         and STATE = #{searchState}
+       </if>
+   	</if>
+  </sql>
+  
+  <select id="getAllEnterpriseInfo" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.EnterpriseInfo">
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_INFO
+    where STATE = 0
+    <if test="enterpriseType != null" >
+	    <if test="enterpriseType != ''" >
+	    	AND ENTERPRISE_TYPE = #{enterpriseType,jdbcType=CHAR}
+	    </if>
+    </if>
+    ORDER BY ENTERPRISE_ID DESC
+  </select>
+  
+  <select id="getEnterpriseInfoDetail" resultMap="EnterpriseInfoExt" parameterType="java.lang.Long"  >
+    SELECT en.*,T.AVAIL_VALUE,T.FROZE_VALUE,T.VALUE
+    FROM ENTERPRISE_INFO en LEFT JOIN
+    ( SELECT SUM(u_a.AVAIL_VALUE) AVAIL_VALUE,SUM(u_a.FROZE_VALUE) FROZE_VALUE,SUM(u_a.VALUE) VALUE,e_n.ENTERPRISE_ID
+    FROM ENTERPRISE_INFO e_n LEFT JOIN USER_ACCOUNT u_a
+    ON e_n.USER_ID = u_a.USER_ID GROUP BY e_n.ENTERPRISE_ID ) T ON T.ENTERPRISE_ID = en.ENTERPRISE_ID
+    where en.ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getEnterpriseByPlatId" resultMap="BaseResultMap" parameterType="java.lang.Long"  >
+    select
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_INFO
+    where 1 = 1
+        AND PLAYFORM_ID = #{accTypeUpdate,jdbcType=CHAR}
+
+  </select>
+    
+</mapper>

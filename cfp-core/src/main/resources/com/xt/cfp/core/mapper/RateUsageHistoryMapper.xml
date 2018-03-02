@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RATE_USAGE_HISTORY" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RateUsageHistory" >
+    <id column="RATE_USAGE_HISTORY_ID" property="rateUsageHistoryId" jdbcType="DECIMAL" />
+    <result column="RATE_USER_ID" property="rateUserId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="THIS_USED_TIMES" property="thisUsedTimes" jdbcType="DECIMAL" />
+    <result column="SURPLUS_TIMES" property="surplusTimes" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="rateUsageHistoryVO" type="com.xt.cfp.core.pojo.ext.RateUsageHistoryVO" extends="BaseResultMap">
+  	<result column="lendOrderName" property="lendOrderName" jdbcType="VARCHAR" />
+    <result property="timeLimit" column="timeLimit" jdbcType="DECIMAL" />
+    <result property="lendOrderName" column="lendOrderName" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    RATE_USAGE_HISTORY_ID, RATE_USER_ID, USER_ID, LEND_ORDER_ID, LOAN_APPLICATION_ID, 
+    THIS_USED_TIMES, SURPLUS_TIMES, STATUS, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RATE_USAGE_HISTORY
+    where RATE_USAGE_HISTORY_ID = #{rateUsageHistoryId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RATE_USAGE_HISTORY
+    where RATE_USAGE_HISTORY_ID = #{rateUsageHistoryId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.RateUsageHistory" >
+  	<selectKey keyProperty="rateUsageHistoryId" order="BEFORE" resultType="long">
+      SELECT SEQ_RATE_USAGE_HISTORY.NEXTVAL as rateUsageHistoryId FROM dual
+    </selectKey>
+    insert into RATE_USAGE_HISTORY (RATE_USAGE_HISTORY_ID, RATE_USER_ID, USER_ID, 
+      LEND_ORDER_ID, LOAN_APPLICATION_ID, THIS_USED_TIMES, 
+      SURPLUS_TIMES, STATUS, CREATE_TIME, 
+      UPDATE_TIME)
+    values (#{rateUsageHistoryId,jdbcType=DECIMAL}, #{rateUserId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{lendOrderId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, #{thisUsedTimes,jdbcType=DECIMAL}, 
+      #{surplusTimes,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.RateUsageHistory" >
+    insert into RATE_USAGE_HISTORY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rateUsageHistoryId != null" >
+        RATE_USAGE_HISTORY_ID,
+      </if>
+      <if test="rateUserId != null" >
+        RATE_USER_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="thisUsedTimes != null" >
+        THIS_USED_TIMES,
+      </if>
+      <if test="surplusTimes != null" >
+        SURPLUS_TIMES,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rateUsageHistoryId != null" >
+        #{rateUsageHistoryId,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUserId != null" >
+        #{rateUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null" >
+        #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="thisUsedTimes != null" >
+        #{thisUsedTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusTimes != null" >
+        #{surplusTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.RateUsageHistory" >
+    update RATE_USAGE_HISTORY
+    <set >
+      <if test="rateUserId != null" >
+        RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="thisUsedTimes != null" >
+        THIS_USED_TIMES = #{thisUsedTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusTimes != null" >
+        SURPLUS_TIMES = #{surplusTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RATE_USAGE_HISTORY_ID = #{rateUsageHistoryId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RateUsageHistory" >
+    update RATE_USAGE_HISTORY
+    set RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      THIS_USED_TIMES = #{thisUsedTimes,jdbcType=DECIMAL},
+      SURPLUS_TIMES = #{surplusTimes,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where RATE_USAGE_HISTORY_ID = #{rateUsageHistoryId,jdbcType=DECIMAL}
+  </update>
+  <select id="findByParams" parameterType = "map"  resultMap="BaseResultMap"   >
+    select 
+    <include refid="Base_Column_List" />
+    from RATE_USAGE_HISTORY
+    where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}   
+    and RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL}  
+    and STATUS = #{status,jdbcType=CHAR} 
+  </select>
+  
+  <!-- 根据发放ID，查询使用历史 -->
+  <select id="getHistoryByRateUserId" resultMap="rateUsageHistoryVO" parameterType="java.lang.Long" >
+    select ruh.CREATE_TIME, lo.BUY_BALANCE as buyBalance, lo.TIME_LIMIT as timeLimit, lo.LEND_ORDER_NAME as lendOrderName 
+	from RATE_USAGE_HISTORY ruh
+	left join LEND_ORDER lo on ruh.LEND_ORDER_ID = lo.LEND_ORDER_ID
+	where ruh.STATUS = '0'
+    and ruh.RATE_USER_ID = #{rateUserId,jdbcType=DECIMAL}
+  </select>
+  
+</mapper>

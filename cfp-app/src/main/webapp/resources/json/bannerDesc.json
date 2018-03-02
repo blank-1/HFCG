@@ -1,0 +1,21 @@
+{"rows":[
+	{
+		"show":"true",//值为 true 有活动 or false 无活动
+		"imageSrc":"http://app.caifupad.com/images/banner/shengdan_APPbanner.png",//图片src连接
+		"httpUrl":"http://app.caifupad.com/",//图片点击事件连接
+		"shareInfo"://分享信息json串
+		{
+			"title":"圣诞狂欢节 3天都加息！加息！加息！",//标题
+	   		"desc":"圣诞狂欢节，财富派平台3天都加息！人人有份",//描述
+	   		"link":"http://mp.weixin.qq.com/s?__biz=MzI2MjAwNDk0Mw==&mid=400707804",//分享链接
+	   		"imgUrl":"http://app.caifupad.com/images/banner/share_shengdan.png",//分享图标
+	   		"shareCloseUrl":"http://m.caifupad.com/shareClose",//监控页面分享链接，调用app分享
+	        "closeUrl":"http://m.caifupad.com/close",//监控该链接，关闭活动
+	        "shareBackUrl":"http://m.caifupad.com/back"//分享后返回的url地址。
+	        // 1.	post请求，并传两个参数（字符串类型）
+	        // 2.	参数1：userToken用户Token值（必填）
+	        // 3.	参数2：source请求来源（Ios:2;Android:3）
+	        
+	    }
+	}
+]}

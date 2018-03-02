@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="USER_OPENID" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.UserOpenId" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="OPEN_ID" property="openId" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+    <result column="GET_TIME" property="getTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, OPEN_ID, TYPE, GET_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_OPENID
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getUserIdByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_OPENID
+    where OPEN_ID = #{openId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getOpenIdByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_OPENID
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getOpenIdByCondition" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_OPENID
+    where 1=1
+    <if test="userId != null">
+    	and USER_ID = #{userId,jdbcType=DECIMAL}  
+    </if>
+    <if test="type != null">
+    	and TYPE = #{type,jdbcType=CHAR}
+    </if>
+    <if test="openId != null">
+    	and OPEN_ID = #{openId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from USER_OPENID
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.UserOpenId" >
+  <selectKey keyProperty="id" order="BEFORE" resultType="long">
+      SELECT SEQ_USER_OPENID.NEXTVAL as id FROM dual
+    </selectKey>
+    insert into USER_OPENID (ID, USER_ID, OPEN_ID, 
+      TYPE, GET_TIME)
+    values (#{id,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{openId,jdbcType=VARCHAR}, 
+      #{type,jdbcType=CHAR}, #{getTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.UserOpenId" >
+    insert into USER_OPENID
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="openId != null" >
+        OPEN_ID,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="getTime != null" >
+        GET_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="getTime != null" >
+        #{getTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.UserOpenId" >
+    update USER_OPENID
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="openId != null" >
+        OPEN_ID = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="getTime != null" >
+        GET_TIME = #{getTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.UserOpenId" >
+    update USER_OPENID
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      OPEN_ID = #{openId,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=CHAR},
+      GET_TIME = #{getTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

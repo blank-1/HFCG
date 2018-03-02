@@ -1,0 +1,16 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body,html{background: #f7f7f7!important;overflow-x: hidden;}
+header{width: 100%;display: inline-block;height: 4rem;background: #fff;margin-top:1rem;overflow: hidden;}
+header img{height: 50%;margin:1rem 5%;float: left;}
+header span{display: inline-block;padding-left:5%;border-left: solid 1px #333;font-size: 1.4rem;line-height: 3rem;margin-top: .5rem;color: #333;float: left;}
+section{background: #fff;margin-top: -2px;}
+table{width:90%;margin:2rem 5% 4rem;text-align: center;border-bottom: solid 1px #e5e5e5;border-right: solid 1px #e5e5e5;position: relative;display: inline-block;}
+table th{background: #f2f2f2;color: #ff5e61;}
+table th,table td{width:20%;height: 2.4rem;vertical-align: middle;border-top: solid 1px #e5e5e5;border-left: solid 1px #e5e5e5;}
+table th:nth-child(1),table td:nth-child(1){width:30%;}
+table::after{content: "*如有疑问请咨询客服，客服电话：400-0618080";color: #ff5e61;width: 100%;position: absolute;bottom: -2rem;left: 0;text-align:left;}
+
+
+
+

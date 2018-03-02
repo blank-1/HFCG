@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="USER_RECIVE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.UserRecive" >
+    <id column="RECIVE_ID" property="reciveId" jdbcType="DECIMAL" />
+    <result column="MSG_ID" property="msgId" jdbcType="DECIMAL" />
+    <result column="RECIVER_ID" property="reciverId" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="VIEW_TIME" property="viewTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="ResultMapWithMsgReadStatistics" type="com.xt.cfp.core.pojo.MsgReadStatistics" >
+    <result column="COUNTNUM" property="countNum" jdbcType="DECIMAL" />
+    <result column="READNUM" property="readNum" jdbcType="DECIMAL" />
+    <result column="UNREADNUM" property="unReadNum" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    RECIVE_ID, MSG_ID, RECIVER_ID, STATUS, VIEW_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_RECIVE
+    where RECIVE_ID = #{reciveId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getMsgReadStatistics" resultMap="ResultMapWithMsgReadStatistics" parameterType="java.lang.Long" >
+    select count(*) as COUNTNUM from 
+    USER_RECIVE 
+    where STATUS = '1' and MSG_ID = #{msgId,jdbcType=DECIMAL} 
+  </select>
+  
+  <select id="getStatisticsUnreadNum" resultMap="ResultMapWithMsgReadStatistics" parameterType="java.lang.Long" >
+    select count(*) as UNREADNUM 
+    from MESSAGE m left join USER_RECIVE r on m.MSG_ID = r.MSG_ID and r.RECIVE_ID = #{userId} and r.status != '1'
+  </select>
+  
+  <select id="getUserRecive" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_RECIVE 
+    where RECIVER_ID = #{reciverId,jdbcType=DECIMAL} and MSG_ID = #{msgId,jdbcType=DECIMAL}  
+    <if test="reciveId!=null">
+    	and RECIVE_ID = #{reciveId,jdbcType=DECIMAL} 
+    </if>
+  </select>
+  
+  <delete id="deleteByForeignKey" parameterType="map" >
+    delete from USER_RECIVE
+    <where>
+    	<if test="msgId != null and msgId !=''">
+    		AND MSG_ID = #{msgId,jdbcType=DECIMAL}
+    	</if>
+    	<if test="reciverId != null and reciverId !=''">
+    		AND RECIVERID = #{reciverId,jdbcType=DECIMAL}
+    	</if>
+    </where>
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.UserRecive" >
+    insert into USER_RECIVE (RECIVE_ID, MSG_ID, RECIVER_ID, 
+      STATUS, VIEW_TIME)
+    values (#{reciveId,jdbcType=DECIMAL}, #{msgId,jdbcType=DECIMAL}, #{reciverId,jdbcType=DECIMAL}, 
+      #{status,jdbcType=VARCHAR}, #{viewTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.UserRecive" >
+    <selectKey keyProperty="reciveId" order="BEFORE" resultType="long">
+      SELECT SEQ_USER_RECIVE.NEXTVAL as reciveId FROM dual
+    </selectKey>
+    insert into USER_RECIVE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reciveId != null" >
+        RECIVE_ID,
+      </if>
+      <if test="msgId != null" >
+        MSG_ID,
+      </if>
+      <if test="reciverId != null" >
+        RECIVER_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="viewTime != null" >
+        VIEW_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reciveId != null" >
+        #{reciveId,jdbcType=DECIMAL},
+      </if>
+      <if test="msgId != null" >
+        #{msgId,jdbcType=DECIMAL},
+      </if>
+      <if test="reciverId != null" >
+        #{reciverId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="viewTime != null" >
+        #{viewTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.UserRecive" >
+    update USER_RECIVE
+    <set >
+      <if test="msgId != null" >
+        MSG_ID = #{msgId,jdbcType=DECIMAL},
+      </if>
+      <if test="reciverId != null" >
+        RECIVER_ID = #{reciverId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="viewTime != null" >
+        VIEW_TIME = #{viewTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RECIVE_ID = #{reciveId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.UserRecive" >
+    update USER_RECIVE
+    set MSG_ID = #{msgId,jdbcType=DECIMAL},
+      RECIVER_ID = #{reciverId,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=VARCHAR},
+      VIEW_TIME = #{viewTime,jdbcType=TIMESTAMP}
+    where RECIVE_ID = #{reciveId,jdbcType=DECIMAL}
+  </update>
+</mapper>

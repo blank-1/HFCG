@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ENTERPRISE_USER" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.EnterpriseUser" >
+    <id column="ENTERPRISE_USER_ID" property="enterpriseUserId" jdbcType="DECIMAL" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="EnterpriseUserExt" type="com.xt.cfp.core.pojo.ext.EnterpriseUserExt" extends="BaseResultMap">
+    <id column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="BORROW_COUNT" property="borrowCount" jdbcType="DECIMAL" />
+    <result column="AVAIL_VALUE" property="availValue" jdbcType="DECIMAL" />
+    <result column="FROZE_VALUE" property="frozeValue" jdbcType="DECIMAL" />
+    <result column="VALUE" property="value" jdbcType="DECIMAL" />
+    <result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="MOBILE_NO" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ENTERPRISE_USER_ID, ENTERPRISE_ID, USER_ID, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_USER
+    where ENTERPRISE_USER_ID = #{enterpriseUserId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ENTERPRISE_USER
+    where ENTERPRISE_USER_ID = #{enterpriseUserId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.EnterpriseUser" >
+  	<selectKey keyProperty="enterpriseUserId" order="BEFORE" resultType="long">
+      SELECT SEQ_ENTERPRISE_USER.NEXTVAL as enterpriseUserId FROM dual
+    </selectKey>
+    insert into ENTERPRISE_USER (ENTERPRISE_USER_ID, ENTERPRISE_ID, USER_ID, 
+      CREATE_TIME)
+    values (#{enterpriseUserId,jdbcType=DECIMAL}, #{enterpriseId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.EnterpriseUser" >
+    insert into ENTERPRISE_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enterpriseUserId != null" >
+        ENTERPRISE_USER_ID,
+      </if>
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enterpriseUserId != null" >
+        #{enterpriseUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterpriseId != null" >
+        #{enterpriseId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.EnterpriseUser" >
+    update ENTERPRISE_USER
+    <set >
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ENTERPRISE_USER_ID = #{enterpriseUserId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.EnterpriseUser" >
+    update ENTERPRISE_USER
+    set ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ENTERPRISE_USER_ID = #{enterpriseUserId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 分页查询-数据 -->
+  <select id="findAllEnterpriseUserByPage" resultMap="EnterpriseUserExt" parameterType="java.util.HashMap">
+    select 
+    eu.ENTERPRISE_USER_ID,
+    ui.USER_ID,
+    ui.LOGIN_NAME,
+    eu.CREATE_TIME,
+    (select count(1) from LOAN_APPLICATION la where la.USER_ID = eu.USER_ID) as BORROW_COUNT,
+    ua.AVAIL_VALUE,
+    ua.FROZE_VALUE,
+    ua.VALUE,
+    uie.ID_CARD,
+    uie.REAL_NAME,
+    ui.MOBILE_NO,
+    uie.EMAIL,
+    ui.STATUS
+    from ENTERPRISE_USER eu 
+    left join USER_INFO ui on eu.USER_ID = ui.USER_ID
+    left join USER_ACCOUNT ua on ui.USER_ID = ua.USER_ID and ua.ACC_TYPE_CODE = 1
+    left join USER_INFO_EXT uie on ui.USER_ID = uie.USER_ID
+    <include refid="where_findAllEnterpriseUserByPage"/>
+    order by eu.ENTERPRISE_USER_ID desc
+  </select>
+  
+  <!-- 分页查询-数量 -->
+  <select id="count_findAllEnterpriseUserByPage" resultType="int" parameterType="java.util.HashMap">
+    select 
+    count(1)
+    from ENTERPRISE_USER eu 
+    left join USER_INFO ui on eu.USER_ID = ui.USER_ID
+    left join USER_ACCOUNT ua on ui.USER_ID = ua.USER_ID and ua.ACC_TYPE_CODE = 1
+    left join USER_INFO_EXT uie on ui.USER_ID = uie.USER_ID
+    <include refid="where_findAllEnterpriseUserByPage"/>
+  </select>
+  
+  <!-- 分页查询-条件 -->
+  <sql id="where_findAllEnterpriseUserByPage">
+   	where eu.ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL}
+   	
+   	<if test="realName != null">
+       <if test="realName != ''">
+         and uie.REAL_NAME like '%${realName}%'
+       </if>
+   	</if>
+   	<if test="loginName != null">
+       <if test="loginName != ''">
+         and ui.LOGIN_NAME like '%${loginName}%'
+       </if>
+   	</if>
+   	<if test="status != null">
+       <if test="status != ''">
+         and ui.STATUS = #{status}
+       </if>
+   	</if>
+   	
+  </sql>
+</mapper>

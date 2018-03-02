@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="REPAYMENT_RECORD" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RepaymentRecord" >
+    <id column="REPAYMENT_RECORD_ID" property="repaymentRecordId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="REPAYMENT_PLAN_ID" property="repaymentPlanId" jdbcType="DECIMAL" />
+    <result column="CUSTOMER_ACCOUNT_ID" property="customerAccountId" jdbcType="DECIMAL" />
+    <result column="PAY_ID" property="payId" jdbcType="DECIMAL" />
+    <result column="FACE_DATE" property="faceDate" jdbcType="TIMESTAMP" />
+    <result column="OPERTION_DATE" property="opertionDate" jdbcType="TIMESTAMP" />
+    <result column="DISTRIBUTE_STATUS" property="distributeStatus" jdbcType="CHAR" />
+    <result column="FINANCIAL_REPAYMENT_DATE" property="financialRepaymentDate" jdbcType="TIMESTAMP" />
+    <result column="FACT_CALITAL" property="factCalital" jdbcType="DECIMAL" />
+    <result column="FACT_INTEREST" property="factInterest" jdbcType="DECIMAL" />
+    <result column="FACT_BALANCE" property="factBalance" jdbcType="DECIMAL" />
+    <result column="IS_DELAY" property="isDelay" jdbcType="CHAR" />
+    <result column="DELAY_DAYS" property="delayDays" jdbcType="DECIMAL" />
+    <result column="DEPAL_FINE" property="depalFine" jdbcType="DECIMAL" />
+    <result column="REPAYMENT_FEES" property="repaymentFees" jdbcType="DECIMAL" />
+    <result column="IS_EARLY" property="isEarly" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    REPAYMENT_RECORD_ID, LOAN_APPLICATION_ID, REPAYMENT_PLAN_ID, CUSTOMER_ACCOUNT_ID, 
+    PAY_ID, FACE_DATE, OPERTION_DATE, DISTRIBUTE_STATUS, FINANCIAL_REPAYMENT_DATE, FACT_CALITAL, 
+    FACT_INTEREST, FACT_BALANCE, IS_DELAY, DELAY_DAYS, DEPAL_FINE, REPAYMENT_FEES, IS_EARLY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from REPAYMENT_RECORD
+    where REPAYMENT_RECORD_ID = #{repaymentRecordId,jdbcType=DECIMAL}
+  </select>
+
+
+  <select id="getRecentRepaymentRecordByCreditorRightId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from (select rr.* from REPAYMENT_RECORD rr left join RIGHTS_REPAYMENT_DETAIL rrd
+      on RR.REPAYMENT_PLAN_ID = RRD.REPAYMENT_PLAN_ID where RRD.CREDITOR_RIGHTS_ID=#{value}
+      order by RR.FACE_DATE desc)
+    <![CDATA[
+    where rowNum < 2
+          ]]>
+
+    <!--最近的一条记录-->
+  </select>
+
+  <select id="getRecentRepaymentRecordByRepaymentId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from (select * from REPAYMENT_RECORD rr where rr.REPAYMENT_PLAN_ID = #{value}
+      order by RR.FACE_DATE desc)
+    <![CDATA[
+    where rowNum < 2
+          ]]>
+
+    <!--最近的一条记录-->
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from REPAYMENT_RECORD
+    where REPAYMENT_RECORD_ID = #{repaymentRecordId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.RepaymentRecord" >
+      <selectKey keyProperty="repaymentRecordId" resultType="java.lang.Long" order="BEFORE">
+          select SEQ_REPAYMENT_RECORD.nextval as repaymentRecordId from dual
+      </selectKey>
+    insert into REPAYMENT_RECORD (REPAYMENT_RECORD_ID, LOAN_APPLICATION_ID, 
+      REPAYMENT_PLAN_ID, CUSTOMER_ACCOUNT_ID, PAY_ID, 
+      FACE_DATE, OPERTION_DATE, DISTRIBUTE_STATUS, 
+      FINANCIAL_REPAYMENT_DATE, FACT_CALITAL, 
+      FACT_INTEREST, FACT_BALANCE, IS_DELAY, 
+      DELAY_DAYS, DEPAL_FINE, REPAYMENT_FEES, 
+      IS_EARLY)
+    values (#{repaymentRecordId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, 
+      #{repaymentPlanId,jdbcType=DECIMAL}, #{customerAccountId,jdbcType=DECIMAL}, #{payId,jdbcType=DECIMAL}, 
+      #{faceDate,jdbcType=TIMESTAMP}, #{opertionDate,jdbcType=TIMESTAMP}, #{distributeStatus,jdbcType=CHAR}, 
+      #{financialRepaymentDate,jdbcType=TIMESTAMP}, #{factCalital,jdbcType=DECIMAL}, 
+      #{factInterest,jdbcType=DECIMAL}, #{factBalance,jdbcType=DECIMAL}, #{isDelay,jdbcType=CHAR}, 
+      #{delayDays,jdbcType=DECIMAL}, #{depalFine,jdbcType=DECIMAL}, #{repaymentFees,jdbcType=DECIMAL}, 
+      #{isEarly,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.RepaymentRecord" >
+    insert into REPAYMENT_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="repaymentRecordId != null" >
+        REPAYMENT_RECORD_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="repaymentPlanId != null" >
+        REPAYMENT_PLAN_ID,
+      </if>
+      <if test="customerAccountId != null" >
+        CUSTOMER_ACCOUNT_ID,
+      </if>
+      <if test="payId != null" >
+        PAY_ID,
+      </if>
+      <if test="faceDate != null" >
+        FACE_DATE,
+      </if>
+      <if test="opertionDate != null" >
+        OPERTION_DATE,
+      </if>
+      <if test="distributeStatus != null" >
+        DISTRIBUTE_STATUS,
+      </if>
+      <if test="financialRepaymentDate != null" >
+        FINANCIAL_REPAYMENT_DATE,
+      </if>
+      <if test="factCalital != null" >
+        FACT_CALITAL,
+      </if>
+      <if test="factInterest != null" >
+        FACT_INTEREST,
+      </if>
+      <if test="factBalance != null" >
+        FACT_BALANCE,
+      </if>
+      <if test="isDelay != null" >
+        IS_DELAY,
+      </if>
+      <if test="delayDays != null" >
+        DELAY_DAYS,
+      </if>
+      <if test="depalFine != null" >
+        DEPAL_FINE,
+      </if>
+      <if test="repaymentFees != null" >
+        REPAYMENT_FEES,
+      </if>
+      <if test="isEarly != null" >
+        IS_EARLY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="repaymentRecordId != null" >
+        #{repaymentRecordId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentPlanId != null" >
+        #{repaymentPlanId,jdbcType=DECIMAL},
+      </if>
+      <if test="customerAccountId != null" >
+        #{customerAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="payId != null" >
+        #{payId,jdbcType=DECIMAL},
+      </if>
+      <if test="faceDate != null" >
+        #{faceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opertionDate != null" >
+        #{opertionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="distributeStatus != null" >
+        #{distributeStatus,jdbcType=CHAR},
+      </if>
+      <if test="financialRepaymentDate != null" >
+        #{financialRepaymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factCalital != null" >
+        #{factCalital,jdbcType=DECIMAL},
+      </if>
+      <if test="factInterest != null" >
+        #{factInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="factBalance != null" >
+        #{factBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelay != null" >
+        #{isDelay,jdbcType=CHAR},
+      </if>
+      <if test="delayDays != null" >
+        #{delayDays,jdbcType=DECIMAL},
+      </if>
+      <if test="depalFine != null" >
+        #{depalFine,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentFees != null" >
+        #{repaymentFees,jdbcType=DECIMAL},
+      </if>
+      <if test="isEarly != null" >
+        #{isEarly,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.RepaymentRecord" >
+    update REPAYMENT_RECORD
+    <set >
+      <if test="loanApplicationId != 0" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentPlanId != 0" >
+        REPAYMENT_PLAN_ID = #{repaymentPlanId,jdbcType=DECIMAL},
+      </if>
+      <if test="customerAccountId != 0" >
+        CUSTOMER_ACCOUNT_ID = #{customerAccountId,jdbcType=DECIMAL},
+      </if>
+      <if test="payId != null" >
+        PAY_ID = #{payId,jdbcType=DECIMAL},
+      </if>
+      <if test="faceDate != null" >
+        FACE_DATE = #{faceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opertionDate != null" >
+        OPERTION_DATE = #{opertionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="distributeStatus != null" >
+        DISTRIBUTE_STATUS = #{distributeStatus,jdbcType=CHAR},
+      </if>
+      <if test="financialRepaymentDate != null" >
+        FINANCIAL_REPAYMENT_DATE = #{financialRepaymentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factCalital != null" >
+        FACT_CALITAL = #{factCalital,jdbcType=DECIMAL},
+      </if>
+      <if test="factInterest != null" >
+        FACT_INTEREST = #{factInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="factBalance != null" >
+        FACT_BALANCE = #{factBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelay != null" >
+        IS_DELAY = #{isDelay,jdbcType=CHAR},
+      </if>
+      <if test="delayDays != null" >
+        DELAY_DAYS = #{delayDays,jdbcType=DECIMAL},
+      </if>
+      <if test="depalFine != null" >
+        DEPAL_FINE = #{depalFine,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentFees != null" >
+        REPAYMENT_FEES = #{repaymentFees,jdbcType=DECIMAL},
+      </if>
+      <if test="isEarly != null" >
+        IS_EARLY = #{isEarly,jdbcType=CHAR},
+      </if>
+    </set>
+    where REPAYMENT_RECORD_ID = #{repaymentRecordId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RepaymentRecord" >
+    update REPAYMENT_RECORD
+    set LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      REPAYMENT_PLAN_ID = #{repaymentPlanId,jdbcType=DECIMAL},
+      CUSTOMER_ACCOUNT_ID = #{customerAccountId,jdbcType=DECIMAL},
+      PAY_ID = #{payId,jdbcType=DECIMAL},
+      FACE_DATE = #{faceDate,jdbcType=TIMESTAMP},
+      OPERTION_DATE = #{opertionDate,jdbcType=TIMESTAMP},
+      DISTRIBUTE_STATUS = #{distributeStatus,jdbcType=CHAR},
+      FINANCIAL_REPAYMENT_DATE = #{financialRepaymentDate,jdbcType=TIMESTAMP},
+      FACT_CALITAL = #{factCalital,jdbcType=DECIMAL},
+      FACT_INTEREST = #{factInterest,jdbcType=DECIMAL},
+      FACT_BALANCE = #{factBalance,jdbcType=DECIMAL},
+      IS_DELAY = #{isDelay,jdbcType=CHAR},
+      DELAY_DAYS = #{delayDays,jdbcType=DECIMAL},
+      DEPAL_FINE = #{depalFine,jdbcType=DECIMAL},
+      REPAYMENT_FEES = #{repaymentFees,jdbcType=DECIMAL},
+      IS_EARLY = #{isEarly,jdbcType=CHAR}
+    where REPAYMENT_RECORD_ID = #{repaymentRecordId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RATE_PRODUCT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RateProduct" >
+    <id column="RATE_PRODUCT_ID" property="rateProductId" jdbcType="DECIMAL" />
+    <result column="RATE_PRODUCT_NAME" property="rateProductName" jdbcType="VARCHAR" />
+    <result column="RATE_VALUE" property="rateValue" jdbcType="DECIMAL" />
+    <result column="USAGE_SCENARIO" property="usageScenario" jdbcType="CHAR" />
+    <result column="CONDITION" property="condition" jdbcType="VARCHAR" />
+    <result column="USAGE_TIMES" property="usageTimes" jdbcType="DECIMAL" />
+    <result column="USAGE_DURATION" property="usageDuration" jdbcType="DECIMAL" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="IS_OVERLAY" property="isOverlay" jdbcType="CHAR" />
+    <result column="USAGE_REMARK" property="usageRemark" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="rateProductVO" type="com.xt.cfp.core.pojo.ext.RateProductVO" extends="BaseResultMap">
+    <result property="totalRateUser" column="totalRateUser" jdbcType="DECIMAL" />
+    <result property="usedRateUser" column="usedRateUser" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    RATE_PRODUCT_ID, RATE_PRODUCT_NAME, RATE_VALUE, USAGE_SCENARIO, CONDITION, USAGE_TIMES, 
+    USAGE_DURATION, START_DATE, END_DATE, IS_OVERLAY, USAGE_REMARK, STATUS, CREATE_TIME, 
+    LAST_UPDATE_TIME, ADMIN_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RATE_PRODUCT
+    where RATE_PRODUCT_ID = #{rateProductId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RATE_PRODUCT
+    where RATE_PRODUCT_ID = #{rateProductId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.RateProduct" >
+  	<selectKey keyProperty="rateProductId" order="BEFORE" resultType="long">
+      SELECT SEQ_RATE_PRODUCT.NEXTVAL as rateProductId FROM dual
+    </selectKey>
+    insert into RATE_PRODUCT (RATE_PRODUCT_ID, RATE_PRODUCT_NAME, RATE_VALUE, 
+      USAGE_SCENARIO, CONDITION, USAGE_TIMES, 
+      USAGE_DURATION, START_DATE, END_DATE, 
+      IS_OVERLAY, USAGE_REMARK, STATUS, 
+      CREATE_TIME, LAST_UPDATE_TIME, ADMIN_ID
+      )
+    values (#{rateProductId,jdbcType=DECIMAL}, #{rateProductName,jdbcType=VARCHAR}, #{rateValue,jdbcType=DECIMAL}, 
+      #{usageScenario,jdbcType=CHAR}, #{condition,jdbcType=VARCHAR}, #{usageTimes,jdbcType=DECIMAL}, 
+      #{usageDuration,jdbcType=DECIMAL}, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{isOverlay,jdbcType=CHAR}, #{usageRemark,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{adminId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.RateProduct" >
+    insert into RATE_PRODUCT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rateProductId != null" >
+        RATE_PRODUCT_ID,
+      </if>
+      <if test="rateProductName != null" >
+        RATE_PRODUCT_NAME,
+      </if>
+      <if test="rateValue != null" >
+        RATE_VALUE,
+      </if>
+      <if test="usageScenario != null" >
+        USAGE_SCENARIO,
+      </if>
+      <if test="condition != null" >
+        CONDITION,
+      </if>
+      <if test="usageTimes != null" >
+        USAGE_TIMES,
+      </if>
+      <if test="usageDuration != null" >
+        USAGE_DURATION,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="isOverlay != null" >
+        IS_OVERLAY,
+      </if>
+      <if test="usageRemark != null" >
+        USAGE_REMARK,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rateProductId != null" >
+        #{rateProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="rateProductName != null" >
+        #{rateProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="rateValue != null" >
+        #{rateValue,jdbcType=DECIMAL},
+      </if>
+      <if test="usageScenario != null" >
+        #{usageScenario,jdbcType=CHAR},
+      </if>
+      <if test="condition != null" >
+        #{condition,jdbcType=VARCHAR},
+      </if>
+      <if test="usageTimes != null" >
+        #{usageTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="usageDuration != null" >
+        #{usageDuration,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isOverlay != null" >
+        #{isOverlay,jdbcType=CHAR},
+      </if>
+      <if test="usageRemark != null" >
+        #{usageRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.RateProduct" >
+    update RATE_PRODUCT
+    <set >
+      <if test="rateProductName != null" >
+        RATE_PRODUCT_NAME = #{rateProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="rateValue != null" >
+        RATE_VALUE = #{rateValue,jdbcType=DECIMAL},
+      </if>
+      <if test="usageScenario != null" >
+        USAGE_SCENARIO = #{usageScenario,jdbcType=CHAR},
+      </if>
+      <if test="condition != null" >
+        CONDITION = #{condition,jdbcType=VARCHAR},
+      </if>
+      <if test="usageTimes != null" >
+        USAGE_TIMES = #{usageTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="usageDuration != null" >
+        USAGE_DURATION = #{usageDuration,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isOverlay != null" >
+        IS_OVERLAY = #{isOverlay,jdbcType=CHAR},
+      </if>
+      <if test="usageRemark != null" >
+        USAGE_REMARK = #{usageRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where RATE_PRODUCT_ID = #{rateProductId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RateProduct" >
+    update RATE_PRODUCT
+    set RATE_PRODUCT_NAME = #{rateProductName,jdbcType=VARCHAR},
+      RATE_VALUE = #{rateValue,jdbcType=DECIMAL},
+      USAGE_SCENARIO = #{usageScenario,jdbcType=CHAR},
+      CONDITION = #{condition,jdbcType=VARCHAR},
+      USAGE_TIMES = #{usageTimes,jdbcType=DECIMAL},
+      USAGE_DURATION = #{usageDuration,jdbcType=DECIMAL},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      IS_OVERLAY = #{isOverlay,jdbcType=CHAR},
+      USAGE_REMARK = #{usageRemark,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+    where RATE_PRODUCT_ID = #{rateProductId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 加息券产品分页列表（数据） -->
+  <select id="getRateProductPaging" resultMap="rateProductVO" parameterType="map" >
+	select 
+    rp.*,
+    (select count(1) from RATE_USER ru where ru.RATE_PRODUCT_ID = rp.RATE_PRODUCT_ID) as totalRateUser,
+    (select count(1) from RATE_USER ru where ru.RATE_PRODUCT_ID = rp.RATE_PRODUCT_ID and ru.USED_TIMES > 0) as usedRateUser
+    from RATE_PRODUCT rp
+    <include refid="where_getRateProductPaging"/>
+    order by rp.RATE_PRODUCT_ID desc
+  </select>
+  
+  <!-- 加息券产品分页列表（数量） -->
+  <select id="count_getRateProductPaging" resultType="int" parameterType="map" >
+	select 
+    count(1)
+    from RATE_PRODUCT rp
+    <include refid="where_getRateProductPaging"/>
+  </select>
+  
+  <!-- 加息券产品分页列表（条件） -->
+  <sql id="where_getRateProductPaging">
+	where 1=1
+	<if test="rateProduct != null">
+        <if test="rateProduct.rateProductName != null and rateProduct.rateProductName != ''">
+          AND rp.RATE_PRODUCT_NAME like '%${rateProduct.rateProductName}%'
+        </if>
+        <if test="rateProduct.usageScenario != null and rateProduct.usageScenario != ''">
+          AND rp.USAGE_SCENARIO = #{rateProduct.usageScenario}
+        </if>
+        <if test="rateProduct.status != null and rateProduct.status != ''">
+          AND rp.STATUS = #{rateProduct.status}
+        </if>
+    </if>
+    
+	<if test="customParams != null">
+		<if test="customParams.timeInterval != null">
+			<if test="customParams.timeInterval.startTime != null">
+			  <![CDATA[AND rp.START_DATE >= #{customParams.timeInterval.startTime}]]>
+			</if>
+			<if test="customParams.timeInterval.endTime != null">
+			  <![CDATA[AND rp.END_DATE < #{customParams.timeInterval.endTime}+interval '1' DAY]]>
+			</if>
+		</if>
+	</if>
+  </sql>
+  
+  <!-- 更改加息券产品状态 -->
+  <update id="changeRateProductStatus" parameterType="map" >
+    update RATE_PRODUCT
+    set STATUS = #{status,jdbcType=CHAR}
+    where RATE_PRODUCT_ID = #{rateProductId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 刷新加息产品表状态 -->
+  <update id="updateRateProductStatusByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RateProduct" >
+	   update RATE_PRODUCT r
+	   set r.STATUS = '2'
+	   where r.STATUS !='2'
+	   <![CDATA[ AND to_date(to_char(r.END_DATE +interval '1' DAY ,'yyyy-MM-dd'),'yyyy-MM-dd') < #{endDate,jdbcType=TIMESTAMP}]]>
+  </update>
+  
+  <!-- 刷新加息发放表状态  -->
+  <update id="updateRateUsersStatusByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RateProduct" >
+	   update RATE_USER r
+	   set r.STATUS = '3'
+	   where (r.STATUS ='0' or r.STATUS='1') 
+	   <![CDATA[ AND to_date(to_char(r.END_DATE +interval '1' DAY ,'yyyy-MM-dd'),'yyyy-MM-dd') < #{endDate,jdbcType=TIMESTAMP}]]>
+  </update>
+  
+  <!-- 获取有效的加息券产品列表 -->
+  <select id="getEfficientRateProductList" resultMap="BaseResultMap" parameterType="java.util.Date" >
+    select rp.*
+    from RATE_PRODUCT rp
+    where rp.STATUS in ('0','1')
+    <![CDATA[and rp.START_DATE <= #{value}]]>
+    <![CDATA[and rp.END_DATE+interval '1' DAY >= #{value}]]>
+    order by rp.RATE_PRODUCT_ID desc
+  </select>
+    
+</mapper>

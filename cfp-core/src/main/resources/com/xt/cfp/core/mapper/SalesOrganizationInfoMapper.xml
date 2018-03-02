@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SL_ORGANIZATION_INFO" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.SalesOrganizationInfo" >
+    <id column="ORGANIZE_ID" property="organizeId" jdbcType="DECIMAL" />
+    <result column="ORGANIZE_CODE" property="organizeCode" jdbcType="VARCHAR" />
+    <result column="ORGANIZE_NAME" property="organizeName" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+    <result column="ORGANIZE_ATTR_TYPE" property="organizeAttrType" jdbcType="VARCHAR" />
+    <result column="ORGANIZE_ATTR_VALUE" property="organizeAttrValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ORGANIZE_ID, ORGANIZE_CODE, ORGANIZE_NAME, DESCRIPTION, PARENT_ID, ORGANIZE_ATTR_TYPE, 
+    ORGANIZE_ATTR_VALUE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from SL_ORGANIZATION_INFO
+    where ORGANIZE_ID = #{organizeId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from SL_ORGANIZATION_INFO
+    where ORGANIZE_ID = #{organizeId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.SalesOrganizationInfo" >
+    <selectKey keyProperty="organizeId" order="BEFORE" resultType="long">
+      SELECT SEQ_SL_ORGANIZATION_INFO.NEXTVAL as organizeId FROM dual
+    </selectKey>
+    insert into SL_ORGANIZATION_INFO (ORGANIZE_ID, ORGANIZE_CODE, ORGANIZE_NAME, 
+      DESCRIPTION, PARENT_ID, ORGANIZE_ATTR_TYPE, 
+      ORGANIZE_ATTR_VALUE)
+    values (#{organizeId,jdbcType=DECIMAL}, #{organizeCode,jdbcType=VARCHAR}, #{organizeName,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{parentId,jdbcType=DECIMAL}, #{organizeAttrType,jdbcType=VARCHAR}, 
+      #{organizeAttrValue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.SalesOrganizationInfo" >
+    insert into SL_ORGANIZATION_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="organizeId != null" >
+        ORGANIZE_ID,
+      </if>
+      <if test="organizeCode != null" >
+        ORGANIZE_CODE,
+      </if>
+      <if test="organizeName != null" >
+        ORGANIZE_NAME,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="organizeAttrType != null" >
+        ORGANIZE_ATTR_TYPE,
+      </if>
+      <if test="organizeAttrValue != null" >
+        ORGANIZE_ATTR_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="organizeId != null" >
+        #{organizeId,jdbcType=DECIMAL},
+      </if>
+      <if test="organizeCode != null" >
+        #{organizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organizeName != null" >
+        #{organizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="organizeAttrType != null" >
+        #{organizeAttrType,jdbcType=VARCHAR},
+      </if>
+      <if test="organizeAttrValue != null" >
+        #{organizeAttrValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.SalesOrganizationInfo" >
+    update SL_ORGANIZATION_INFO
+    <set >
+      <if test="organizeCode != null" >
+        ORGANIZE_CODE = #{organizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organizeName != null" >
+        ORGANIZE_NAME = #{organizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="organizeAttrType != null" >
+        ORGANIZE_ATTR_TYPE = #{organizeAttrType,jdbcType=VARCHAR},
+      </if>
+      <if test="organizeAttrValue != null" >
+        ORGANIZE_ATTR_VALUE = #{organizeAttrValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORGANIZE_ID = #{organizeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.SalesOrganizationInfo" >
+    update SL_ORGANIZATION_INFO
+    set ORGANIZE_CODE = #{organizeCode,jdbcType=VARCHAR},
+      ORGANIZE_NAME = #{organizeName,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      ORGANIZE_ATTR_TYPE = #{organizeAttrType,jdbcType=VARCHAR},
+      ORGANIZE_ATTR_VALUE = #{organizeAttrValue,jdbcType=VARCHAR}
+    where ORGANIZE_ID = #{organizeId,jdbcType=DECIMAL}
+  </update>
+
+  <!-- 查询所有 -->
+  <select id="findAllSalesOrganizetionInfo" resultMap="BaseResultMap">
+    select * from SL_ORGANIZATION_INFO
+  </select>
+
+  <!-- 根据父ID查询 -->
+  <select id="getOrganizeByPId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from SL_ORGANIZATION_INFO
+    where PARENT_ID = #{parentId,jdbcType=DECIMAL}
+  </select>
+
+  <!-- 根据Code查询 -->
+  <select id="getOrganizeByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from SL_ORGANIZATION_INFO
+    where ORGANIZE_CODE = #{code,jdbcType=VARCHAR}
+  </select>
+</mapper>

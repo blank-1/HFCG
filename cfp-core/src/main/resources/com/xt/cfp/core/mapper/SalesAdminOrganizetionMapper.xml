@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SL_ADMIN_ORGANIZATION" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.SalesAdminOrganizetion" >
+    <id column="ADMIN_ORGANIZE_ID" property="adminOrganizeId" jdbcType="DECIMAL" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+    <result column="ORGANIZE_ID" property="organizeId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADMIN_ORGANIZE_ID, ADMIN_ID, ORGANIZE_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from SL_ADMIN_ORGANIZATION
+    where ADMIN_ORGANIZE_ID = #{adminOrganizeId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getOrganizetionInfobyAdminId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from SL_ADMIN_ORGANIZATION
+    where ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getUserCountByOrganizeId" resultType="int" parameterType="java.lang.Long" >
+    select
+    count(1)
+    from SL_ADMIN_ORGANIZATION
+    where ORGANIZE_ID = #{organizeId,jdbcType=DECIMAL}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from SL_ADMIN_ROLE
+    where ADMIN_ORGANIZE_ID = #{adminOrganizeId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.SalesAdminRole" >
+    <selectKey keyProperty="adminOrganizeId" order="BEFORE" resultType="long">
+      SELECT SEQ_SL_ADMIN_ORGANIZATION.NEXTVAL as adminOrganizeId FROM dual
+    </selectKey>
+    insert into SL_ADMIN_ORGANIZATION (ADMIN_ORGANIZE_ID, ADMIN_ID, ORGANIZE_ID)
+    values (#{adminOrganizeId,jdbcType=DECIMAL}, #{adminId,jdbcType=DECIMAL}, #{organizeId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.SalesAdminRole" >
+    insert into SL_ADMIN_ORGANIZATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminOrganizeId != null" >
+        ADMIN_ORGANIZE_ID,
+      </if>
+      <if test="organizeId != null" >
+        ORGANIZE_ID,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminOrganizeId != null" >
+        #{adminOrganizeId,jdbcType=DECIMAL},
+      </if>
+      <if test="organizeId != null" >
+        #{organizeId,jdbcType=DECIMAL},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.SalesAdminRole" >
+    update SL_ADMIN_ORGANIZATION
+    <set >
+      <if test="organizeId != null" >
+        ORGANIZE_ID = #{organizeId,jdbcType=DECIMAL},
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ADMIN_ORGANIZE_ID = #{adminOrganizeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.SalesAdminRole" >
+    update SL_ADMIN_ORGANIZATION
+    set ORGANIZE_ID = #{organizeId,jdbcType=DECIMAL},
+      ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+    where ADMIN_ORGANIZE_ID = #{adminOrganizeId,jdbcType=DECIMAL}
+  </update>
+
+</mapper>

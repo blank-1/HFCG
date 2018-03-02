@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="WITHDRAW" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.WithDraw" >
+    <id column="WITHDRAW_ID" property="withdrawId" jdbcType="DECIMAL" />
+    <result column="VERIFIER_ID" property="verifierId" jdbcType="DECIMAL" />
+    <result column="CUSTOMER_CARD_ID" property="customerCardId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="OPERATOR_ID" property="operatorId" jdbcType="DECIMAL" />
+    <result column="WITHDRAW_AMOUNT" property="withdrawAmount" jdbcType="DECIMAL" />
+    <result column="COMMISSION_FEE" property="commissionFee" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="VERIFY_STATUS" property="verifyStatus" jdbcType="CHAR" />
+    <result column="TRANS_STATUS" property="transStatus" jdbcType="CHAR" />
+    <result column="VERIFY_OPINION" property="verifyOpinion" jdbcType="VARCHAR" />
+    <result column="RESULT_DESC" property="resultDesc" jdbcType="VARCHAR" />
+    <result column="WITHDRAW_FLOW_ID" property="withDrawFlowId" jdbcType="VARCHAR" />
+    <result column="OPERATE_TIME" property="operateTime" jdbcType="TIMESTAMP" />
+    <result column="RESULT_TIME" property="resultTime" jdbcType="TIMESTAMP" />
+    <result column="HAPPEN_TYPE" property="happenType" jdbcType="VARCHAR" />
+    <result column="CONFIRM_WITHDRAW_TIME" property="confirmWithdrawTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="WithDrawVO" type="com.xt.cfp.core.pojo.ext.WithDrawExt" extends="BaseResultMap">
+    <result property="loginName" column="LOGIN_NAME" jdbcType="VARCHAR" />
+    <result property="realName" column="REAL_NAME" jdbcType="VARCHAR" />
+    <result property="userName" column="userName" jdbcType="VARCHAR" />
+    <result property="bankName" column="BANK_NAME" jdbcType="VARCHAR" />
+    <result property="cardNo" column="CARD_CODE" jdbcType="VARCHAR" />
+    <result property="allIncomeAmount" column="allIncomeAmount" jdbcType="DECIMAL" />
+    <result property="allWithDrawAmount" column="allWithDrawAmount" jdbcType="DECIMAL" />
+    <result property="allBondondAmount" column="allBondondAmount" jdbcType="DECIMAL" />
+    <result property="fee" column="fee" jdbcType="DECIMAL" />
+    <result property="amountWithoutFee" column="amountWithoutFee" jdbcType="DECIMAL" />
+    <result property="operateName" column="operateName" jdbcType="VARCHAR" />
+    <result property="belongChannel" column="BELONG_CHANNEL" jdbcType="VARCHAR" />
+    <result property="resourceDesc" column="RESOURCE_DESC" jdbcType="VARCHAR" />
+    <result property="shortBank" column="SHORT_BANK" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="PhoneSellWithdrawVO" type="com.xt.cfp.core.pojo.ext.phonesell.WithdrawVO" >
+    <result column="LOGIN" property="adminCode" jdbcType="VARCHAR" />
+    <result column="DISPLAY_NAME" property="adminName" jdbcType="VARCHAR" />
+    <result column="LOGIN_NAME" property="userCode" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="time" jdbcType="TIMESTAMP" />
+    <result column="WITHDRAW_AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="CARD" property="card" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="CRMWithdrawVO" type="com.xt.cfp.core.pojo.ext.crm.CRMWithdrawVO">
+  	<result column="withdraw_id" property="wirhdrawId" jdbcType="DECIMAL" />
+    <result column="withdraw_amount" property="amount" jdbcType="DECIMAL" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="mobile_no" property="customerMobile" jdbcType="VARCHAR" />
+    <result column="card_code" property="cardNo" jdbcType="VARCHAR" />
+    <result column="short_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="verify_status" property="verifyStatus" jdbcType="VARCHAR" />
+    <result column="trans_status" property="transStatus" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="result_time" property="resultTime" jdbcType="TIMESTAMP" />
+    <result column="staff_name" property="staffName" jdbcType="VARCHAR" />
+    <result column="invitation_code" property="invitationCode" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="franchise_name" property="franchiseName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    WITHDRAW_ID, VERIFIER_ID, CUSTOMER_CARD_ID, USER_ID, OPERATOR_ID, WITHDRAW_AMOUNT, RESULT_DESC,COMMISSION_FEE,
+    REMARK, CREATE_TIME, VERIFY_STATUS, TRANS_STATUS, VERIFY_OPINION, OPERATE_TIME, RESULT_TIME,WITHDRAW_FLOW_ID,HAPPEN_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from WITHDRAW
+    where WITHDRAW_ID = #{value}
+  </select>
+
+  <select id="selectByPrimaryKeyLocked" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from WITHDRAW
+    where WITHDRAW_ID = #{value} for update
+  </select>
+
+  <select id="lockByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from WITHDRAW
+    where WITHDRAW_ID = #{value} for UPDATE
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from WITHDRAW
+    where WITHDRAW_ID = #{withdrawId,jdbcType=DECIMAL}
+  </delete>
+  <select id="getWithdrawListByCardId" parameterType="long" resultMap="BaseResultMap">
+	select 
+    <include refid="Base_Column_List" />
+    from WITHDRAW
+    where CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- 根据用户卡ID，获得提现总额 -->
+  <select id="getWithdrawAmountSumByCardId" parameterType="long" resultType="BigDecimal">
+	select sum(WITHDRAW_AMOUNT) as WITHDRAW_AMOUNT_SUM from WITHDRAW 
+	where CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL} 
+	and TRANS_STATUS = '3'
+	and VERIFY_STATUS = '1'
+  </select>
+
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.WithDraw" >
+    <selectKey keyProperty="withdrawId" order="BEFORE" resultType="long">
+      SELECT SEQ_WITHDRAW.NEXTVAL as withdrawId FROM dual
+    </selectKey>
+    insert into WITHDRAW
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="withdrawId != null" >
+        WITHDRAW_ID,
+      </if>
+      <if test="verifierId != null" >
+        VERIFIER_ID,
+      </if>
+      <if test="customerCardId != null" >
+        CUSTOMER_CARD_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="operatorId != null" >
+        OPERATOR_ID,
+      </if>
+      <if test="withdrawAmount != null" >
+        WITHDRAW_AMOUNT,
+      </if>
+      <if test="remark != null" >
+        "REMARK",
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="verifyStatus != null" >
+        VERIFY_STATUS,
+      </if>
+      <if test="transStatus != null" >
+        TRANS_STATUS,
+      </if>
+      <if test="verifyOpinion != null" >
+        VERIFY_OPINION,
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME,
+      </if>
+      <if test="resultTime != null" >
+        RESULT_TIME,
+      </if>
+      <if test="commissionFee != null" >
+        COMMISSION_FEE,
+      </if>
+      <if test="resultDesc != null" >
+        RESULT_DESC,
+      </if>
+      <if test="withDrawFlowId != null" >
+        WITHDRAW_FLOW_ID,
+      </if>
+      <if test="happenType != null" >
+        HAPPEN_TYPE,
+      </if>
+       <if test="confirmWithdrawTime != null" >
+        CONFIRM_WITHDRAW_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="withdrawId != null" >
+        #{withdrawId,jdbcType=DECIMAL},
+      </if>
+      <if test="verifierId != null" >
+        #{verifierId,jdbcType=DECIMAL},
+      </if>
+      <if test="customerCardId != null" >
+        #{customerCardId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawAmount != null" >
+        #{withdrawAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyStatus != null" >
+        #{verifyStatus,jdbcType=CHAR},
+      </if>
+      <if test="transStatus != null" >
+        #{transStatus,jdbcType=CHAR},
+      </if>
+      <if test="verifyOpinion != null" >
+        #{verifyOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resultTime != null" >
+        #{resultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commissionFee != null" >
+        #{commissionFee,jdbcType=DECIMAL},
+      </if>
+      <if test="resultDesc != null" >
+        #{resultDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="withDrawFlowId != null" >
+        #{withDrawFlowId,jdbcType=VARCHAR},
+      </if>
+      <if test="happenType != null" >
+        #{happenType,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmWithdrawTime != null" >
+        #{confirmWithdrawTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateWithDraw" parameterType="com.xt.cfp.core.pojo.WithDraw" >
+    update WITHDRAW
+    <set >
+      <if test="verifierId != null" >
+        VERIFIER_ID = #{verifierId,jdbcType=DECIMAL},
+      </if>
+      <if test="customerCardId != null" >
+        CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorId != null" >
+        OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawAmount != null" >
+        WITHDRAW_AMOUNT = #{withdrawAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyStatus != null" >
+        VERIFY_STATUS = #{verifyStatus,jdbcType=CHAR},
+      </if>
+      <if test="transStatus != null" >
+        TRANS_STATUS = #{transStatus,jdbcType=CHAR},
+      </if>
+      <if test="verifyOpinion != null" >
+        VERIFY_OPINION = #{verifyOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resultTime != null" >
+        RESULT_TIME = #{resultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commissionFee != null" >
+        COMMISSION_FEE = #{commissionFee,jdbcType=DECIMAL},
+      </if>
+      <if test="resultDesc != null" >
+        RESULT_DESC = #{resultDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="withDrawFlowId != null" >
+        WITHDRAW_FLOW_ID  = #{withDrawFlowId,jdbcType=VARCHAR},
+      </if>
+      <if test="happenType != null" >
+        HAPPEN_TYPE = #{happenType,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmWithdrawTime != null" >
+        CONFIRM_WITHDRAW_TIME = #{confirmWithdrawTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where WITHDRAW_ID = #{withdrawId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.WithDraw" >
+    update WITHDRAW
+    set VERIFIER_ID = #{verifierId,jdbcType=DECIMAL},
+      CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      WITHDRAW_AMOUNT = #{withdrawAmount,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      VERIFY_STATUS = #{verifyStatus,jdbcType=CHAR},
+      TRANS_STATUS = #{transStatus,jdbcType=CHAR},
+      VERIFY_OPINION = #{verifyOpinion,jdbcType=VARCHAR},
+      OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+       COMMISSION_FEE = #{commissionFee,jdbcType=DECIMAL},
+        RESULT_DESC = #{resultDesc,jdbcType=VARCHAR},
+      RESULT_TIME = #{resultTime,jdbcType=TIMESTAMP},
+
+      WITHDRAW_FLOW_ID  = #{withDrawFlowId,jdbcType=VARCHAR},
+      HAPPEN_TYPE = #{happenType,jdbcType=VARCHAR},
+      CONFIRM_WITHDRAW_TIME = #{confirmWithdrawTime,jdbcType=TIMESTAMP}
+
+    where WITHDRAW_ID = #{withdrawId,jdbcType=DECIMAL}
+  </update>
+
+
+  <select id="getWithDrawPaging" resultMap="WithDrawVO" parameterType="map" >
+    select W.*,UE.REAL_NAME,c.card_customer_name userName,U.LOGIN_NAME,C.CARD_CODE,cf.CONSTANT_NAME short_bank
+    ,cf.CONSTANT_NAME||c.REGISTERED_BANK BANK_NAME,ai.login_name operateName,c.belong_channel,o.resource_desc
+    from WITHDRAW W
+    LEFT JOIN USER_INFO_EXT UE ON w.USER_ID=UE.USER_ID
+    LEFT JOIN USER_INFO U ON w.USER_ID=U.USER_ID
+    left join CUSTOMER_CARD c on W.CUSTOMER_CARD_ID = C.CUSTOMER_CARD_ID
+    left join admin_info ai on w.OPERATOR_ID = ai.admin_id
+    left join CONSTANT_DEFINE cf on cf.CONSTANT_DEFINE_ID = C.BANK_CODE
+    left join order_resource_mapping orm on w.withdraw_id=orm.order_id and w.create_time=orm.create_time and orm.resource_type='2'
+	left join order_resource o on orm.resource_id=o.resource_id
+    <where>
+      <if test="withDraw != null">
+        <if test="withDraw.userId != null and withDraw.userId != ''">
+          AND    w.USER_ID  = #{withDraw.userId,jdbcType=DECIMAL}
+        </if>
+        <if test="withDraw.verifyStatus != null and withDraw.verifyStatus != ''">
+          AND   VERIFY_STATUS  = #{withDraw.verifyStatus,jdbcType=DECIMAL}
+        </if>
+        <if test="withDraw.transStatus != null and withDraw.transStatus != ''">
+          AND   TRANS_STATUS  = #{withDraw.transStatus,jdbcType=DECIMAL}
+        </if>
+
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+        <if test="customParams.timeInterval != null">
+          <if test="customParams.timeInterval.startTime != null">
+            	<![CDATA[AND w.CREATE_TIME >= #{customParams.timeInterval.startTime}]]>
+          </if>
+          <if test="customParams.timeInterval.endTime != null">
+            	<![CDATA[AND w.CREATE_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY]]>
+          </if>
+          <if test="customParams.operateName != null and customParams.operateName != ''">
+            	<![CDATA[AND ue.REAL_NAME like  '%${customParams.operateName}%']]>
+          </if>
+        </if>
+        <if test="customParams.resource != null and customParams.resource != ''">
+          		o.resource_desc = #{customParams.resource,jdbcType=VARCHAR}
+        </if>
+        <if test="customParams.belongChannel != null and customParams.belongChannel != ''">
+         		c.belong_channel = #{customParams.belongChannel,jdbcType=VARCHAR}
+        </if>
+      </if>
+    </where>
+    ORDER BY WITHDRAW_ID DESC
+  </select>
+
+  <select id="count_getWithDrawPaging"  resultType="int" parameterType="map" >
+    select count(1)
+    from WITHDRAW W
+    LEFT JOIN USER_INFO_EXT UE ON w.USER_ID=UE.USER_ID
+    LEFT JOIN USER_INFO U ON w.USER_ID=U.USER_ID
+    left join CUSTOMER_CARD c on W.CUSTOMER_CARD_ID = C.CUSTOMER_CARD_ID
+    left join order_resource_mapping orm on w.withdraw_id=orm.order_id and w.create_time=orm.create_time and orm.resource_type='2'
+	left join order_resource o on orm.resource_id=o.resource_id
+    <where>
+      <if test="withDraw != null">
+        <if test="withDraw.userId != null and withDraw.userId != ''">
+          AND    w.USER_ID  = #{withDraw.userId,jdbcType=DECIMAL}
+        </if>
+        <if test="withDraw.verifyStatus != null and withDraw.verifyStatus != ''">
+          AND   VERIFY_STATUS  = #{withDraw.verifyStatus,jdbcType=DECIMAL}
+        </if>
+        <if test="withDraw.transStatus != null and withDraw.transStatus != ''">
+          AND   TRANS_STATUS  = #{withDraw.transStatus,jdbcType=DECIMAL}
+        </if>
+
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+        <if test="customParams.timeInterval != null">
+          <if test="customParams.timeInterval.startTime != null">
+            	<![CDATA[AND W.CREATE_TIME >= #{customParams.timeInterval.startTime}]]>
+          </if>
+          <if test="customParams.timeInterval.endTime != null">
+            	<![CDATA[AND w.CREATE_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY]]>
+          </if>
+        </if>
+        <if test="customParams.operateName != null and customParams.operateName != ''">
+          		<![CDATA[AND ue.REAL_NAME like  '%${customParams.operateName}%' ]]>
+        </if>
+        <if test="customParams.resource != null and customParams.resource != ''">
+      			o.resource_desc = #{customParams.resource,jdbcType=VARCHAR}
+      	</if>
+      	<if test="customParams.belongChannel != null and customParams.belongChannel != ''">
+      			c.belong_channel = #{customParams.belongChannel,jdbcType=VARCHAR}
+      	</if>
+      </if>
+    </where>
+    ORDER BY WITHDRAW_ID DESC
+  </select>
+
+
+  <select id="getWithDrawTimesByUserId"  resultType="int" parameterType="java.lang.Long" >
+    select count(1) from WITHDRAW w where W.USER_ID=#{value} and
+to_char(W.CREATE_TIME ,'yyyy-MM-dd') = to_char(sysdate,'yyyy-MM-dd')
+  </select>
+  <!--当日累计提现金额-->
+  <select id="getWithDrawAmountByUserId"  resultType="java.math.BigDecimal" parameterType="java.lang.Long" >
+    select NVl(sum(WITHDRAW_AMOUNT),0) from WITHDRAW w where W.USER_ID=#{value} and
+to_char(W.CREATE_TIME ,'yyyy-MM-dd') = to_char(sysdate,'yyyy-MM-dd') and w.TRANS_STATUS <![CDATA[ <> '4']]>
+  </select>
+  <select id="getAllWithDrawAmountByUserId"  resultType="java.math.BigDecimal" parameterType="java.lang.Long" >
+    select NVl(sum(WW.WITHDRAW_AMOUNT),0) from WITHDRAW ww where WW.USER_ID=#{userId} and ww.TRANS_STATUS='3'
+
+    <if test="month != null and month != ''">
+
+      and to_char(ww.RESULT_TIME,'YYYYMM') = #{month}
+    </if>
+  </select>
+
+
+  <select id="getWithDrawDetail" resultMap="WithDrawVO" parameterType="java.lang.Long" >
+    SELECT W.*,
+    UE.REAL_NAME,
+    U.LOGIN_NAME,
+    t.VALUE,
+    (select NVL(sum(R.AMOUNT),0) from RECHARGE_ORDER r where R.USER_ID=  w.USER_ID and r.STATUS='1') as allIncomeAmount,
+    (select NVl(sum(WW.WITHDRAW_AMOUNT),0) from WITHDRAW ww where WW.USER_ID=w.USER_ID and ww.TRANS_STATUS='3') as allWithDrawAmount,
+    (select  NVL(sum(RIGHTS_WORTH),0) from CREDITOR_RIGHTS cs where CS.LEND_USER_ID= w.USER_ID) as allBondondAmount
+
+     ,C.CARD_CODE,C.BANK_CODE BANK_NAME
+    FROM WITHDRAW W
+    LEFT JOIN USER_INFO_EXT UE ON w.USER_ID = UE.USER_ID
+    LEFT JOIN USER_INFO U ON w.USER_ID = U.USER_ID
+    LEFT JOIN USER_ACCOUNT T ON  w.USER_ID = T.USER_ID and T.ACC_TYPE_CODE='2'
+      left join CUSTOMER_CARD c on W.CUSTOMER_CARD_ID = C.CUSTOMER_CARD_ID
+    where W.WITHDRAW_ID = #{withdrawId,jdbcType=DECIMAL}
+  </select>
+<select id="getTransferWithDrawVerified" resultMap="WithDrawVO" >
+  SELECT W.*,
+       UE.REAL_NAME,
+       C.CARD_CODE,
+       CF.CONSTANT_NAME||C.REGISTERED_BANK BANK_NAME
+  FROM WITHDRAW W
+       LEFT JOIN USER_INFO_EXT UE ON w.USER_ID = UE.USER_ID
+       LEFT JOIN CUSTOMER_CARD c ON W.CUSTOMER_CARD_ID = C.CUSTOMER_CARD_ID
+       left join CONSTANT_DEFINE cf on C.BANK_CODE = CF.CONSTANT_DEFINE_ID
+       where W.VERIFY_STATUS=1 and W.TRANS_STATUS in ('0','1','2')
+  </select>
+  
+	<select id="findBy" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.WithDraw" >
+		select 
+    	<include refid="Base_Column_List" />
+	    from WITHDRAW
+	    <where>
+			<if test="verifierId != null" >
+			 AND VERIFIER_ID = #{verifierId,jdbcType=DECIMAL}
+			</if>
+			<if test="customerCardId != null" >
+			 AND CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL}
+			</if>
+			<if test="userId != null" >
+			 AND USER_ID = #{userId,jdbcType=DECIMAL}
+			</if>
+			<if test="operatorId != null" >
+			 AND OPERATOR_ID = #{operatorId,jdbcType=DECIMAL}
+			</if>
+			<if test="withdrawAmount != null" >
+			 AND WITHDRAW_AMOUNT = #{withdrawAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="remark != null" >
+			 AND REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null" >
+			 AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="verifyStatus != null" >
+			 AND VERIFY_STATUS = #{verifyStatus,jdbcType=CHAR}
+			</if>
+			<if test="transStatus != null" >
+			 AND TRANS_STATUS = #{transStatus,jdbcType=CHAR}
+			</if>
+			<if test="verifyOpinion != null" >
+			 AND VERIFY_OPINION = #{verifyOpinion,jdbcType=VARCHAR}
+			</if>
+			<if test="operateTime != null" >
+			 AND OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="resultTime != null" >
+			 AND RESULT_TIME = #{resultTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="commissionFee != null" >
+			 AND COMMISSION_FEE = #{commissionFee,jdbcType=DECIMAL}
+			</if>
+			<if test="resultDesc != null" >
+			 AND RESULT_DESC = #{resultDesc,jdbcType=VARCHAR}
+			</if>
+			<if test="withDrawFlowId != null" >
+			 AND WITHDRAW_FLOW_ID  = #{withDrawFlowId,jdbcType=VARCHAR}
+			</if>
+			<if test="happenType != null" >
+			 AND HAPPEN_TYPE = #{happenType,jdbcType=VARCHAR}
+			</if>
+			<if test="confirmWithdrawTime != null" >
+			 AND CONFIRM_WITHDRAW_TIME = #{confirmWithdrawTime,jdbcType=TIMESTAMP}
+			</if>
+	    </where>
+	</select>
+	<select id="PhoneSellWithDrawPaging" resultMap="PhoneSellWithdrawVO" parameterType="map" >
+		select sai.login_name login,sai.display_name,ui.login_name,uie.real_name,w.create_time,w.withdraw_amount,
+		cd.constant_name||'-尾号'||substr(cc.card_code,-4) card,
+		case when w.verify_status='0' and w.trans_status='0' then '审核中' 
+		when w.verify_status='2' then '审核驳回' 
+		when w.verify_status='1' and (w.trans_status='0' or w.trans_status='1' or w.trans_status='2') then '审核通过待打款' 
+		when w.verify_status='1' and w.trans_status='3' then '提现成功' 
+		when w.verify_status='1' and w.trans_status='4' then '提现失败' end status
+		from WITHDRAW w left join CUSTOMER_CARD cc on w.customer_card_id=cc.customer_card_id
+		left join constant_define cd on cd.constant_define_id=cc.bank_code
+		left join user_info ui on ui.user_id=w.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on w.user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   cc.card_code  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	      	<if test="status != null">
+	        	<if test="status == 1">
+	        		AND w.verify_status='0' and w.trans_status='0'
+	        	</if>
+	        	<if test="status == 2">
+	        		AND w.verify_status='2'
+	        	</if>
+	        	<if test="status == 3">
+	        		AND w.verify_status='1' and (w.trans_status='0' or w.trans_status='1' or w.trans_status='2')
+	        	</if>
+	        	<if test="status == 4">
+	        		AND w.verify_status='1' and w.trans_status='3'
+	        	</if>
+	        	<if test="status == 5">
+	        		AND w.verify_status='1' and w.trans_status='4'
+	        	</if>
+	      	</if>
+	    </where>
+        ORDER BY w.create_time DESC
+	</select>
+	<select id="count_PhoneSellWithDrawPaging" resultType="int" parameterType="map" >
+		select count(1) from WITHDRAW w left join CUSTOMER_CARD cc on w.customer_card_id=cc.customer_card_id
+		left join constant_define cd on cd.constant_define_id=cc.bank_code
+		left join user_info ui on ui.user_id=w.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on w.user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   cc.card_code  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	      	<if test="status != null">
+	        	<if test="status == 1">
+	        		AND w.verify_status='0' and w.trans_status='0'
+	        	</if>
+	        	<if test="status == 2">
+	        		AND w.verify_status='2'
+	        	</if>
+	        	<if test="status == 3">
+	        		AND w.verify_status='1' and (w.trans_status='0' or w.trans_status='1' or w.trans_status='2')
+	        	</if>
+	        	<if test="status == 4">
+	        		AND w.verify_status='1' and w.trans_status='3'
+	        	</if>
+	        	<if test="status == 5">
+	        		AND w.verify_status='1' and w.trans_status='4'
+	        	</if>
+	      	</if>
+	    </where>
+	</select>
+	<select id="getAllWithDrawAccounts" resultType="String" parameterType="map" >
+		select case when sum(w.withdraw_amount) is null then 0 else sum(w.withdraw_amount) end from WITHDRAW w 
+		left join CUSTOMER_CARD cc on w.customer_card_id=cc.customer_card_id
+		left join constant_define cd on cd.constant_define_id=cc.bank_code
+		left join user_info ui on ui.user_id=w.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on w.user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0 and w.verify_status='0' and w.trans_status='0'
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   cc.card_code  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+	    union all
+	    select case when sum(a.withdraw_amount) is null then 0 else sum(a.withdraw_amount) end from WITHDRAW a 
+	    left join CUSTOMER_CARD cc on a.customer_card_id=cc.customer_card_id
+		left join constant_define cd on cd.constant_define_id=cc.bank_code
+		left join user_info ui on ui.user_id=a.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on a.user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0 and a.verify_status='2'
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   cc.card_code  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+	    union all
+	    select case when sum(b.withdraw_amount) is null then 0 else sum(b.withdraw_amount) end from WITHDRAW b 
+	    left join CUSTOMER_CARD cc on b.customer_card_id=cc.customer_card_id
+		left join constant_define cd on cd.constant_define_id=cc.bank_code
+		left join user_info ui on ui.user_id=b.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on b.user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0 and b.verify_status='1' and (b.trans_status='0' or b.trans_status='1' or b.trans_status='2')
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   cc.card_code  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+	    union all
+	    select case when sum(c.withdraw_amount) is null then 0 else sum(c.withdraw_amount) end from WITHDRAW c 
+	    left join CUSTOMER_CARD cc on c.customer_card_id=cc.customer_card_id
+		left join constant_define cd on cd.constant_define_id=cc.bank_code
+		left join user_info ui on ui.user_id=c.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on c.user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0 and c.verify_status='1' and c.trans_status='3'
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   cc.card_code  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+	    union all
+	    select case when sum(d.withdraw_amount) is null then 0 else sum(d.withdraw_amount) end from WITHDRAW d 
+	    left join CUSTOMER_CARD cc on d.customer_card_id=cc.customer_card_id
+		left join constant_define cd on cd.constant_define_id=cc.bank_code
+		left join user_info ui on ui.user_id=d.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on d.user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0 and d.verify_status='1' and d.trans_status='4'
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   cc.card_code  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+	    union all
+	    select case when sum(e.withdraw_amount) is null then 0 else sum(e.withdraw_amount) end from WITHDRAW e
+	    left join CUSTOMER_CARD cc on e.customer_card_id=cc.customer_card_id
+		left join constant_define cd on cd.constant_define_id=cc.bank_code
+		left join user_info ui on ui.user_id=e.user_id
+		left join user_info_ext uie on ui.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on e.user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0
+	    	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   cc.card_code  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+	</select>
+	
+	
+	<!--导出移动端数据报表(提现的)开始-->
+    <select id="exportMobileInfoExcel_withdraw"  resultType="java.util.LinkedHashMap"  parameterType="map">
+		select 
+		ui.CREATE_TIME as 注册时间,
+		(select iv.VERIFIED_TIME from IDCARD_VERIFIED iv where iv.REAL_NAME = uie.REAL_NAME and iv.CARD_CODE = uie.ID_CARD and iv.VERIFIED_RESULT = 1 and ROWNUM = 1) as 认证时间,
+		uie.MOBILE_NO as 手机号,
+		ui.LOGIN_NAME as 用户名,
+		uie.REAL_NAME as 姓名,
+		uie.ID_CARD as 身份证,
+		w.CREATE_TIME as 提现时间,
+		w.WITHDRAW_AMOUNT as 提现金额,
+		(select count(1) from VOUCHER v where v.USER_ID = w.USER_ID and v.STATUS = 1) as 财富券使用,
+		(select ic.INVITATION_CODE from INVITATION_CODE ic where ic.TYPE = 0 and ic.USER_ID = w.USER_ID) as 邀请码,
+		(select ic.INVITATION_CODE from INVITATION_CODE ic where ic.TYPE = 0 and ic.USER_ID = uie.REC_USER_ID) as 邀请人邀请码,
+		w.VERIFY_STATUS as 提现状态
+		from WITHDRAW w
+		inner join ORDER_RESOURCE_MAPPING orm on orm.ORDER_ID = w.WITHDRAW_ID
+		left join USER_INFO ui on w.USER_ID = ui.USER_ID
+		left join USER_INFO_EXT uie on w.USER_ID = uie.USER_ID
+		where orm.RESOURCE_TYPE = 2
+		<if test="customParams != null"><!-- RESOURCE_TYPE=0.投资1.充值2.提现 -->
+			<!-- RESOURCE_ID=1.PC2.Wechat3.Android4.IOS -->
+			<if test="customParams.sourceType != null">
+                and orm.RESOURCE_ID = #{customParams.sourceType}
+            </if>
+            <!--时间查询-->
+            <if test="customParams.timeInterval.startTime != null">
+                <![CDATA[AND w.CREATE_TIME >= #{customParams.timeInterval.startTime}]]>
+            </if>
+            <if test="customParams.timeInterval.endTime != null">
+                <![CDATA[AND w.CREATE_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY]]>
+            </if>
+        </if>
+		order by w.WITHDRAW_ID asc
+    </select>
+    <!--导出移动端数据报表(提现的)结束-->
+    
+    <select id="CRMWithdrawList"  resultMap="CRMWithdrawVO"  parameterType="map">
+    	select a.withdraw_id,a.withdraw_amount,ue.real_name customer_name,ue.mobile_no,c.card_code,cd.constant_name short_name,a.verify_status,a.trans_status
+		       ,a.create_time,a.result_time,cfe.name staff_name,ic.invitation_code,co.org_name,cf.franchise_name from(
+		      select w.withdraw_id,w.user_id,w.withdraw_amount,w.verify_status,w.trans_status,w.customer_card_id,w.create_time,w.result_time from withdraw w
+		      where w.user_id in(
+		             select distinct cu.customer_id from crm_fran_customer cu
+	                 join crm_fran_emp e on e.user_id=cu.p_customer_id
+	                 join crm_org o on o.org_id=e.org_id
+	                 <where>
+	                 	1=1
+	                 	<if test="userId != null">
+	                 		and cu.p_customer_id=#{userId,jdbcType=DECIMAL}
+	                 	</if>
+	                 	<if test="code != null">
+	                 		or o.org_code like '${code}0%'
+	                 	</if>
+	                 </where>
+		      ) 
+		)a
+		left join user_info_ext ue on ue.user_id=a.user_id
+		left join customer_card c on c.customer_card_id=a.customer_card_id
+		left join constant_define cd on cd.constant_define_id=c.bank_code
+		left join crm_fran_customer cfc on cfc.customer_id=a.user_id
+		left join crm_fran_emp cfe on cfe.user_id=cfc.p_customer_id
+		left join invitation_code ic on ic.user_id=cfc.p_customer_id
+		left join crm_org co on co.org_id=cfe.org_id
+		left join crm_franchise cf on cf.franchise_id=cfe.franchise_id
+		<where>
+			1=1 
+			<if test="orgId != null">
+				and co.org_id=#{orgId,jdbcType=DECIMAL}
+			</if>
+			<if test="staffName != null">
+				and cfe.name like '%${staffName}%'
+			</if>
+			<if test="status != null and status != '-1' and status != ''">
+				and 
+				<if test="status == 1">
+					(a.verify_status =0 and a.trans_status=0)
+				</if>
+				<if test="status == 2">
+					(a.verify_status =2)
+				</if>
+				<if test="status == 3">
+					(a.verify_status =1 and (a.trans_status=0 or a.trans_status=1 or a.trans_status=2))
+				</if>
+				<if test="status == 4">
+					(a.verify_status =1 and a.trans_status=3)
+				</if>
+				<if test="status == 5">
+					(a.verify_status =1 and a.trans_status=4)
+				</if>
+			</if>
+			<if test="customerName != null">
+				and ue.real_name  like '%${customerName}%'
+			</if>
+			<if test="customerMobile != null">
+				and ue.mobile_no like '%${customerMobile}%'
+			</if>
+			<if test="startTime != null">
+				and a.create_time <![CDATA[>=]]> to_date('${startTime}','YYYY-MM-DD')
+			</if>
+			<if test="endTime != null">
+				and a.create_time <![CDATA[<=]]> to_date('${endTime}','YYYY-MM-DD')
+			</if>
+		</where>
+    </select>
+    <select id="count_CRMWithdrawList"  resultType="int"  parameterType="map">
+    	select count(1) from(
+		      select w.withdraw_id,w.user_id,w.withdraw_amount,w.verify_status,w.trans_status,w.customer_card_id,w.create_time,w.result_time from withdraw w
+		      where w.user_id in(
+		             select distinct cu.customer_id from crm_fran_customer cu
+	                 join crm_fran_emp e on e.user_id=cu.p_customer_id
+	                 join crm_org o on o.org_id=e.org_id
+	                 <where>
+	                 	1=1
+	                 	<if test="userId != null">
+	                 		 and cu.p_customer_id=#{userId,jdbcType=DECIMAL}
+	                 	</if>
+	                 	<if test="code != null">
+	                 		or o.org_code like '${code}0%'
+	                 	</if>
+	                 </where>
+		      ) 
+		)a
+		left join user_info_ext ue on ue.user_id=a.user_id
+		left join customer_card c on c.customer_card_id=a.customer_card_id
+		left join constant_define cd on cd.constant_define_id=c.bank_code
+		left join crm_fran_customer cfc on cfc.customer_id=a.user_id
+		left join crm_fran_emp cfe on cfe.user_id=cfc.p_customer_id
+		left join invitation_code ic on ic.user_id=cfc.p_customer_id
+		left join crm_org co on co.org_id=cfe.org_id
+		left join crm_franchise cf on cf.franchise_id=cfe.franchise_id
+		<where>
+			1=1 
+			<if test="orgId != null">
+				and co.org_id=#{orgId,jdbcType=DECIMAL}
+			</if>
+			<if test="staffName != null">
+				and cfe.name like '%${staffName}%'
+			</if>
+			<if test="status != null">
+				and 
+				<if test="status == 1">
+					(a.verify_status =0 and a.trans_status=0)
+				</if>
+				<if test="status == 2">
+					(a.verify_status =2)
+				</if>
+				<if test="status == 3">
+					(a.verify_status =1 and (a.trans_status=0 or a.trans_status=1 or a.trans_status=2))
+				</if>
+				<if test="status == 4">
+					(a.verify_status =1 and a.trans_status=3)
+				</if>
+				<if test="status == 5">
+					(a.verify_status =1 and a.trans_status=4)
+				</if>
+			</if>
+			<if test="customerName != null">
+				and ue.real_name  like '%${customerName}%'
+			</if>
+			<if test="customerMobile != null">
+				and ue.mobile_no like '%${customerMobile}%'
+			</if>
+			<if test="startTime != null">
+				and a.create_time <![CDATA[>=]]> to_date('${startTime}','YYYY-MM-DD')
+			</if>
+			<if test="endTime != null">
+				and a.create_time <![CDATA[<=]]> to_date('${endTime}','YYYY-MM-DD')
+			</if>
+		</where>
+    </select>
+</mapper>

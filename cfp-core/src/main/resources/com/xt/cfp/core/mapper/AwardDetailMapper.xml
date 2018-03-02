@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AWARD_DETAIL" >
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.AwardDetail" >
+        <id column="DETAIL_ID" property="awardDetailId" jdbcType="DECIMAL" />
+        <result column="RIGHTS_REPAYMENT_DETAIL_ID" property="rightsRepaymentDetailId" jdbcType="DECIMAL" />
+        <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+        <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+        <result column="AWARD_BALANCE" property="awardBalance" jdbcType="DECIMAL" />
+        <result column="AWARD_TIME" property="awardTime" jdbcType="TIMESTAMP" />
+        <result column="AWARD_POINT" property="awardPoint" jdbcType="VARCHAR" />
+        <result column="USER_ACCOUNT_ID" property="userAccountId" jdbcType="DECIMAL" />
+        <result column="AWARD_TYPE" property="awardType" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        DETAIL_ID,RIGHTS_REPAYMENT_DETAIL_ID,LEND_ORDER_ID,LOAN_APPLICATION_ID,AWARD_BALANCE,AWARD_TIME,AWARD_POINT,USER_ACCOUNT_ID,AWARD_TYPE
+    </sql>
+
+    <select id="findByRightsRepaymentDetailId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List"/>
+        from AWARD_DETAIL
+        where RIGHTS_REPAYMENT_DETAIL_ID=#{rightsRepaymentDetailId}
+    </select>
+
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.AwardDetail" >
+        <selectKey keyProperty="awardDetailId" order="BEFORE" resultType="long">
+            SELECT SEQ_AWARD_DETAIL.NEXTVAL as awardDetailId FROM dual
+        </selectKey>
+        insert into AWARD_DETAIL
+        (DETAIL_ID,RIGHTS_REPAYMENT_DETAIL_ID,LEND_ORDER_ID,LOAN_APPLICATION_ID,AWARD_BALANCE,AWARD_TIME,AWARD_POINT,USER_ACCOUNT_ID,AWARD_TYPE)
+        values
+        (#{awardDetailId,jdbcType=DECIMAL},#{rightsRepaymentDetailId,jdbcType=DECIMAL},#{lendOrderId,jdbcType=DECIMAL},#{loanApplicationId,jdbcType=DECIMAL},
+        #{awardBalance,jdbcType=DECIMAL},#{awardTime,jdbcType=TIMESTAMP},#{awardPoint,jdbcType=VARCHAR},#{userAccountId,jdbcType=DECIMAL},#{awardType,jdbcType=VARCHAR})
+    </insert>
+
+	<select id="getLostAwardData" resultType="com.xt.cfp.core.pojo.ext.ReissuedAwardVO" parameterType="map" >
+		select ad.rights_repayment_detail_id,
+			       ad.lend_order_id,
+			       ad.award_balance,
+			       ad.loan_application_id,
+			       ad.award_point as awardpoint,
+			       ad.award_time,
+			       ad.user_account_id,
+			       trunc(lp.award_rate * la.confirm_balance * rrd.proportion / 100 / 12 / 100,
+			             2) as shouldaward,
+			       trunc(lp.award_rate * la.confirm_balance * rrd.proportion / 100 / 12 / 100  -  trunc(ad.award_balance,2) ,
+			             2) as shouldrepay,
+			       ui.USER_ID,
+			       ui.LOGIN_NAME,
+			       lp.loan_title as LOAN_PUBLISH_TITLE
+			
+			  from award_detail ad
+			  left join rights_repayment_detail rrd on rrd.rights_repayment_detail_id =
+			                                           ad.rights_repayment_detail_id
+			  left join loan_application la on la.loan_application_id =
+			                                   ad.loan_application_id
+			  left join loan_publish lp on lp.loan_application_id =
+			                               la.loan_application_id
+			  left join user_account ua on ua.acc_id = ad.user_account_id
+			  left join user_info ui on ui.user_id = ua.user_id
+			 where  1=1 
+			   <![CDATA[
+			   and trunc(lp.award_rate*la.confirm_balance*rrd.proportion/100/12/100,2) - trunc(ad.award_balance,2) > 0  
+			   and lp.award_point = '2'  
+			   and lp.award_rate is not null  
+			 ]]>
+			 <if test="mobileList != null">
+			    and ui.mobile_no  in  
+				    <foreach collection="mobileList" item="mobileNo" open="(" separator="," close=")">
+		                #{mobileNo}
+		            </foreach>
+			 </if>
+	</select>
+	
+	<update id="updateAwardBalance"  parameterType="com.xt.cfp.core.pojo.AwardDetail" >
+		update AWARD_DETAIL AD 
+		set
+			AD.AWARD_BALANCE = #{awardBalance},
+			AWARD_TIME = #{awardTime}
+		 where AD.RIGHTS_REPAYMENT_DETAIL_ID = #{rightsRepaymentDetailId}
+	</update>
+	
+    <select id="findByRightsRepaymentDetailIdLock" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List"/>
+        from AWARD_DETAIL
+        where RIGHTS_REPAYMENT_DETAIL_ID=#{rightsRepaymentDetailId} for update
+    </select>
+    
+    <!-- 根据出借订单ID查询 -->
+    <select id="findByLendOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List"/>
+        from AWARD_DETAIL
+        where LEND_ORDER_ID = #{lendOrderId}
+    </select>
+    
+    <select id="findByRightsRepaymentDetailIdAndRateType" resultMap="BaseResultMap" parameterType="map"  >
+    	 select
+        <include refid="Base_Column_List"/>
+        from AWARD_DETAIL  
+        where RIGHTS_REPAYMENT_DETAIL_ID=#{rightsRepaymentDetailId} and AWARD_TYPE=#{rateType}  
+    </select>
+    
+    
+</mapper>

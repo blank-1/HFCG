@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MULTILEVEL_INVITATION" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.MultilevelInvitation" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="RECOMMEND_USER_ID" property="recommendUserId" jdbcType="DECIMAL" />
+    <result column="SALE_BY_USER_ID" property="saleByUserId" jdbcType="DECIMAL" />
+    <result column="HIERARCHY" property="hierarchy" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, RECOMMEND_USER_ID, SALE_BY_USER_ID, HIERARCHY, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MULTILEVEL_INVITATION
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from MULTILEVEL_INVITATION
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.MultilevelInvitation" >
+    insert into MULTILEVEL_INVITATION (USER_ID, RECOMMEND_USER_ID, SALE_BY_USER_ID, 
+      HIERARCHY, CREATE_TIME)
+    values (#{userId,jdbcType=DECIMAL}, #{recommendUserId,jdbcType=DECIMAL}, #{saleByUserId,jdbcType=DECIMAL}, 
+      #{hierarchy,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.MultilevelInvitation" >
+    insert into MULTILEVEL_INVITATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="recommendUserId != null" >
+        RECOMMEND_USER_ID,
+      </if>
+      <if test="saleByUserId != null" >
+        SALE_BY_USER_ID,
+      </if>
+      <if test="hierarchy != null" >
+        HIERARCHY,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="recommendUserId != null" >
+        #{recommendUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="saleByUserId != null" >
+        #{saleByUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="hierarchy != null" >
+        #{hierarchy,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.MultilevelInvitation" >
+    update MULTILEVEL_INVITATION
+    <set >
+      <if test="recommendUserId != null" >
+        RECOMMEND_USER_ID = #{recommendUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="saleByUserId != null" >
+        SALE_BY_USER_ID = #{saleByUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="hierarchy != null" >
+        HIERARCHY = #{hierarchy,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.MultilevelInvitation" >
+    update MULTILEVEL_INVITATION
+    set RECOMMEND_USER_ID = #{recommendUserId,jdbcType=DECIMAL},
+      SALE_BY_USER_ID = #{saleByUserId,jdbcType=DECIMAL},
+      HIERARCHY = #{hierarchy,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 根据所属销售ID，查询 -->
+  <select id="findBySaleByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MULTILEVEL_INVITATION
+    where SALE_BY_USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  
+</mapper>

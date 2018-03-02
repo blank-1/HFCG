@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="USER_ACCOUNT_HIS" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.UserAccountHis" >
+    <id column="HIS_ID" property="hisId" jdbcType="DECIMAL" />
+    <result column="ACC_ID" property="accId" jdbcType="DECIMAL" />
+    <result column="ACC_TYPE_CODE" property="accTypeCode" jdbcType="VARCHAR" />
+    <result column="CHANGE_VALUE" property="changeValue" jdbcType="DECIMAL" />
+    <result column="CHANGE_VALUE2" property="changeValue2" jdbcType="DECIMAL" />
+    <result column="BUS_TYPE" property="busType" jdbcType="VARCHAR" />
+    <result column="CHANGE_TYPE" property="changeType" jdbcType="CHAR" />
+    <result column="IS_VISIBLE" property="isVisible" jdbcType="CHAR" />
+    <result column="VALUE_AFTER" property="valueAfter" jdbcType="DECIMAL" />
+    <result column="VALUE_AFTER2" property="valueAfter2" jdbcType="DECIMAL" />
+    <result column="AVAIL_VALUE_AFTER" property="availValueAfter" jdbcType="DECIMAL" />
+    <result column="AVAIL_VALUE_AFTER2" property="availValueAfter2" jdbcType="DECIMAL" />
+    <result column="FROZE_VALUE_AFTER" property="frozeValueAfter" jdbcType="DECIMAL" />
+    <result column="FROZE_VALUE_AFTER2" property="frozeValueAfter2" jdbcType="DECIMAL" />
+    <result column="STATUS_AFTER" property="statusAfter" jdbcType="CHAR" />
+    <result column="VALUE_BEFORE" property="valueBefore" jdbcType="DECIMAL" />
+    <result column="VALUE_BEFORE2" property="valueBefore2" jdbcType="DECIMAL" />
+    <result column="AVAIL_VALUE_BEFORE" property="availValueBefore" jdbcType="DECIMAL" />
+    <result column="AVAIL_VALUE_BEFORE2" property="availValueBefore2" jdbcType="DECIMAL" />
+    <result column="FROZE_VALUE_BEFORE" property="frozeValueBefore" jdbcType="DECIMAL" />
+    <result column="FROZE_VALUE_BEFORE2" property="frozeValueBefore2" jdbcType="DECIMAL" />
+    <result column="STATUS_BEFORE" property="statusBefore" jdbcType="CHAR" />
+    <result column="CHANGE_TIME" property="changeTime" jdbcType="TIMESTAMP" />
+    <result column="DESC" property="desc" jdbcType="VARCHAR" />
+    <result column="FROM_TYPE" property="fromType" jdbcType="CHAR" />
+    <result column="FROM_ID" property="fromId" jdbcType="DECIMAL" />
+    <result column="OWNER_TYPE" property="ownerType" jdbcType="CHAR" />
+    <result column="OWNER_ID" property="ownerId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    HIS_ID, ACC_ID, ACC_TYPE_CODE, CHANGE_VALUE, CHANGE_VALUE2, BUS_TYPE, CHANGE_TYPE, 
+    IS_VISIBLE, VALUE_AFTER, VALUE_AFTER2, AVAIL_VALUE_AFTER, AVAIL_VALUE_AFTER2, FROZE_VALUE_AFTER, 
+    FROZE_VALUE_AFTER2, STATUS_AFTER, VALUE_BEFORE, VALUE_BEFORE2, AVAIL_VALUE_BEFORE, 
+    AVAIL_VALUE_BEFORE2, FROZE_VALUE_BEFORE, FROZE_VALUE_BEFORE2, STATUS_BEFORE, CHANGE_TIME, 
+    "DESC", FROM_TYPE, FROM_ID, OWNER_TYPE, OWNER_ID
+  </sql>
+  <select id="selectByAccId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_ACCOUNT_HIS
+    where ACC_ID = #{accId,jdbcType=DECIMAL}
+    order by his_id asc
+  </select>
+  
+  <select id="getUserDisplayAccountHisByAccId" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_ACCOUNT_HIS
+    where ACC_ID = #{accId,jdbcType=DECIMAL} 
+    
+   	<if test="isVisible != null"><!-- 1显示，0隐藏 -->
+   		and is_visible = #{isVisible,jdbcType=CHAR}
+   	</if>
+   	
+   	<if test="flowTypes != null">
+            and change_type in
+            <foreach collection="flowTypes" item="flowType" open="(" separator="," close=")">
+                #{flowType,jdbcType=CHAR}
+            </foreach>
+    </if>
+   	<if test="searchDate != ''">
+   		<if test="searchDate == 't_7'">
+   			<![CDATA[
+   				and to_char(change_time,'yyyy-MM-dd') >= to_char(sysdate - interval '7' day,'yyyy-MM-dd')
+   			]]>
+   		</if>
+   		<if test="searchDate == 't_1'">
+   			<![CDATA[
+      			and to_char(change_time,'yyyy-MM-dd') >= to_char(sysdate - interval '1' month,'yyyy-MM-dd')
+   			]]>
+   		</if>
+   		<if test="searchDate == 't_6'">
+   			<![CDATA[
+   				and to_char(change_time,'yyyy-MM-dd') >= to_char(sysdate - interval '6' month,'yyyy-MM-dd')
+   			]]>
+   		</if>
+   	</if>
+    order by his_id desc
+  </select>
+  
+  <select id="count_getUserDisplayAccountHisByAccId" resultType="int" parameterType="map" >
+    select 
+    count(1)
+    from USER_ACCOUNT_HIS
+    where ACC_ID = #{accId,jdbcType=DECIMAL} 
+    
+    <if test="isVisible != null"><!-- 1显示，0隐藏 -->
+   		and is_visible = #{isVisible,jdbcType=CHAR}
+   	</if>
+
+   	<if test="flowTypes != null">
+            and change_type in
+            <foreach collection="flowTypes" item="flowType" open="(" separator="," close=")">
+                #{flowType,jdbcType=CHAR}
+            </foreach>
+    </if>
+   	<if test="searchDate != ''">
+   		<if test="searchDate == 't_7'">
+   			<![CDATA[
+   				and to_char(change_time,'yyyy-MM-dd') >= to_char(sysdate - interval '7' day,'yyyy-MM-dd')
+   			]]>
+   		</if>
+   		<if test="searchDate == 't_1'">
+   			<![CDATA[
+      			and to_char(change_time,'yyyy-MM-dd') >= to_char(sysdate - interval '1' month,'yyyy-MM-dd')
+   			]]>
+   		</if>
+   		<if test="searchDate == 't_6'">
+   			<![CDATA[
+   				and to_char(change_time,'yyyy-MM-dd') >= to_char(sysdate - interval '6' month,'yyyy-MM-dd')
+   			]]>
+   		</if>
+   	</if>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select
+    <include refid="Base_Column_List" />
+    from USER_ACCOUNT_HIS
+    where HIS_ID = #{hisId,jdbcType=DECIMAL}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from USER_ACCOUNT_HIS
+    where HIS_ID = #{hisId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.UserAccountHis" >
+
+    <selectKey keyProperty="hisId" order="BEFORE" resultType="BigDecimal">
+      SELECT SEQ_UC_HIS.NEXTVAL as hisId FROM dual
+    </selectKey>
+    insert into USER_ACCOUNT_HIS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hisId != null" >
+        HIS_ID,
+      </if>
+      <if test="accId != null" >
+        ACC_ID,
+      </if>
+      <if test="accTypeCode != null" >
+        ACC_TYPE_CODE,
+      </if>
+      <if test="changeValue != null" >
+        CHANGE_VALUE,
+      </if>
+      <if test="changeValue2 != null" >
+        CHANGE_VALUE2,
+      </if>
+      <if test="busType != null" >
+        BUS_TYPE,
+      </if>
+      <if test="changeType != null" >
+        CHANGE_TYPE,
+      </if>
+      <if test="isVisible != null" >
+        IS_VISIBLE,
+      </if>
+      <if test="valueAfter != null" >
+        VALUE_AFTER,
+      </if>
+      <if test="valueAfter2 != null" >
+        VALUE_AFTER2,
+      </if>
+      <if test="availValueAfter != null" >
+        AVAIL_VALUE_AFTER,
+      </if>
+      <if test="availValueAfter2 != null" >
+        AVAIL_VALUE_AFTER2,
+      </if>
+      <if test="frozeValueAfter != null" >
+        FROZE_VALUE_AFTER,
+      </if>
+      <if test="frozeValueAfter2 != null" >
+        FROZE_VALUE_AFTER2,
+      </if>
+      <if test="statusAfter != null" >
+        STATUS_AFTER,
+      </if>
+      <if test="valueBefore != null" >
+        VALUE_BEFORE,
+      </if>
+      <if test="valueBefore2 != null" >
+        VALUE_BEFORE2,
+      </if>
+      <if test="availValueBefore != null" >
+        AVAIL_VALUE_BEFORE,
+      </if>
+      <if test="availValueBefore2 != null" >
+        AVAIL_VALUE_BEFORE2,
+      </if>
+      <if test="frozeValueBefore != null" >
+        FROZE_VALUE_BEFORE,
+      </if>
+      <if test="frozeValueBefore2 != null" >
+        FROZE_VALUE_BEFORE2,
+      </if>
+      <if test="statusBefore != null" >
+        STATUS_BEFORE,
+      </if>
+      <if test="changeTime != null" >
+        CHANGE_TIME,
+      </if>
+      <if test="desc != null" >
+        "DESC",
+      </if>
+      <if test="fromType != null" >
+        FROM_TYPE,
+      </if>
+      <if test="fromId != null" >
+        FROM_ID,
+      </if>
+      <if test="ownerType != null" >
+        OWNER_TYPE,
+      </if>
+      <if test="ownerId != null" >
+        OWNER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hisId != null" >
+        #{hisId,jdbcType=DECIMAL},
+      </if>
+      <if test="accId != null" >
+        #{accId,jdbcType=DECIMAL},
+      </if>
+      <if test="accTypeCode != null" >
+        #{accTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="changeValue != null" >
+        #{changeValue,jdbcType=DECIMAL},
+      </if>
+      <if test="changeValue2 != null" >
+        #{changeValue2,jdbcType=DECIMAL},
+      </if>
+      <if test="busType != null" >
+        #{busType,jdbcType=VARCHAR},
+      </if>
+      <if test="changeType != null" >
+        #{changeType,jdbcType=CHAR},
+      </if>
+      <if test="isVisible != null" >
+        #{isVisible,jdbcType=CHAR},
+      </if>
+      <if test="valueAfter != null" >
+        #{valueAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="valueAfter2 != null" >
+        #{valueAfter2,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueAfter != null" >
+        #{availValueAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueAfter2 != null" >
+        #{availValueAfter2,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueAfter != null" >
+        #{frozeValueAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueAfter2 != null" >
+        #{frozeValueAfter2,jdbcType=DECIMAL},
+      </if>
+      <if test="statusAfter != null" >
+        #{statusAfter,jdbcType=CHAR},
+      </if>
+      <if test="valueBefore != null" >
+        #{valueBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="valueBefore2 != null" >
+        #{valueBefore2,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueBefore != null" >
+        #{availValueBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueBefore2 != null" >
+        #{availValueBefore2,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueBefore != null" >
+        #{frozeValueBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueBefore2 != null" >
+        #{frozeValueBefore2,jdbcType=DECIMAL},
+      </if>
+      <if test="statusBefore != null" >
+        #{statusBefore,jdbcType=CHAR},
+      </if>
+      <if test="changeTime != null" >
+        #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="fromType != null" >
+        #{fromType,jdbcType=CHAR},
+      </if>
+      <if test="fromId != null" >
+        #{fromId,jdbcType=DECIMAL},
+      </if>
+      <if test="ownerType != null" >
+        #{ownerType,jdbcType=CHAR},
+      </if>
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.UserAccountHis" >
+    update USER_ACCOUNT_HIS
+    <set >
+      <if test="accId != null" >
+        ACC_ID = #{accId,jdbcType=DECIMAL},
+      </if>
+      <if test="accTypeCode != null" >
+        ACC_TYPE_CODE = #{accTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="changeValue != null" >
+        CHANGE_VALUE = #{changeValue,jdbcType=DECIMAL},
+      </if>
+      <if test="changeValue2 != null" >
+        CHANGE_VALUE2 = #{changeValue2,jdbcType=DECIMAL},
+      </if>
+      <if test="busType != null" >
+        BUS_TYPE = #{busType,jdbcType=VARCHAR},
+      </if>
+      <if test="changeType != null" >
+        CHANGE_TYPE = #{changeType,jdbcType=CHAR},
+      </if>
+      <if test="isVisible != null" >
+        IS_VISIBLE = #{isVisible,jdbcType=CHAR},
+      </if>
+      <if test="valueAfter != null" >
+        VALUE_AFTER = #{valueAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="valueAfter2 != null" >
+        VALUE_AFTER2 = #{valueAfter2,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueAfter != null" >
+        AVAIL_VALUE_AFTER = #{availValueAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueAfter2 != null" >
+        AVAIL_VALUE_AFTER2 = #{availValueAfter2,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueAfter != null" >
+        FROZE_VALUE_AFTER = #{frozeValueAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueAfter2 != null" >
+        FROZE_VALUE_AFTER2 = #{frozeValueAfter2,jdbcType=DECIMAL},
+      </if>
+      <if test="statusAfter != null" >
+        STATUS_AFTER = #{statusAfter,jdbcType=CHAR},
+      </if>
+      <if test="valueBefore != null" >
+        VALUE_BEFORE = #{valueBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="valueBefore2 != null" >
+        VALUE_BEFORE2 = #{valueBefore2,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueBefore != null" >
+        AVAIL_VALUE_BEFORE = #{availValueBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueBefore2 != null" >
+        AVAIL_VALUE_BEFORE2 = #{availValueBefore2,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueBefore != null" >
+        FROZE_VALUE_BEFORE = #{frozeValueBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueBefore2 != null" >
+        FROZE_VALUE_BEFORE2 = #{frozeValueBefore2,jdbcType=DECIMAL},
+      </if>
+      <if test="statusBefore != null" >
+        STATUS_BEFORE = #{statusBefore,jdbcType=CHAR},
+      </if>
+      <if test="changeTime != null" >
+        CHANGE_TIME = #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc != null" >
+        DESC = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="fromType != null" >
+        FROM_TYPE = #{fromType,jdbcType=CHAR},
+      </if>
+      <if test="fromId != null" >
+        FROM_ID = #{fromId,jdbcType=DECIMAL},
+      </if>
+      <if test="ownerType != null" >
+        OWNER_TYPE = #{ownerType,jdbcType=CHAR},
+      </if>
+      <if test="ownerId != null" >
+        OWNER_ID = #{ownerId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where HIS_ID = #{hisId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.UserAccountHis" >
+    update USER_ACCOUNT_HIS
+    set ACC_ID = #{accId,jdbcType=DECIMAL},
+      ACC_TYPE_CODE = #{accTypeCode,jdbcType=VARCHAR},
+      CHANGE_VALUE = #{changeValue,jdbcType=DECIMAL},
+      CHANGE_VALUE2 = #{changeValue2,jdbcType=DECIMAL},
+      BUS_TYPE = #{busType,jdbcType=VARCHAR},
+      CHANGE_TYPE = #{changeType,jdbcType=CHAR},
+      IS_VISIBLE = #{isVisible,jdbcType=CHAR},
+      VALUE_AFTER = #{valueAfter,jdbcType=DECIMAL},
+      VALUE_AFTER2 = #{valueAfter2,jdbcType=DECIMAL},
+      AVAIL_VALUE_AFTER = #{availValueAfter,jdbcType=DECIMAL},
+      AVAIL_VALUE_AFTER2 = #{availValueAfter2,jdbcType=DECIMAL},
+      FROZE_VALUE_AFTER = #{frozeValueAfter,jdbcType=DECIMAL},
+      FROZE_VALUE_AFTER2 = #{frozeValueAfter2,jdbcType=DECIMAL},
+      STATUS_AFTER = #{statusAfter,jdbcType=CHAR},
+      VALUE_BEFORE = #{valueBefore,jdbcType=DECIMAL},
+      VALUE_BEFORE2 = #{valueBefore2,jdbcType=DECIMAL},
+      AVAIL_VALUE_BEFORE = #{availValueBefore,jdbcType=DECIMAL},
+      AVAIL_VALUE_BEFORE2 = #{availValueBefore2,jdbcType=DECIMAL},
+      FROZE_VALUE_BEFORE = #{frozeValueBefore,jdbcType=DECIMAL},
+      FROZE_VALUE_BEFORE2 = #{frozeValueBefore2,jdbcType=DECIMAL},
+      STATUS_BEFORE = #{statusBefore,jdbcType=CHAR},
+      CHANGE_TIME = #{changeTime,jdbcType=TIMESTAMP},
+      "DESC" = #{desc,jdbcType=VARCHAR},
+      FROM_TYPE = #{fromType,jdbcType=CHAR},
+      FROM_ID = #{fromId,jdbcType=DECIMAL},
+      OWNER_TYPE = #{ownerType,jdbcType=CHAR},
+      OWNER_ID = #{ownerId,jdbcType=DECIMAL}
+    where HIS_ID = #{hisId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 只修改数值 -->
+  <update id="updateByValue" parameterType="com.xt.cfp.core.pojo.UserAccountHis" >
+    update USER_ACCOUNT_HIS
+    <set >
+
+      <if test="valueAfter != null" >
+        VALUE_AFTER = #{valueAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="valueAfter2 != null" >
+        VALUE_AFTER2 = #{valueAfter2,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueAfter != null" >
+        AVAIL_VALUE_AFTER = #{availValueAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueAfter2 != null" >
+        AVAIL_VALUE_AFTER2 = #{availValueAfter2,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueAfter != null" >
+        FROZE_VALUE_AFTER = #{frozeValueAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueAfter2 != null" >
+        FROZE_VALUE_AFTER2 = #{frozeValueAfter2,jdbcType=DECIMAL},
+      </if>
+
+      <if test="valueBefore != null" >
+        VALUE_BEFORE = #{valueBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="valueBefore2 != null" >
+        VALUE_BEFORE2 = #{valueBefore2,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueBefore != null" >
+        AVAIL_VALUE_BEFORE = #{availValueBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="availValueBefore2 != null" >
+        AVAIL_VALUE_BEFORE2 = #{availValueBefore2,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueBefore != null" >
+        FROZE_VALUE_BEFORE = #{frozeValueBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="frozeValueBefore2 != null" >
+        FROZE_VALUE_BEFORE2 = #{frozeValueBefore2,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where HIS_ID = #{hisId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="getCrahsFlowPaging" resultMap="BaseResultMap" parameterType="map">
+    select uah.* from user_account_his uah
+    <where>
+      <if test="accId != null and accId != ''">
+        AND  ACC_ID = #{accId,jdbcType=DECIMAL}
+      </if>
+
+      <if test="customParams != null">
+        <!--添加时间查询-->
+        <if test="customParams.timeInterval != null">
+          <if test="customParams.timeInterval.startTime != null">
+            <![CDATA[AND uah.CHANGE_TIME >= #{customParams.timeInterval.startTime}]]>
+          </if>
+          <if test="customParams.timeInterval.endTime != null">
+            <![CDATA[AND uah.CHANGE_TIME < #{customParams.timeInterval.endTime}+interval '1' DAY
+            ]]>
+          </if>
+        </if>
+
+        <if test="customParams.changeType != null">
+          <if test='customParams.changeType != "0"'>
+            <![CDATA[AND uah.CHANGE_TYPE in (${customParams.changeType})]]>
+          </if>
+        </if>
+      </if>
+    </where>
+    ORDER BY HIS_ID DESC
+  </select>
+  <select id="getFlowPaging" resultMap="BaseResultMap" parameterType="map">
+    select uah.* from user_account_his uah
+    <where>
+     <if test="userAccountHis != null">
+       <if test="userAccountHis.accId != null and userAccountHis.accId != ''" >
+         and ACC_ID = #{userAccountHis.accId,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.accTypeCode != null and userAccountHis.accTypeCode != ''" >
+         and ACC_TYPE_CODE = #{userAccountHis.accTypeCode,jdbcType=VARCHAR}
+       </if>
+        <if test="userAccountHis.accTypeCode == null or userAccountHis.accTypeCode == ''" >
+         and ACC_TYPE_CODE in ('4','6','7','8') 
+       </if>
+       <if test="userAccountHis.changeValue != null and userAccountHis.changeValue != ''" >
+         and CHANGE_VALUE = #{userAccountHis.changeValue,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.changeValue2 != null and userAccountHis.changeValue2 != ''" >
+         and CHANGE_VALUE2 = #{userAccountHis.changeValue2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.busType != null and userAccountHis.busType != ''" >
+         and  BUS_TYPE = #{userAccountHis.busType,jdbcType=VARCHAR}
+       </if>
+       <if test="userAccountHis.changeType != null and userAccountHis.changeType != ''" >
+         and  CHANGE_TYPE = #{userAccountHis.changeType,jdbcType=CHAR}
+       </if>
+       <if test="userAccountHis.isVisible != null and userAccountHis.isVisible != ''" >
+         and IS_VISIBLE = #{userAccountHis.isVisible,jdbcType=CHAR}
+       </if>
+       <if test="userAccountHis.valueAfter != null and userAccountHis.valueAfter != ''" >
+         and VALUE_AFTER = #{userAccountHis.valueAfter,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.valueAfter2 != null and userAccountHis.valueAfter2 != ''" >
+         and VALUE_AFTER2 = #{userAccountHis.valueAfter2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.availValueAfter != null and userAccountHis.availValueAfter != ''" >
+         and AVAIL_VALUE_AFTER = #{userAccountHis.availValueAfter,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.availValueAfter2 != null and userAccountHis.availValueAfter2 != ''" >
+         and AVAIL_VALUE_AFTER2 = #{userAccountHis.availValueAfter2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.frozeValueAfter != null and userAccountHis.frozeValueAfter != ''" >
+         and FROZE_VALUE_AFTER = #{userAccountHis.frozeValueAfter,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.frozeValueAfter2 != null and userAccountHis.frozeValueAfter2 != ''" >
+         and FROZE_VALUE_AFTER2 = #{userAccountHis.frozeValueAfter2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.statusAfter != null and userAccountHis.statusAfter != ''" >
+         and STATUS_AFTER = #{userAccountHis.statusAfter,jdbcType=CHAR}
+       </if>
+       <if test="userAccountHis.valueBefore != null and userAccountHis.valueBefore != ''" >
+         and VALUE_BEFORE = #{userAccountHis.valueBefore,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.valueBefore2 != null and userAccountHis.valueBefore2 != ''" >
+         and VALUE_BEFORE2 = #{userAccountHis.valueBefore2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.availValueBefore != null and userAccountHis.availValueBefore != ''" >
+         and AVAIL_VALUE_BEFORE = #{userAccountHis.availValueBefore,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.availValueBefore2 != null and userAccountHis.availValueBefore2 != ''" >
+         and AVAIL_VALUE_BEFORE2 = #{userAccountHis.availValueBefore2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.frozeValueBefore != null and userAccountHis.frozeValueBefore != ''" >
+         and  FROZE_VALUE_BEFORE = #{userAccountHis.frozeValueBefore,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.frozeValueBefore2 != null and userAccountHis.frozeValueBefore2 != ''" >
+         and FROZE_VALUE_BEFORE2 = #{userAccountHis.frozeValueBefore2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.statusBefore != null and userAccountHis.statusBefore != ''" >
+         and STATUS_BEFORE = #{userAccountHis.statusBefore,jdbcType=CHAR}
+       </if>
+
+       <if test="userAccountHis.desc != null and userAccountHis.desc != ''" >
+         and DESC = #{userAccountHis.desc,jdbcType=VARCHAR}
+       </if>
+       <if test="userAccountHis.fromType != null and userAccountHis.fromType != ''" >
+         and FROM_TYPE = #{userAccountHis.fromType,jdbcType=CHAR}
+       </if>
+       <if test="userAccountHis.fromId != null and userAccountHis.fromId != ''" >
+         and  FROM_ID = #{userAccountHis.fromId,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.ownerType != null and userAccountHis.ownerType != ''" >
+         and  OWNER_TYPE = #{userAccountHis.ownerType,jdbcType=CHAR}
+       </if>
+       <if test="userAccountHis.ownerId != null and userAccountHis.ownerId != ''" >
+         and  OWNER_ID = #{userAccountHis.ownerId,jdbcType=DECIMAL}
+       </if>
+     </if>
+
+      <if test="customParams != null">
+        <!--添加时间查询-->
+        <if test="customParams.timeInterval != null">
+          <if test="customParams.timeInterval.startTime != null">
+            <![CDATA[AND CHANGE_TIME >= #{customParams.timeInterval.startTime}]]>
+          </if>
+          <if test="customParams.timeInterval.endTime != null">
+            <![CDATA[AND CHANGE_TIME < #{customParams.timeInterval.endTime}+interval '1' DAY
+            ]]>
+          </if>
+        </if>
+      </if>
+    </where>
+    ORDER BY HIS_ID DESC
+  </select>
+
+  <select id="count_getFlowPaging" resultType="int" parameterType="map">
+    select count(1) from user_account_his uah
+    <where>
+     <if test="userAccountHis != null">
+       <if test="userAccountHis.accId != null and userAccountHis.accId != ''" >
+         and ACC_ID = #{userAccountHis.accId,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.accTypeCode != null and userAccountHis.accTypeCode != ''" >
+         and ACC_TYPE_CODE = #{userAccountHis.accTypeCode,jdbcType=VARCHAR}
+       </if>
+        <if test="userAccountHis.accTypeCode == null or userAccountHis.accTypeCode == ''" >
+         and ACC_TYPE_CODE in ('4','6','7','8') 
+       </if>
+       <if test="userAccountHis.changeValue != null and userAccountHis.changeValue != ''" >
+         and CHANGE_VALUE = #{userAccountHis.changeValue,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.changeValue2 != null and userAccountHis.changeValue2 != ''" >
+         and CHANGE_VALUE2 = #{userAccountHis.changeValue2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.busType != null and userAccountHis.busType != ''" >
+         and  BUS_TYPE = #{userAccountHis.busType,jdbcType=VARCHAR}
+       </if>
+       <if test="userAccountHis.changeType != null and userAccountHis.changeType != ''" >
+         and  CHANGE_TYPE = #{userAccountHis.changeType,jdbcType=CHAR}
+       </if>
+       <if test="userAccountHis.isVisible != null and userAccountHis.isVisible != ''" >
+         and IS_VISIBLE = #{userAccountHis.isVisible,jdbcType=CHAR}
+       </if>
+       <if test="userAccountHis.valueAfter != null and userAccountHis.valueAfter != ''" >
+         and VALUE_AFTER = #{userAccountHis.valueAfter,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.valueAfter2 != null and userAccountHis.valueAfter2 != ''" >
+         and VALUE_AFTER2 = #{userAccountHis.valueAfter2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.availValueAfter != null and userAccountHis.availValueAfter != ''" >
+         and AVAIL_VALUE_AFTER = #{userAccountHis.availValueAfter,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.availValueAfter2 != null and userAccountHis.availValueAfter2 != ''" >
+         and AVAIL_VALUE_AFTER2 = #{userAccountHis.availValueAfter2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.frozeValueAfter != null and userAccountHis.frozeValueAfter != ''" >
+         and FROZE_VALUE_AFTER = #{userAccountHis.frozeValueAfter,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.frozeValueAfter2 != null and userAccountHis.frozeValueAfter2 != ''" >
+         and FROZE_VALUE_AFTER2 = #{userAccountHis.frozeValueAfter2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.statusAfter != null and userAccountHis.statusAfter != ''" >
+         and STATUS_AFTER = #{userAccountHis.statusAfter,jdbcType=CHAR}
+       </if>
+       <if test="userAccountHis.valueBefore != null and userAccountHis.valueBefore != ''" >
+         and VALUE_BEFORE = #{userAccountHis.valueBefore,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.valueBefore2 != null and userAccountHis.valueBefore2 != ''" >
+         and VALUE_BEFORE2 = #{userAccountHis.valueBefore2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.availValueBefore != null and userAccountHis.availValueBefore != ''" >
+         and AVAIL_VALUE_BEFORE = #{userAccountHis.availValueBefore,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.availValueBefore2 != null and userAccountHis.availValueBefore2 != ''" >
+         and AVAIL_VALUE_BEFORE2 = #{userAccountHis.availValueBefore2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.frozeValueBefore != null and userAccountHis.frozeValueBefore != ''" >
+         and  FROZE_VALUE_BEFORE = #{userAccountHis.frozeValueBefore,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.frozeValueBefore2 != null and userAccountHis.frozeValueBefore2 != ''" >
+         and FROZE_VALUE_BEFORE2 = #{userAccountHis.frozeValueBefore2,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.statusBefore != null and userAccountHis.statusBefore != ''" >
+         and STATUS_BEFORE = #{userAccountHis.statusBefore,jdbcType=CHAR}
+       </if>
+
+       <if test="userAccountHis.desc != null and userAccountHis.desc != ''" >
+         and DESC = #{userAccountHis.desc,jdbcType=VARCHAR}
+       </if>
+       <if test="userAccountHis.fromType != null and userAccountHis.fromType != ''" >
+         and FROM_TYPE = #{userAccountHis.fromType,jdbcType=CHAR}
+       </if>
+       <if test="userAccountHis.fromId != null and userAccountHis.fromId != ''" >
+         and  FROM_ID = #{userAccountHis.fromId,jdbcType=DECIMAL}
+       </if>
+       <if test="userAccountHis.ownerType != null and userAccountHis.ownerType != ''" >
+         and  OWNER_TYPE = #{userAccountHis.ownerType,jdbcType=CHAR}
+       </if>
+       <if test="userAccountHis.ownerId != null and userAccountHis.ownerId != ''" >
+         and  OWNER_ID = #{userAccountHis.ownerId,jdbcType=DECIMAL}
+       </if>
+     </if>
+
+      <if test="customParams != null">
+        <!--添加时间查询-->
+        <if test="customParams.timeInterval != null">
+          <if test="customParams.timeInterval.startTime != null">
+            <![CDATA[AND CHANGE_TIME >= #{customParams.timeInterval.startTime}]]>
+          </if>
+          <if test="customParams.timeInterval.endTime != null">
+            <![CDATA[AND CHANGE_TIME < #{customParams.timeInterval.endTime}+interval '1' DAY
+            ]]>
+          </if>
+        </if>
+      </if>
+    </where>
+
+  </select>
+
+  <select id="count_getCrahsFlowPaging"  resultType="int" parameterType="map" >
+    select count(1)
+    from user_account_his uah
+    <where>
+
+      <if test="accId != null and accId != ''">
+        AND  ACC_ID = #{accId,jdbcType=DECIMAL}
+      </if>
+
+      <if test="customParams != null">
+        <!--添加时间查询-->
+        <if test="customParams.timeInterval != null">
+          <if test="customParams.timeInterval.startTime != null">
+            <![CDATA[AND uah.CHANGE_TIME >= #{customParams.timeInterval.startTime}]]>
+          </if>
+          <if test="customParams.timeInterval.endTime != null">
+            <![CDATA[AND uah.CHANGE_TIME < #{customParams.timeInterval.endTime}+interval '1' DAY
+            ]]>
+          </if>
+        </if>
+
+        <if test="customParams.changeType != null">
+          <if test='customParams.changeType != "0"'>
+            <![CDATA[AND uah.CHANGE_TYPE in (${customParams.changeType})]]>
+          </if>
+        </if>
+      </if>
+    </where>
+    ORDER BY HIS_ID DESC
+  </select>
+  
+  <!-- return sum(changeValue2) by userId  and busType -->
+   <select id="getUserAwards"  resultType="java.math.BigDecimal" parameterType="map" >
+    select nvl(sum(uah.change_value2),0)
+  		from user_account_his uah  
+    <where>
+      <if test="busTypes != null and busTypes != ''" >
+      	AND  BUS_TYPE in
+		<foreach collection="busTypes" item="busType" separator="," open="(" close=")">
+            #{busType}
+        </foreach>
+      </if>
+      <if test="userId != null" >
+       <![CDATA[ 	
+       AND ACC_ID in (select distinct ACC_ID
+    from (select nvl(ua.ACC_ID, '') ACC_ID
+            from user_account ua
+           where ua.USER_ID = #{userId}
+             and ua.acc_type_code <> '5'
+          union all
+          select nvl(ua.ACC_ID, '') ACC_ID
+            from user_account ua
+           inner join lend_order lo on lo.customer_account_id = ua.acc_id
+           where ua.USER_ID = #{userId}
+             and ua.acc_type_code = '5'
+             and ( lo.agreement_end_date <  sysdate or lo.profit_return_config = '1' )
+             ))
+             ]]>
+      </if>
+    </where>
+    
+  </select>
+
+	<select id="queryForYongYouHis" resultType="com.external.yongyou.entity.UserAccountHistory"   parameterType="map" >
+			
+			
+		
+			select uie.id_card as "uid",
+               uie.real_name as uname,
+               uie.mobile_no as mphone,
+               uah.change_time as ddate,
+               uie.user_id as userid,
+               uah.change_type changetype,
+               uah.from_type fromtype,
+               rownum as rowno,
+               uah.his_id as lsid,
+               (case uah.from_type
+                 when '4' then
+                  (select ro.channel_code as channel_code
+                     from recharge_order ro
+                    where ro.recharge_id = uah.from_id)
+                 when '5' then
+                  (select c.belong_channel as channel_code
+                     from Withdraw w, customer_card c
+                    where w.withdraw_id = uah.from_id
+                      and w.customer_card_id = c.customer_card_id)
+               end) as paychannel,
+               (case uah.change_type
+                 when '1' then
+                  '收入'
+                 when '2' then
+                  '支出'
+               end) as ctype,
+               uah.change_value2 as je,
+               uah."DESC" as cmemo,
+               (case uah.from_type
+                 when '4' then
+                  (select (case ro.channel_code
+                            when 'LL_GATEPAY' then
+                             '连连网银支付'
+                            when '2' then
+                             '现金'
+                            when 'YB_TZT' then
+                             '易宝快捷支付'
+                            when 'YB_EBK' then
+                             '易宝网银支付'
+                            when 'FUIOU_POS' then
+                             '富友POS支付'
+                            when 'LL_AUTHPAY' then
+                             '连连认证支付'
+                          end) as channel_code
+                     from recharge_order ro
+                    where ro.recharge_id = uah.from_id)
+                 when '5' then
+                  (select (case c.belong_channel
+                            when '1' then
+                             '连连-认证'
+                            when '0' then
+                             '易宝-快捷'
+                          end) as belong_channel
+                     from Withdraw w, customer_card c
+                    where w.withdraw_id = uah.from_id
+                      and w.customer_card_id = c.customer_card_id)
+               end) as jsfs,
+               null as jszh,
+               (case uah.bus_type
+                   
+                 
+                 <foreach collection="busTypes" item="busType" separator="   ">   
+				    <if test="null != busType">    
+				        when #{busType.value} then #{busType.desc}
+				    </if>  
+				</foreach>
+				
+
+               end) as fylx
+               
+                <![CDATA[
+          from User_account_his uah
+          left join  User_account ua on ua.acc_id = uah.acc_id
+          left join User_info_ext uie on ua.user_id = uie.user_id
+         where uah.change_type in ('1', '2')
+           and uah.change_value2 > 0
+           and uie.user_id is not null
+                 ]]>
+           <if test="startTime!=null and endTime!=null">
+            <![CDATA[
+           		and uah.change_time >=  #{startTime}  and  uah.change_time  <= #{endTime}
+           		]]>
+           </if>
+           <![CDATA[
+         order by uah.his_id asc
+			]]>
+	  
+	  </select>
+	  
+	<select id="getUserAccountHisByParams" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_ACCOUNT_HIS
+    where  is_visible = '1'
+    
+    <if test="_parameter.containsKey('accId')">
+    	<if test="accId != null">
+    		and  ACC_ID = #{accId,jdbcType=DECIMAL}  
+    	</if>
+    </if>
+    
+   	<if test="_parameter.containsKey('busType')">
+    	<if test="busType != null">
+    		and  BUS_TYPE in 
+    		<foreach collection="busType" item="type" open="(" separator="," close=")">
+                #{type,jdbcType=VARCHAR}  
+            </foreach>
+    	</if>
+    </if>
+    
+    <if test="_parameter.containsKey('changeType')">
+    	<if test="changeType != null">
+    		and  CHANGE_TYPE = #{changeType,jdbcType=CHAR}  
+    	</if>
+    </if>
+    
+    <if test="_parameter.containsKey('fromType')">
+    	<if test="fromType != null">
+    		and  FROM_TYPE = #{fromType,jdbcType=CHAR}  
+    	</if>
+    </if>
+    <if test="_parameter.containsKey('fromId')">
+    	<if test="fromId != null">
+    		and  FROM_ID = #{fromId,jdbcType=DECIMAL}  
+    	</if>
+    </if>
+    <if test="_parameter.containsKey('ownerType')">
+    	<if test="ownerType != null">
+    		and  OWNER_TYPE = #{ownerType,jdbcType=CHAR}  
+    	</if>
+    </if>
+    <if test="_parameter.containsKey('accTypeCode')">
+    	<if test="accTypeCode != null">
+    		and  ACC_TYPE_CODE = #{accTypeCode,jdbcType=VARCHAR}  
+    	</if>
+    </if>
+    <if test="_parameter.containsKey('startDate')">
+    	<if test="startDate != null">
+    		<![CDATA[
+           		and uah.change_time >=  #{startDate}  
+           		]]>
+    	</if>
+    </if>
+    <if test="_parameter.containsKey('endDate')">
+    	<if test="endDate != null">
+    		<![CDATA[
+           		and  uah.change_time  < #{endDate}
+           		]]>
+    	</if>
+    </if>
+     
+    order by his_id desc
+  </select>
+  
+  <select id="getFinanceAccountPayValue"  resultType="java.math.BigDecimal" parameterType="long"  >
+  
+	select  nvl(sum(uah.change_value2),0) 
+	  from user_account_his uah
+	 where uah.acc_id in (select ua.acc_id
+	                        from user_account ua
+	                       where ua.user_id = #{userId}
+	                         and ua.acc_type_code = '5')
+	   and uah.bus_type = '12'  
+  
+  </select>
+  
+  
+   <!-- return sum(changeValue2) by userId  and busType -->
+   <select id="getUserFinanceAwardsByUserId"  resultType="java.math.BigDecimal" parameterType="map" >
+    select nvl(sum(uah.change_value2),0)
+  		from user_account_his uah  
+    <where>
+      <if test="busTypes != null and busTypes != ''" >
+      	AND  BUS_TYPE in
+		<foreach collection="busTypes" item="busType" separator="," open="(" close=")">
+            #{busType}
+        </foreach>
+      </if>
+      <if test="userId != null" >
+       <![CDATA[ 	
+       AND ACC_ID in (select distinct ACC_ID
+    from (select nvl(ua.ACC_ID, '') ACC_ID
+            from user_account ua
+           where ua.USER_ID = #{userId}
+             and ua.acc_type_code  = '5' 
+             ))
+             ]]>
+      </if>
+    </where>
+    
+  </select>
+  
+   <!-- return sum(changeValue2) by userId  and busType -->
+   <select id="getUserFinanceAwardsByLendOrderId"  resultType="java.math.BigDecimal" parameterType="map" >
+    select nvl(sum(uah.change_value2),0)
+  		from user_account_his uah  
+    <where>
+      <if test="busTypes != null and busTypes != ''" >
+      	AND  BUS_TYPE in
+		<foreach collection="busTypes" item="busType" separator="," open="(" close=")">
+            #{busType}
+        </foreach>
+      </if>
+      <if test="lendOrderId != null" >
+       <![CDATA[ 	
+       AND uah.ACC_ID in ( select lod.customer_account_id 
+    		from lend_order lod  where lod.lend_order_id = #{lendOrderId}
+             )
+             ]]>
+      </if>
+    </where>
+    
+  </select>
+  
+  <!--  省心计划自动转入余额：获取最近一次转出至现在的所有收支记录==除本金以外的收入 -->
+  <select id="getSXJHLastNeedTurnValueIncomeWithoutCapital"  resultType="java.math.BigDecimal" parameterType="java.lang.Long"  >
+         with sxjhaccount as (   
+         select uahis.*   
+           from user_account_his uahis    
+          where uahis.his_id > (select nvl(max(uah.his_id), 0)   
+                                  from user_account_his uah   
+                                 where uah.acc_type_code = '5'   
+                                   and uah.change_type in ('1', '2')   
+                                   and uah.acc_id = #{accId}  
+                                   and uah.bus_type = '12')  
+            and uahis.change_type in ('1', '2')     
+            and uahis.acc_id = #{accId}   
+            and uahis.acc_type_code = '5'  
+            <![CDATA[
+            and uahis.bus_type <>  '38' 
+             ]]>
+           )
+       <![CDATA[
+       		select sum(sxjhaccount.change_value) as CAPITAL from sxjhaccount where sxjhaccount.bus_type <> '21' and sxjhaccount.change_type = '1' 
+       ]]>
+  </select>
+  <!--  省心计划自动转入余额：获取最近一次转出至现在的所有收支记录==所有支出 -->
+  <select id="getSXJHLastNeedTurnValuePay"  resultType="java.math.BigDecimal" parameterType="map"  >
+   with sxjhaccount as (   
+         select uahis.*   
+           from user_account_his uahis    
+          where uahis.his_id > (select nvl(max(uah.his_id), 0)   
+                                  from user_account_his uah   
+                                 where uah.acc_type_code = '5'   
+                                   and uah.change_type in ('1', '2')   
+                                   and uah.acc_id = #{accId}  
+                                   and uah.bus_type = '12')  
+            and uahis.change_type in ('1', '2')     
+            and uahis.acc_id = #{accId}   
+            and uahis.acc_type_code = '5'  
+           )
+       <![CDATA[
+       		select sum(sxjhaccount.change_value) as CAPITAL from sxjhaccount where  sxjhaccount.change_type = '2'  
+       ]]>
+       <if test="busTypes!=null">
+       	    and sxjhaccount.bus_type in
+       		<foreach collection="busTypes" item="busType" open="(" separator="," close=")">
+                #{busType,jdbcType=CHAR}
+            </foreach>
+       </if>
+  </select>
+  
+  <!--  省心计划：获取省心计划所有支出（费用） -->
+  <select id="getSXJHTurnValuePay"  resultType="java.math.BigDecimal" parameterType="map"  >
+		select sum(uah.change_value)  
+		  from user_account_his uah  
+		 where uah.acc_id in (select ua.acc_id  
+		                        from user_account ua 
+		                       where ua.user_id = #{userId}  
+		                         and ua.acc_type_code = '5'  )  
+		   and uah.change_type = '2'   
+		   <if test="busTypes!=null">
+	       	    and uah.bus_type in
+	       		<foreach collection="busTypes" item="busType" open="(" separator="," close=")">
+	                #{busType,jdbcType=CHAR}
+	            </foreach>
+	       </if>
+  </select>
+  
+</mapper>

@@ -1,0 +1,45 @@
+@charset "utf-8";
+/* CSS Document */
+a{blr:expression(this.onFocus=this.close());} /* 只支持IE，过多使用效率低 */ 　
+a{blr:expression(this.onFocus=this.blur());} /* 只支持IE，过多使用效率低 */ 　
+a:focus { -moz-outline-style: none; } /* IE不支持 */ 
+body,html{ min-width: 1200px; padding:0px; margin:0px;}
+.cj_box1{ height:741px; background:url(../../../images/increaseate/images/cj_img_01.jpg) no-repeat center top;}
+.cj_box2{ height:84px; background:url(../../../images/increaseate/images/cj_img_02.jpg) no-repeat center top;}
+.cj_box3{ height:779px; background:url(../../../images/increaseate/images/cj_img_03.jpg) no-repeat center top;}
+.cj_box4{ height:551px; background:url(../../../images/increaseate/images/cj_img_04.jpg) no-repeat center top;}
+.luckyList{width:1200px;margin:0 auto;height:50px;line-height:70px;}
+.luckyList p marquee{width:870px;margin-left:300px;color:#fff;font-size: 16px;}
+.cj_box3_main{width:1200px;margin:0 auto;}
+.cj_box3_left,.cj_box3_right{width:600px;height:auto;float:left;margin-top:40px;}
+.cj_box3_right h2{font-size:24px;line-height:30px;font-weight:normal;margin:10px 0 0 82px;font-family:"微软雅黑","microsoft yahei";color:#fff;}
+.cj_box3_right h2 .playnum{font-size:28px;color:#ffd929;}
+.p_text{width:450px;height:auto;border:1px solid solid;margin:40px 0 0 62px;}
+.p_text p{color:#fff;font-size:16px;line-height:30px;}
+.p_list{width:450px;height:206px;margin:20px 0 0 90px;overflow:auto;display:none;}
+.p_list p{width:100%;height:50px;line-height:50px;text-indent:2em;font-size:16px;color:#dbbdfd;background:#2b0257;margin-bottom:1px;border-bottom:1px #250e3a solid;}
+.cj_list{width: 450px;text-align: center;color:#fff;margin-left:90px;margin-top:55px;font-size:24px;}
+.sgy_red{font-size:20px;color:red;}
+
+/*----------抽奖样式----------*/
+.g-content{width:100%;height:auto;}
+.g-content .g-lottery-case{width:564px;height:564px;margin:0 auto;}
+.g-content .g-lottery-case .g-left{width:564px;float:left;margin-left:17px;}
+.g-lottery-box{width:564px;height:564px;position:relative;background:url(../../../images/increaseate/images/ly-plate-c.png) no-repeat;}
+.g-lottery-box .g-lottery-img{width:550px;height:554px;top:9px;left:6px;position:relative;background:url(../../../images/increaseate/images/bg-lottery.png) no-repeat;}
+.g-lottery-box .playbtn{width:188px;height:188px;position:absolute;top:175px;left:177px;background:url(../../../images/increaseate/images/playbtn.png) no-repeat;border:none;}
+.playbtn i{width: 0;height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent;border-bottom: 22px solid #9937cb;position: absolute;top:-20px;
+	left:49%;margin-left:-10px;}
+.playbtn2{width:188px;height:188px;position:absolute;top:175px;left:177px;background:url(../../../images/increaseate/images/playbtn2.png) no-repeat;border:none;}
+.playbtn3{width:188px;height:188px;position:absolute;top:175px;left:177px;background:url(../../../images/increaseate/images/playbtn3.png) no-repeat;border:none;}
+.bg{position:relative;}
+/*-----弹层-----*/
+.zhezhao{width:100%;height:100%;background:#000;position:absolute;filter:alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity:0.5; opacity: 0.5;z-index:1;top:0px;display:none;}
+.bombBox{width:513px;height:463px;margin:0 auto;position:fixed;top:24%;left:36%;z-index:999;background:url(../../../images/increaseate/images/tc_bj2.png) no-repeat;display:none;}
+.bombBox .text_main{margin-top:209px;width:246px;margin-left:110px;font-size:27px;color:#fff;padding:0 30px;text-align:center;height: 82px;}
+.bombBox button{width:315px;height:92px;border:none;margin-left:102px;margin-top:46px;background:none;cursor:pointer;color:#945c01;font-size:37px;}
+.guoqiBox{width:440px;height:210px;position:fixed;top:30%;left:38%;z-index:2;background:#fff;box-shadow: 0 0 3px #e5e5e5;border: 6px solid #999;display:none;}
+.guoqiBox2{width:440px;height:210px;position:fixed;top:30%;left:38%;z-index:2;background:#fff;box-shadow: 0 0 3px #e5e5e5;border: 6px solid #999;display:none;}
+.guoqi_btn{width:150px;height:40px;display:block;border:none;background: #fe2b4e;border-radius: 5px;margin:40px 145px 0;cursor: pointer;color: #fff;font-size:18px;
+	text-align: center;line-height: 40px;}
+.guoqi_main{font-size:20px;color:#333;text-align:center;margin-top:50px;}

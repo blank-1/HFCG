@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CRM_STAFF_ROLE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CrmStaffRole" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="STAFF_ID" property="staffId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ROLE_ID, STAFF_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_STAFF_ROLE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_STAFF_ROLE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CrmStaffRole" >
+  	<selectKey keyProperty="id" order="BEFORE" resultType="long">
+		SELECT SEQ_CRM_STAFF_ROLE.NEXTVAL as id FROM dual
+	</selectKey>
+    insert into CRM_STAFF_ROLE (ID, ROLE_ID, STAFF_ID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{roleId,jdbcType=DECIMAL}, #{staffId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CrmStaffRole" >
+    insert into CRM_STAFF_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="staffId != null" >
+        STAFF_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CrmStaffRole" >
+    update CRM_STAFF_ROLE
+    <set >
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="staffId != null" >
+        STAFF_ID = #{staffId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CrmStaffRole" >
+    update CRM_STAFF_ROLE
+    set ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      STAFF_ID = #{staffId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="selectByStaffId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_STAFF_ROLE
+    where STAFF_ID = #{id,jdbcType=DECIMAL}
+  </select>
+</mapper>

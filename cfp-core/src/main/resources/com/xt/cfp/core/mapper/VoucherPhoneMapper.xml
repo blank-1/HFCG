@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="VOUCHER_PHONE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.VoucherPhone" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="MOBILE_NO" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_NUMBER" property="activityNumber" jdbcType="VARCHAR" />
+    <result column="USAGE_FREQUENCY" property="usageFrequency" jdbcType="DECIMAL" />
+    <result column="BINDING_ID" property="bindingId" jdbcType="DECIMAL" />
+    <result column="TOTAL_NUM" property="totalNum" jdbcType="DECIMAL" />
+    <result column="PRIZE_ID" property="prizeId" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="VoucherPhoneVO" type="com.xt.cfp.core.pojo.ext.VoucherPhoneVO" extends="BaseResultMap">
+    	<result column="prize_name" property="prizeName" jdbcType="VARCHAR" />
+    	<result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, MOBILE_NO, REAL_NAME, CREATE_TIME, ACTIVITY_NUMBER, USAGE_FREQUENCY, BINDING_ID, TOTAL_NUM, PRIZE_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from VOUCHER_PHONE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getVoucherPhoneByPhone" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from VOUCHER_PHONE
+    where MOBILE_NO = #{phone,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getVoucherPhoneByPhoneAndAct" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from VOUCHER_PHONE
+    where MOBILE_NO = #{phone,jdbcType=VARCHAR}
+    AND ACTIVITY_NUMBER #{activityId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getVoucherPhoneBindingPhone" resultMap="BaseResultMap" parameterType="map">
+    select 
+    <include refid="Base_Column_List" />
+    from voucher_phone vp where vp.binding_id = (select binding_id from activity_binding ab where ab.mobile_no = #{phone,jdbcType=VARCHAR})
+     and vp.activity_number = #{activityId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from VOUCHER_PHONE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.VoucherPhone" >
+  <selectKey keyProperty="id" order="BEFORE" resultType="long">
+      SELECT SEQ_VOUCHER_PHONE.NEXTVAL as id FROM dual
+    </selectKey>
+    insert into VOUCHER_PHONE (ID, MOBILE_NO, REAL_NAME, CREATE_TIME, ACTIVITY_NUMBER, USAGE_FREQUENCY, BINDING_ID, TOTAL_NUM, PRIZE_ID)
+    values (#{id,jdbcType=DECIMAL}, #{mobileNo,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+    #{activityNumber,jdbcType=VARCHAR}, #{usageFrequency,jdbcType=DECIMAL}, #{bindingId,jdbcType=DECIMAL}, #{totalNum,jdbcType=DECIMAL}, #{prizeId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.VoucherPhone" >
+    insert into VOUCHER_PHONE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="mobileNo != null" >
+        MOBILE_NO,
+      </if>
+      <if test="realName != null" >
+        REAL_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="activityNumber != null" >
+        ACTIVITY_NUMBER,
+      </if>
+      <if test="usageFrequency != null" >
+        USAGE_FREQUENCY,
+      </if>
+      <if test="bindingId != null" >
+        BINDING_ID,
+      </if>
+      <if test="totalNum != null" >
+        TOTAL_NUM,
+      </if>
+      <if test="prizeId != null" >
+        PRIZE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="mobileNo != null" >
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityNumber != null" >
+        #{activityNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="usageFrequency != null" >
+        #{usageFrequency,jdbcType=DECIMAL},
+      </if>
+       <if test="bindingId != null" >
+        #{bindingId,jdbcType=DECIMAL},
+      </if>
+      <if test="totalNum != null" >
+        #{totalNum,jdbcType=DECIMAL},
+      </if>
+      <if test="prizeId != null" >
+        #{prizeId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.VoucherPhone" >
+    update VOUCHER_PHONE
+    <set >
+      <if test="mobileNo != null" >
+        MOBILE_NO = #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityNumber != null" >
+        ACTIVITY_NUMBER = #{activityNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="usageFrequency != null">
+      	USAGE_FREQUENCY = #{usageFrequency,jdbcType=DECIMAL},
+      </if>
+      <if test="bindingId != null" >
+        BINDING_ID = #{bindingId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalNum != null" >
+        TOTAL_NUM = #{totalNum,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeId != null" >
+        PRIZE_ID = #{prizeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.VoucherPhone" >
+    update VOUCHER_PHONE
+    set MOBILE_NO = #{mobileNo,jdbcType=VARCHAR},
+    	REAL_NAME = #{realName,jdbcType=VARCHAR},
+    	CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+    	ACTIVITY_NUMBER = #{activityNumber,jdbcType=VARCHAR},
+    	USAGE_FREQUENCY = #{usageFrequency,jdbcType=DECIMAL},
+    	BINDING_ID = #{bindingId,jdbcType=VARCHAR},
+    	TOTAL_NUM = #{totalNum,jdbcType=VARCHAR},
+    	PRIZE_ID = #{prizeId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="selectHasLotteryDrawUsers" resultMap="VoucherPhoneVO" parameterType="map" >
+    select * from (
+       select vp.mobile_no,vp.real_name,vp.create_time,rpp.prize_name,rpp.remark from VOUCHER_PHONE vp 
+       left join PRIZE_POOL pp on vp.prize_id=pp.prize_pool_id 
+       left join REAL_PRIZE_PRODUCT rpp on rpp.real_prize_product=pp.prize_product_id
+       where 1=1
+       <if test="name != null" >
+        and vp.activity_number=#{name}
+       </if>
+       <if test="mobile != null" >
+        and vp.mobile_no=#{mobile}
+       </if>
+       <if test="number != null" >
+        and rpp.real_prize_product<![CDATA[<>]]>#{number}
+       </if>
+       order by vp.id desc
+	) where rownum<![CDATA[<=]]>
+	<if test="pageNum != null" >
+        #{pageNum}
+    </if>
+    <if test="pageNum == null" >
+        20
+    </if>
+	</select>
+</mapper>

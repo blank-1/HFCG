@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LEND_ORDER_FEES_DETAIL">
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LendOrderFeesDetail">
+        <id column="LEND_ORDER_FEES_DETAIL_ID" property="lendOrderFeesDetailId" jdbcType="DECIMAL"/>
+        <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL"/>
+        <result column="FEES_ITEM_ID" property="feesItemId" jdbcType="DECIMAL"/>
+        <result column="CHARGE_POINT" property="chargePoint" jdbcType="CHAR"/>
+        <result column="FEES_BALANCE2" property="feesBalance" jdbcType="DECIMAL"/>
+        <result column="FEES_BALANCE" property="feesBalance2" jdbcType="DECIMAL"/>
+        <result column="SECTION_CODE" property="sectionCode" jdbcType="DECIMAL"/>
+        <result column="PAID_FEES" property="paidFees" jdbcType="DECIMAL"/>
+        <result column="FEES_STATE" property="feesState" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    LEND_ORDER_FEES_DETAIL_ID,LEND_ORDER_ID,FEES_ITEM_ID,CHARGE_POINT,FEES_BALANCE2,FEES_BALANCE,SECTION_CODE,
+    PAID_FEES,FEES_STATE
+  </sql>
+
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.LendOrderFeesDetail" >
+        <selectKey keyProperty="lendOrderFeesDetailId" resultType="java.lang.Long" order="BEFORE">
+            select SEQ_LEND_ORDER_FEES_DETAIL.nextval from dual
+        </selectKey>
+        insert into LEND_ORDER_FEES_DETAIL
+        (LEND_ORDER_FEES_DETAIL_ID,LEND_ORDER_ID,FEES_ITEM_ID,CHARGE_POINT,FEES_BALANCE2,FEES_BALANCE,SECTION_CODE,
+        PAID_FEES,FEES_STATE)
+        values
+        (#{lendOrderFeesDetailId,jdbcType=DECIMAL},#{lendOrderId,jdbcType=DECIMAL},#{feesItemId,jdbcType=DECIMAL},#{chargePoint,jdbcType=CHAR},#{feesBalance2,jdbcType=DECIMAL},#{feesBalance,jdbcType=DECIMAL},
+        #{sectionCode,jdbcType=DECIMAL},#{paidFees,jdbcType=DECIMAL},#{feesState,jdbcType=CHAR})
+    </insert>
+
+    <update id="updateByMap" parameterType="java.util.Map" >
+        update LEND_ORDER_FEES_DETAIL
+        <set>
+            <if test="_parameter.containsKey('feesBalance2')">
+                FEES_BALANCE2=#{feesBalance2,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('feesBalance')">
+                FEES_BALANCE=#{feesBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('paidFees')">
+                PAID_FEES=#{paidFees,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('feesState')">
+                FEES_STATE=#{feesState,jdbcType=CHAR},
+            </if>
+
+        </set>
+        where LEND_ORDER_FEES_DETAIL_ID=#{lendOrderFeesDetailId,jdbcType=DECIMAL}
+    </update>
+
+    <select id="getDetailByLendOrderIdAndSectionCode" resultMap="BaseResultMap">
+        select * from LEND_ORDER_FEES_DETAIL
+        where (1=1)
+        <if test="_parameter.containsKey('lendOrderId')">
+            and LEND_ORDER_ID=#{lendOrderId,jdbcType=DECIMAL}
+        </if>
+        <if test="_parameter.containsKey('sectionCode')">
+            and SECTION_CODE=#{sectionCode,jdbcType=DECIMAL}
+        </if>
+        <if test="_parameter.containsKey('chargePoint')">
+            and CHARGE_POINT=#{chargePoint,jdbcType=CHAR}
+        </if>
+        <if test="_parameter.containsKey('feesState')">
+            and FEES_STATE=#{feesState,jdbcType=CHAR}
+        </if>
+    </select>
+
+
+</mapper>

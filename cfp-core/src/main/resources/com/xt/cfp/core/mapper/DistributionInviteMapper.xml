@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DISTRIBUTION_INVITE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.DistributionInvite" >
+    <id column="DIS_INVITE_ID" property="disInviteId" jdbcType="DECIMAL" />
+    <result column="USER_PID" property="userPid" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="DIS_LEVEL" property="disLevel" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="DistributionVO" type="com.xt.cfp.core.pojo.ext.DistributorVO" >
+    <result column="user_id" property="userId" jdbcType="DECIMAL" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="mobile_no" property="mobile" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="level_one" property="firstNum" jdbcType="DECIMAL" />
+    <result column="level_two" property="secondNum" jdbcType="DECIMAL" />
+    <result column="level_three" property="thirdNum" jdbcType="DECIMAL" />
+    <result column="profit" property="profit" jdbcType="DECIMAL" />
+    <result column="shouldP" property="shouldProfit" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthDay" jdbcType="TIMESTAMP" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="firstM" property="firstProfit" jdbcType="DECIMAL" />
+    <result column="secondM" property="secondProfit" jdbcType="DECIMAL" />
+    <result column="thirdM" property="thirdProfit" jdbcType="DECIMAL" />
+    <result column="dis_level" property="disLevel" jdbcType="VARCHAR" />
+    <result column="create_time" property="creatTime" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="transforM" property="transforM" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DIS_INVITE_ID, USER_PID, USER_ID, DIS_LEVEL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from DISTRIBUTION_INVITE
+    where DIS_INVITE_ID = #{disInviteId,jdbcType=DECIMAL}
+  </select>
+  
+   <select id="selectByPrimaryKeyForUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from DISTRIBUTION_INVITE
+    where USER_ID = #{USER_ID,jdbcType=DECIMAL}  
+    <![CDATA[   and  DIS_LEVEL < 3  ]]>  
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from DISTRIBUTION_INVITE
+    where DIS_INVITE_ID = #{disInviteId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.DistributionInvite" >
+    insert into DISTRIBUTION_INVITE (DIS_INVITE_ID, USER_PID, USER_ID, 
+      DIS_LEVEL, STATE, INVITE_DATE, 
+      SOURCE)
+    values (#{disInviteId,jdbcType=DECIMAL}, #{userPid,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{disLevel,jdbcType=CHAR}, #{state,jdbcType=CHAR}, #{inviteDate,jdbcType=TIMESTAMP}, 
+      #{source,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.DistributionInvite" >
+    insert into DISTRIBUTION_INVITE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+     
+        DIS_INVITE_ID,
+      
+      <if test="userPid != null" >
+        USER_PID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="disLevel != null" >
+        DIS_LEVEL,
+      </if>
+    
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     
+      SEQ_DISTRIBUTION_INVITE.NEXTVAL,
+      
+      <if test="userPid != null" >
+        #{userPid,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="disLevel != null" >
+        #{disLevel,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.DistributionInvite" >
+    update DISTRIBUTION_INVITE
+    <set >
+      <if test="userPid != null" >
+        USER_PID = #{userPid,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="disLevel != null" >
+        DIS_LEVEL = #{disLevel,jdbcType=CHAR},
+      </if>
+    </set>
+    where DIS_INVITE_ID = #{disInviteId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.DistributionInvite" >
+    update DISTRIBUTION_INVITE
+    set USER_PID = #{userPid,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      DIS_LEVEL = #{disLevel,jdbcType=CHAR},
+    where DIS_INVITE_ID = #{disInviteId,jdbcType=DECIMAL}
+  </update>
+  <select id="countUserCustomerByUserId" resultType="int" parameterType="java.lang.Long" >
+    select count(1）from DISTRIBUTION_INVITE di
+	where di.user_pid=#{userId,jdbcType=DECIMAL}
+  </select>
+  <select id="findAllDistributionByPage" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+	  	select 
+	    <include refid="Base_Column_List" />
+	    from DISTRIBUTION_INVITE di
+	    <where>
+	    	1=1
+	    	<if test="userId != null">
+				and di.user_pid=#{userId,jdbcType=DECIMAL}    	
+	    	</if>
+	    </where>
+	    order by di.dis_level
+  </select>
+  <select id="count_findAllDistributionByPage" resultType="int" parameterType="java.util.HashMap">
+  		select count(1)
+	    from DISTRIBUTION_INVITE di
+	    <where>
+	    	1=1
+	    	<if test="userId != null">
+				and di.user_pid=#{userId,jdbcType=DECIMAL}    	
+	    	</if>
+	    </where>
+	    order by di.dis_level
+  </select>
+  
+  <!-- 根据被邀请人ID，查询分销关系列表 -->
+  <select id="getDistributionInviteByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from DISTRIBUTION_INVITE
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  <!-- 根据被邀请人ID，查询分销关系列表 -->
+  <select id="getDistributionInviteInWhiteTabsByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from DISTRIBUTION_INVITE
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+         and USER_ID in ( select w.user_id from white_tabs w )  
+  </select>
+  
+  <select id="findAllDistributionCustomerByPage" resultMap="DistributionVO" parameterType="java.util.HashMap">
+	  	select uie.user_id,ui.login_name,uie.real_name,ui.mobile_no,uie.id_card,ui.status,
+		(select count(1) from DISTRIBUTION_INVITE di where di.user_pid=uie.user_id and di.dis_level=1) level_one,
+		(select count(1) from DISTRIBUTION_INVITE di where di.user_pid=uie.user_id and di.dis_level=2) level_two,
+		(select count(1) from DISTRIBUTION_INVITE di where di.user_pid=uie.user_id and di.dis_level=3) level_three,
+		(select nvl(sum(cp.fact_profit),0) profit from COMMI_PROFIT cp where cp.user_id=uie.user_id) profit,
+		(select nvl(sum(cp.shoul_profit),0) shouldP from COMMI_PROFIT cp where cp.user_id=uie.user_id) shouldP
+		from user_info_ext uie
+		left join user_info ui on uie.user_id=ui.user_id
+		<where>
+			ui.type='0'
+			<if test="status != null">
+				and ui.status=#{status,jdbcType=VARCHAR}
+			</if>
+			<if test="realName != null">
+				and uie.real_name like '%${realName}%'
+			</if>
+			<if test="loginName != null">
+				and ui.login_name like '%${loginName}%'
+			</if>
+			<if test="mobile != null">
+				and ui.mobile_no like '%${mobile}%'
+			</if>
+			<if test="idCard != null">
+				and uie.id_card like '%${idCard}%'
+			</if>
+			and ui.user_id in(select wt.user_id from white_tabs wt)
+		</where>
+  </select>
+  
+  <select id="count_findAllDistributionCustomerByPage" resultType="int" parameterType="java.util.HashMap">
+	  	select count(1)
+		from user_info_ext uie
+		left join user_info ui on uie.user_id=ui.user_id
+		<where>
+			ui.type='0'
+			<if test="status != null">
+				and ui.status=#{status,jdbcType=VARCHAR}
+			</if>
+			<if test="realName != null">
+				and uie.real_name like '%${realName}%'
+			</if>
+			<if test="loginName != null">
+				and ui.login_name like '%${loginName}%'
+			</if>
+			<if test="mobile != null">
+				and ui.mobile_no like '%${mobile}%'
+			</if>
+			<if test="idCard != null">
+				and uie.id_card like '%${idCard}%'
+			</if>
+			and ui.user_id in(select wt.user_id from white_tabs wt)
+		</where>
+  </select>
+  
+  <select id="findDistributionCustomerDetailByUserId" resultMap="DistributionVO" parameterType="java.lang.Long">
+  	select uie.user_id,ui.login_name,uie.real_name,ui.mobile_no,uie.id_card,ui.status,
+	case uie.sex when '0' then '女' else '男' end sex,uie.birthday,
+	case uie.education_level when '1' then '博士及以上' when '2' then '硕士' when '3' then '本科' when '4' then '大专' 
+	when '5' then '高中及中专' when '6' then '初中及以下' else '' end education,
+	(select count(1) from DISTRIBUTION_INVITE di where di.user_pid=uie.user_id and di.dis_level=1) level_one,
+	(select count(1) from DISTRIBUTION_INVITE di where di.user_pid=uie.user_id and di.dis_level=2) level_two,
+	(select count(1) from DISTRIBUTION_INVITE di where di.user_pid=uie.user_id and di.dis_level=3) level_three,
+	(select nvl(sum(cp.fact_profit),0) profit from COMMI_PROFIT cp where cp.user_id=uie.user_id) profit,
+	(select nvl(sum(cp.shoul_profit),0) shouldP from COMMI_PROFIT cp where cp.user_id=uie.user_id) shouldP,
+	(select nvl(sum(c.balance),0) from COMMISION c where c.user_id=uie.user_id and c.user_level='1')firstM,
+	(select nvl(sum(c.balance),0) from COMMISION c where c.user_id=uie.user_id and c.user_level='2')secondM,
+	(select nvl(sum(c.balance),0) from COMMISION c where c.user_id=uie.user_id and c.user_level='3')thirdM
+	from user_info_ext uie
+	left join user_info ui on uie.user_id=ui.user_id
+	where uie.user_id=#{userId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="findUserCustomersByPage" resultMap="DistributionVO" parameterType="java.util.HashMap">
+		select di.user_id,ui.login_name,ue.real_name,ui.mobile_no,ui.create_time,di.dis_level,
+		(
+		       select nvl(sum(cp.fact_profit),0) from commi_profit cp where cp.lend_order_id in(
+		              select lo.lend_order_id from lend_order lo where lo.lend_user_id=di.user_id        
+		       ) and cp.user_id=di.user_pid
+		)profit,
+		(
+		       select nvl(sum(cp.shoul_profit),0) from commi_profit cp where cp.lend_order_id in(
+		              select lo.lend_order_id from lend_order lo where lo.lend_user_id=di.user_id        
+		       ) and cp.user_id=di.user_pid
+		)shouldP,
+		(
+		       select nvl(sum(lo.buy_balance),0) from lend_order lo where lo.lend_order_id in(
+		              select cp.lend_order_id from commi_profit cp where cp.lend_order_id=lo.lend_order_id
+		       ) and lo.lend_user_id=di.user_id
+		)amount,
+		(
+		       select nvl(sum(cta.when_worth),0) transforM from lend_order lo 
+		       left join creditor_rights cr on cr.lend_order_id=lo.lend_order_id
+		       left join creditorright_transfer_apply cta on cta.apply_cr_id=cr.creditor_rights_id
+		       where lo.lend_user_id=di.user_id and cr.rights_state='2'
+		       and lo.lend_order_id in (select cp.lend_order_id from commi_profit cp)  
+		)transforM
+		from distribution_invite di
+		left join user_info ui on ui.user_id=di.user_id
+		left join user_info_ext ue on ue.user_id=di.user_id
+		<where>
+			1=1
+			<if test="userId != null">
+				and di.user_pid=#{userId,jdbcType=VARCHAR}
+			</if>
+			<if test="disLevel != null">
+				and di.dis_level=#{disLevel,jdbcType=VARCHAR}
+			</if>
+			<if test="realName != null">
+				and ue.real_name like '%${realName}%'
+			</if>
+			<if test="loginName != null">
+				and ui.login_name like '%${loginName}%'
+			</if>
+			<if test="mobile != null">
+				and ui.mobile_no like '%${mobile}%'
+			</if>
+			<if test="startTime != null">
+				and ui.create_time <![CDATA[>=]]> to_date(#{startTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+			</if>
+			<if test="endTime != null">
+				and ui.create_time <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+			</if>
+		</where>
+  </select>
+  
+  <select id="count_findUserCustomersByPage" resultType="int" parameterType="java.util.HashMap">
+  		select count(1)
+		from distribution_invite di
+		left join user_info ui on ui.user_id=di.user_id
+		left join user_info_ext ue on ue.user_id=di.user_id
+		<where>
+			1=1
+			<if test="userId != null">
+				and di.user_pid=#{userId,jdbcType=VARCHAR}
+			</if>
+			<if test="disLevel != null">
+				and di.dis_level=#{disLevel,jdbcType=VARCHAR}
+			</if>
+			<if test="realName != null">
+				and ue.real_name like '%${realName}%'
+			</if>
+			<if test="loginName != null">
+				and ui.login_name like '%${loginName}%'
+			</if>
+			<if test="mobile != null">
+				and ui.mobile_no like '%${mobile}%'
+			</if>
+			<if test="startTime != null">
+				and ui.create_time <![CDATA[>=]]> to_date(#{startTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+			</if>
+			<if test="endTime != null">
+				and ui.create_time <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'YYYY-MM-DD') 
+			</if>
+		</where>
+  </select>
+  
+  <select id="getUserIdByUserPids" resultType="java.lang.Long" parameterType="java.util.HashMap">
+  	   select distinct (di.user_id)     	  
+		  from distribution_invite di    	   
+		 start with di.user_pid in  
+            <foreach collection="userPidList" item="userPid" open="(" separator="," close=")">
+                #{userPid}
+            </foreach>
+		connect by prior di.user_id = di.user_pid       	  
+  </select>
+  
+  <!-- 查询直属上级 -->
+  <select id="getUserIdByUserPid" resultType="java.lang.Long" parameterType="java.util.HashMap">
+  	   select distinct (di.user_id)     	  
+		  from distribution_invite di    	   
+		 where di.user_pid in  
+         <foreach collection="userPidList" item="userPid" open="(" separator="," close=")">
+             #{userPid}
+         </foreach>
+  </select>
+  
+</mapper>

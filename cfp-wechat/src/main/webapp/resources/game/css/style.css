@@ -1,0 +1,1122 @@
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 62.5%;
+  vertical-align: baseline;
+  background: transparent;
+}
+*{ -webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent; /* For some Androids */ }
+.clearfloat:after {
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0;
+}
+.clearfloat {
+  zoom: 1;
+}
+body {
+  line-height: 1;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+}
+nav ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+/* change colours to suit your needs */
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+/* change colours to suit your needs */
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+del {
+  text-decoration: line-through;
+}
+abbr[title],
+dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* change border colour to suit your needs */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+  padding: 0;
+}
+input,
+select {
+  vertical-align: middle;
+}
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+li,
+dt,
+dd,
+form,
+input,
+select,
+option,
+textarea,
+table,
+tr,
+td,
+a,
+img,
+span,
+em,
+strong,
+u,
+i,
+b,
+object,
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: "微软雅黑";
+  font-size: 12px;
+  color: #000000;
+}
+ul,
+li,
+ol,
+dl {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+img,
+select,
+textarea,
+input {
+  vertical-align: middle;
+}
+img {
+  border: none;
+}
+a {
+  color: #666666;
+  text-decoration: none;
+}
+a:hover {
+  color: #FF0000;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 14px;
+}
+.clear {
+  clear: both;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+em {
+  font-family: "微软雅黑";
+}
+/*共有样式*/
+.def {
+  -webkit-tap-highlight: rgba(0, 0, 0, 0);
+  -moz-tap-highlight: rgba(0, 0, 0, 0);
+  -ms-tap-highlight: rgba(0, 0, 0, 0);
+  -o-tap-highlight: rgba(0, 0, 0, 0);
+  tap-highlight: rgba(0, 0, 0, 0);
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  -o-text-size-adjust: none;
+  text-size-adjust: none;
+}
+.transition {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.box {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -o-box;
+  display: box;
+}
+.box-pack {
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-box-pack: center;
+  -o-box-pack: center;
+  box-pack: center;
+}
+.box-justify {
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -ms-box-pack: justify;
+  -o-box-pack: justify;
+  box-pack: justify;
+}
+.align-center {
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-box-align: center;
+  -o-box-align: center;
+  box-align: center;
+}
+.vertical {
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -ms-box-orient: vertical;
+  -o-box-orient: vertical;
+  box-orient: vertical;
+}
+.flex {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -ms-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+}
+.a {
+  position: absolute;
+}
+.r {
+  position: relative;
+}
+.f {
+  position: fixed;
+}
+.full {
+  width: 100%;
+  height: 100%;
+}
+html {
+  font-size: 62.5%;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+/*样式*/
+.wrapper {
+  width: 100%;
+  height: 100%;
+  background: url(../gameimg/bkgd1.jpg) no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+.wrapper .title {
+  width: 273px;
+  height: 105px;
+  margin: 0rem auto;
+  background: url(../gameimg/gameName.png) no-repeat center center;
+  background-size: 100% 100%;
+  -webkit-animation: bounceIn 1s ease-in-out 3;
+}
+.wrapper .btn {
+  width: 80%;
+  height: 75px;
+  background: url(../gameimg/start.png) no-repeat center center;
+  background-size: cover;
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  margin-left: -40%;
+  font-size: 2.6rem;
+  text-align: center;
+  line-height: 4rem;
+}
+.wrapper .btn a {
+  color: #D2D2F9;
+}
+.wrapper .logo {
+  width: 9.4rem;
+  height: 2.2rem;
+  background: url(../gameimg/logo.png) no-repeat center center;
+  background-size: cover;
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  margin-left: -4.7rem;
+}
+/*说明开始游戏*/
+.road {
+  width: 100%;
+  height: 100%;
+  background: url(../gameimg/road.png) no-repeat center center;
+  background-size: 100% 100%;
+}
+.road .time {
+  width: 100%;
+  height: 4rem;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -o-box;
+  display: box;
+  position: relative;
+  padding: 1rem 2.5rem;
+}
+.road .time p {
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-family: "微软雅黑";
+  color: #fff;
+}
+.road .time p span {
+  font-family: "Agency FB";
+}
+.road .time p:nth-child(1) span {
+  font-size: 2.4rem;
+}
+.road .time p:nth-child(2) {
+  position: absolute;
+  right: 2rem;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -o-box;
+  display: box;
+}
+.road .time p:nth-child(2) span:nth-child(1) {
+  width: 3.5rem;
+  height: 4rem;
+  display: block;
+  font-size: 2.4rem;
+  background: url(../gameimg/heart.png) no-repeat top left;
+  background-size: 2.4rem 2.4rem;
+  text-align: right;
+}
+.road .time p:nth-child(2) span:nth-child(2) {
+  font-size: 2.4rem;
+  margin-left: .5rem;
+}
+.road .countDown {
+  width: 11.2rem;
+  height: 11.1rem;
+  background: #FFCE00;
+  border-radius: 50%;
+  z-index: 998;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: -5.2rem -5.2rem;
+  line-height: 11.1rem;
+  text-align: center;
+}
+.road .countDown .font {
+  font-size: 10rem;
+  color: #C41C00;
+  font-family: "Bauhaus 93";
+  -webkit-transform: rotate(25deg);
+}
+.road .bottomBox {
+  width: 100%;
+  position: fixed;
+  bottom: 1rem;
+  left: 0;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -o-box;
+  display: box;
+}
+.road .bottomBox .number {
+  width: 100%;
+  text-align: center;
+  line-height: 2rem;
+  font-size: 1.8rem;
+  font-family: "微软雅黑";
+  font-weight: 800;
+  color: #FFCE00;
+}
+.road .bottomBox .number span {
+  font-size: 2.4rem;
+  font-family: "Agency FB";
+}
+.road .bottomBox .music {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  background: url(../gameimg/open.png) no-repeat top left;
+  background-size: 100% 100%;
+  -webkit-animation: gogogo 2s infinite linear;
+}
+.road .bottomBox .cur {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  background: url(../gameimg/off.png) no-repeat top left;
+  background-size: 100% 100%;
+}
+.mask {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.mask .guide {
+  width: 22.6rem;
+  height: 39.3rem;
+  background: url(../gameimg/explain.png) no-repeat top left;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -19.6rem -11.3rem;
+}
+.process {
+  width: 85%;
+  height: 82%;
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin-left: -42%;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -o-box;
+  display: box;
+  overflow: hidden;
+  margin-top: 3rem;
+}
+.process ul {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -ms-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+  height: 90%;
+  margin: 3.5rem 1rem;
+  position: relative;
+  top: -1000rem;
+  left: 0;
+}
+.process ul li.odd {
+  width: 6.3rem;
+  height: 10.9rem;
+  background: url(../gameimg/devil/officer1.png) no-repeat;
+  background-size: 100% 100%;
+  -webkit-animation: guiziduizhang 0.5s infinite ease-in-out;
+  margin: 2rem auto;
+  text-align: center;
+}
+.process ul li{
+  width: 5.6rem;
+  height: 8rem;
+  background: url(../gameimg/devil/torpedo1.png) no-repeat;
+  background-size: 100% 100%;
+  margin: 2rem auto;
+  text-align: center;
+}
+.process ul li.boom {
+  width: 5.6rem;
+  height: 8rem;
+  background: url(../gameimg/devil/torpedo4.png) no-repeat;
+  background-size: 100% 100%;
+  margin: 2rem auto;
+  text-align: center;
+  -webkit-animation: boom 0.5s ease-in-out;
+}
+.process ul li.die {
+  width: 6.3rem;
+  height: 10.9rem;
+  background: url(../gameimg/devil/eliminate.png) no-repeat;
+  background-size: 100% 100%;
+  margin: 2rem auto;
+  text-align: center;
+}
+.process ul:nth-child(1) li:nth-child(1n).die,
+.process ul:nth-child(2) li:nth-child(7n).die,
+.process ul:nth-child(3) li:nth-child(5n).die {
+  width: 6.3rem;
+  height: 10.9rem;
+  background: url(../gameimg/devil/eliminate.png) no-repeat;
+  background-size: 100% 100%;
+  margin: 2rem auto;
+  text-align: center;
+}
+.process ul:nth-child(1) li:nth-child(1n).odd {
+  width: 6.3rem;
+  height: 10.9rem;
+  background: url(../gameimg/devil/plump1.png) no-repeat;
+  background-size: 100% 100%;
+  -webkit-animation: pangguizi 0.5s infinite ease-in-out;
+  margin: 2rem auto;
+  text-align: center;
+}
+.process ul:nth-child(3) li:nth-child(8n).odd {
+  width: 6.3rem;
+  height: 10.9rem;
+  background: url(../gameimg/devil/tight1.png) no-repeat;
+  background-size: 100% 100%;
+  -webkit-animation: shouguizi 0.5s infinite ease-in-out;
+  margin: 2rem auto;
+  text-align: center;
+}
+.process ul:nth-child(2) li:nth-child(8n).odd {
+  width: 6.3rem;
+  height: 10.9rem;
+  background: url(../gameimg/devil/plump1.png) no-repeat;
+  background-size: 100% 100%;
+  -webkit-animation: pangguizi 0.5s infinite ease-in-out;
+  margin: 2rem auto;
+  text-align: center;
+}
+.process ul:nth-child(3) li:nth-child(5n).even {
+  width: 5.6rem;
+  height: 8rem;
+  background: url(../gameimg/devil/torpedo1.png) no-repeat;
+  background-size: 100% 100%;
+  margin: 2rem auto;
+  text-align: center;
+}
+@-webkit-keyframes bounceIn {
+  0% {
+    -webkit-transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+  }
+}
+@-webkit-keyframes gogogo {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+/*鬼子长官*/
+@-webkit-keyframes guiziduizhang {
+  25% {
+    background: url(../gameimg/devil/officer1.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  50% {
+    background: url(../gameimg/devil/officer2.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  75% {
+    background: url(../gameimg/devil/officer3.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  100% {
+    background: url(../gameimg/devil/officer4.png) no-repeat;
+    background-size: 100% 100%;
+  }
+}
+/*胖鬼子*/
+@-webkit-keyframes pangguizi {
+  25% {
+    background: url(../gameimg/devil/plump1.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  50% {
+    background: url(../gameimg/devil/plump2.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  75% {
+    background: url(../gameimg/devil/plump3.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  100% {
+    background: url(../gameimg/devil/plump4.png) no-repeat;
+    background-size: 100% 100%;
+  }
+}
+/*瘦鬼子*/
+@-webkit-keyframes shouguizi {
+  25% {
+    background: url(../gameimg/devil/tight1.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  50% {
+    background: url(../gameimg/devil/tight2.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  75% {
+    background: url(../gameimg/devil/tight3.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  100% {
+    background: url(../gameimg/devil/tight4.png) no-repeat;
+    background-size: 100% 100%;
+  }
+}
+/*炸弹爆炸*/
+@-webkit-keyframes boom {
+  25% {
+    background: url(../gameimg/devil/torpedo1.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  50% {
+    background: url(../gameimg/devil/torpedo2.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  75% {
+    background: url(../gameimg/devil/torpedo3.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  100% {
+    background: url(../gameimg/devil/torpedo4.png) no-repeat;
+    background-size: 100% 100%;
+  }
+}
+/*结果页*/
+.result {
+  background: url(../gameimg/definition.jpg) no-repeat center;
+  background-size:cover; 
+  padding:20% 0 0 0;
+}
+.l-model{
+	width:86%;
+	margin:0 7%;
+	}
+.l-mode3{
+	width:86%;
+	margin:0 7% 24% 7%;
+	}
+.l-model2{
+	background: url(../gameimg/FrameMiddle.jpg) center repeat-y;
+	background-size:contain;
+	width:86%;
+	margin:0 7%;
+	padding:4% 8%;
+	}
+ .designation {
+  width: 9.3rem;
+  height: 5rem;
+  background: url(../gameimg/frame.gif) no-repeat center center;
+  background-size:contain;
+  padding:4% 10%;
+  margin:4% auto;
+
+}	
+.designation .octuple {
+  width:100%;
+  height: 100%;
+  background: url(../gameimg/balu.png) no-repeat center center;
+  background-size:cover;
+  text-align: center;
+}
+.designation .regular {
+ width:100%;
+  height: 100%;
+  background: url(../gameimg/zhengguijun.png) no-repeat center center;
+  background-size:cover;
+  text-align: center;
+}
+ .designation .wukongDui {
+  width:100%;
+  height: 100%;
+  background: url(../gameimg/wugongdui.png) no-repeat center center;
+  background-size:cover;
+  text-align: center;
+}
+.l-model2 p {
+  text-align: center;
+  line-height: 2.2rem;
+  font-size: 2rem;
+  color:#4c4c4c;
+}
+.l-model2 p span {
+	font-size:2rem;
+  color: #E55C00;
+}
+.result .btnBox {
+  width: 100%;
+  height: auto;
+  margin:2% 0;
+
+}
+.result .btnBox a {
+  width: 100%;
+  padding:0.9rem 0;
+  text-align: center;
+  line-height: 2.5rem;
+  font-size: 2.5rem;
+  display: block;
+}
+.result .btnBox a:nth-child(1) {
+  background: #FE2A4D;
+  color: #fff;
+  margin: .8rem 0;
+}
+.result .btnBox a:nth-child(2) {
+  background: #FFE000;
+  color: #BF5F00;
+}
+.l-resultinfo{
+	width:98%;
+	margin:4% 1%;
+	font-size:1.6rem !important;
+	color:#fe2a4d !important;
+	font-weight:bolder;
+	}
+.l-resultinfo2{
+	margin:8% 4% 0 4%;
+	font-size:1.2rem !important;
+	color:#4b4b4b !important;
+	text-align:left !important;
+	}
+
+
+/*.result {
+  width: 100%;
+  height: 100%;
+  background: url(../gameimg/definition.png) no-repeat;
+  background-size: 100% 100%;
+}
+.result .model {
+  width: 21rem;
+  height: 4rem;
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  margin-left: -10.5rem;
+}
+.result .model p {
+  text-align: center;
+  line-height: 1.5rem;
+}
+.result .model p span {
+  color: #E55C00;
+}
+.result .designation {
+  width: 9.3rem;
+  height: 5rem;
+  background: url(../gameimg/frame.gif) no-repeat center center;
+  background-size: 100% 100%;
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  margin-left: -4.15rem;
+}
+.result .designation .octuple {
+  width: 4rem;
+  height: 2.5rem;
+  background: url(../gameimg/balu.png) no-repeat center center;
+  background-size: 100% 100%;
+  text-align: center;
+  margin: 1.3rem 2.5rem;
+}
+.result .designation .wukongDui {
+  width: 4rem;
+  height: 2.5rem;
+  background: url(../gameimg/wugongdui.png) no-repeat center center;
+  background-size: 100% 100%;
+  text-align: center;
+  margin: 1.3rem 2.5rem;
+}
+.result .designation .regular {
+  width: 4rem;
+  height: 2.5rem;
+  background: url(../gameimg/zhengguijun.png) no-repeat center center;
+  background-size: 100% 100%;
+  text-align: center;
+  margin: 1.3rem 2.5rem;
+}
+.result .btnBox {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 0;
+}
+.result .btnBox a {
+  width: 80%;
+  height: 3.5rem;
+  text-align: center;
+  line-height: 3.5rem;
+  font-weight: 800;
+  font-size: 1.6rem;
+  display: block;
+}
+.result .btnBox a:nth-child(1) {
+  background: #FE2A4D;
+  color: #fff;
+  margin: .5rem 0;
+  position: absolute;
+  left: 50%;
+  bottom: 4rem;
+  margin-left: -40%;
+}
+.result .btnBox a:nth-child(2) {
+  background: #FFE000;
+  color: #BF5F00;
+  position: absolute;
+  left: 50%;
+  bottom: .5rem;
+  margin-left: -40%;
+}*/
+.maskBox {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+}
+.maskBox p {
+  width: 70%;
+  height: 8rem;
+  display: block;
+  padding: 1rem;
+  border: 2px dashed #fff;
+  text-align: center;
+  color: #fff;
+  border-radius: 10px;
+  position: relative;
+  top: 30%;
+  left: 50%;
+  margin: -2.5rem -35%;
+  font-size:2rem;
+  line-height:2.5rem;
+}
+.maskBox p:after {
+  content: "";
+  width: 4.8rem;
+  height: 15.4rem;
+  background: url(../gameimg/hand.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  right: -4.8rem;
+  bottom: 0rem;
+}
+.fontAera{
+  width:75%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -15% -35%;
+}
+.fontAera p{
+  line-height: 1.2rem;
+}
+@media (min-width:375px) and (max-width:667px) {
+  .fontAera{
+    width:75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -25% -35%;
+  }
+}
+@media (min-width:320px) and (max-width:480px) {
+  .fontAera{
+    width:75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -17% -35%;
+  }
+  .fontAera p{
+    line-height: 1.2rem;
+  }
+}
+@media (min-width:360px) and (max-width:640px) {
+  .fontAera{
+    width:75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -25% -35%;
+  }
+}
+input,textarea,button,select{
+	border-radius: 0px;
+	-webkit-appearance:none;					/*ios清除默认样式            		 */
+}
+
+input[type=checkbox] {
+	visibility: hidden;
+	}
+	
+input:focus { border:solid 1px #0764ff;}
+html,body{
+	font-family: "微软雅黑";
+	font-size: 62.5%;
+	position: relative;
+}
+body{
+	overflow: hidden;}
+.w-promptFont{
+	width: 100%;
+	display: block;
+	/*height: 3rem;
+	line-height: 3rem;*/
+	padding-left: 1.5rem;
+	font-size: 1.6rem;
+	margin:4% 0;
+}
+.w-phoneNum{
+   border: 1px solid #d2d4dc;
+	width: 90%;
+	height: 4rem;
+	margin: 4% auto;
+	padding:2%;
+	font-size:1.6rem;
+	margin-bottom: 1rem;
+	display:-webkit-box; 
+	-webkit-box-orient:horizontal; 
+	-webkit-box-pack:center; 
+	-webkit-box-align:center; 
+}
+.w-errorMsg{
+	display: block;
+	color: #f00;
+	line-height: 1.2rem;
+	margin: .5rem auto;
+	padding-left: 1.5rem;
+	display: none;
+}
+.w-collar{
+	width: 90%;
+	height:4rem;
+	background: #FE2A4D;
+	display: block;
+	color: #fff;
+	text-align: center;
+	line-height: 4rem;
+	margin: 2rem auto;
+	font-size: 62.5%;
+	font-size: 1.8rem;
+}
+.w-cash{
+	width: 80%;
+	height: auto;
+	margin: 3rem auto;
+}
+.w-cash img{
+	width: 100%;
+	height: 100%;
+}
+.w-operation{
+	width: 100%;
+	text-align:center;
+	font-size:2rem;
+	line-height:3rem;
+}
+.w-operation span{
+	color:#fe2d4a;
+	font-size:2rem;
+	line-height:3rem;
+	}
+.w-companyInfo{
+	width: 90%;
+	height: 14rem;
+	border:solid 1px #3b3967;
+	margin:10% 0 20% 4%;
+}
+.w-companyInfo dl{
+	width: 100%;
+	height: 100%;
+	display: -webkit-box;
+	overflow: hidden;
+}
+.w-companyInfo dl dd{
+	width: 50%;
+}
+.w-companyInfo dl dd h2{
+	width: 10rem;
+	height: 4.2rem;
+	background: #3B3967;
+	border-radius:0 0 5px 5px;
+	margin: -.2rem 1rem;
+	position: relative;
+}
+.w-companyInfo dl dd p{
+	color: #7571D0;
+	width: 90%;
+	margin-left: 1rem;
+	line-height: 1.5rem;
+	font-size:1rem;
+}
+.w-companyInfo dl dd p:last-child{
+	color: #4B4B4B;
+}
+.w-companyInfo dl dd h2 img{
+	width:80%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -12.5px -46.5px;
+}
+.w-companyInfo dl dt{
+	width: 50%;
+	height: 100%;
+	position: relative;
+}
+.w-companyInfo dl dt img{
+	position: absolute;
+	width: 11.6rem;
+	height: 11.6rem;
+	left: 50%;
+	top: 50%;
+	margin: -5.8rem;
+}
+.w-smile{
+	width: 50%;
+	height: auto;
+	margin: 3rem auto;
+}
+.w-smile img{
+	width: 100%;
+	height: 100%;
+}
+.w-repeat{
+	text-align: center;
+	color: #AFAFAF;
+	font-size:1.8rem;
+	line-height:2.8rem;
+}

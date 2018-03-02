@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BOND_SOURCE">
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.BondSource" >
+    <id column="BOND_SOURCE_ID" property="bondSourceId" jdbcType="DECIMAL" />
+    <result column="SOURCE_NAME" property="sourceName" jdbcType="VARCHAR" />
+    <result column="LOCATIOIN" property="locatioin" jdbcType="VARCHAR" />
+    <result column="CONTACT_PERSION" property="contactPersion" jdbcType="VARCHAR" />
+    <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <resultMap id="bondSourceVo" type="com.xt.cfp.core.pojo.ext.BondSourceExt" extends="BaseResultMap">
+    <result property="avilableValue" column="AVAIL_VALUE" jdbcType="DECIMAL" />
+    <result property="freezeValue" column="FROZE_VALUE" jdbcType="DECIMAL" />
+    <result property="value" column="VALUE" jdbcType="DECIMAL" />
+    <result property="borrowCount" column="BORROW_COUNT" javaType="java.lang.Long"/>
+    <result property="bondUserCount" column="BONDUSER_COUNT" javaType="java.lang.Long"/>
+  </resultMap>
+
+  <!--原始债权人表-->
+  <resultMap id="userSourceResultMap" type="com.xt.cfp.core.pojo.ext.BondSourceUser" extends="_userInfoMap" >
+    <id column="USER_SOURCE_ID" property="userSourceId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="BOND_SOURCE_ID" property="bondSourceId" jdbcType="DECIMAL" />
+    <result column="BOND_NAME" property="bondName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result property="avilableValue" column="AVAIL_VALUE" jdbcType="DECIMAL" />
+    <result property="idCard" column="idCard" jdbcType="DECIMAL" />
+    <result property="freezeValue" column="FROZE_VALUE" jdbcType="DECIMAL" />
+    <result property="value" column="VALUE" jdbcType="DECIMAL" />
+    <result property="borrowCount" column="BORROW_COUNT" javaType="java.lang.Long"/>
+  </resultMap>
+
+  <resultMap id="_userInfoMap" type="com.xt.cfp.core.pojo.UserInfo" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="LOGIN_PASS" property="loginPass" jdbcType="VARCHAR" />
+    <result column="MOBILE_NO" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="SOURCE" property="source" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+  </resultMap>
+
+
+
+  <sql id="Base_Column_List" >
+    BOND_SOURCE_ID, SOURCE_NAME, LOCATIOIN, CONTACT_PERSION, CONTACT_PHONE, STATUS,CREATE_TIME,USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from BOND_SOURCE
+    where BOND_SOURCE_ID = #{bondSourceId,jdbcType=DECIMAL}
+  </select>
+
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.BondSource" >
+    <selectKey keyProperty="bondSourceId" order="BEFORE" resultType="long">
+      SELECT SEQ_BOND_SOURCE.NEXTVAL as bondSourceId FROM dual
+    </selectKey>
+    insert into BOND_SOURCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bondSourceId != null" >
+        BOND_SOURCE_ID,
+      </if>
+      <if test="sourceName != null" >
+        SOURCE_NAME,
+      </if>
+      <if test="locatioin != null" >
+        LOCATIOIN,
+      </if>
+      <if test="contactPersion != null" >
+        CONTACT_PERSION,
+      </if>
+      <if test="contactPhone != null" >
+        CONTACT_PHONE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bondSourceId != null" >
+        #{bondSourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="sourceName != null" >
+        #{sourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="locatioin != null" >
+        #{locatioin,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPersion != null" >
+        #{contactPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.BondSource" >
+    update BOND_SOURCE
+    <set >
+      <if test="sourceName != null" >
+        SOURCE_NAME = #{sourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="locatioin != null" >
+        LOCATIOIN = #{locatioin,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPersion != null" >
+        CONTACT_PERSION = #{contactPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where BOND_SOURCE_ID = #{bondSourceId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.BondSource" >
+    update BOND_SOURCE
+    set SOURCE_NAME = #{sourceName,jdbcType=VARCHAR},
+      LOCATIOIN = #{locatioin,jdbcType=VARCHAR},
+      CONTACT_PERSION = #{contactPersion,jdbcType=VARCHAR},
+      CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      USER_ID = #{userId,jdbcType=DECIMAL}
+    where BOND_SOURCE_ID = #{bondSourceId,jdbcType=DECIMAL}
+  </update>
+
+
+  <update id="changeBondSourceStatus" parameterType="map" >
+    update BOND_SOURCE
+    set
+    STATUS = #{bondSourceStatus,jdbcType=CHAR}
+    where BOND_SOURCE_ID = #{bondSourceId,jdbcType=DECIMAL}
+  </update>
+
+
+  <update id="updateBondSourceUser" parameterType="com.xt.cfp.core.pojo.BondSource">
+    update BOND_SOURCE_USER
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="bondSourceId != null" >
+        BOND_SOURCE_ID = #{bondSourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="bondName != null" >
+        BOND_NAME = #{bondName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_SOURCE_ID = #{userSourceId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="getBondSourceUserBySourceId" resultMap="userSourceResultMap" parameterType="java.lang.Long">
+    select USER_SOURCE_ID, t.USER_ID u_id, BOND_SOURCE_ID, BOND_NAME,t.CREATE_TIME c_time,
+    0 as BORROW_COUNT
+    ,UA.AVAIL_VALUE,UA.FROZE_VALUE,UA.VALUE,
+    u.*,ue.ID_CARD idCard
+    from BOND_SOURCE_USER t
+    left join USER_INFO u on T.USER_ID=U.USER_ID
+    left join USER_ACCOUNT ua on U.USER_ID = UA.USER_ID and UA.ACC_TYPE_CODE = 1
+    left join USER_INFO_EXT ue on u.user_id=ue.user_id
+    where T.BOND_SOURCE_ID= #{bondSourceId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getBondSourceUserByUserSourceId" resultMap="userSourceResultMap" parameterType="java.lang.Long">
+     select USER_SOURCE_ID, t.USER_ID u_id, BOND_SOURCE_ID, BOND_NAME,t.CREATE_TIME c_time,
+    0 as BORROW_COUNT
+    ,UA.AVAIL_VALUE,UA.FROZE_VALUE,UA.VALUE,
+    u.USER_ID,
+    u.LOGIN_NAME,
+    ue.MOBILE_NO,
+    u.SOURCE,
+    u.CREATE_TIME,
+    u.TYPE,
+    u.STATUS,
+    ue.ID_CARD idCard
+    from BOND_SOURCE_USER t
+    left join USER_INFO u on T.USER_ID=U.USER_ID
+    left join USER_ACCOUNT ua on U.USER_ID = UA.USER_ID and UA.ACC_TYPE_CODE = 1
+    left join USER_INFO_EXT ue on u.user_id=ue.user_id
+    where T.USER_SOURCE_ID= #{userSourceId,jdbcType=DECIMAL}
+  </select>
+  
+   <select id="getAllBondSourceUserByUserId" resultMap="userSourceResultMap" parameterType="java.lang.Long">
+    select *  from BOND_SOURCE_USER b where b.user_id= #{userId,jdbcType=DECIMAL}
+  </select>
+
+  <insert id="addBondSourceUser" parameterType="com.xt.cfp.core.pojo.ext.BondSourceUser" >
+
+    <selectKey keyProperty="userSourceId" order="BEFORE" resultType="long">
+      SELECT SEQ_BOND_SOURCE_USER.NEXTVAL as userSourceId FROM dual
+    </selectKey>
+
+    insert into BOND_SOURCE_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userSourceId != null" >
+        USER_SOURCE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="bondSourceId != null" >
+        BOND_SOURCE_ID,
+      </if>
+      <if test="bondName != null" >
+        BOND_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userSourceId != null" >
+        #{userSourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="bondSourceId != null" >
+        #{bondSourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="bondName != null" >
+        #{bondName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+
+  <select id="getBondSourceDetail" resultMap="bondSourceVo" parameterType="java.lang.Long"  >
+    SELECT bs.*,T.AVAIL_VALUE,T.FROZE_VALUE,T.VALUE
+    FROM BOND_SOURCE bs LEFT JOIN
+    ( SELECT SUM(UA.AVAIL_VALUE) AVAIL_VALUE,SUM(UA.FROZE_VALUE) FROZE_VALUE,SUM(UA.VALUE) VALUE,b_s.BOND_SOURCE_ID
+    FROM BOND_SOURCE b_s LEFT JOIN USER_ACCOUNT UA
+    ON b_s.USER_ID = UA.USER_ID GROUP BY b_s.BOND_SOURCE_ID) T ON T.BOND_SOURCE_ID = BS.BOND_SOURCE_ID
+    where bs.BOND_SOURCE_ID = #{bondSourceId,jdbcType=DECIMAL}
+  </select>
+
+
+  <select id="getBondSourcePaging" resultMap="bondSourceVo" parameterType="map" >
+    SELECT bs.*,T.AVAIL_VALUE,T.FROZE_VALUE,T.VALUE,
+    (select count(1) from LOAN_APPLICATION la where la.CHANNEL = '1' and la.CHANNEL_ID = bs.BOND_SOURCE_ID) AS BORROW_COUNT,
+    (SELECT COUNT (1)
+    FROM BOND_SOURCE_USER bsu
+    WHERE BS.BOND_SOURCE_ID = BSU.BOND_SOURCE_ID)
+    BONDUSER_COUNT
+    FROM BOND_SOURCE bs LEFT JOIN
+    ( SELECT SUM(UA.AVAIL_VALUE) AVAIL_VALUE,SUM(UA.FROZE_VALUE) FROZE_VALUE,SUM(UA.VALUE) VALUE,b_s.BOND_SOURCE_ID
+    FROM BOND_SOURCE b_s LEFT JOIN USER_ACCOUNT UA
+    ON b_s.USER_ID = UA.USER_ID GROUP BY b_s.BOND_SOURCE_ID) T ON T.BOND_SOURCE_ID = BS.BOND_SOURCE_ID
+    <where>
+      <if test="bondSource != null">
+        <if test="bondSource.sourceName != null and bondSource.sourceName != ''">
+          AND bs.SOURCE_NAME like  '%${bondSource.sourceName}%'
+        </if>
+        <if test="bondSource.locatioin != null and bondSource.locatioin != ''">
+          AND bs.LOCATIOIN like '%${bondSource.locatioin}%'
+        </if>
+        <if test="bondSource.status != null and bondSource.status != ''">
+          AND bs.STATUS = #{bondSource.status,jdbcType=VARCHAR}
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+    ORDER BY bs.BOND_SOURCE_ID DESC
+  </select>
+
+  <select id="count_getBondSourcePaging"  resultType="int" parameterType="map" >
+    SELECT COUNT(1)
+    FROM BOND_SOURCE BS
+    <where>
+      <if test="bondSource != null">
+        <if test="bondSource.sourceName != null and bondSource.sourceName != ''">
+          AND bs.SOURCE_NAME like  '%${bondSource.sourceName}%'
+        </if>
+        <if test="bondSource.locatioin != null and bondSource.locatioin != ''">
+          AND bs.LOCATIOIN like '%${bondSource.locatioin}%'
+        </if>
+        <if test="bondSource.status != null and bondSource.status != ''">
+          AND bs.STATUS = #{bondSource.status,jdbcType=VARCHAR}
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+    ORDER BY bs.BOND_SOURCE_ID DESC
+  </select>
+
+
+  <select id="getBondSourceUserPaging" resultMap="userSourceResultMap" parameterType="map" >
+    select USER_SOURCE_ID, t.USER_ID u_id, BOND_SOURCE_ID, BOND_NAME,t.CREATE_TIME c_time,
+    (select count(1) from LOAN_APPLICATION la where la.USER_ID = t.USER_ID) as BORROW_COUNT
+    ,UA.AVAIL_VALUE,UA.FROZE_VALUE,UA.VALUE,
+    u.USER_ID,
+    u.LOGIN_NAME,
+    ue.MOBILE_NO,
+    u.SOURCE,
+    u.CREATE_TIME,
+    u.TYPE,
+    u.STATUS,
+    ue.ID_CARD idCard
+    from BOND_SOURCE_USER t
+    left join USER_INFO u on T.USER_ID=U.USER_ID
+    left join USER_ACCOUNT ua on U.USER_ID = UA.USER_ID and UA.ACC_TYPE_CODE = 1
+
+    left join USER_INFO_EXT ue on u.user_id=ue.user_id
+    <where>
+      <if test="bondSourceUser != null">
+        <if test="bondSourceUser.bondName != null and bondSourceUser.bondName != ''">
+          AND t.BOND_NAME like  '%${bondSourceUser.bondName}%'
+        </if>
+        <if test="bondSourceUser.bondSourceId != null and bondSourceUser.bondSourceId != ''">
+          AND t.BOND_SOURCE_ID =  #{bondSourceUser.bondSourceId}
+        </if>
+
+        <if test="bondSourceUser.loginName != null and bondSourceUser.loginName != ''">
+          AND u.LOGIN_NAME like '%${bondSourceUser.loginName}%'
+        </if>
+        <if test="bondSourceUser.status != null and bondSourceUser.status != ''">
+          AND u.STATUS = #{bondSourceUser.status,jdbcType=VARCHAR}
+        </if>
+
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+    ORDER BY t.USER_SOURCE_ID DESC
+  </select>
+
+  <select id="count_getBondSourceUserPagingByDiolog" resultType="int" parameterType="map" >
+    select count(1) from USER_INFO u
+    LEFT JOIN USER_ACCOUNT ua
+    ON U.USER_ID = UA.USER_ID AND UA.ACC_TYPE_CODE = 1
+    LEFT JOIN USER_INFO_EXT ue ON u.user_id = ue.user_id
+
+    <where>
+      U.TYPE = 1
+      <if test="bondSourceUser != null">
+        <if test="bondSourceUser.bondNames != null and bondSourceUser.bondNames != ''">
+          AND ue.real_name  like  '%${bondSourceUser.bondNames}%'
+        </if>
+        <if test="bondSourceUser.loginNames != null and bondSourceUser.loginNames != ''">
+          AND u.LOGIN_NAME like '%${bondSourceUser.loginNames}%'
+        </if>
+        <if test="bondSourceUser.status != null and bondSourceUser.status != ''">
+          AND u.STATUS = #{bondSourceUser.status,jdbcType=VARCHAR}
+        </if>
+
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+  </select>
+  
+    <select id="getBondSourceUserPagingByDiolog" resultMap="userSourceResultMap" parameterType="map" >
+      select U.USER_ID u_id,ue.real_name bondNames ,(SELECT COUNT (1)
+      FROM LOAN_APPLICATION la
+      WHERE la.USER_ID = u.USER_ID)
+      AS BORROW_COUNT ,
+      UA.AVAIL_VALUE,
+      UA.FROZE_VALUE,
+      UA.VALUE,
+      u.USER_ID,
+      u.LOGIN_NAME,
+      ue.MOBILE_NO,
+      u.SOURCE,
+      u.CREATE_TIME,
+      u.TYPE,
+      u.STATUS,
+      ue.ID_CARD idCard,
+      u.login_name AS loginNames from USER_INFO u
+      LEFT JOIN USER_ACCOUNT ua
+      ON U.USER_ID = UA.USER_ID AND UA.ACC_TYPE_CODE = 1
+      LEFT JOIN USER_INFO_EXT ue ON u.user_id = ue.user_id
+      <where>
+        U.TYPE = 1
+      <if test="bondSourceUser != null">
+        <if test="bondSourceUser.bondNames != null and bondSourceUser.bondNames != ''">
+          AND ue.real_name  like  '%${bondSourceUser.bondNames}%'
+        </if>
+        <if test="bondSourceUser.loginNames != null and bondSourceUser.loginNames != ''">
+          AND u.LOGIN_NAME like '%${bondSourceUser.loginNames}%'
+        </if>
+        <if test="bondSourceUser.status != null and bondSourceUser.status != ''">
+          AND u.STATUS = #{bondSourceUser.status,jdbcType=VARCHAR}
+        </if>
+
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+    ORDER BY u.USER_ID DESC
+  </select>
+  
+
+  <select id="count_getBondSourceUserPaging"  resultType="int" parameterType="map" >
+    select count(1)
+    from BOND_SOURCE_USER t
+    left join USER_INFO u on T.USER_ID=U.USER_ID
+    left join USER_ACCOUNT ua on U.USER_ID = UA.USER_ID and UA.ACC_TYPE_CODE = 1
+
+    <where>
+      <if test="bondSourceUser != null">
+        <if test="bondSourceUser.bondName != null and bondSourceUser.bondName != ''">
+          AND t.BOND_NAME like  '%${bondSourceUser.bondName}%'
+        </if>
+        <if test="bondSourceUser.bondSourceId != null and bondSourceUser.bondSourceId != ''">
+          AND t.BOND_SOURCE_ID =  #{bondSourceUser.bondSourceId}
+        </if>
+
+        <if test="bondSourceUser.loginName != null and bondSourceUser.loginName != ''">
+          AND u.LOGIN_NAME like '%${bondSourceUser.loginName}%'
+        </if>
+        <if test="bondSourceUser.status != null and bondSourceUser.status != ''">
+          AND u.STATUS = #{bondSourceUser.status,jdbcType=VARCHAR}
+        </if>
+
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+    ORDER BY t.USER_SOURCE_ID DESC
+  </select>
+  
+  <select id="getAllBondSource" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from BOND_SOURCE where STATUS = 0 
+  </select>
+  
+  <!-- 根据ID，加载一条原始债券人渠道 -->
+  <select id="getBondSourceUserById" resultMap="userSourceResultMap" parameterType="java.lang.Long" >
+    select USER_SOURCE_ID,USER_ID,BOND_SOURCE_ID,BOND_NAME,CREATE_TIME
+    from BOND_SOURCE_USER
+    where USER_SOURCE_ID = #{userSourceId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- 根据渠道ID，获取所有原始债权人，条件：原始债权人对应的用户，必须有卡 -->
+  <select id="getAllBondSourceUserBySourceId" resultMap="userSourceResultMap" parameterType="java.lang.Long">
+select distinct bsu.* from BOND_SOURCE_USER bsu
+	inner join CUSTOMER_CARD cc
+	on cc.USER_ID = bsu.USER_ID
+  inner join user_info_ext uie on uie.user_id=cc.user_id
+	where   cc.bind_status='1' and uie.is_verified='2' and bsu.BOND_SOURCE_ID = #{bondSourceId,jdbcType=DECIMAL}
+  </select>
+
+</mapper>

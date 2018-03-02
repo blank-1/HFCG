@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LENDORDERRECEIVE">
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LendOrderReceive">
+        <id column="RECEIVE_ID" property="receiveId" jdbcType="DECIMAL"/>
+        <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL"/>
+        <result column="SECTION_CODE" property="sectionCode" jdbcType="DECIMAL"/>
+        <result column="SHOULD_CAPITAL" property="shouldCapital" jdbcType="DECIMAL"/>
+        <result column="SHOULD_INTEREST" property="shouldInterest" jdbcType="DECIMAL"/>
+        <result column="SHOULD_CAPITAL2" property="shouldCapital2" jdbcType="DECIMAL"/>
+        <result column="SHOULD_INTEREST2" property="shouldInterest2" jdbcType="DECIMAL"/>
+        <result column="RECEIVEDATE" property="receiveDate" jdbcType="DATE"/>
+        <result column="FACT_CAPITAL" property="factCapital" jdbcType="DECIMAL"/>
+        <result column="FACT_INTEREST" property="factInterest" jdbcType="DECIMAL"/>
+        <result column="RECEIVE_STATE" property="receiveState" jdbcType="CHAR"/>
+        <result column="RECEIVE_BALANCE" property="receiveBalance" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    RECEIVE_ID,LEND_ORDER_ID,SECTION_CODE,SHOULD_CAPITAL,SHOULD_INTEREST,SHOULD_CAPITAL2,SHOULD_INTEREST2,
+    RECEIVEDATE,FACT_CAPITAL,FACT_INTEREST,RECEIVE_STATE,RECEIVE_BALANCE
+  </sql>
+
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.LendOrderReceive" >
+        <selectKey keyProperty="receiveId" resultType="java.lang.Long" order="BEFORE">
+            select SEQ_LEND_ORDER_RECEIVE.nextval as receiveId from dual
+        </selectKey>
+        insert into  LEND_ORDER_RECEIVE
+        (RECEIVE_ID,LEND_ORDER_ID,SECTION_CODE,SHOULD_CAPITAL,SHOULD_INTEREST,SHOULD_CAPITAL2,SHOULD_INTEREST2,
+        RECEIVEDATE,FACT_CAPITAL,FACT_INTEREST,RECEIVE_STATE,RECEIVE_BALANCE)
+        values
+        (#{receiveId,jdbcType=DECIMAL},#{lendOrderId,jdbcType=DECIMAL},#{sectionCode,jdbcType=DECIMAL},#{shouldCapital,jdbcType=DECIMAL},
+        #{shouldInterest,jdbcType=DECIMAL},#{shouldCapital2,jdbcType=DECIMAL},#{shouldInterest2,jdbcType=DECIMAL},#{receiveDate,jdbcType=DATE},
+        #{factCapital,jdbcType=DECIMAL},#{factInterest,jdbcType=DECIMAL},#{receiveState,jdbcType=CHAR},#{receiveBalance,jdbcType=DECIMAL})
+    </insert>
+
+    <select id="getByOrderAndDate" parameterType="java.util.Map" resultMap="BaseResultMap">
+
+        select
+         <include refid="Base_Column_List"/>
+         from LEND_ORDER_RECEIVE
+         <![CDATA[
+        where
+        LEND_ORDER_ID = #{lendOrderId}
+        and RECEIVEDATE >= to_date(#{today},'yyyy-MM-dd')
+        and rownum = 1
+        order by RECEIVEDATE asc
+
+        ]]>
+    </select>
+<select id="getByOrderAndSectionCode" parameterType="java.util.Map" resultMap="BaseResultMap">
+
+        select
+         <include refid="Base_Column_List"/>
+         from LEND_ORDER_RECEIVE
+         <![CDATA[
+        where
+        LEND_ORDER_ID = #{lendOrderId}
+        and SECTION_CODE = #{sectionCode}
+        and rownum = 1
+        order by RECEIVEDATE asc
+
+        ]]>
+    </select>
+
+    <select id="getCapitalReciveByUserId" parameterType="java.lang.Long"  resultType="java.util.HashMap">
+      SELECT NVL(SUM (lor.SHOULD_CAPITAL2),0) scapital,NVL(sum(lor.FACT_CAPITAL),0) fcapital
+      FROM LEND_ORDER_RECEIVE lor
+      LEFT JOIN LEND_ORDER lo ON LOR.LEND_ORDER_ID = LO.LEND_ORDER_ID
+      LEFT JOIN USER_INFO u ON LO.LEND_USER_ID = U.USER_ID
+      WHERE U.USER_ID = #{userId} AND lo.ORDER_STATE in ('1', '5', '6')
+
+      <if test="productTypeList != null">
+            <foreach collection="productTypeList" open="and lo.PRODUCT_TYPE IN (" close=")" item="type" separator=", ">
+                #{type}
+            </foreach>
+      </if>
+      <if test="lendOrderId !=null ">
+         and  LO.LEND_ORDER_ID = #{lendOrderId}
+      </if>
+		and LO.LEND_ORDER_PID is null 
+    </select>
+
+    <select id="getInterestReciveByUserId" parameterType="java.lang.Long"  resultType="java.util.HashMap">
+      SELECT NVL(SUM (lor.SHOULD_INTEREST2),0) interest,NVL(sum(lor.FACT_INTEREST),0) finterest
+      FROM LEND_ORDER_RECEIVE lor
+      LEFT JOIN LEND_ORDER lo ON LOR.LEND_ORDER_ID = LO.LEND_ORDER_ID
+      LEFT JOIN USER_INFO u ON LO.LEND_USER_ID = U.USER_ID
+      WHERE U.USER_ID = #{userId} AND lo.ORDER_STATE in ('1', '5', '6')
+
+        <if test="productTypeList != null">
+            <foreach collection="productTypeList" open="and lo.PRODUCT_TYPE IN (" close=")" item="type" separator=", ">
+                #{type}
+            </foreach>
+        </if>
+        <if test="lendOrderId !=null ">
+            and  LO.LEND_ORDER_ID = #{lendOrderId}
+        </if>
+        and LO.LEND_ORDER_PID is null 
+    </select>
+
+    <select id="getExceptProfitByUserId" parameterType="java.lang.Long"  resultType="java.util.HashMap">
+      SELECT NVL(SUM (lor.SHOULD_INTEREST2),0) interest
+      FROM LEND_ORDER_RECEIVE lor
+      LEFT JOIN LEND_ORDER lo ON LOR.LEND_ORDER_ID = LO.LEND_ORDER_ID
+      LEFT JOIN USER_INFO u ON LO.LEND_USER_ID = U.USER_ID
+      WHERE U.USER_ID = #{userId}
+        <if test="productTypeList != null">
+            <foreach collection="productTypeList" open="and lo.PRODUCT_TYPE IN (" close=")" item="type" separator=", ">
+                #{type}
+            </foreach>
+        </if>
+        <if test="lendOrderId !=null ">
+            and  LO.LEND_ORDER_ID = #{lendOrderId}
+        </if>
+    </select>
+
+
+    <select id="findLendOrderReceiveSixMonth" parameterType="java.lang.Long"  resultType="java.util.HashMap">
+       select t.monthfmt monthfmt,sum(FACT_INTEREST) interest from
+
+         ( SELECT lor.*,TO_CHAR (lor.RECEIVEDATE, 'YYYYMM') monthfmt
+                    FROM LEND_ORDER_RECEIVE lor
+                         LEFT JOIN LEND_ORDER lo on LOR.LEND_ORDER_ID = LO.LEND_ORDER_ID
+
+                   WHERE lor.RECEIVEDATE BETWEEN ADD_MONTHS (SYSDATE, -6)
+                   AND SYSDATE and LO.LEND_USER_ID=#{userId}
+                   and LO.PRODUCT_TYPE = #{productType}
+         ) t group by t.monthfmt
+    </select>
+
+
+
+
+    <select id="getLendSixMonth" parameterType="java.lang.Long"  resultType="java.util.HashMap">
+        select t.monthfmt monthfmt,sum(BUY_BALANCE) interest from
+
+         (
+          SELECT lo.*,TO_CHAR (lo.BUY_TIME, 'YYYYMM') monthfmt
+		  FROM LEND_ORDER_BID_DETAIL LOBD, LEND_ORDER LO, USER_INFO UI
+		  WHERE LO.LEND_ORDER_ID = LOBD.LEND_ORDER_ID
+
+           AND LO.LEND_USER_ID = UI.USER_ID
+		  and lo.BUY_TIME BETWEEN ADD_MONTHS (#{date}, -6) AND #{date}
+		   AND LOBD.STATUS = '1'
+           and LO.LEND_USER_ID=#{userId}
+           and lo.ORDER_STATE in ('1','2','5','6')
+           and LO.PRODUCT_TYPE = #{productType}
+         ) t group by t.monthfmt
+
+
+
+    </select>
+
+    <select id="getFeeSixMonth" parameterType="java.lang.Long"  resultType="java.util.HashMap">
+            select t.monthfmt monthfmt,sum(FEES_BALANCE2) interest from
+         ( SELECT lof.*,
+         TO_CHAR (lof.PAID_TIME, 'YYYYMM') monthfmt
+                    FROM LEND_ORDER_FEES_DETAIL lof
+                         LEFT JOIN LEND_ORDER lo on lof.LEND_ORDER_ID= LO.LEND_ORDER_ID
+
+                   WHERE lof.PAID_TIME BETWEEN ADD_MONTHS (SYSDATE, -6)
+                   AND SYSDATE and LO.LEND_USER_ID=#{userId}
+                   and LO.PRODUCT_TYPE = #{productType}
+         ) t group by t.monthfmt
+    </select>
+
+
+
+
+
+
+    <select id="findLendOrderReceiveBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from LEND_ORDER_RECEIVE
+        where (1=1)
+        <if test=" _parameter.containsKey('lendOrderId')">
+            <if test="lendOrderId !=0" >
+                and  LEND_ORDER_ID = #{lendOrderId}
+            </if>
+        </if>
+        <if test=" _parameter.containsKey('sectionCode')">
+            <if test="sectionCode !=0" >
+                and  SECTION_CODE = #{sectionCode}
+            </if>
+        </if>
+        <if test=" lastSectionCode != null">
+            and SECTION_CODE = (select max(SECTION_CODE) from LEND_ORDER_RECEIVE where LEND_ORDER_ID = #{lendOrderId})
+        </if>
+
+    </select>
+
+    <update id="updateByMap" parameterType="java.util.Map" >
+        update LEND_ORDER_RECEIVE
+        <set>
+            <if test="_parameter.containsKey('factCapital')">
+                FACT_CAPITAL = #{factCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('factInterest')">
+                FACT_INTEREST = #{factInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('receiveBalance')">
+                RECEIVE_BALANCE = #{receiveBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('receiveDate')">
+                RECEIVEDATE = #{receiveDate,jdbcType=DATE},
+            </if>
+            <if test="_parameter.containsKey('receiveState')">
+                RECEIVE_STATE = #{receiveState,jdbcType=CHAR},
+            </if>
+        </set>
+        where RECEIVE_ID = #{receiveId}
+    </update>
+    <select id="findLendOrderReceiveDetailBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from LEND_ORDER_RECEIVE
+        where (1=1)
+        <if test=" _parameter.containsKey('lendOrderId')">
+            <if test="lendOrderId !=0" >
+                and  LEND_ORDER_ID = #{lendOrderId}
+            </if>
+        </if>
+        <if test=" _parameter.containsKey('sectionCode')">
+            <if test="sectionCode !=0" >
+                and  SECTION_CODE = #{sectionCode}
+            </if>
+        </if>
+        <if test=" lastSectionCode != null">
+            and SECTION_CODE = (select max(SECTION_CODE) from LEND_ORDER_RECEIVE where LEND_ORDER_ID = #{lendOrderId})
+        </if>
+		order by RECEIVEDATE desc 
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from  LEND_ORDER_RECEIVE
+        where RECEIVE_ID = #{receiveId}
+    </delete>
+
+	<select id="getByIdLock" parameterType="java.util.Map" resultMap="BaseResultMap">
+	
+	        select
+	         <include refid="Base_Column_List"/>
+	         from LEND_ORDER_RECEIVE
+	         <![CDATA[
+	        where
+	        RECEIVE_ID = #{receiveId}
+	
+	        ]]>
+	        <if test="isLock==true">
+	        	for update 
+	        </if>
+	    </select>
+    
+     <select id="getChildCapitalReciveByUserId" parameterType="java.lang.Long"  resultType="java.util.HashMap">
+      SELECT NVL(SUM (lor.SHOULD_CAPITAL2),0) scapital,NVL(sum(lor.FACT_CAPITAL),0) fcapital
+      FROM LEND_ORDER_RECEIVE lor
+      LEFT JOIN LEND_ORDER lo ON LOR.LEND_ORDER_ID = LO.LEND_ORDER_ID
+      LEFT JOIN USER_INFO u ON LO.LEND_USER_ID = U.USER_ID
+      WHERE U.USER_ID = #{userId} AND lo.ORDER_STATE in ('1', '5', '6')
+
+      <if test="productTypeList != null">
+            <foreach collection="productTypeList" open="and lo.PRODUCT_TYPE IN (" close=")" item="type" separator=", ">
+                #{type}
+            </foreach>
+      </if>
+      <if test="lendOrderId !=null ">
+         and  LO.LEND_ORDER_ID = #{lendOrderId}
+      </if>
+		 
+    </select>
+
+    <select id="getChildInterestReciveByUserId" parameterType="java.lang.Long"  resultType="java.util.HashMap">
+      SELECT NVL(SUM (lor.SHOULD_INTEREST2),0) interest,NVL(sum(lor.FACT_INTEREST),0) finterest
+      FROM LEND_ORDER_RECEIVE lor
+      LEFT JOIN LEND_ORDER lo ON LOR.LEND_ORDER_ID = LO.LEND_ORDER_ID
+      LEFT JOIN USER_INFO u ON LO.LEND_USER_ID = U.USER_ID
+      WHERE U.USER_ID = #{userId} AND lo.ORDER_STATE in ('1', '5', '6')
+
+        <if test="productTypeList != null">
+            <foreach collection="productTypeList" open="and lo.PRODUCT_TYPE IN (" close=")" item="type" separator=", ">
+                #{type}
+            </foreach>
+        </if>
+        <if test="lendOrderId !=null ">
+            and  LO.LEND_ORDER_ID = #{lendOrderId}
+        </if>
+         
+    </select>
+    
+</mapper>

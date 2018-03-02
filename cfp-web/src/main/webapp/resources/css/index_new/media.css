@@ -1,0 +1,223 @@
+@charset "utf-8";
+ 
+@media (max-width:1720px) and (min-width:767px){
+	/* 首页 */
+	.sRollNotice .dEye .la3{ display: none;}
+	.sRollNotice .dEye .uEye .lsum{ margin-top: 5px; }
+	.sRollNotice .dEye .uEye .lfirst{ margin-top: 10px;}
+}
+@media (max-width:1480px) and (min-width:767px){
+	/* 首页 */
+	.sRollNotice .dEye .la1{padding-top: 2%;margin-top: 5px;}
+	.sRollNotice .dEye .uEye .lsum{padding-top: 10px;}
+}
+
+@media (max-width:1420px) and (min-width:767px){
+	/* 首页 */
+	.sRollNotice .dEye .uEye .lbuttom a{margin-top: 0px;}
+}
+@media (max-width:1310px) and (min-width:767px){
+	/* 首页 */
+	.sRollNotice .dEye .uEye .NotLogin{ display: none;}
+	.sRollNotice .dEye .uEye .lsum{display:none;}
+}
+
+@media (max-width:1200px){
+	/* 首页 */
+	.dRight .dNewGuide { height: 180px;
+
+}
+
+	.dBodyIndex .dLeft .dsafe span{ height: auto; text-align: center;}
+	.dBodyIndex .dLeft .dsafe span code{ display:inline-block; float: none; margin-top: 10px; text-align: center; margin-bottom: 20px;margin-left:auto; margin-right: auto;}
+	.dBodyIndex .dLeft .dsafe span.sone i,.dBodyIndex .dLeft .dsafe span.ssecond i,.dBodyIndex .dLeft .dsafe span.sthird i{ display:block; width:95px; float: none; height:95px; margin-top:27px; margin-left:auto; margin-right: auto;}
+
+	/* 我要理财-出借列表*/
+	.th-fince .th-choose-list{ width: 603px;}
+	.th-fince .th-choose-list .finance-ul-group ul{width: 85.7%;}
+	.th-fince .th-choose-list .finance-ul-group ul{ margin-top: 5px; padding-bottom: 0px;}
+	.th-fince .th-choose-list .finance-midden ul,.th-fince .th-choose-list .finance-last ul{ margin-top: 14px;}
+
+	.bank_pay_term .bank-group span.choose{ background-position:154px -249px; }
+
+	/* personal */
+	.pLeft{width: 178px;}
+	.pRight{ width: 772px;}
+	.finance-plan{ width:276px;}
+	.addBorrow{ width: 232px;}
+	.obtain{ width: 228px}
+	.p-finance-plan{}
+	.recent_transt{}
+	.person-3 .sum-g{ margin:0 10px;}
+	.person-3 .pfirst{ margin-left: -13px; padding-left: 44px;}
+	.p-finance-plan{width: 465px;}
+
+}
+
+@media (max-width:1033px) and (min-width:767px){
+	/* 首页 */
+	.sRollNotice .dEye .lsum{ display: none;}
+}
+@media (max-width:980px) and (min-width:767px){
+	/* 首页 */
+	.sRollNotice .dEye .la1 {padding-top: 0%;margin-top: 0px;}
+	.sRollNotice .dEye .uEye .lyear .srat{ font-size: 18px;}
+	.sRollNotice .dEye .uEye .lyear .srat code{ font-size: 18px;}
+
+}
+@media (max-width:992px){
+
+	/* 首页 */
+	.dFinancePlan{ margin-top: 0px;}
+	.dFinancePlan .uFinList li.lfifle a{ font-size: 12px;}
+	.dFinancePlan .uFinList li.ltwo{ color: #e72d4c; font-size: 20px;}
+	.dFinancePlan h2 span,.dRight .dNewPaper h2 .sTitle,.dRight .dNewGuide h2{ font-size: 20px}
+	.dFinancePlan .uFinTitle li,.dFinancePlan .uFinList li{ font-size: 12px;}
+
+	.dRight{padding-right: 5%;} 
+	.dRight .dNewsQuesion h2{ font-size: 18px;}
+	.dRight .dNewsQuesion .dNews .dNewsTitle .sNew-group .pOne a{ font-size: 14px;}
+	.dRight .dNewsQuesion .dNews .dNewsTitle .sNew-group .ptwo{overflow: hidden;white-space: nowrap;-o-text-overflow: ellipsis;text-overflow: ellipsis;}
+	.dRight .dNewsQuesion .dNews .dNewsTitle .sNew-group .pThree{ font-size: 8px;}
+	
+	.dBodyIndex .dLeft{ width:62%;}
+
+	.dSidebar .uSide{ right: -12px;}
+	.dSidebar .uSide i{ margin-left: 5px;}
+	
+	/* 我要理财-出借列表*/
+
+	/* ----- cxm 自定义 ----- */
+	.th-fince .th-fince-img{ display: none;}
+	.th-fince .th-choose-list{ width: 100%;}
+	.th-fince .th-choose-list .finance-ul-group ul{ margin-top: 14px; width: 80%;}
+	.th-fince .th-choose-list .finance-ul-group .span-head{ font-size: 12px; text-align: left;  width: 51px;}
+
+	.th-finance-list-group ul li.li-01{ width: 25%;}
+	.th-finance-list-group ul li.li-02{ width: 10%;}
+	.th-finance-list-group ul li.li-03{ width: 10%;}
+	.th-finance-list-group ul li.li-04{ width: 20%;}
+	.th-finance-list-group ul li.li-05{ width: 20%;}
+	.th-finance-list-group ul.finance-list li.li-05 .pro-group { margin-left: 19%;}
+	.th-sort span.span-head{ margin-left: 20px;}
+	.th-finance-list-group ul.finance-list li.li-01 a{ width: 85%;}
+
+
+	.bank_pay_term .bank-group span{ width: 40%;}
+	.bank_pay_term .bank-group span.choose{ background-position:230px -249px; }
+	.pLeft{width: 178px;}
+	.pRight{ width: 544px;}
+	.finance-plan{ width:302px;}
+	.addBorrow{ width: 227px;}
+	.obtain{ width: 229px; margin-left: 5px; margin-top: 5px;}
+	.p-finance-plan{ width: 100%; margin-left: 0px;}
+}
+
+@media (max-width:767px){
+	/* 首页 */
+	.dFinancePlan h2 span small{ font-size: 12px; margin-left: 5px;}
+	.dFinancePlan .uFinTitle{ display: none;}
+	.dFinancePlan .uFinTitle li{ font-size: 10px;}
+	.dFinancePlan .uFinList li.lone{ width: 35%;}
+	.dFinancePlan .uFinList li.lone a{ font-size: 14px;}
+	.dFinancePlan .uFinTitle li.lone,.dFinancePlan .uFinList li.lone{ width:60%;}
+	.dFinancePlan .uFinTitle li.ltwo,.dFinancePlan .uFinList li.ltwo{ width:40%; text-align: center;}
+	.dFinancePlan .uFinTitle li.lthree,.dFinancePlan .uFinList li.lthree{ width:55%; margin-left: 5%;}
+	.dFinancePlan .uFinTitle li.lfore,.dFinancePlan .uFinList li.lfore{ width:60%; display: none;}
+	.dFinancePlan .uFinTitle li.lfifle,.dFinancePlan .uFinList li.lfifle{ width:40%;}
+	.dFinancePlan .uFinList li{ height: 40px; line-height: 40px;}
+	.dFinancePlan .uFinList li.lfifle a{ margin-top: 5px; height: 25px; line-height: 25px;}
+	.dFinancePlan .uFinList li.lone i.iLi,.dFinancePlan .uFinList li.lone i.iJie{ margin-top: 10px;}
+	.dFinancePlan h2 a,.dRight .dNewPaper h2 a,.dRight .dNewsQuesion .dNews .uNewsList li.lLookMore a{ margin-right: 10px;}
+
+	.sRollNotice .dEye .uEye .lsum span{ width: 49%;}
+	.sRollNotice .dEye{ position: static; width:100%; margin-top: 25px; margin-left: -15px;}
+
+	.dLeft{ width: 100%!important;}
+
+	.dRight{ width: 100%;}
+	.dRight .dVedio{display: none;}
+	.dRight{ padding-right: 0%;} 
+
+	.dBodyIndex .dLeft .dsafe span code small{ font-size: 10px;}
+	
+	/* 我要理财-出借列表*/
+	.th-finance-list-group ul.finance-title,.th-finance-list-group ul.finance-list{ height: auto; line-height: 35px;}
+	.th-finance-list-group ul.finance-list li.li-01{background-position: 15px -90px; overflow: hidden; height: 35px;}
+	.th-finance-list-group ul.finance-list li.li-01 a{ width: 70%;}
+	.th-finance-list-group ul li.li-01{ width: 60%;}
+	.th-finance-list-group ul li.li-02{ width: 40%;}
+	.th-finance-list-group ul li.li-03{ width: 25%;}
+	.th-finance-list-group ul li.li-04{ width: 45%;}
+	.th-finance-list-group ul li.li-05{ display: none;}
+	.th-finance-list-group ul li.li-10{ display: none;}
+	.th-finance-list-group ul li.li-06{ width: 30%;}
+	.th-finance-list-group ul li.li-08{ width: auto;}
+	.th-finance-list-group ul li.li-09{ display: none;}
+	.th-finance-list-group ul.finance-list li.li-05 .pro-group{}
+	.th-finance-list-group ul.finance-list li.li-06 .btn{ margin-top: 0px; margin-bottom: 10px;}
+	.th-finance-list-group ul li em{ font-size: 18px;}
+	.th-sort a.a-head{ margin-left: 22px;}
+	
+	/* 订单支付 */
+	/*.ticket-group .single_ticket{ margin: 25px auto; float: none;}*/
+	.bank_pay_term .bpt-01 .tip span{ display: none;}
+
+	.dd2-h2{ font-size: 22px!important;}
+	h2.payType{ font-size: 22px; height:50px;line-height: 50px; }
+	.dd-dl dd{ width: auto!important;}
+	.payType_Tip{ line-height: 22px;}
+	.payType_Tip .ptt_Term{ padding-left: 25px; font-size: 14px; margin-top: 10px; line-height: 22px; height: 20px;}
+	.payType_Tip .ptt_Choose_not{ background-position:3px -124px;}
+	.payType_Tip .ptt_Choose{background-position: 5px -64px;}
+
+	.bank_pay_term .bpt-01, .bank_pay_term .bpt-02{ padding-left: 20px;}
+	.bank_pay_term .bpt-01>h2 img,.bank_pay_term .bpt-02>h2 img{ width: 80%;}
+	.bank_pay_term .bpt-02 .ipt-img{ margin-left: 20px;}
+	.bpt-02 .banked{ margin-left: 0px;}
+	.ticket-group{ padding-left: 5%;}
+	.payType_Tip .ptt_money{ margin-top: 8px;}
+
+	.pLeft{width: 100%;}
+	.pRight{ width:100%;}
+	.finance-plan{ width:100%; margin-left: 0px; margin-right: 0px;}
+	.addBorrow{ width:100%; margin-left: 0px; margin-right: 0px;}
+	.obtain{ width: 100%; margin-top: 5px; margin-left: 0px; margin-right: 0px;}
+	.p-finance-plan{ width: 100%; margin-left: 0px;}
+	.recent_transt{ width: 100%;}
+	.recent_transt .bigtitle .context{ font-size: 16px; margin-left: 9px;}
+	.recent_transt .bigtitle .look_more{ font-size: 12px; margin-right: 9px;}
+	.recent_transt table{ margin-left: 5px; }
+	.recent_transt table tr td{ overflow: hidden;}
+	.recent_transt table tr td:first-child{}
+	.recent_transt table tr td:last-child{display: none;}
+	.recent_transt table tr td a.title_a{}
+	.recent_transt table .tp_list{ line-height: 25px;}
+
+}
+
+@media (max-width:420px){
+
+	/* 首页 */
+	.dBodyIndex .dLeft .dsafe span code{ display: none;}
+	.dBodyIndex .dLeft .dsafe span i{ margin-bottom: 25px;}
+	
+	/* 我要理财-出借列表*/
+	.th-pro-title .pro-group li{ font-size: 18px; width: 50%;}
+	.th-fince .th-choose-list .finance-ul-group ul{ width: 79%;}
+	.th-sort span.span-midden{  margin: 6px 6px;}
+	.th-finance-list-group ul.finance-list li.li-06 .btn{ font-size: 12px;}
+
+	/* 订单支付 */
+	.bank_pay_term .bank-group span{ width: 80%;}
+
+}
+
+
+
+
+
+
+
+
+

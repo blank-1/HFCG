@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PAY_ORDER" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.PayOrder" >
+    <id column="PAY_ID" property="payId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="BUS_TYPE" property="busType" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="RESULT_TIME" property="resultTime" jdbcType="TIMESTAMP" />
+    <result column="DONE_TIME" property="doneTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="PROCESS_STATUS" property="processStatus" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PAY_ID, USER_ID, BUS_TYPE, AMOUNT, CREATE_TIME, RESULT_TIME, DONE_TIME, STATUS, PROCESS_STATUS
+  </sql>
+
+  <select id="getAndLockById" resultMap="BaseResultMap" parameterType="long">
+    select
+    <include refid="Base_Column_List" />
+    from PAY_ORDER
+    where PAY_ID = #{payId,jdbcType=DECIMAL} for update
+  </select>
+
+  <select id="findNeedCancelPayOrder" resultMap="BaseResultMap">
+    SELECT po.* FROM PAY_ORDER po WHERE po.STATUS = '1' AND po.PROCESS_STATUS = '0' ORDER BY po.PAY_ID desc
+  </select>
+
+  <select id="getCurrentUnpayPayOrderByLendOrderId" resultMap="BaseResultMap" parameterType="long">
+    SELECT p.*
+      FROM PAY_ORDER p
+           INNER JOIN ORDER_PAY_RELATIONS op ON P.PAY_ID = OP.PAY_ID
+     WHERE P.STATUS = '0' and op.LEND_ORDER_ID = #{VALUE}
+     order by p.PAY_ID desc
+  </select>
+
+  <select id="getPaidPayOrderByLendOrderId" resultMap="BaseResultMap" parameterType="long">
+    SELECT p.*
+      FROM PAY_ORDER p
+           INNER JOIN ORDER_PAY_RELATIONS op ON P.PAY_ID = OP.PAY_ID
+     WHERE P.STATUS = '1' and op.LEND_ORDER_ID = #{VALUE}
+     order by p.PAY_ID desc
+  </select>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PAY_ORDER
+    where PAY_ID = #{payId,jdbcType=DECIMAL}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PAY_ORDER
+    where PAY_ID = #{payId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.PayOrder" >
+    <selectKey order="BEFORE" keyProperty="payId" resultType="long">
+      SELECT SEQ_PAY_ORDER.NEXTVAL as payId FROM DUAL
+    </selectKey>
+    insert into PAY_ORDER (PAY_ID, USER_ID, BUS_TYPE, 
+      AMOUNT, CREATE_TIME, RESULT_TIME, 
+      DONE_TIME, STATUS, PROCESS_STATUS
+      )
+    values (#{payId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{busType,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{resultTime,jdbcType=TIMESTAMP}, 
+      #{doneTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{processStatus,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.PayOrder" >
+    insert into PAY_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        PAY_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="busType != null" >
+        BUS_TYPE,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="resultTime != null" >
+        RESULT_TIME,
+      </if>
+      <if test="doneTime != null" >
+        DONE_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="processStatus != null" >
+        PROCESS_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        #{payId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="busType != null" >
+        #{busType,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resultTime != null" >
+        #{resultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneTime != null" >
+        #{doneTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="processStatus != null" >
+        #{processStatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.PayOrder" >
+    update PAY_ORDER
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="busType != null" >
+        BUS_TYPE = #{busType,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resultTime != null" >
+        RESULT_TIME = #{resultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneTime != null" >
+        DONE_TIME = #{doneTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="processStatus != null" >
+        PROCESS_STATUS = #{processStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where PAY_ID = #{payId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.PayOrder" >
+    update PAY_ORDER
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      BUS_TYPE = #{busType,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      RESULT_TIME = #{resultTime,jdbcType=TIMESTAMP},
+      DONE_TIME = #{doneTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR},
+      PROCESS_STATUS = #{processStatus,jdbcType=CHAR}
+    where PAY_ID = #{payId,jdbcType=DECIMAL}
+  </update>
+
+  <update id="updatePayOrderStatusByPayOrderId" parameterType="com.xt.cfp.core.pojo.PayOrder">
+    UPDATE PAY_ORDER p
+   SET P.STATUS = #{status}
+   where P.PAY_ID = #{payId}
+  </update>
+</mapper>

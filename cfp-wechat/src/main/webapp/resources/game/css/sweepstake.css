@@ -1,0 +1,779 @@
+body,html{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+/*输入手机号页面*/
+html{
+	font-size: 62.5%;
+	font-family: "微软雅黑";
+}
+.w_wrap{
+	width: 100%;
+	height: 100%;
+	background: #dd163f url(../gameimg/sudokuSweepstake/p0-bg.jpg) no-repeat;
+	background-size: cover;
+	z-index: 10;
+	position: relative;
+}
+.w_phoneTitleBox{
+	width: 100%;
+	height: auto;
+	position: absolute;
+	top: 45%;	
+}
+.w_inputBxo{
+	width: 70%;
+	height: 3rem;
+	background: #fff;
+	border-radius: 10px;
+	margin: 0 auto;
+}
+.w_inputBxo input{
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	color: #4b4b4b;
+	font-size: 1.2rem;
+	text-indent: 1rem;
+}
+.w_submit{
+	display: block;
+	width: 35%;
+	height: auto;
+	margin: 2.5rem auto;
+	padding: .8rem 0;
+	border-radius: 5px;
+	background: #ffeb7a;
+	text-align: center;
+	box-shadow:0px 5px #ff7f47;
+	color: #d87000;
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+.w_pattern{
+	width: 65%;
+	height: 3rem;
+	background: rgba(198,19,65,.9);
+	line-height: 3rem;
+	text-align: center;
+	border-radius: 15px;
+	color: rgba(255,235,143);
+	font-size: 1.4rem;
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	margin: -1.5rem -33%;
+	display: none;
+	font-weight: bold;
+}
+/*  转盘样式  */
+.wrapper{
+	position:absolute;
+	z-index:1;
+	width:100%;
+	height: 100%;
+	overflow:auto;	
+	background: #ec3060;		
+}
+.scroller{
+	position:absolute;
+	z-index:1;
+    width:100%;
+    height: auto;
+}
+.w_header{
+	width: 100%;
+	height: auto;
+	position: relative;
+	padding-bottom: 2rem
+}
+.w_codex{
+	width: 90%;
+	height: auto;
+	background: rgba(201,21,67,.9);
+	position: absolute;
+	top: -5100%;
+	left: 50%;
+	margin: -25% -45%;
+	border-radius:10px;
+	
+}
+.w_codexD{
+	width: 90%;
+	height: auto;
+	background: rgba(201,21,67,.9);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -25% -45%;
+	border-radius:10px;
+	-webkit-animation: bounceInDown .5s ease-in;
+	-moz-animation: bounceInDown .5s ease-in;
+	-ms-animation: bounceInDown .5s ease-in;
+	-o-animation: bounceInDown .5s ease-in;
+	animation: bounceInDown .5s ease-in;
+}
+.w_attention{
+	width: 100%;
+	padding: 2rem 0;
+	margin:0 auto;
+	background: rgb(210,24,71);
+}
+.w_attention p{
+	text-align: center;
+	color: #d7d6dd;
+	font-size: 1.6rem;
+	line-height: 1.5rem;
+}
+.w_Frame{
+	width: 80%;
+	height: auto;
+	border-radius: 5px;
+	margin: 0 auto;
+	position: relative;
+	display: -webkit-box;
+	padding: .4rem;
+}
+.w_Frame div{
+	width: 40%;
+	height: auto;
+}
+.w_Frame div img{
+	width: 100%;
+	height: 100%;
+}
+.w_Line{
+	position: relative;
+	height: auto;
+	width: 40%;
+}
+.w_Line span{
+	width: 100%;
+	height: 20px;
+	background: url(../gameimg/sudokuSweepstake/p1_line.png) repeat-x;
+	background-size: cover;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	-webkit-animation: myfirst 2s linear infinite;
+	-moz-animation: myfirst 2s linear infinite;
+	-o-animation: myfirst 2s linear infinite;
+	-ms-animation: myfirst 2s linear infinite;
+	animation: myfirst 2s linear infinite;
+}
+
+.w_degree{
+	width: 80%;
+	border:1px solid #ec3060;
+	color: #fff;
+	margin:1rem auto;
+	border-collapse:collapse;
+	font-size:1.6rem;
+}
+.w_degree td,.w_degree th{
+	border:1px solid #ec3060;
+	text-align: center;
+	padding: .5rem;
+}
+.w_Determine{
+	width: 30%;
+	display: block;
+	padding: .5rem;
+	margin: 1rem auto;
+	text-align: center;
+	color: #ff6600;
+	background: #ffd800;
+	border-radius: 5px;
+	font-size: 1.2rem;
+	font-weight: bold;
+	font-size: 1.6rem;
+}
+.w_copper,.w_frequency{
+	color: #ffdf0a;
+}
+.w_header img{
+	width: 100%;
+	height: 100%;
+}
+.w_prompt{
+	width: 70%;
+	height: auto;
+	position: absolute;
+	bottom: 0rem;
+	margin: 0 15%;
+	text-align: center;
+	line-height: 1.9rem;
+	color: #fff;
+	font-size: 1.3rem;
+}
+.w_ruleBox{
+	width: 95%;
+	padding: .3rem;
+	display: block;
+	background: #ffeab7;
+	border-radius: 30px;
+	color: #ec3060;
+	margin: 0 auto;
+}
+.w_regulation{
+	color: #0042ff;
+	font-size: 1.6rem;
+}
+.w_Example{
+	width: 100%;
+	height: 3rem;
+	background: rgba(0,0,0,.3);
+	margin:  2rem auto;
+	line-height: 3rem;
+	font-size: 1rem;
+	
+}
+.w_Example a{
+	color: #ff8806;
+	padding-left: 2rem;
+}
+
+#lottery{
+	width:90%;
+	height:auto;
+	margin:20px auto;
+}
+.tables{
+	width: 27rem;
+	height: 27rem;
+	background: url(../gameimg/sudokuSweepstake/p1-img11.png) no-repeat;
+	background-size: 100% 100%;
+	padding: 1.2rem;
+	margin:4% auto; 
+	-webkit-animation: changeBg .3s ease-in infinite;
+	-moz-animation: changeBg .3s ease-in infinite;
+	-ms-animation: changeBg .3s ease-in infinite;
+	-o-animation: changeBg .3s ease-in infinite;
+	animation: changeBg .3s ease-in infinite;
+}
+.tbodys{
+	width: 100%;
+	height:auto;
+	background: url(../gameimg/sudokuSweepstake/p1-img10.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+#lottery table tr{
+	width: 100%;
+	height: 33.3%;
+	display: block;
+}
+#lottery table td{
+	width: 9rem;
+	height: 9rem;
+	text-align:center;
+	vertical-align:middle;
+	/* font-size:24px;
+	color:#333; */
+}
+#lottery table td img{
+	width: 55%;                                                                                                    
+	display: block;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0 auto;
+}
+.btn{
+	width:27rem;
+	height:50px;
+	display:block;
+	text-decoration:none;
+	background: url(../gameimg/sudokuSweepstake/p1-img12.png) no-repeat;
+	background-size: 100% 100%;
+	margin:-1.4rem auto 0 auto; 
+}
+#lottery table td.active{
+	background-color:#ffc600;
+}
+
+
+.w_timerBox{
+	width: 100%;
+	height: auto;
+	text-align: center;
+	line-height: 1.6rem;
+	font-size: 1.4rem;
+}
+.w_timer{
+	color: #fff;
+	font-weight: bold;
+	font-size: 1.6rem;
+}
+.w_shaowTit{
+	color: #fffd36;
+	padding: 1rem 0;
+	display: block;
+	font-size: 1.4rem;
+}
+.w_Highest{
+	width: 100%;
+	height: auto;
+	margin: 1rem auto;
+	font-size: 0;
+}
+.w_Highest img{
+	width: 100%;
+	height: 100%;
+}
+.w_HigtList{
+	margin: 2rem auto;
+}
+.w_HigtList li{
+	width: 92%;
+	height: auto;
+	background: #dd2151;
+	text-align: center;
+	margin: 1rem auto;
+	font-size: 1.4rem;
+	color: #fff;
+	border-radius: 25px;
+	padding: .5rem;
+}
+.w_character{
+	color: #7c0d29;
+	font-size: 1.2rem;
+
+}
+.w_percentage{
+	color: #ffe748;
+}
+.w_Explain{
+	width: 85%;
+	border-radius: 35px;
+	border:2px solid #cd1141;
+	text-align: left;
+	line-height: 1.4rem;
+	padding: 1rem 1.5rem;
+	font-size: 1.4rem;
+	color: #fef49d;
+	margin: 0 auto;
+}
+.w_consumer{
+	width: 100%;
+	height: auto;
+	font-size: 0;
+}
+.w_consumer img,.w_Various img{
+	width: 100%;
+	height: 100%;
+	margin: 1rem auto;
+}
+.w_Various{
+	width: 70%;
+	height: auto;
+	margin: 0 auto;
+}
+.w_activityExplain{
+	width: 88%;
+	border: 1px solid #cd1141;
+	margin: 0 auto;
+	border-radius: 15px;
+	color: #fffec7;
+	text-align: left;
+	padding: 1rem;
+	font-size: 1.4rem;
+	line-height: 2.4rem;
+}
+.w_regular{
+	width: 85%;
+	border: 1px solid #cd1141;
+	margin: 0 auto;
+	border-radius: 15px;
+	padding: 1rem;
+	text-align: left;
+	line-height: 2.4rem;
+	color: #fffec7;
+}
+.w_Remarks{
+	width: 100%;
+	background: #dd2151;
+}
+.w_Remarks p{
+	color: #f6d3ad;
+	line-height: 2.4rem;
+	font-size: 1
+	font-size:1.2rem;
+	padding: 1rem 5%;
+	text-align: left;
+}
+.w_Remarks p span{
+	text-align: left;
+	font-size: 1.6rem;
+	font-weight: bold;
+	width: 100%;
+	margin: 1rem auto;
+	display: block;
+}
+.w_Irrelevant{
+	font-size: 1.2rem;
+	color: #8f1635;
+	padding-bottom: 2rem;
+}
+.markBox{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: url(../gameimg/sudokuSweepstake/share_mask.png) no-repeat;
+	background-size: 100% 100%;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	display: none;
+}
+.w_share{
+	width: 20%;
+	height: 3rem;
+	line-height: 3rem;
+	text-align: center;
+	border-radius: 5px;
+	border: 2px solid #ffd800;
+	color: #ffd800;
+	display: block;
+	margin: 2rem auto;
+}
+.w_carefulFont{
+	width: 100%;
+	margin: 4rem auto;
+}
+.w_carefulFont p{
+	font-size: 1.4rem;
+	color: #fff;
+	line-height: 1.8rem;
+}
+.w_carefulFont span{
+	width: 8%;
+	height: auto;
+	display: block;
+	margin: 1rem auto;
+}
+.w_carefulFont span img{
+	width: 100%;
+	height: 100%;
+}
+#box{
+	width:100%;
+	height:100%;
+	background:rgba(0,0,0,.7);
+	margin: 0 auto;
+	position: relative;  
+	z-index:11;    
+}
+.inner h2 span{
+	color: #ffd800;
+} 
+.inner{
+	width:90%;
+  	height:auto;
+  	background: #ec3060;
+  	margin:0 auto;
+  	border-radius:10px;
+   	position: absolute;
+   	padding: 1rem 0;
+ }
+.inner h2{
+	width:95%;
+    border-bottom:1px #be2048 solid;
+    margin:0 auto;
+    line-height:25px;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: center;
+    color: #fff;
+    padding: .5rem 0;
+}
+.inner p{ 
+	height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    padding-left: 20px;
+  }
+.button{width:100%;text-align:center;padding-top:20px;}
+.button span{
+	 width:90px;
+     height:40px;
+     background:#ffd800;
+     text-decoration:none;
+     display:inline-block;
+     line-height: 40px;
+     border-radius:5px;
+     text-align:center;
+     color:#ff6600;
+     font-size:14px;
+     font-weight:800;
+     margin-right:15px;
+     cursor:pointer;
+    }
+.inner #qr2{margin-left:120px;}
+
+.mask{
+width:100%;
+height:100%;
+position:absolute;
+left:0;
+top:0;
+background:#000;
+opacity:0.6;
+filter:alpha(opacity=60);
+z-index:10;
+}
+
+
+
+
+/*动画帧*/
+@-webkit-keyframes changeBg{
+	0%{
+		background: url(../gameimg/sudokuSweepstake/p1-img11.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	100%{
+		background: url(../gameimg/sudokuSweepstake/p1-img11-2.png) no-repeat;
+		background-size: 100% 100%;
+	}
+}
+@-moz-keyframes changeBg{
+	0%{
+		background: url(../gameimg/sudokuSweepstake/p1-img11.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	100%{
+		background: url(../gameimg/sudokuSweepstake/p1-img11-2.png) no-repeat;
+		background-size: 100% 100%;
+	}
+}
+@-ms-keyframes changeBg{
+	0%{
+		background: url(../gameimg/sudokuSweepstake/p1-img11.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	100%{
+		background: url(../gameimg/sudokuSweepstake/p1-img11-2.png) no-repeat;
+		background-size: 100% 100%;
+	}
+}
+@-o-keyframes changeBg{
+	0%{
+		background: url(../gameimg/sudokuSweepstake/p1-img11.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	100%{
+		background: url(../gameimg/sudokuSweepstake/p1-img11-2.png) no-repeat;
+		background-size: 100% 100%;
+	}
+}
+@keyframes changeBg{
+	0%{
+		background: url(../gameimg/sudokuSweepstake/p1-img11.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	100%{
+		background: url(../gameimg/sudokuSweepstake/p1-img11-2.png) no-repeat;
+		background-size: 100% 100%;
+	}
+}
+@-webkit-keyframes bounceInDown {
+  0%, 60%, 75%, 90%, 100% {
+    -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -3000px, 0);
+    transform: translate3d(0, -3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 25px, 0);
+    transform: translate3d(0, 25px, 0);
+  }
+
+  75% {
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0, 5px, 0);
+    transform: translate3d(0, 5px, 0);
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes bounceInDown {
+  0%, 60%, 75%, 90%, 100% {
+    -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -3000px, 0);
+    -ms-transform: translate3d(0, -3000px, 0);
+    transform: translate3d(0, -3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 25px, 0);
+    -ms-transform: translate3d(0, 25px, 0);
+    transform: translate3d(0, 25px, 0);
+  }
+
+  75% {
+    -webkit-transform: translate3d(0, -10px, 0);
+    -ms-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0, 5px, 0);
+    -ms-transform: translate3d(0, 5px, 0);
+    transform: translate3d(0, 5px, 0);
+  }
+
+  100% {
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
+}
+
+.bounceInDown {
+  -webkit-animation-name: bounceInDown;
+  animation-name: bounceInDown;
+}
+@-webkit-keyframes myfirst{
+	0%{
+		-webkit-transform:translateY(0);
+		-moz-transform:translateY(0);
+		-ms-transform:translateY(0);
+		-o-transform:translateY(0);
+	}
+	50%{
+		-webkit-transform:translateY(400%);
+		-moz-transform:translateY(400%);
+		-ms-transform:translateY(400%);
+		-o-transform:translateY(400%);
+	}
+	100%{
+		-webkit-transform:translateY(0);
+		-moz-transform:translateY(0);
+		-ms-transform:translateY(0);
+		-o-transform:translateY(0);
+	}
+}
+@-moz-keyframes myfirst{
+	0%{
+		-webkit-transform:translateY(0);
+		-moz-transform:translateY(0);
+		-ms-transform:translateY(0);
+		-o-transform:translateY(0);
+	}
+	50%{
+		-webkit-transform:translateY(400%);
+		-moz-transform:translateY(400%);
+		-ms-transform:translateY(400%);
+		-o-transform:translateY(400%);
+	}
+	100%{
+		-webkit-transform:translateY(0);
+		-moz-transform:translateY(0);
+		-ms-transform:translateY(0);
+		-o-transform:translateY(0);
+	}
+}
+@-ms-keyframes myfirst{
+	0%{
+		-webkit-transform:translateY(0);
+		-moz-transform:translateY(0);
+		-ms-transform:translateY(0);
+		-o-transform:translateY(0);
+	}
+	50%{
+		-webkit-transform:translateY(400%);
+		-moz-transform:translateY(400%);
+		-ms-transform:translateY(400%);
+		-o-transform:translateY(400%);
+	}
+	100%{
+		-webkit-transform:translateY(0);
+		-moz-transform:translateY(0);
+		-ms-transform:translateY(0);
+		-o-transform:translateY(0);
+	}
+}@-o-keyframes myfirst{
+	0%{
+		-webkit-transform:translateY(0);
+		-moz-transform:translateY(0);
+		-ms-transform:translateY(0);
+		-o-transform:translateY(0);
+	}
+	50%{
+		-webkit-transform:translateY(400%);
+		-moz-transform:translateY(400%);
+		-ms-transform:translateY(400%);
+		-o-transform:translateY(400%);
+	}
+	100%{
+		-webkit-transform:translateY(0);
+		-moz-transform:translateY(0);
+		-ms-transform:translateY(0);
+		-o-transform:translateY(0);
+	}
+}
+@keyframes myfirst{
+	0%{
+		-webkit-transform:translateY(0);
+		-moz-transform:translateY(0);
+		-ms-transform:translateY(0);
+		-o-transform:translateY(0);
+	}
+	50%{
+		-webkit-transform:translateY(400%);
+		-moz-transform:translateY(400%);
+		-ms-transform:translateY(400%);
+		-o-transform:translateY(400%);
+	}
+	100%{
+		-webkit-transform:translateY(0);
+		-moz-transform:translateY(0);
+		-ms-transform:translateY(0);
+		-o-transform:translateY(0);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

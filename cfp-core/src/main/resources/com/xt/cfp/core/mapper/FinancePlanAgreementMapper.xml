@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FINANCE_PLAN_AGREEMENT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.FinancePlanAgreement" >
+    <id column="FINANCE_AGREEMENT_ID" property="financeAgreementId" jdbcType="DECIMAL" />
+    <result column="FINANCE_AGREEMENT_CODE" property="financeAgreementCode" jdbcType="VARCHAR" />
+    <result column="FINANCE_AGREEMENT_NAME" property="financeAgreementName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="FINANCE_AGREEMENT_TYPE" property="financeAgreementType" jdbcType="CHAR" />
+    <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+    <result column="FINANCE_AGREEMENT_STATUS" property="financeAgreementStatus" jdbcType="CHAR" />
+    <result column="STORGE_PATH" property="storgePath" jdbcType="VARCHAR" />
+    <result column="HREF" property="href" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+     FINANCE_AGREEMENT_ID, FINANCE_AGREEMENT_CODE, FINANCE_AGREEMENT_NAME, CREATE_TIME, FINANCE_AGREEMENT_TYPE, 
+    LEND_ORDER_ID, FINANCE_AGREEMENT_STATUS, STORGE_PATH, HREF,VERSION  
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from FINANCE_PLAN_AGREEMENT
+    where FINANCE_AGREEMENT_ID = #{financeAgreementId,jdbcType=DECIMAL}
+  </select>
+   <select id="findByLendOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from FINANCE_PLAN_AGREEMENT
+    where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+    order by VERSION desc 
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from FINANCE_PLAN_AGREEMENT
+    where FINANCE_AGREEMENT_ID = #{financeAgreementId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.FinancePlanAgreement" >
+      <selectKey keyProperty="financeAgreementId" order="BEFORE" resultType="long">
+          SELECT SEQ_FINANCE_PLAN_AGREEMENT.NEXTVAL as financeAgreementId FROM dual
+      </selectKey>
+    insert into FINANCE_PLAN_AGREEMENT (FINANCE_AGREEMENT_ID, FINANCE_AGREEMENT_CODE, FINANCE_AGREEMENT_NAME, 
+      CREATE_TIME, FINANCE_AGREEMENT_TYPE, LEND_ORDER_ID, 
+      FINANCE_AGREEMENT_STATUS, STORGE_PATH,   HREF,VERSION)
+    values (#{financeAgreementId,jdbcType=DECIMAL}, #{financeAgreementCode,jdbcType=VARCHAR}, #{financeAgreementName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{financeAgreementType,jdbcType=CHAR}, #{lendOrderId,jdbcType=DECIMAL},   #{financeAgreementStatus,jdbcType=CHAR}, #{storgePath,jdbcType=VARCHAR}, 
+      #{href,jdbcType=VARCHAR},#{version,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.FinancePlanAgreement" >
+    insert into FINANCE_PLAN_AGREEMENT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="financeAgreementId != null" >
+        FINANCE_AGREEMENT_ID,
+      </if>
+      <if test="financeAgreementCode != null" >
+        FINANCE_AGREEMENT_CODE,
+      </if>
+      <if test="financeAgreementName != null" >
+        FINANCE_AGREEMENT_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="financeAgreementType != null" >
+        FINANCE_AGREEMENT_TYPE,
+      </if>
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID,
+      </if>
+      <if test="financeAgreementStatus != null" >
+        FINANCE_AGREEMENT_STATUS,
+      </if>
+      <if test="storgePath != null" >
+        STORGE_PATH,
+      </if>
+      <if test="href != null" >
+        HREF,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="financeAgreementId != null" >
+        #{financeAgreementId,jdbcType=DECIMAL},
+      </if>
+      <if test="financeAgreementCode != null" >
+        #{financeAgreementCode,jdbcType=VARCHAR},
+      </if>
+      <if test="financeAgreementName != null" >
+        #{financeAgreementName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="financeAgreementType != null" >
+        #{financeAgreementType,jdbcType=CHAR},
+      </if>
+      <if test="lendOrderId != null" >
+        #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="financeAgreementStatus != null" >
+        #{financeAgreementStatus,jdbcType=CHAR},
+      </if>
+      <if test="storgePath != null" >
+        #{storgePath,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.FinancePlanAgreement" >
+    update FINANCE_PLAN_AGREEMENT
+    <set >
+      <if test="financeAgreementCode != null" >
+        FINANCE_AGREEMENT_CODE = #{financeAgreementCode,jdbcType=VARCHAR},
+      </if>
+      <if test="financeAgreementName != null" >
+        FINANCE_AGREEMENT_NAME = #{financeAgreementName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="financeAgreementType != null" >
+        FINANCE_AGREEMENT_TYPE = #{financeAgreementType,jdbcType=CHAR},
+      </if>
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="financeAgreementStatus != null" >
+        FINANCE_AGREEMENT_STATUS = #{financeAgreementStatus,jdbcType=CHAR},
+      </if>
+      <if test="storgePath != null" >
+        STORGE_PATH = #{storgePath,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        HREF = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where FINANCE_AGREEMENT_ID = #{financeAgreementId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.FinancePlanAgreement" >
+    update FINANCE_PLAN_AGREEMENT
+    set FINANCE_AGREEMENT_CODE = #{financeAgreementCode,jdbcType=VARCHAR},
+      FINANCE_AGREEMENT_NAME = #{financeAgreementName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      FINANCE_AGREEMENT_TYPE = #{financeAgreementType,jdbcType=CHAR},
+      LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      FINANCE_AGREEMENT_STATUS = #{financeAgreementStatus,jdbcType=CHAR},
+      STORGE_PATH = #{storgePath,jdbcType=VARCHAR},
+      HREF = #{href,jdbcType=VARCHAR},
+      VERSION=#{version,jdbcType=DECIMAL}
+    where FINANCE_AGREEMENT_ID = #{financeAgreementId,jdbcType=DECIMAL}
+  </update>
+  
+  
+  <select id="findAvalidByLendOrderId" resultMap = "BaseResultMap" parameterType="map" >
+  		select * from FINANCE_PLAN_AGREEMENT fpa   
+  	      	where fpa.LEND_ORDER_ID = #{lendOrderId}   
+  	      	<if test="status!=null and  status != ''">
+		        and fpa.FINANCE_AGREEMENT_STATUS = #{status}
+  		    </if>
+  </select>
+  
+  <update id="updateByLendOrderId" parameterType="com.xt.cfp.core.pojo.FinancePlanAgreement"> 
+  	update FINANCE_PLAN_AGREEMENT
+    <set >
+      <if test="financeAgreementName != null" >
+        FINANCE_AGREEMENT_NAME = #{financeAgreementName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="financeAgreementType != null" >
+        FINANCE_AGREEMENT_TYPE = #{financeAgreementType,jdbcType=CHAR},
+      </if>
+      <if test="financeAgreementStatus != null" >
+        FINANCE_AGREEMENT_STATUS = #{financeAgreementStatus,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>

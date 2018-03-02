@@ -1,0 +1,172 @@
+@charset "utf-8";
+/* CSS Document */
+/*防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体*/
+html{ padding:0px; margin:0px; color:#000; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;}
+/*内外边距通常让各个浏览器样式的表现位置不同*/
+body{ font: 14px/1.5 '微软雅黑',YaHei,'MicroSoft YaHei',tahoma,arial; color:#666666;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,a,p,img,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{ margin:0px; padding:0px; font-size:14px; font-family:'MicroSoft YaHei';}
+
+button,input{font-family:YaHei}
+
+/*html5媒体文件跟img保持一致*/
+audio,canvas,video{ display:inline-block; *display:inline;*zoom:1;}
+/*去掉table cell的边距并让其边重合*/
+table{ border-collapse:collapse; border-spacing:0;}
+/* IE bug fixed:th 不继承 text-align*/
+th{ text-align:inherit;}
+/*去除默认边框*/
+fieldset,img{ border:0;}
+/*ie6 7 8(q) bug显示为行内显现*/
+iframe{ display:block;}
+/* 去掉列表前的标识，li 会继承*/
+ol,ul,li{ list-style:none;}
+/* 一致的 del样式*/
+del{ text-decoration:line-through;}
+
+/*来自 yahoo,让标题都自定义，适应多个系统应用*/
+h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:500;}
+
+q:before,q:after{ content:'';}
+i{ font-style:normal;}
+
+/* 统一上标和下标*/
+sub,sup{ font-size:75%; line-height:0; position:relative; vertical-align:baseline;}
+sup{ top:-0.5em;}
+sub{ bottom:-0.25em;}
+
+/* 默认不显示下划线，保持页面简洁*/
+ins,a{ text-decoration:none;}
+
+/* 清理浮动*/
+.clearFloat:after{ visibility:hidden; display:block; font-size:0; content:""; clear:both; height:0;}
+.clearFloat{ zoom:1;}/*兼容ie6 7*/
+
+/* 设置内联，减少浮动带来的bug*/
+.floatLeft,.floatRight{ display:inline;}
+.floatLeft{ float:left;}
+.floatRight{ float:right;}
+
+/* 重设html5标签，ie需要在js中 createElement(TAG)*/
+article,aside,details,figcaption,figure,footer,header,menu,nav,section{ display:block;}
+
+/* 去除浏览器中input文本框的默认自带样式 */
+input{ border:none; outline:medium;}
+
+/*去掉 firefox下此元素的边框*/
+abbr,acronym{ border:0; font-variant:normal;}
+address,caption,cite,code,dfn,em,th,var{ font-style:normal; font-weight:500;}
+
+/* blockquote元素前后添加了换行，并增加了外边距。
+q 双引号
+abbr全局的 title 属性
+*/
+
+.container{width:1170px;margin:0 auto;}
+.container-fix{width:1000px;}
+
+/*---- Linktop 最顶部 ------*/
+.linktop{ height:30px; line-height:30px; font-size:12px; border-bottom:1px solid #eeeeee; background: #fff;}
+.linktop .uWelcome,.linktop .uSevers{ display:inline;}
+.linktop .uWelcome{ float:left;}
+.linktop .uSevers{ float:right;}
+.linktop .uWelcome li,.linktop .uSevers li{ display:inline-block; float:left; margin:0 10px;}
+.linktop .uSevers li:last-child{margin-right: 0px;}/* 2015 */
+.linknone a{color:#666;}
+
+/*---- 导航条logo ------*/
+.header{ height:95px; line-height:95px; background: #fff;}
+.header .dlogo{ display:inline; float:left;}
+.header .dlogo img{ vertical-align:middle;}
+.header .dlogo i{ display: none; height: 32px; width: 32px; margin-top: 24px; background:url(../../../images/increaseate/images/index_new/icon2.png) -1px -265px no-repeat; }
+.header .dNav{ display:inline; float:right; height: 95px;}
+.header .dNav .uNav{ display: inline-block;}
+.header .dNav .uNav li{ display:inline-block; float:left; height:95px; line-height:95px; margin:0 30px;}
+.header .dNav .uNav li a{font-size:18px; color:#333; display:inline-block; height:92px; width: 100%;}
+.header .dNav .uNav li a:hover{color:#ff5e63; border-bottom:3px solid #ff5e63}
+.header .dNav .uNav li .aaction{ border-bottom:3px solid #ff5e63}/* 2015 */
+.header .dNav .uNav li:last-child{margin-right: 0px;}/* 2015 */
+.header .dNav .uNav li:first-child{margin-left: 0px;}/* 2015 */
+
+
+
+/*---- 底部导航__small ------*/
+.footer_small{width:100%;height:auto;background:#393C46;}
+.footer_small .footer_t{width:1172px;height:auto;margin:0 auto;padding:45px 0;}
+.footer_small .footer_t .ft_ulleft{float:left;}
+.footer_small .footer_t .ft_ulleft .border-no{border-right:none;padding:0;margin:0;}
+.footer_small .footer_t .ft_ulright{float:right;}
+.footer_small .footer_t .ft_ulleft li{float:left;padding-right:10px;margin-right:10px;border-right:1px #fff solid;height:16px;line-height:16px;}
+.footer_small .footer_t .ft_ulleft li a{font-size:16px;font-family:"MicroSoft YaHei";color:#fff;}
+.footer_small .footer_t .ft_ulright li{float:left;padding-left:35px;height:16px;line-height:16px;font-size:16px;font-family:"MicroSoft YaHei";color:#fff;}
+.footer_small .footer_t .ft_ulright li a{font-size:16px;font-family:"MicroSoft YaHei";color:#fff;}
+.footer_small .footer_c{width:1172px;height:46px;margin:0 auto;padding-bottom:30px;}
+.footer_small .footer_c span{width:205px;height:auto;margin:0 auto;display:block;}
+.footer_small .footer_c span i.ichengxin{width:129px;height:46px;float:left;display:block;background:url(../../../images/increaseate/images/index5_03.png) no-repeat;}
+.footer_small .footer_c span i.ichengxin:hover{background:url(../../../images/increaseate/images/index6_03.png) no-repeat;}
+.footer_small .footer_c span i.ixin{width:45px;height:46px;float:right;display:block;background:url(../../../images/increaseate/images/index5_05.png) no-repeat;}
+.footer_small .footer_c span i.ixin:hover{background:url(../../../images/increaseate/images/index6_05.png) no-repeat;}
+.footer_small .footer_b{width:100%;text-align:center;padding:15px 0;background:#40434E;}
+.footer_small .footer_b span{font-size:16px;font-family:"MicroSoft YaHei";color:#fff;}
+
+
+
+
+/* 上间距 */
+.mt-0{ margin-top:0px!important;}
+.mt-5{ margin-top:5px;}
+.mt-8{ margin-top:8px;}
+.mt-10{ margin-top:10px;}
+.mt-15{ margin-top:15px;}
+.mt-20{ margin-top:20px;}
+.mt-25{ margin-top:25px;}
+.mt-30{ margin-top:30px;}
+.mt-40{ margin-top:40px;}
+.mt-100{ margin-top:100px;}
+.mt-150{ margin-top:150px;}
+.mt-200{ margin-top:200px;}
+.mt-300{ margin-top:300px;}
+
+/* 右侧间距 */
+.mr-5{ margin-right:5px;}
+.mr-10{ margin-right:10px;}
+.mr-15{ margin-right:15px;}
+.mr-20{ margin-right:20px!important;}
+.mr-25{ margin-right:25px!important;}
+
+/* 底部间距 */
+.mb-10{ margin-bottom:10px;}
+.mb-30{ margin-bottom:30px;}
+.mb-150{ margin-bottom:150px;}
+.mb-200{ margin-bottom:200px;}
+
+/* 左间距 */
+.ml-0{ margin-left:0px!important;}
+.ml-2{ margin-left:2px;}
+.ml-5{ margin-left:5px;}
+.ml-8{ margin-left:8px;}
+.ml-10{ margin-left:10px;}
+.ml-20{ margin-left:20px;}
+.ml-30{ margin-left:30px;}
+.ml-50{ margin-left:50px;}
+.ml-75{ margin-left:75px;}
+.ml-80{ margin-left:80px;}
+.ml-85{ margin-left:85px;}
+.ml-90{ margin-left:90px;}
+.ml-100{ margin-left:100px;}
+.ml-160{ margin-left:160px;}
+.ml-200{ margin-left:200px;}
+.ml-70b{ margin-left:50%;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

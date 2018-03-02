@@ -1,0 +1,29 @@
+/* CSS Document */
+
+
+#lrtk{width:1000px}
+#lrtk >li{width:500px}
+#lrtk .phide  p{display:none!important;}
+.show{margin:0 auto;width:800px;}
+.hide{margin:0 auto;width:800px;display:none;}
+.mb-wrapper{margin:0 auto 20px;position:relative; height:300px;left:0;top:0}
+.mb-slider,.mb-scroll{width:100%;height:380px;overflow:hidden;margin:0 auto;padding:0;position:relative;left:0;top:0}
+.mb-active-slider{border-color:#333}
+.mb-slider .mb-panel{margin-top:100px;display:block;cursor:pointer;float:left;list-style:none}
+.mb-panel a{outline:0}
+.mb-slider .mb-panel.current{cursor:auto}
+.mb-inside *{max-width:100%}
+a.mb-scrollButtons{display:block;width:40px;height:40px;background:transparent url(../images/about_img/le_ri.png) no-repeat;position:absolute;top:65%;margin-top:-29px;cursor:pointer;text-decoration:none;outline:0;border:0;}
+a.mb-scrollButtons.mb-left{background-position:left top;left:-40px}
+a.mb-scrollButtons.mb-right{background-position:right bottom;right:-40px}
+a.mb-scrollButtons.disabled{display:none}
+.mb-controls{margin:0 auto;text-align:center;position:absolute;bottom:0px; left:450px;z-index:100;display:none;}
+.mb-controls a{color:#666;font:18px/2.2 Georgia, Serif;display:inline-block;text-decoration:none;padding:2px;margin:0 5px 0 0;text-align:center;outline:0}
+.mb-panel{margin-top:90px}
+.mb-controls a:hover{color:black}
+.mb-controls a.current{color:#900}
+.main-nav{display:block; text-align:center; border-bottom:2px solid #a71700;margin:0 0 20px 0;padding:0 0 10px 0}
+.main-nav a{text-decoration:none;color:#3e63ec;font-size:18px;margin:0 8px}
+.main-nav a:hover{color:black;border-bottom:2px solid black}
+.mb-inside img{width:100%}
+

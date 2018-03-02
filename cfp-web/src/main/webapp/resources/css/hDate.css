@@ -1,0 +1,26 @@
+﻿ul, li, a, dd, dt, dl, i, em{ margin:0px;padding:0px;list-style:none;text-decoration:none;list-style:none;font-style:normal;font-style:normal;}
+
+/* calendar */
+.calendar{width:210px;position:absolute;background-color:#f9f9f9;border:1px solid #03004D;color:#333!important;font-size:12px;}
+.calendar_head{line-height:25px;width:100%;float:left;margin-top:3px;position:relative;font-size:12px;}
+.calendar_head input{font-size:12px;width:35%;border:0px;font-family:Arial;background-color:#fff;margin-left:5%;text-align:center;line-height:18px;}
+.calendaremL{float:left;font-family:Arial;font-weight:bold;margin-top:-2px;padding:0 5px;cursor:pointer;}
+.calendaremR{float:right;font-family:Arial;font-weight:bold;margin-top:-2px;padding:0 5px;cursor:pointer;}
+.calendar_boy{font-size:12px;float:left;position:relative;width:100%;}
+.calendar_boy i{position:absolute;left:0;top:-8px;right:0px;bottom:0;text-align:center;font-size:150px;font-family:Arial;color:#eee;z-index:0;}
+._caltable{border-collapse:collapse;width:100%;float:left;position:relative; font-size:12px}
+._caltable tr td{line-height:25px;width:25px;text-align:center;font-family:Arial;cursor:pointer;border-bottom:1px solid #f1f1f1;border-right:1px solid #f1f1f1;}
+._caltable tr:first-child td{border-bottom:1px solid #ddd;cursor:default;border-bottom:1px solid #eee;border-right:0;}
+._caltable tr td:last-child{border-right:0;}
+._sday{color:#03004D;font-family:'Microsoft YaHei';}
+.festival{color:#03004D!important;}
+._selDay{background-color:#03004D;color:#fff;font-family:'Microsoft YaHei';}
+
+.calYear{font-size:14px;border:1px solid #f5d2ba;width:50px;width:80%;position:absolute;z-index:2000;left:5%;background-color:#eee;border-collapse:collapse;}
+.calYear td{text-align:center;cursor:pointer;}
+.calYear td:hover{color:#03004D;}
+.calMonth{font-size:14px;border:1px solid #f5d2ba;width:50px;width:70%;position:absolute;z-index:2000;right:10%;background-color:#eee;border-collapse:collapse;}
+.calMonth td{text-align:center;cursor:pointer;}
+.calMonth td:hover{color:#03004D;}
+.disDay{color:#999;cursor:text!important;}
+._calcolse{position:relative;border-radius:10px;width:10px;height:10px;color:red;}

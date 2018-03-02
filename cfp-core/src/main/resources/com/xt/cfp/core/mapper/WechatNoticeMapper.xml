@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="WECHAT_NOTICE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.WechatNotice" >
+    <id column="NOTICE_ID" property="noticeId" jdbcType="DECIMAL" />
+    <result column="NOTICE_TITLE" property="noticeTitle" jdbcType="VARCHAR" />
+    <result column="NOTICE_CONTENT" property="noticeContent" jdbcType="VARCHAR" />
+    <result column="PUBLISH_TIME" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+    <result column="NOTICE_STATE" property="noticeState" jdbcType="CHAR" />
+    <result column="NOTICE_SYNOPSIS" property="noticeSynopsis" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    NOTICE_ID, NOTICE_TITLE, NOTICE_CONTENT, PUBLISH_TIME, ADMIN_ID, NOTICE_STATE, NOTICE_SYNOPSIS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from WECHAT_NOTICE
+    where NOTICE_ID = #{noticeId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from WECHAT_NOTICE
+    where NOTICE_ID = #{noticeId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.WechatNotice" >
+  	<selectKey keyProperty="noticeId" order="BEFORE" resultType="long">
+      SELECT SEQ_WECHAT_NOTICE.NEXTVAL as noticeId FROM dual
+    </selectKey>
+    insert into WECHAT_NOTICE (NOTICE_ID, NOTICE_TITLE, NOTICE_CONTENT, 
+      PUBLISH_TIME, ADMIN_ID, NOTICE_STATE, NOTICE_SYNOPSIS
+      )
+    values (#{noticeId,jdbcType=DECIMAL}, #{noticeTitle,jdbcType=VARCHAR}, #{noticeContent,jdbcType=VARCHAR}, 
+      #{publishTime,jdbcType=TIMESTAMP}, #{adminId,jdbcType=DECIMAL}, #{noticeState,jdbcType=CHAR}, #{noticeSynopsis,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.WechatNotice" >
+    insert into WECHAT_NOTICE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" >
+        NOTICE_ID,
+      </if>
+      <if test="noticeTitle != null" >
+        NOTICE_TITLE,
+      </if>
+      <if test="noticeContent != null" >
+        NOTICE_CONTENT,
+      </if>
+      <if test="publishTime != null" >
+        PUBLISH_TIME,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+      <if test="noticeState != null" >
+        NOTICE_STATE,
+      </if>
+      <if test="noticeSynopsis != null" >
+        NOTICE_SYNOPSIS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" >
+        #{noticeId,jdbcType=DECIMAL},
+      </if>
+      <if test="noticeTitle != null" >
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null" >
+        #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="noticeState != null" >
+        #{noticeState,jdbcType=CHAR},
+      </if>
+      <if test="noticeSynopsis != null" >
+        #{noticeSynopsis,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.WechatNotice" >
+    update WECHAT_NOTICE
+    <set >
+      <if test="noticeTitle != null" >
+        NOTICE_TITLE = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null" >
+        NOTICE_CONTENT = #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="noticeState != null" >
+        NOTICE_STATE = #{noticeState,jdbcType=CHAR},
+      </if>
+      <if test="noticeSynopsis != null" >
+        NOTICE_SYNOPSIS = #{noticeSynopsis,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NOTICE_ID = #{noticeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.WechatNotice" >
+    update WECHAT_NOTICE
+    set NOTICE_TITLE = #{noticeTitle,jdbcType=VARCHAR},
+      NOTICE_CONTENT = #{noticeContent,jdbcType=VARCHAR},
+      PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      NOTICE_STATE = #{noticeState,jdbcType=CHAR},
+      NOTICE_SYNOPSIS = #{noticeSynopsis,jdbcType=VARCHAR},
+    where NOTICE_ID = #{noticeId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 加息券产品分页列表（数据） -->
+  <select id="getWechatNoticePaging" resultMap="BaseResultMap" parameterType="map" >
+	select wn.*
+    from WECHAT_NOTICE wn
+    <include refid="where_getWechatNoticePaging"/>
+    order by wn.NOTICE_ID desc
+  </select>
+  
+  <!-- 加息券产品分页列表（数量） -->
+  <select id="count_getWechatNoticePaging" resultType="int" parameterType="map" >
+	select 
+    count(1)
+    from WECHAT_NOTICE wn
+    <include refid="where_getWechatNoticePaging"/>
+  </select>
+  
+  <!-- 加息券产品分页列表（条件） -->
+  <sql id="where_getWechatNoticePaging">
+	where 1=1
+	<if test="wechatNotice != null">
+        <if test="wechatNotice.noticeTitle != null and wechatNotice.noticeTitle != ''">
+          AND wn.NOTICE_TITLE like '%${wechatNotice.noticeTitle}%'
+        </if>
+        <if test="wechatNotice.noticeState != null and wechatNotice.noticeState != ''">
+          AND wn.NOTICE_STATE = #{wechatNotice.noticeState}
+        </if>
+    </if>
+    
+	<if test="customParams != null">
+		<if test="customParams.timeInterval != null">
+			<if test="customParams.timeInterval.startTime != null">
+			  <![CDATA[AND wn.PUBLISH_TIME >= #{customParams.timeInterval.startTime}]]>
+			</if>
+			<if test="customParams.timeInterval.endTime != null">
+			  <![CDATA[AND wn.PUBLISH_TIME < #{customParams.timeInterval.endTime}+interval '1' DAY]]>
+			</if>
+		</if>
+	</if>
+  </sql>
+  
+  <!-- 更改加息券产品状态（0正常，1禁用）-->
+  <update id="changeWechatNoticeState" parameterType="map" >
+    update WECHAT_NOTICE
+    set NOTICE_STATE = #{noticeState,jdbcType=CHAR}
+    where NOTICE_ID = #{noticeId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 获取最新的一条公告 -->
+  <select id="getTopNewWechatNotice" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+ 	select ww.* from(
+	select w.*
+  	from WECHAT_NOTICE w
+ 	where w.NOTICE_STATE = '0'
+ 	order by w.NOTICE_ID desc) ww where rownum=1
+  </select>
+  
+</mapper>

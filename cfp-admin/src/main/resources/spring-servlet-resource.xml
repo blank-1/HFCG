@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd   
+         http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg>
+                    <bean class="java.nio.charset.Charset" factory-method="forName">
+                        <constructor-arg value="UTF-8"/>
+                    </bean>
+                </constructor-arg>
+            </bean>
+
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <context:component-scan base-package="com.xt.cfp.web" >
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />-->
+    </context:component-scan>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 支持上传文件 -->
+    <!-- 文件上传解析器 id 必须为multipartResolver -->
+     <bean id="multipartResolver" class="com.xt.cfp.web.multipartResolver.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100485760"/>
+        <property name="defaultEncoding" value="utf-8" />
+    </bean>
+
+    <mvc:resources mapping="/js/**" location="/resources/js/"/>
+    <mvc:resources mapping="/css/**" location="/resources/css/"/>
+    <mvc:resources mapping="/img/**" location="/resources/img/"/>
+    <mvc:resources mapping="/picture/**" location="/resources/picture/"/>
+    <mvc:resources mapping="/file/**" location="/resources/file/"/>
+    <mvc:resources mapping="/newjs/**" location="/resources/newjs/"/>
+    <mvc:resources mapping="/cfpUploadPic/temporary/**" location="/cfpUploadPic/temporary/"/>
+    <mvc:resources mapping="/cfpUploadPic/qrcode/**" location="/cfpUploadPic/qrcode/"/>
+    <mvc:resources mapping="/cfpUploadPic/agreement/**" location="/cfpUploadPic/agreement/"/>
+    <mvc:resources mapping="/cfpUploadPic/formal/**" location="/cfpUploadPic/formal/"/>
+    <mvc:resources mapping="/cfpUploadPic/appStartPagePic/**" location="/cfpUploadPic/appStartPagePic/"/>
+    <mvc:resources mapping="/cfpUploadPic/UEditor/**" location="/cfpUploadPic/UEditor/"/>
+    <mvc:interceptors>
+        <bean class="com.xt.cfp.web.interceptor.AuthInterceptor"/>
+    </mvc:interceptors>
+</beans>

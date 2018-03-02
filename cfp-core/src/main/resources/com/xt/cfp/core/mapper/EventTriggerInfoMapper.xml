@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EVENT_TRIGGER_INFO">
+
+    <insert id="insert" parameterType="com.xt.cfp.core.event.pojo.EventTriggerInfo">
+        <selectKey keyProperty="eventTriggerInfoId" order="BEFORE" resultType="long">
+            SELECT SEQ_EVENT_TRIGGER_INFO.NEXTVAL as eventTriggerInfoId FROM dual
+        </selectKey>
+        insert into EVENT_TRIGGER_INFO
+        (EVENT_TRIGGER_ID,EVENT_ID,TRIGGER_TYPE,TRIGGER_OBJ_ID,HAPPEN_TIME,HAPPENT_RESULT)
+        values(#{eventTriggerInfoId,jdbcType=DECIMAL},#{eventId,jdbcType=DECIMAL},#{triggerType,jdbcType=DECIMAL},
+        #{triggerObjId,jdbcType=DECIMAL},#{happenTime,jdbcType=TIMESTAMP},#{happenResult,jdbcType=CHAR})
+    </insert>
+</mapper>

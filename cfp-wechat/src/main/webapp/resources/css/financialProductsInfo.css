@@ -1,0 +1,104 @@
+@charset "utf-8";
+/* CSS Document */
+/*公共css*/
+.pjred{color: #fc5f65;}
+.pjBred{background: #fc5f65;color: #fff;border-radius: 4px;}
+.pjTip{color: #b0d3fb;}
+.pjWrong{color: #ff982b;}
+/*详情页css*/
+body,html{width: 100%;height:100%;background: #f5f5f5;}
+.l_title{width: 90%;height: 3rem;line-height: 3rem;font-size: 1.2rem;color: #333;text-indent: 2.4rem;margin-left: 5%;position: relative;}
+.l_title::before{content: "";position: absolute;width: 1.4rem;height: 1.4rem;top: 50%;margin-top: -.7rem;left:0;}
+.l_titleIcon_shengxin::before{background: url(../images/icon/icon_sx.png) 50% 50% no-repeat;background-size: contain;}
+.l_titleIcon_fczt::before{background: url(../images/icon/icon_fczt.png) 50% 50% no-repeat;background-size: contain;}
+.l_titleIcon_company::before{background: url(../images/icon/icon_qyxd.png) 50% 50% no-repeat;background-size: contain;}
+.l_titleIcon_belive::before{background: url(../images/icon/icon_gx.png) 50% 50% no-repeat;background-size: contain;}
+.l_titleIcon_apartment::before{background: url(../images/icon/icon_fd.png) 50% 50% no-repeat;background-size: contain;}
+.l_titleIcon_car::before{background: url(../images/icon/icon_cd.png) 50% 50% no-repeat;background-size: contain;}
+.l_titleIcon_baoli::before{background: url(../images/icon/icon_bl.png) 50% 50% no-repeat;background-size: contain;}
+.l_titleIcon_invest::before{background: url(../images/icon/icon_jjb.png) 50% 50% no-repeat;background-size: contain;}
+.l_titleIcon_qyb::before{background: url(../images/icon/icon_qyb.png) 50% 50% no-repeat;background-size: contain;}
+.l_titleIcon_xjd::before{background: url(../images/icon_xjdw.png) 50% 50% no-repeat;background-size: contain;}
+.title_car::before{content: "";background:url(../images/icon/icon_car.png) no-repeat center center; background-size: contain;}
+header{width: 100%;height: auto;overflow: hidden;background: #fff;border-top: solid 1px #e6e6e6;box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.1);}
+.dingxiang header{background: url(../images/icon/icon_dingxiang.png) 100% -0.8rem no-repeat #fff!important;background-size: 6rem!important;}
+header ul{width: 100%;height: auto;overflow: hidden;}
+header ul li{width: 100%}
+.l_headerInfo1{height: 10rem;border-bottom: solid 1px #f4f4f4;}
+.l_headerInfo1>p:first-child{width: 100%;height: 6rem;text-align: center;font-size:2rem;line-height: 8rem;}
+.l_headerInfo1>p:first-child i{font-size: 3rem;}
+.l_headerInfo1>p:last-child{width: 10rem;height: 3rem;font-size: 1.4rem;text-align: center;line-height: 3rem;margin-left: -webkit-calc(50% - 5rem);margin-left: -moz-calc(50% - 5rem);margin-left: -ms-calc(50% - 5rem);margin-left: calc(50% - 5rem);position: relative;}
+.l_headerInfo1>p:last-child::before,.l_headerInfo1>p:last-child::after{content: "";position: absolute;width: 3rem;height: 1px;background: #ff5e61;top: 50%;/* margin-top: -1px; */}
+.l_headerInfo1>p:last-child::before{left: -2.8rem;}
+.l_headerInfo1>p:last-child::after{right: -2.8rem;}
+.l_headerInfo2,.l_headerInfo3,.l_headerInfo4{width: 50%;float: left;height: 6rem;}
+.l_headerInfo4{display: none;}
+.l_headerInfo2 p,.l_headerInfo3 p,.l_headerInfo4 p{width: 100%;text-align: center;font-size: 1.2rem;color: #333;margin: 1rem 0;}
+.l_headerInfo2 p i,.l_headerInfo3 p i,.l_headerInfo4 p i{font-size: 1.4rem;}
+.l_headerInfo2 p:first-child,.l_headerInfo3 p:first-child,.l_headerInfo4 p:first-child{margin-bottom: 0}
+.l_headerInfo2 p:last-child,.l_headerInfo3 p:last-child,.l_headerInfo4 p:last-child{margin-top: 0}
+.l_midInfo{width: 100%;height: auto;margin-top: 1.4rem;background: #fff;}
+.l_midInfo font{display: none;}
+.l_perLine{width: 90%;height: 3px;display:inline-block;position: relative;margin: 2rem 0 2rem 5%;background: #ccc;border-radius: 4px;}
+.l_perLine i{width: 1%;height: 3px;background:#ff5e61;border-radius: 4px;position: absolute;top:50%;margin-top: -1.5px;left: 0;-webkit-transition: width 2s ease-in-out;-moz-transition: width 2s ease-in-out;transition: width 2s ease-in-out;}
+.l_perLine i b{width: auto;height: 1.4rem;color: #fff;background:#ff5e61;border-radius: 4px;position: absolute;top:50%;margin-top: -.7rem;right: -1rem;text-align: center;font-weight: normal;padding: 0 4px;-webkit-transition: all 0.1s linear;-moz-transition: all 0.1s linear;transition: all 0.1s linear;-webkit-box-shadow: 0 2px 2px 1px rgba(0,0,0,0.1);-moz-box-shadow: 0 2px 2px 1px rgba(0,0,0,0.1);box-shadow: 0 2px 2px 1px rgba(0,0,0,0.1);}
+.l_perLineInfo{width: 45%;display: inline-block;font-size: 1rem;color: #333;padding: 0 0 1rem 0;}
+.l_Info1{margin-left: 5%;}
+.l_Info2{text-align: right;}
+.l_Info1::before{content: "已购：";display: inline-block;}
+.l_Info2::before{content: "剩余：";display: inline-block;}
+.l_midInfo ul{width: 100%;height: auto;}
+.l_midInfo ul li{width: 90%;height: 3rem;border-top: solid 1px #e6e6e6;line-height: 3rem;text-align: right;padding:0 5%;color: #333;position: relative;font-size: 1.2rem;}
+.l_midInfo ul li::before{position: absolute;width: 50%;height: 3rem;color: #666;text-align: left;left: 5%;top:50%;margin-top: -1.5rem;}
+.l_midInfo ul li:nth-child(1)::before{content: "还款方式"}
+.l_midInfo ul li:nth-child(2)::before{content: "省心方式"}
+.l_midInfo ul li:nth-child(3)::before{content: "投资标的"}
+.l_midInfo ul li:nth-child(4)::before{content: "转让人"}
+.l_midInfo ul li:nth-child(4){display: none;}
+.l_company ul li:nth-child(2)::before{content: "项目类型"}
+.l_company ul li:nth-child(3)::before{content: "还款来源"}
+.l_person ul li:nth-child(2)::before{content: "抵押信息"}
+.l_person ul li:nth-child(3){display: none;}
+.l_inputBox{width: 100%;height: 8rem;margin-top: 1.4rem;background: #fff;position: relative;overflow: hidden;}
+.l_inputBox>p{width: 90%;height: 2.5rem;line-height: 2.5rem;font-size: 1rem;margin-left: 5%;}
+.l_inputBox>p:first-child{padding-bottom: 3rem;}
+.l_inputBox>p:nth-child(2)::after{content: "＊市场有风险，投资须谨慎";color: #666;float: right;font-size: .6rem;}
+.l_inputBox>input{width: 90%;height: 3rem;line-height: 3rem;font-size: 1.2rem;color: #666;text-indent: 1rem;position: absolute;left: 5%;top:50%;margin-top: -1.5rem;border: solid 1px #ff5e61;border-radius: 2px;}
+.l_CheckInfo{margin-top: 1.4rem;width: 90%;height: 3rem;line-height: 3rem;font-size: 1.2rem;color: #666;padding:0 5%;background: #fff;position: relative;}
+.l_CheckInfo::after{content: "";position: absolute;width: 1rem;height: 1rem;border-top: solid 1px #999;border-left: solid 1px #999;transform: rotate(135deg);top: 50%;margin-top: -.6rem;right: 5%;}
+.l_propto{width: 100%;height: 4rem;position: relative;}
+.l_propto i{width: 1.2rem;height: 1.2rem;position: absolute;left: 5%;top: 50%;margin-top: -.6rem;border: solid 1px #999;}
+.l_propto span{width: auto;height: 1.4rem;font-size: 1rem;color: #8ab1f7;position: absolute;left: -webkit-calc(5% + 2rem);left: -moz-calc(5% + 2rem);left: calc(5% + 2rem);top:50%;margin-top: -.7rem;}
+.l_propto span a{color: #8ab1f7}
+.l_btn{width: 90%;line-height: 3rem;color: #fff;background:#ff5e61;font-size: 1.2rem;border-radius: 4px;margin: 1rem 0 54px 5%;}
+.l_win{width: 80%;height: 9rem;position: absolute;top: 50%;margin-top: -4.5rem;left:10%;font-size: 1.4rem;}
+.l_win p{width: 100%;height: 6rem;background: #fff;border-radius: 1rem 1rem 0 0;color: #333;text-align: center;line-height: 6rem;}
+.l_win button{width: 100%;height: 3rem;color: #fff;background:#ff5e61;border-radius:0 0 1rem 1rem ;font-size: 1.6rem;letter-spacing: .5rem;text-indent: .5rem;}
+.l_checked{border: solid 1px #ff5e61!important;background: url(../images/icon/icon_check.png) center no-repeat;background-size: contain;}
+.noLimt header .l_headerInfo1 p:last-child{color: #333;}
+.noLimt header .l_headerInfo1>p:first-child,.noLimt header .l_headerInfo2>p:first-child{ height: 3rem; line-height: 4rem;}
+.noLimt header .l_headerInfo1>p:last-child::before,.noLimt header .l_headerInfo1>p:last-child::after{display: none;}
+.noLimt header .l_headerInfo1::after{content: "";position: absolute;width: 1px;height: 4rem;background: #999;right: 0;top: 50%;margin-top: -2rem;}
+.noLimt header .l_headerInfo2>p:first-child i{font-size: 3rem;color: #666;}
+.noLimt header .l_headerInfo2>p:first-child{margin-top: 0;}
+.noLimt header .l_headerInfo2>p:last-child{width: 10rem;height: 3rem;font-size: 1.4rem;text-align: center;line-height: 3rem;margin-left: -webkit-calc(50% - 5rem);margin-left: -moz-calc(50% - 5rem);margin-left: -ms-calc(50% - 5rem);margin-left: calc(50% - 5rem);position: relative;}
+.noLimt header ul{padding: 2rem 0;}
+.noLimt header .l_headerInfo1{width: 50%;float: left;height: 6rem;position: relative;border: none;}
+.noLimt header .l_headerInfo2{width: 50%;float: left;height: 6rem;}
+.noLimt header .l_headerInfo3{display: none;}
+.noLimt .l_midInfo>p:first-child{display: none;}
+.l_incomein span{/* display: none; */}
+.l_incomein{width: 100%;display: block;/* text-align: center; */}
+.l_incomein font{line-height: 5rem;position: relative;font-size: 1.2rem;color: #333;display: inline;}
+.l_incomein font::before{content: "";position: absolute;top:50%;left: -2rem;width: 1.6rem;height: 1.6rem;margin-top: -.8rem;background: url(../images/icon/icon_clock.png) center no-repeat;background-size: contain;}
+.timeDown{display: block;text-align: center;border-bottom: solid 1px #e6e6e6;}
+.timeDown font{line-height: 5rem;position: relative;font-size: 1.2rem;color: #333;display: inline;}
+.timeDown font::before{content: "";position: absolute;top:50%;left: -2rem;width: 1.6rem;height: 1.6rem;margin-top: -.8rem;background: url(../images/icon/icon_clock.png) center no-repeat;background-size: contain;}
+.l_inputPassword{display: none;}
+.dingxiang .l_inputPassword{display: block;position: absolute;top: 0;left: 0;z-index: 9;width: 100%;height: 8rem;background: #fff;}
+.l_inputPassword>p{width: 100%;height: 3rem;line-height: 3.5rem;text-align: center;font-size: 1rem;color: #333;}
+.l_inputPassword>input{width: 90%;height: 3rem;line-height: 3rem;font-size: 1.2rem;color: #666;text-indent: 0;position: absolute;left: 5%;top:50%;margin-top: -.5rem;border: solid 1px #ff5e61;border-radius: 2px;text-align: center;}
+.l_sanbiao .l_headerInfo4{display: block;}
+.l_sanbiao>header>ul>li:nth-of-type(2),.l_sanbiao>header>ul>li:nth-of-type(3),.l_sanbiao>header>ul>li:nth-of-type(4){width: 33%;}
+.l_zhuanrang .l_midInfo ul li:nth-child(4){display: block;}
+.swal2-modal h2{font-size: 1.2rem!important;}

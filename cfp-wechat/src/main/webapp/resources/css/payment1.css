@@ -1,0 +1,98 @@
+
+/*!
+ * payment.css v1.0.0
+ * producer:bayaby
+ * Date: 2016-12-01 18:25;
+ * Modification personnel：~
+ * Modified time：~
+ */
+
+body,html{width: 100%;height: 100%;overflow: hidden;position: relative;color: #333;}
+.payment-theme{width: 100%;height: 100%;background:#f7f7f7;overflow: scroll;}
+.title{width: 90%;height: 3rem;line-height: 3rem;background: url(../images/personal.png) no-repeat 0 center;background-size: 1.5rem 1.5rem;text-indent: 2.5rem;color: #333;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;margin:0 auto;font-size: 1.4rem;}
+.amount{width: 100%;height: auto;background: #fff;}
+.amount dd{width:100%;height: auto;padding: .8rem 0;display: -webkit-box;margin: 0 auto;border-bottom: 1px solid #e5e5e5;}
+.leftSide,.rightSide{-webkit-box-flex:1;}
+.leftSide{border-right: 1px solid #e5e5e5;}
+.leftSide span,.rightSide span{display: block;text-align: center;line-height: 2rem;font-size: 1rem;}
+.leftSide span:nth-child(1),.rightSide span:nth-child(1){color: #ff5e61;}
+.leftSide span:nth-child(2),.rightSide span:nth-child(2){font-size: 1.2rem;}
+.amount dt{width: 100%;text-align: center;height: 2.5rem;line-height: 2.5rem;font-size: 1rem;}
+.optionList{width: 100%;height: auto;margin-top: 1rem;background: #fff;}
+.optionList li{width: 90%;height: 3.5rem;line-height: 3.5rem;display: -webkit-box;margin: 0 auto;font-size: 1.2rem;color: #666;}
+.optionList li p{-webkit-box-flex:1;}
+.optionList li p:nth-child(1){text-align: left;}
+.optionList li p:nth-child(2){text-align: right;}
+.balance p:nth-child(2),.Voucher p:nth-child(2){padding-right: 2rem;letter-spacing:1px;}
+.balance p:nth-child(2) span,.Voucher p:nth-child(2) span{color: #333;}
+.balance p:nth-child(2){position: relative;}
+.balance p:nth-child(2):after{content: "";width: 1.5rem;height: 1.5rem;background:#ff5e61 url(../images/icon_check.png) no-repeat center;display: block;position: absolute;border-radius: 100%;text-align: center;background-size: 1.4rem 1.4rem;top: 50%;right: 0;margin-top: -.7rem;}
+.Voucher p:nth-child(2){background: url(../images/right_arrow.png) no-repeat right center;background-size: .7rem 1.5rem;}
+.liner{width: 100%;height: 1px;background:#e5e5e5; }
+.bankcard p:nth-child(1){width: 10%;display: block;color: #666;}
+.pwd-container{width: 90%;height: 3rem;border:1px solid #d2d4dc;margin: 0rem auto;border-radius: 4px;background: #fff;overflow: hidden;display: -webkit-box;}
+.pwd-number{width: 80%;height: 100%;border: none;outline: none;font-size: 1.4rem;color: #afafaf;display: block;}
+.next-btn{display: block;text-align: center;width: 90%;height: 3rem;line-height: 3rem;font-size: 1.4rem;background: #f5595f;color: #fff;position: absolute;bottom: 4rem;left: 50%;margin-left: -45%;}
+.eye{width: 20%;height: 100%;background: url(../images/icon/icon_openeye.png) no-repeat center center; background-size: 2rem 1.3rem;display: block;}
+.eye-close{background: url(../images/icon/icon_closeeye.png) no-repeat center center; background-size: 2rem 1.3rem;}
+.forget_pwd{width: 90%;height: 3rem;line-height: 3rem;/* display: -webkit-box; */margin: 0 auto;}
+.forget_pwd p:nth-child(1){width: 9rem;text-indent: 1.5rem;/* -webkit-box-flex:1; */color: #ff5e61;/* display: -webkit-box; */background: url(../images/matter.png) no-repeat left center;background-size: 1.2rem 1.2rem;}
+.forget_pwd p:nth-child(2){text-align: right;-webkit-box-flex:1;color: #ff5e61;}
+.confirm{width: 90%;height: 3rem;line-height: 3rem;margin: 2rem auto;text-align: center;font-size: 1.4rem;display: block;color: #fff;background: #ff5e61;border-radius: 4px;}
+.checked,.unchecked{position: relative;padding-right: 2rem;}
+.checked:after{content: "";display: block;width: 1.5rem;height: 1.5rem;position: absolute;right: 0;top: 50%;margin-top: -.7rem;background:#ff5e61 url(../images/icon_check.png) no-repeat right center;background-size: 1.4rem 1.4rem;border-radius: 100%;}
+.unchecked:after{content: "";display: block;width: 1.5rem;height: 1.5rem;position: absolute;right: 0;top: 50%;margin-top: -.7rem;
+	background:#cecece url(../images/icon_check.png) no-repeat right center;background-size: 1.4rem 1.4rem;border-radius: 100%;}
+.l_checkRewardWay{padding: 1rem 0;font-size: 1rem;background: #fff;color: #999;margin: 1.5rem 0;}
+.l_checkRewardWay span,.l_checkRewardWay p{display: inline-block;height: 2rem;line-height: 2rem;}
+.l_checkRewardWay span{margin-left: 5%;color: #333;}
+.l_checkRewardWay p{border: solid 1px #ccc;background: #eff1f5;padding: 0 1rem;border-radius: 4px;margin-left: 5%;}
+.l_checkRewardWay i{display: block;margin: 1rem 0 1rem 5%;}
+.l_checkRewardWay i::before{content: "*";color: #ff5e61;}
+.l_wayChecked{border-color: #fddcdc!important;background: #fff url(../images/icon_checkway.png) top right no-repeat!important;color: #333!important;background-size: 1.6rem!important;}
+.bank-box{height: 0;width: 100%;background: #fcfcfc;overflow: hidden;}
+.account{height: 3rem;display: -webkit-box;line-height: 3rem;width: 90%;margin: 0 auto;font-size: 1.2rem;color: #666;}
+.bankcard{width: 100%;height: 3rem;line-height: 3rem;margin: 0 auto;font-size: 1.2rem;color: #666;}
+.binding{width: 70%;display: block;height: 100%;border: none;outline: none;font-size: 1.2rem;}
+input::placeholder{color: #333;}
+.Agreement{width: 90%;height: 3rem;line-height: 3rem;margin:0 auto;display: -webkit-box;}
+.Checkbox{width: 1.5rem;height: 1.5rem;border: 1px solid #d3d3d3;border-radius: 4px;display: block;margin-top: .7rem;background: url(../images/icon_checked.png) no-repeat center; background-size: 1.2rem .8rem;}
+.Agreement a{color: #8ab1f7;font-size: 1.2rem;}
+.pay_question{display: block;-webkit-box-flex:1;text-align: right;}
+.pwdBox{background: #fff;padding:.5rem 0;margin-top: 1rem;}
+.un_Checkbox{background: #fff;}
+.bankInfo{width: 100%;height: 3rem;background: #fff;color: #666;text-align: center;line-height: 3rem;position: relative;
+	display: -webkit-box;}
+.bankInfo img {
+	height: 2.6rem;
+	margin-top: -1.2rem;
+	position: absolute;
+	left: -8%;
+	top: 50%;
+}
+.bankInfo span{position: absolute;right:-3rem;
+	top:0;}
+
+#l_bankcard{display: none!important;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

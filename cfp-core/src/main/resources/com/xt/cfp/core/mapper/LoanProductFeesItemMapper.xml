@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LOANPRODUCTFEESITEM" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LoanProductFeesItem" >
+    <id column="LPFI_ID" property="lpfiId" jdbcType="DECIMAL" />
+    <result column="LOAN_PRODUCT_ID" property="loanProductId" jdbcType="DECIMAL" />
+    <result column="FEES_ITEM_ID" property="feesItemId" jdbcType="DECIMAL" />
+    <result column="CHARGE_CYCLE" property="chargeCycle" jdbcType="DECIMAL" />
+    <result column="WORKFLOW_RATIO" property="workflowRatio" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LPFI_ID, LOAN_PRODUCT_ID, FEES_ITEM_ID, CHARGE_CYCLE, WORKFLOW_RATIO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LOAN_PRODUCT_FEES_ITEM
+    where LPFI_ID = #{lpfiId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LOAN_PRODUCT_FEES_ITEM
+    where LPFI_ID = #{lpfiId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LoanProductFeesItem" >
+	<selectKey resultType="long" keyProperty="lpfiId" order="BEFORE">
+        select SEQ_LOAN_PRODUCT_FEES_ITEM.nextval as lpfiId from dual
+    </selectKey>
+    insert into LOAN_PRODUCT_FEES_ITEM (LPFI_ID, LOAN_PRODUCT_ID, FEES_ITEM_ID, 
+      CHARGE_CYCLE, WORKFLOW_RATIO)
+    values (#{lpfiId,jdbcType=DECIMAL}, #{loanProductId,jdbcType=DECIMAL}, #{feesItemId,jdbcType=DECIMAL}, 
+      #{chargeCycle,jdbcType=DECIMAL}, #{workflowRatio,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LoanProductFeesItem" >
+    insert into LOAN_PRODUCT_FEES_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lpfiId != null" >
+        LPFI_ID,
+      </if>
+      <if test="loanProductId != null" >
+        LOAN_PRODUCT_ID,
+      </if>
+      <if test="feesItemId != null" >
+        FEES_ITEM_ID,
+      </if>
+      <if test="chargeCycle != null" >
+        CHARGE_CYCLE,
+      </if>
+      <if test="workflowRatio != null" >
+        WORKFLOW_RATIO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lpfiId != null" >
+        #{lpfiId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanProductId != null" >
+        #{loanProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="feesItemId != null" >
+        #{feesItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeCycle != null" >
+        #{chargeCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="workflowRatio != null" >
+        #{workflowRatio,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LoanProductFeesItem" >
+    update LOAN_PRODUCT_FEES_ITEM
+    <set >
+      <if test="loanProductId != null" >
+        LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="feesItemId != null" >
+        FEES_ITEM_ID = #{feesItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeCycle != null" >
+        CHARGE_CYCLE = #{chargeCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="workflowRatio != null" >
+        WORKFLOW_RATIO = #{workflowRatio,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where LPFI_ID = #{lpfiId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LoanProductFeesItem" >
+    update LOAN_PRODUCT_FEES_ITEM
+    set LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL},
+      FEES_ITEM_ID = #{feesItemId,jdbcType=DECIMAL},
+      CHARGE_CYCLE = #{chargeCycle,jdbcType=DECIMAL},
+      WORKFLOW_RATIO = #{workflowRatio,jdbcType=DECIMAL}
+    where LPFI_ID = #{lpfiId,jdbcType=DECIMAL}
+  </update>
+  
+  <!--下面是自行方法 ****************************************************************************************************************** -->
+  
+  <select id="findByProductId" resultMap="BaseResultMap" parameterType="Long">
+        select * from  LOAN_PRODUCT_FEES_ITEM
+        where LOAN_PRODUCT_ID = #{productId}
+    </select>
+    
+    <resultMap type="com.xt.cfp.core.pojo.ConstantDefine" id="constantDefineMap">
+        <id column="constant_define_id" property="constantDefineId" jdbcType="DECIMAL" />
+        <result column="constant_type" property="constantType" jdbcType="VARCHAR" />
+        <result column="constant_name" property="constantName" jdbcType="VARCHAR" />
+        <result column="constant_value" property="constantValue" jdbcType="VARCHAR" />
+        <result column="constant_type_code" property="constantTypeCode" jdbcType="VARCHAR" />
+        <result column="parent_constant" property="parentConstant" jdbcType="DECIMAL" />
+        <result column="workflow_ratio" property="workflowRatio" jdbcType="DECIMAL" />
+    </resultMap>
+    
+    <select id="findLoanProductFeesById" resultMap="constantDefineMap" parameterType="Long">
+        select a.constant_name || ':' || a.item_name ||';'||a.radicestype|| ';[' || b.constant_name || ']' as constant_name,a.workflow_ratio,
+        a.parent_constant as parent_constant,a.constant_value as constant_value,b.chargePoint as constant_define_id
+        from (select fs.item_name,
+        fs.fees_item_id,
+        decode(fs.radices_type,
+        '0',
+        fs.radice_name,
+        (select cd.constant_name
+        from CONSTANT_DEFINE cd
+        where cd.constant_type_code = 'radicesType'
+        and cd.constant_value = fs.radices_type)) || '*' ||
+        to_char(fs.fees_rate,'90.99') || '%' as radicestype,
+        cd.constant_name,
+        cd.constant_value,
+        cd.constant_type,
+        lpfi.workflow_ratio,
+        cd.parent_constant
+        from LOAN_PRODUCT_FEES_ITEM lpfi, FEES_ITEM fs, CONSTANT_DEFINE cd
+        where lpfi.loan_product_id = #{loanProductId}
+        and lpfi.fees_item_id = fs.fees_item_id(+)
+        and fs.item_type = cd.constant_value
+        and cd.constant_type_code = 'itemChildType'
+        order by cd.parent_constant, cd.constant_value asc) a,
+        (select lpfi.fees_item_id,
+        cd.constant_name,
+        cd.constant_value as chargePoint
+        from LOAN_PRODUCT_FEES_ITEM lpfi, CONSTANT_DEFINE cd
+        where lpfi.charge_cycle = cd.constant_value(+)
+        and cd.constant_type_code = 'chargePoint'
+        and lpfi.loan_product_id = #{loanProductId}) b
+        where a.fees_item_id = b.fees_item_id
+        order by a.constant_value, a.parent_constant asc
+
+    </select>
+    
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT * FROM LOAN_PRODUCT_FEES_ITEM
+    </select>
+    
+    <delete id="deleteById" parameterType="Long">
+        delete LOAN_PRODUCT_FEES_ITEM a where a.LOAN_PRODUCT_ID =#{loanProductId}
+    </delete>
+</mapper>

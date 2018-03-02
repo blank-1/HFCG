@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CRM_ROLE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CrmRole" >
+    <id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+    <result column="SCOPE" property="scope" jdbcType="CHAR" />
+    <result column="FRANCHISE_ID" property="franchiseId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_ID, ROLE_NAME, ROLE_DESC, SCOPE,FRANCHISE_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ROLE
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="findRoleByStaffId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+   select  r.* from CRM_STAFF_ROLE sr left join CRM_ROLE r on SR.ROLE_ID = R.ROLE_ID where SR.STAFF_ID =  #{staffId,jdbcType=DECIMAL}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_ROLE
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CrmRole" >
+  	<selectKey keyProperty="roleId" order="BEFORE" resultType="long">
+		SELECT SEQ_CRM_ROLE.NEXTVAL as roleId FROM dual
+	</selectKey>
+    insert into CRM_ROLE (ROLE_ID, ROLE_NAME, ROLE_DESC, SCOPE,FRANCHISE_ID)
+    values (#{roleId,jdbcType=DECIMAL}, #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}, 
+      #{scope,jdbcType=CHAR},#{franchiseId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CrmRole" >
+    insert into CRM_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="roleDesc != null" >
+        ROLE_DESC,
+      </if>
+      <if test="scope != null" >
+        SCOPE,
+      </if>
+      <if test="scope != null" >
+        FRANCHISE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null" >
+        #{roleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null" >
+        #{scope,jdbcType=CHAR},
+      </if>
+      <if test="franchiseId != null" >
+        #{franchiseId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CrmRole" >
+    update CRM_ROLE
+    <set >
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null" >
+        ROLE_DESC = #{roleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null" >
+        SCOPE = #{scope,jdbcType=CHAR},
+      </if>
+      <if test="franchiseId != null" >
+        FRANCHISE_ID = #{franchiseId,jdbcType=CHAR},
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CrmRole" >
+    update CRM_ROLE
+    set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      ROLE_DESC = #{roleDesc,jdbcType=VARCHAR},
+      SCOPE = #{scope,jdbcType=CHAR,
+      FRANCHISE_ID = #{franchiseId,jdbcType=CHAR}}
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </update>
+  <select id="selectByPaging" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ROLE
+    <where>
+    	<if test="roleName != null">
+    		ROLE_NAME like  '%${roleName}%'
+    	</if>
+    </where>
+    order by ROLE_ID
+  </select>
+  <select id="count_selectByPaging" resultType="int" parameterType="map" >
+    select count(1)
+    from CRM_ROLE
+    <where>
+    	<if test="roleName != null">
+    		ROLE_NAME like  '%${roleName}%'
+    	</if>
+    </where>
+  </select>
+  <select id="selectByRoleName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ROLE
+    where ROLE_NAME = #{roleName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllPublicRole" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ROLE
+    where SCOPE = '0'
+  </select>
+  <select id="selectAllPrivateRole" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from CRM_ROLE r where r.scope=1 and r.franchise_id=#{franId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectAllRole" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ROLE
+  </select>
+</mapper>

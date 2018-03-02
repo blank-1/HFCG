@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SL_ADMIN_USER_INFO" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.SalesAdminUserInfo" >
+    <id column="ADMIN_USER_ID" property="adminUserId" jdbcType="DECIMAL" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="SalesAdminUserInfoVo" type="com.xt.cfp.core.pojo.ext.SalesAdminUserInfoVo" extends="BaseResultMap">
+    <result column="ADMIN_CODE" property="adminCode" jdbcType="VARCHAR" />
+    <result column="displayName" property="displayName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADMIN_USER_ID, ADMIN_ID, USER_ID, STATUS, CREATE_TIME, END_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from SL_ADMIN_USER_INFO
+    where ADMIN_USER_ID = #{adminUserId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getAdminUserInfoByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from SL_ADMIN_USER_INFO
+    where USER_ID = #{userId,jdbcType=DECIMAL} and STATUS = '0'
+  </select>
+
+  <select id="getChangeRecord" resultMap="SalesAdminUserInfoVo" parameterType="java.lang.Long" >
+      select su.* ,SA.ADMIN_CODE ADMIN_CODE ,SA.DISPLAY_NAME displayName
+    from SL_ADMIN_USER_INFO su left join SL_ADMIN_INFO sa on SU.ADMIN_ID = SA.ADMIN_ID
+    where su.USER_ID = #{value}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from SL_ADMIN_USER_INFO
+    where ADMIN_USER_ID = #{adminUserId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.SalesAdminUserInfo" >
+    insert into SL_ADMIN_USER_INFO (ADMIN_USER_ID, ADMIN_ID, USER_ID, 
+      STATUS, CREATE_TIME, END_TIME
+      )
+    values (#{adminUserId,jdbcType=DECIMAL}, #{adminId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.SalesAdminUserInfo" >
+    <selectKey keyProperty="adminUserId" order="BEFORE" resultType="long">
+      SELECT SEQ_SL_ADMIN_USER_INFO.NEXTVAL as adminUserId FROM dual
+    </selectKey>
+    insert into SL_ADMIN_USER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminUserId != null" >
+        ADMIN_USER_ID,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminUserId != null" >
+        #{adminUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.SalesAdminUserInfo" >
+    update SL_ADMIN_USER_INFO
+    <set >
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ADMIN_USER_ID = #{adminUserId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.SalesAdminUserInfo" >
+    update SL_ADMIN_USER_INFO
+    set ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP}
+    where ADMIN_USER_ID = #{adminUserId,jdbcType=DECIMAL}
+  </update>
+</mapper>

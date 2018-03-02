@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LEND_PRODUCT_LDISCOUNT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LendProductLadderDiscount" >
+    <id column="LPLD_ID" property="lpldId" jdbcType="DECIMAL" />
+    <result column="LEND_PRODUCTID" property="lendProductid" jdbcType="DECIMAL" />
+    <result column="MIN_AMOUNT" property="minAmount" jdbcType="DECIMAL" />
+    <result column="MAX_AMOUNT" property="maxAmount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LPLD_ID, LEND_PRODUCTID, MIN_AMOUNT, MAX_AMOUNT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LEND_PRODUCT_LDISCOUNT
+    where LPLD_ID = #{lpldId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LEND_PRODUCT_LDISCOUNT
+    where LPLD_ID = #{lpldId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LendProductLadderDiscount" >
+    insert into LEND_PRODUCT_LDISCOUNT (LPLD_ID, LEND_PRODUCTID, MIN_AMOUNT, 
+      MAX_AMOUNT)
+    values (#{lpldId,jdbcType=DECIMAL}, #{lendProductid,jdbcType=DECIMAL}, #{minAmount,jdbcType=DECIMAL}, 
+      #{maxAmount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LendProductLadderDiscount" >
+    insert into LEND_PRODUCT_LDISCOUNT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lpldId != null" >
+        LPLD_ID,
+      </if>
+      <if test="lendProductid != null" >
+        LEND_PRODUCTID,
+      </if>
+      <if test="minAmount != null" >
+        MIN_AMOUNT,
+      </if>
+      <if test="maxAmount != null" >
+        MAX_AMOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lpldId != null" >
+        #{lpldId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendProductid != null" >
+        #{lendProductid,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null" >
+        #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null" >
+        #{maxAmount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LendProductLadderDiscount" >
+    update LEND_PRODUCT_LDISCOUNT
+    <set >
+      <if test="lendProductid != null" >
+        LEND_PRODUCTID = #{lendProductid,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null" >
+        MIN_AMOUNT = #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null" >
+        MAX_AMOUNT = #{maxAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where LPLD_ID = #{lpldId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LendProductLadderDiscount" >
+    update LEND_PRODUCT_LDISCOUNT
+    set LEND_PRODUCTID = #{lendProductid,jdbcType=DECIMAL},
+      MIN_AMOUNT = #{minAmount,jdbcType=DECIMAL},
+      MAX_AMOUNT = #{maxAmount,jdbcType=DECIMAL}
+    where LPLD_ID = #{lpldId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="findById" resultMap="BaseResultMap">
+      select * from LEND_PRODUCT_LDISCOUNT where LPLD_ID = #{lpldId}
+  </select>
+</mapper>

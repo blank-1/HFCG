@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration >
+       <properties resource="generatorConfig-java.properties" />
+       <classPathEntry location="${classPath}" />
+
+       <context id="DB2Tables" targetRuntime="MyBatis3">
+
+
+           <commentGenerator>
+               <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+              <property name="suppressAllComments" value="true" />
+           </commentGenerator>
+           <jdbcConnection driverClass="${driverClass}"
+                              connectionURL="${connectionURL}"
+                              userId="${userId}"
+                              password="${password}">
+           </jdbcConnection>
+
+           <javaTypeResolver >
+                     <property name="forceBigDecimals" value="false" />
+           </javaTypeResolver>
+
+              <!-- generate Model -->
+           <javaModelGenerator targetPackage="${modelPackage}" targetProject="${targetProject}\main\java">
+                     <property name="enableSubPackages" value="true" />
+                     <property name="trimStrings" value="true" />
+           </javaModelGenerator>
+
+
+
+              <!-- generate xml -->
+           <sqlMapGenerator targetPackage="${sqlMapperPackage}"  targetProject="${targetProject}\main\resources">
+               <property name="enableSubPackages" value="true" />
+           </sqlMapGenerator>
+
+              <!-- generate Mapper -->
+<!--              <javaClientGenerator type="XMLMAPPER" targetPackage="com.xt.cfp.core.service"  targetProject="E:\ideaprojects\cfp\cfp-demo\src\main\java">
+                     <property name="enableSubPackages" value="true" />
+              </javaClientGenerator>-->
+
+
+           <table tableName="CAPITAL_FLOW" domainObjectName="CapitalFlow" enableInsert="true"
+                  enableCountByExample="false" enableSelectByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"></table>
+           <table tableName="SCHEDULE" domainObjectName="Schedule" enableInsert="true"
+                  enableCountByExample="false" enableSelectByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"></table>
+
+       </context>
+</generatorConfiguration>

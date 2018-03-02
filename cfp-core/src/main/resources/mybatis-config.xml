@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties>
+        <property name="dialect" value="oracle"/>
+    </properties>
+    <typeAliases>
+
+        <!-- <typeAlias alias="Pagenation" type="ldh.base.Pagenation" /> -->
+        <typeAlias type="com.xt.cfp.core.pojo.ConstantDefine" alias="constantDefine"/>
+        <typeAlias type="com.xt.cfp.core.pojo.FeesItem" alias="feesItem"/>
+        <typeAlias type="com.xt.cfp.core.pojo.LendProduct" alias="lendProduct"/>
+        <typeAlias type="com.xt.cfp.core.pojo.ext.LendProductVO" alias="lendProductVO"/>
+        <typeAlias type="com.xt.cfp.core.pojo.LendProductPublish" alias="lendProductPublish"/>
+        <typeAlias type="com.xt.cfp.core.pojo.LendLoanBinding" alias="lendLoanBinding"/>
+        <typeAlias type="com.xt.cfp.core.pojo.LendProductFeesItem" alias="lendProductFeesItem"/>
+        <typeAlias type="com.xt.cfp.core.pojo.LendProductLadderDiscount" alias="lendProductLadderDiscount"/>
+        <typeAlias type="com.xt.cfp.core.pojo.LPPublishChannelDetail" alias="lPPublishChannelDetail"/>
+        <typeAlias type="com.xt.cfp.core.pojo.LoanProductFeesItem" alias="loanProductFeesItem"/>
+        <typeAlias type="com.xt.cfp.core.pojo.LoanProductSnapshotFeesItem" alias="loanProductSnapshotFeesItem"/>
+        <typeAlias type="com.xt.cfp.core.pojo.LoanProduct" alias="loanProduct"/>
+        <typeAlias type="com.xt.cfp.core.pojo.LendProductLadderDiscountFees"
+                   alias="lendProductLadderDiscountFees"/>
+                   
+                   
+        <typeAlias type="com.xt.cfp.core.pojo.LendOrderFeesDetail" alias="lendOrderFeesDetail"/>
+        <typeAlias type="com.xt.cfp.core.pojo.CreditorRights" alias="creditorRights"/>
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="com.gian.commons.dialect.PaginationInterceptor"/>
+    </plugins>
+	
+</configuration>

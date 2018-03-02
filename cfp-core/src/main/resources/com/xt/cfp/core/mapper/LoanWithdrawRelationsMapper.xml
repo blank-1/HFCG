@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LOAN_WITHDRAW_RELATIONS" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LoanWithdrawRelations" >
+    <id column="RELATIONS_ID" property="relationsId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="WITHDRAW_ID" property="withdrawId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RELATIONS_ID, LOAN_APPLICATION_ID, WITHDRAW_ID
+  </sql>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LoanWithdrawRelations">
+      <selectKey keyProperty="relationsId" order="BEFORE" resultType="long">
+          SELECT SEQ_LOAN_WITHDRAW_RELATIONS.NEXTVAL as relationsId FROM dual
+      </selectKey>
+      insert into LOAN_WITHDRAW_RELATIONS
+      (RELATIONS_ID,LOAN_APPLICATION_ID,WITHDRAW_ID)
+      values
+      (#{relationsId,jdbcType=DECIMAL},#{loanApplicationId,jdbcType=DECIMAL},#{withdrawId,jdbcType=DECIMAL})
+  </insert>
+
+
+    <select id="selectByWithDrawId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from LOAN_WITHDRAW_RELATIONS
+        where WITHDRAW_ID = #{value}
+    </select>
+
+    <select id="selectByLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from LOAN_WITHDRAW_RELATIONS
+        where LOAN_APPLICATION_ID = #{value}
+    </select>
+
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LEND_PRODUCT_LDISCOUNT_FEES" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LendProductLadderDiscountFees" >
+    <id column="LPLDF_ID" property="lpldfId" jdbcType="DECIMAL" />
+    <result column="LPLD_ID" property="lpldId" jdbcType="DECIMAL" />
+    <result column="LPFI_ID" property="lpfiId" jdbcType="DECIMAL" />
+    <result column="DISCOUNT_RATE" property="discountRate" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="lendProductLadderDiscount" type="lendProductLadderDiscountFees">
+      <association property="lendProductLadderDiscount" column="LPLDF_ID" select="LEND_PRODUCT_LADDER_DISCOUNT.findById"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LPLDF_ID, LPLD_ID, LPFI_ID, DISCOUNT_RATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LEND_PRODUCT_LDISCOUNT_FEES
+    where LPLDF_ID = #{lpldfId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LEND_PRODUCT_LDISCOUNT_FEES
+    where LPLDF_ID = #{lpldfId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LendProductLadderDiscountFees" >
+    insert into LEND_PRODUCT_LDISCOUNT_FEES (LPLDF_ID, LPLD_ID, LPFI_ID, 
+      DISCOUNT_RATE)
+    values (#{lpldfId,jdbcType=DECIMAL}, #{lpldId,jdbcType=DECIMAL}, #{lpfiId,jdbcType=DECIMAL}, 
+      #{discountRate,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LendProductLadderDiscountFees" >
+    insert into LEND_PRODUCT_LDISCOUNT_FEES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lpldfId != null" >
+        LPLDF_ID,
+      </if>
+      <if test="lpldId != null" >
+        LPLD_ID,
+      </if>
+      <if test="lpfiId != null" >
+        LPFI_ID,
+      </if>
+      <if test="discountRate != null" >
+        DISCOUNT_RATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lpldfId != null" >
+        #{lpldfId,jdbcType=DECIMAL},
+      </if>
+      <if test="lpldId != null" >
+        #{lpldId,jdbcType=DECIMAL},
+      </if>
+      <if test="lpfiId != null" >
+        #{lpfiId,jdbcType=DECIMAL},
+      </if>
+      <if test="discountRate != null" >
+        #{discountRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LendProductLadderDiscountFees" >
+    update LEND_PRODUCT_LDISCOUNT_FEES
+    <set >
+      <if test="lpldId != null" >
+        LPLD_ID = #{lpldId,jdbcType=DECIMAL},
+      </if>
+      <if test="lpfiId != null" >
+        LPFI_ID = #{lpfiId,jdbcType=DECIMAL},
+      </if>
+      <if test="discountRate != null" >
+        DISCOUNT_RATE = #{discountRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where LPLDF_ID = #{lpldfId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LendProductLadderDiscountFees" >
+    update LEND_PRODUCT_LDISCOUNT_FEES
+    set LPLD_ID = #{lpldId,jdbcType=DECIMAL},
+      LPFI_ID = #{lpfiId,jdbcType=DECIMAL},
+      DISCOUNT_RATE = #{discountRate,jdbcType=DECIMAL}
+    where LPLDF_ID = #{lpldfId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="findByLendProductId" parameterType="long" resultMap="lendProductLadderDiscount">
+     SELECT FI.ITEM_NAME, FI.FEES_ITEM_ID, LPLDF.*, LPLD.*
+	  FROM LEND_PRODUCT_LDISCOUNT LPLD
+	  JOIN LEND_PRODUCT_LDISCOUNT_FEES LPLDF
+	    ON LPLD.LPLD_ID = LPLDF.LPLD_ID
+	  JOIN LEND_PRODUCT_FEES_ITEM LPFI
+	    ON LPFI.LEND_PRODUCT_ID = LPLD.LEND_PRODUCTID
+	   AND LPLDF.LPFI_ID = LPFI.LPFI_ID
+	  JOIN FEES_ITEM FI
+	    ON FI.FEES_ITEM_ID = LPFI.FEES_ITEM_ID
+	 WHERE LPLD.LEND_PRODUCTID = #{lendProductId}
+	 ORDER BY FI.ITEM_NAME, LPLD.MIN_AMOUNT
+  </select>
+  
+</mapper>

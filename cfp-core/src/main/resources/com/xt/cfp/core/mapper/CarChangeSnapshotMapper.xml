@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CAR_CHANGE_SNAPSHOT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CarChangeSnapshot" >
+    <id column="CHANGE_ID" property="changeId" jdbcType="DECIMAL" />
+    <result column="BEFORE_ID" property="beforeId" jdbcType="DECIMAL" />
+    <result column="AFTER_ID" property="afterId" jdbcType="DECIMAL" />
+    <result column="CHANGE_REASON" property="changeReason" jdbcType="DECIMAL" />
+    <result column="CHANGE_TIME" property="changeTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CHANGE_ID, BEFORE_ID, AFTER_ID, CHANGE_REASON, CHANGE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CAR_CHANGE_SNAPSHOT
+    where CHANGE_ID = #{changeId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CAR_CHANGE_SNAPSHOT
+    where CHANGE_ID = #{changeId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CarChangeSnapshot" >
+  	<selectKey keyProperty="changeId" order="BEFORE" resultType="long">
+      SELECT SEQ_CAR_CHANGE_SNAPSHOT.NEXTVAL as changeId FROM dual
+    </selectKey>
+    insert into CAR_CHANGE_SNAPSHOT (CHANGE_ID, BEFORE_ID, AFTER_ID, 
+      CHANGE_REASON, CHANGE_TIME)
+    values (#{changeId,jdbcType=DECIMAL}, #{beforeId,jdbcType=DECIMAL}, #{afterId,jdbcType=DECIMAL}, 
+      #{changeReason,jdbcType=DECIMAL}, #{changeTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CarChangeSnapshot" >
+    insert into CAR_CHANGE_SNAPSHOT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="changeId != null" >
+        CHANGE_ID,
+      </if>
+      <if test="beforeId != null" >
+        BEFORE_ID,
+      </if>
+      <if test="afterId != null" >
+        AFTER_ID,
+      </if>
+      <if test="changeReason != null" >
+        CHANGE_REASON,
+      </if>
+      <if test="changeTime != null" >
+        CHANGE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="changeId != null" >
+        #{changeId,jdbcType=DECIMAL},
+      </if>
+      <if test="beforeId != null" >
+        #{beforeId,jdbcType=DECIMAL},
+      </if>
+      <if test="afterId != null" >
+        #{afterId,jdbcType=DECIMAL},
+      </if>
+      <if test="changeReason != null" >
+        #{changeReason,jdbcType=DECIMAL},
+      </if>
+      <if test="changeTime != null" >
+        #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CarChangeSnapshot" >
+    update CAR_CHANGE_SNAPSHOT
+    <set >
+      <if test="beforeId != null" >
+        BEFORE_ID = #{beforeId,jdbcType=DECIMAL},
+      </if>
+      <if test="afterId != null" >
+        AFTER_ID = #{afterId,jdbcType=DECIMAL},
+      </if>
+      <if test="changeReason != null" >
+        CHANGE_REASON = #{changeReason,jdbcType=DECIMAL},
+      </if>
+      <if test="changeTime != null" >
+        CHANGE_TIME = #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CHANGE_ID = #{changeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CarChangeSnapshot" >
+    update CAR_CHANGE_SNAPSHOT
+    set BEFORE_ID = #{beforeId,jdbcType=DECIMAL},
+      AFTER_ID = #{afterId,jdbcType=DECIMAL},
+      CHANGE_REASON = #{changeReason,jdbcType=DECIMAL},
+      CHANGE_TIME = #{changeTime,jdbcType=TIMESTAMP}
+    where CHANGE_ID = #{changeId,jdbcType=DECIMAL}
+  </update>
+</mapper>

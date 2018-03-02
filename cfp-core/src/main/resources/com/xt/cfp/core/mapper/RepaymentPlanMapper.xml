@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="REPAYMENTPLAN">
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RepaymentPlan">
+        <id column="REPAYMENT_PLAN_ID" property="repaymentPlanId" jdbcType="DECIMAL"/>
+        <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL"/>
+        <result column="CUSTOMER_ACCOUNT_ID" property="customerAccountId" jdbcType="DECIMAL"/>
+        <result column="SECTION_CODE" property="sectionCode" jdbcType="DECIMAL"/>
+        <result column="REPAYMENT_DAY" property="repaymentDay" jdbcType="DATE"/>
+        <result column="SHOULD_CAPITAL" property="shouldCapital" jdbcType="DECIMAL"/>
+        <result column="SHOULD_INTEREST" property="shouldInterest" jdbcType="DECIMAL"/>
+        <result column="SHOULD_BALANCE" property="shouldBalance" jdbcType="DECIMAL"/>
+        <result column="SHOULD_CAPITAL2" property="shouldCapital2" jdbcType="DECIMAL"/>
+        <result column="SHOULD_INTEREST2" property="shouldInterest2" jdbcType="DECIMAL"/>
+        <result column="SHOULD_BALANCE2" property="shouldBalance2" jdbcType="DECIMAL"/>
+        <result column="FACT_CAPITAL" property="factCalital" jdbcType="DECIMAL"/>
+        <result column="FACT_INTEREST" property="factInterest" jdbcType="DECIMAL"/>
+        <result column="FACT_BALANCE" property="factBalance" jdbcType="DECIMAL"/>
+        <result column="PLAN_STATE" property="planState" jdbcType="DECIMAL"/>
+        <result column="CHANNEL_TYPE" property="channelType" jdbcType="CHAR"/>
+        <result column="START_DATE" property="startDate" jdbcType="DATE"/>
+    </resultMap>
+    <resultMap id="PlanVOResultMap" type="com.xt.cfp.core.pojo.ext.RepaymentPlanVO">
+        <id column="REPAYMENT_PLAN_ID" property="repaymentPlanId" jdbcType="DECIMAL"/>
+        <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL"/>
+        <result column="CUSTOMER_ACCOUNT_ID" property="customerAccountId" jdbcType="DECIMAL"/>
+        <result column="SECTION_CODE" property="sectionCode" jdbcType="DECIMAL"/>
+        <result column="REPAYMENT_DAY" property="repaymentDay" jdbcType="DATE"/>
+        <result column="SHOULD_CAPITAL" property="shouldCapital" jdbcType="DECIMAL"/>
+        <result column="SHOULD_INTEREST" property="shouldInterest" jdbcType="DECIMAL"/>
+        <result column="SHOULD_BALANCE" property="shouldBalance" jdbcType="DECIMAL"/>
+        <result column="SHOULD_CAPITAL2" property="shouldCapital2" jdbcType="DECIMAL"/>
+        <result column="SHOULD_INTEREST2" property="shouldInterest2" jdbcType="DECIMAL"/>
+        <result column="SHOULD_BALANCE2" property="shouldBalance2" jdbcType="DECIMAL"/>
+        <result column="FACT_CAPITAL" property="factCalital" jdbcType="DECIMAL"/>
+        <result column="FACT_INTEREST" property="factInterest" jdbcType="DECIMAL"/>
+        <result column="FACT_BALANCE" property="factBalance" jdbcType="DECIMAL"/>
+        <result column="PLAN_STATE" property="planState" jdbcType="DECIMAL"/>
+        <result column="CHANNEL_TYPE" property="channelType" jdbcType="CHAR"/>
+        <result column="START_DATE" property="startDate" jdbcType="DATE"/>
+        <result column="LOAN_APPLICATION_CODE" property="loanApplicationCode" jdbcType="VARCHAR"/>
+        <result column="LOAN_APPLICATION_NAME" property="loanApplicationName" jdbcType="VARCHAR"/>
+        <result column="LOAN_TITLE" property="loanTitle" jdbcType="VARCHAR"/>
+        <result column="REAL_NAME" property="userRealName" jdbcType="VARCHAR"/>
+        <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR"/>
+        <result column="nextRepaymentDay" property="nextRepaymentDay" jdbcType="DATE"/>
+        <result column="sumSectionCode" property="sumSectionCode" jdbcType="DECIMAL"/>
+        <result column="nowSectionCode" property="nowSectionCode" jdbcType="DECIMAL"/>
+    </resultMap>
+    
+    <resultMap id="PlanDetailVOResultMap" type="com.xt.cfp.core.pojo.ext.RepaymentVO" extends="BaseResultMap">
+        <result column="OPERTION_DATE" property="opertionDate" jdbcType="DATE"/>
+        <result column="PAY_ID" property="payId" jdbcType="DECIMAL"/>
+        <result column="FACT_BALANCE" property="factBalance" jdbcType="DECIMAL"/>
+        <result column="TYPE" property="channelType" jdbcType="CHAR"/>
+        <result column="REPAYMENT_METHOD" property="repaymentMethod" jdbcType="CHAR"/>
+        <result column="USER_ID" property="userId" jdbcType="DECIMAL"/>
+        <result column="NOREPAYMENTPERCENT" property="noRepaymentPercent" jdbcType="DECIMAL"/>
+        <result column="DEPAL_FINE" property="depalFine" jdbcType="DECIMAL"/>
+        <result column="REPAYMENT_FEES" property="repaymentFees" jdbcType="DECIMAL"/>
+    </resultMap>
+    
+      <resultMap type="com.xt.cfp.core.pojo.ext.LoanFeeDetailVO"  id="LoanFeeDetailVO" extends="BaseResultMap">
+      <result column="ACC_ID" property="accountId" jdbcType="DECIMAL"/>
+        <result column="RADICES_TYPE" property="radicesType" jdbcType="CHAR"/>
+        <result column="FEES_CYCLE" property="feesCycle" jdbcType="DECIMAL"/>
+        <result column="LOAN_APPLICATION_FEES_ITEM_ID" property="loanApplicationFeesItemId" jdbcType="DECIMAL"/>
+        <result column="FEES_RATE" property="feesRate" jdbcType="DECIMAL"/>
+        <result column="ITEM_TYPE" property="itemType" jdbcType="VARCHAR"/>
+        <result column="LOAN_FEES_DETAIL_ID" property="loanFeesDetailId" jdbcType="DECIMAL"/>
+        <result column="LOAN_INTEREST_BALANCE" property="loanInterestBalance" jdbcType="DECIMAL"/>
+        <result column="CONFIRM_BALANCE" property="confirmBalance" jdbcType="DECIMAL"/>
+      	<collection property="defaultInterestList"  ofType="com.xt.cfp.core.pojo.DefaultInterestDetail"     >
+      		 <id column="DEFAULT_INTEREST_DETAIL_ID" property="defaultInterestDetailId" jdbcType="DECIMAL"/>
+      		 <result column="df_interest_date_string" property="interestDateStr" jdbcType="CHAR"/>
+      	</collection>  
+                 
+    </resultMap>
+    
+	
+    <sql id="Base_Column_List">
+    REPAYMENT_PLAN_ID,LOAN_APPLICATION_ID,CUSTOMER_ACCOUNT_ID,SECTION_CODE,REPAYMENT_DAY,SHOULD_CAPITAL,SHOULD_INTEREST,SHOULD_BALANCE,
+    SHOULD_CAPITAL2,SHOULD_INTEREST2,SHOULD_BALANCE2,FACT_CAPITAL,FACT_INTEREST,FACT_BALANCE,PLAN_STATE,CHANNEL_TYPE,START_DATE
+  </sql>
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.RepaymentPlan"
+            useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="repaymentPlanId" order="BEFORE">
+            select SEQ_REPAYMENT_PLAN.nextval as repaymentPlanId from dual
+        </selectKey>
+        INSERT INTO REPAYMENT_PLAN
+        ( REPAYMENT_PLAN_ID,CUSTOMER_ACCOUNT_ID,
+        LOAN_APPLICATION_ID,
+        SECTION_CODE,
+        REPAYMENT_DAY,
+        SHOULD_CAPITAL,
+        SHOULD_INTEREST,
+        SHOULD_BALANCE,
+        SHOULD_CAPITAL2,
+        SHOULD_INTEREST2,
+        SHOULD_BALANCE2,
+        PLAN_STATE,CHANNEL_TYPE,START_DATE)
+        VALUES (#{repaymentPlanId}, #{customerAccountId},
+        #{loanApplicationId},
+        #{sectionCode},
+        #{repaymentDay,jdbcType=DATE},
+        #{shouldCapital},
+        #{shouldInterest},
+        #{shouldBalance},
+        #{shouldCapital2},
+        #{shouldInterest2},
+        #{shouldBalance2},
+        #{planState},#{channelType},#{startDate,jdbcType=DATE})
+    </insert>
+
+    <update id="update" parameterType="com.xt.cfp.core.pojo.RepaymentPlan">
+        update REPAYMENT_PLAN
+        <set>
+            <if test="customerAccountId != null">
+                CUSTOMER_ACCOUNT_ID = #{customerAccountId},
+            </if>
+            <if test="loanApplicationId != null">
+                LOAN_APPLICATION_ID = #{loanApplicationId},
+            </if>
+            <if test="sectionCode != null">
+                SECTION_CODE = #{sectionCode},
+            </if>
+            <if test="shouldCapital != null">
+                SHOULD_CAPITAL = #{shouldCapital},
+            </if>
+            <if test="shouldInterest != null">
+                SHOULD_INTEREST = #{shouldInterest},
+            </if>
+            <if test="shouldBalance != null">
+                SHOULD_BALANCE = #{shouldBalance},
+            </if>
+            <if test="factCalital != null">
+                FACT_CAPITAL = #{factCalital},
+            </if>
+            <if test="factInterest != null">
+                FACT_INTEREST = #{factInterest},
+            </if>
+            <if test="factBalance != null">
+                FACT_BALANCE = #{factBalance},
+            </if>
+            <if test="planState != null">
+                PLAN_STATE = #{planState},
+            </if>
+            <if test="repaymentDay != null">
+                REPAYMENT_DAY = #{repaymentDay,jdbcType=DATE},
+            </if>
+            <if test="startDate != null">
+                START_DATE = #{startDate,jdbcType=DATE},
+            </if>
+
+        </set>
+        where REPAYMENT_PLAN_ID = #{repaymentPlanId}
+    </update>
+
+   <update id="updateNTX" parameterType="com.xt.cfp.core.pojo.RepaymentPlan">
+        update REPAYMENT_PLAN
+        <set>
+            <if test="customerAccountId != null">
+                CUSTOMER_ACCOUNT_ID = #{customerAccountId},
+            </if>
+            <if test="loanApplicationId != null">
+                LOAN_APPLICATION_ID = #{loanApplicationId},
+            </if>
+            <if test="sectionCode != null">
+                SECTION_CODE = #{sectionCode},
+            </if>
+            <if test="shouldCapital != null">
+                SHOULD_CAPITAL = #{shouldCapital},
+            </if>
+            <if test="shouldInterest != null">
+                SHOULD_INTEREST = #{shouldInterest},
+            </if>
+            <if test="shouldBalance != null">
+                SHOULD_BALANCE = #{shouldBalance},
+            </if>
+            <if test="factCalital != null">
+                FACT_CAPITAL = #{factCalital},
+            </if>
+            <if test="factInterest != null">
+                FACT_INTEREST = #{factInterest},
+            </if>
+            <if test="factBalance != null">
+                FACT_BALANCE = #{factBalance},
+            </if>
+            <if test="planState != null">
+                PLAN_STATE = #{planState},
+            </if>
+            <if test="repaymentDay != null">
+                REPAYMENT_DAY = #{repaymentDay,jdbcType=DATE},
+            </if>
+            <if test="startDate != null">
+                START_DATE = #{startDate,jdbcType=DATE},
+            </if>
+
+        </set>
+        where REPAYMENT_PLAN_ID = #{repaymentPlanId}
+    </update>
+    
+    <update id="updateMap" parameterType="java.util.Map">
+        update REPAYMENT_PLAN
+        <set>
+            <if test="_parameter.containsKey('sectionCode')">
+                SECTION_CODE = #{sectionCode},
+            </if>
+            <if test="_parameter.containsKey('shouldCapital')">
+                SHOULD_CAPITAL = #{shouldCapital},
+            </if>
+            <if test="_parameter.containsKey('shouldInterest')">
+                SHOULD_INTEREST = #{shouldInterest},
+            </if>
+            <if test="_parameter.containsKey('shouldBalance')">
+                SHOULD_BALANCE = #{shouldBalance},
+            </if>
+            <if test="_parameter.containsKey('factCalital')">
+                FACT_CAPITAL = #{factCalital},
+            </if>
+            <if test="_parameter.containsKey('factInterest')">
+                FACT_INTEREST = #{factInterest},
+            </if>
+            <if test="_parameter.containsKey('factBalance')">
+                FACT_BALANCE = #{factBalance},
+            </if>
+            <if test="_parameter.containsKey('planState')">
+                PLAN_STATE = #{planState},
+            </if>
+            <if test="_parameter.containsKey('repaymentDay')">
+                REPAYMENT_DAY = #{repaymentDay},
+            </if>
+            <if test="_parameter.containsKey('startDate')">
+                START_DATE = #{startDate},
+            </if>
+
+        </set>
+        where REPAYMENT_PLAN_ID = #{repaymentPlanId}
+
+    </update>
+    <select id="findById" parameterType="long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from REPAYMENT_PLAN
+        where REPAYMENT_PLAN_ID = #{repaymentPlanId}
+    </select>
+    
+    <select id="findByIdLock" parameterType="long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from REPAYMENT_PLAN
+        where REPAYMENT_PLAN_ID = #{repaymentPlanId}  for update
+    </select>
+    
+    <select id="getAllRepaymentAmountByUserId" parameterType="java.lang.Long" resultType="java.util.HashMap">
+       select NVL(sum(rp.SHOULD_BALANCE),0) sblance,NVL(sum(rp.FACT_BALANCE),0) fblance
+       from REPAYMENT_PLAN rp
+       left join LOAN_APPLICATION la on RP.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+        where LA.USER_ID = #{value} and rp.CHANNEL_TYPE='2'
+    </select>
+
+
+    <select id="getRepaymentCapitalByUserId" parameterType="java.lang.Long" resultType="java.util.HashMap">
+       select NVL(sum(rp.SHOULD_CAPITAL2),0) sblance,NVL(sum(rp.FACT_CAPITAL),0) fblance
+       from REPAYMENT_PLAN rp
+       left join LOAN_APPLICATION la on RP.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+        where LA.USER_ID = #{value} and rp.CHANNEL_TYPE='2'
+    </select>
+
+    <select id="getRepaymentCapitalByLoanApplicationId" parameterType="java.lang.Long" resultType="java.util.HashMap">
+       select NVL(sum(rp.SHOULD_CAPITAL2),0) sblance,NVL(sum(rp.FACT_CAPITAL),0) fblance
+       from REPAYMENT_PLAN rp
+        where RP.LOAN_APPLICATION_ID = #{value} and rp.CHANNEL_TYPE='2'
+    </select>
+
+    <select id="getRepaymentInterestByLoanApplicationId" parameterType="java.lang.Long" resultType="java.util.HashMap">
+      select NVL(sum(rp.SHOULD_INTEREST2),0) sblance,NVL(sum(rp.FACT_INTEREST),0) fblance
+      from REPAYMENT_PLAN rp
+      where RP.LOAN_APPLICATION_ID = #{value} and rp.CHANNEL_TYPE='2'
+    </select>
+
+    <select id="getRepaymentInterestByUserId" parameterType="java.lang.Long" resultType="java.util.HashMap">
+       select NVL(sum(rp.SHOULD_INTEREST2),0) sblance,NVL(sum(rp.FACT_INTEREST),0) fblance
+       from REPAYMENT_PLAN rp
+       left join LOAN_APPLICATION la on RP.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+        where LA.USER_ID = #{value} and rp.CHANNEL_TYPE='2'
+    </select>
+
+    <select id="getRepaymentPlansByloanApplicationId" parameterType="java.lang.Long"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from REPAYMENT_PLAN
+        where LOAN_APPLICATION_ID = #{loanApplicationId}
+    </select>
+
+    <select id="getRepaymentPlansByloanApplicationIdAndChannelType" parameterType="map"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from REPAYMENT_PLAN
+        where LOAN_APPLICATION_ID = #{loanApplicationId} and channel_type=#{channelType}
+    </select>
+
+    <select id="getRepaymentPlanByLoanAppIdAndState" parameterType="java.util.Map"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from REPAYMENT_PLAN
+        where LOAN_APPLICATION_ID=#{loanApplicationId} and PLAN_STATE=#{planState}
+        order by REPAYMENT_DAY
+    </select>
+
+    <select id="getRepaymentPlanByDate" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from REPAYMENT_PLAN plan1
+        where plan1.LOAN_APPLICATION_ID=#{loanApplicationId}
+        and (plan1.PLAN_STATE='1' or plan1.PLAN_STATE = '2' or plan1.PLAN_STATE = '4')
+        <if test="_parameter.containsKey('repaymentDate')">
+            <if test="repaymentDate != null">
+                <![CDATA[
+                and (plan1.REPAYMENT_DAY <= #{repaymentDate}
+        or (plan1.REPAYMENT_DAY =
+        (select min(plan2.REPAYMENT_DAY) from REPAYMENT_PLAN plan2
+        where plan2.LOAN_APPLICATION_ID=#{loanApplicationId} and plan2.channel_type = '2' and (plan2.PLAN_STATE='1' or plan2.PLAN_STATE = '2' or plan2.PLAN_STATE = '4')
+        and plan2.REPAYMENT_DAY >= #{repaymentDate}
+        )))
+
+                ]]>
+            </if>
+        </if>
+        and plan1.channel_type = '2'  
+        order by plan1.repayment_plan_id  asc   
+    </select>
+
+    <select id="getFirstUnCompletePlan" parameterType="Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from REPAYMENT_PLAN rPlan
+        where REPAYMENT_DAY =
+        (select min(REPAYMENT_DAY) from REPAYMENT_PLAN thePlan
+        where rPlan.LOAN_APPLICATION_ID = thePlan.LOAN_APPLICATION_ID
+        and PLAN_STATE = '2')
+        and rPlan.LOAN_APPLICATION_ID = #{value}
+    </select>
+
+
+    <select id="getRepaymentPlanList" parameterType="java.util.Map"
+            resultMap="PlanVOResultMap">
+        select RPLAN.REPAYMENT_PLAN_ID,RPLAN.LOAN_APPLICATION_ID,RPLAN.SECTION_CODE,RPLAN.START_DATE,RPLAN.REPAYMENT_DAY,RPLAN.SHOULD_CAPITAL2,RPLAN.SHOULD_INTEREST2,
+        RPLAN.SHOULD_BALANCE2,RPLAN.FACT_CAPITAL,RPLAN.FACT_INTEREST,RPLAN.FACT_BALANCE,RPLAN.PLAN_STATE,
+        lp.LOAN_APPLICATION_CODE,lp.LOAN_APPLICATION_NAME,uEXT.REAL_NAME,ui.LOGIN_NAME,lPublish.loan_title
+        from REPAYMENT_PLAN RPLAN,LOAN_APPLICATION lp,LOAN_PUBLISH lPublish,USER_INFO_EXT uEXT,USER_INFO ui
+        where  lp.LOAN_APPLICATION_ID = lPublish.LOAN_APPLICATION_ID
+        and RPLAN.LOAN_APPLICATION_ID = lp. LOAN_APPLICATION_ID
+
+        and lp.USER_ID = ui.USER_ID
+        and ui.USER_ID = uEXT.USER_ID
+        and RPLAN.CHANNEL_TYPE='2'
+        <if test="loanApplicationCode !=null and loanApplicationCode != ''">
+            and lp.LOAN_APPLICATION_CODE like '%${loanApplicationCode}%'
+        </if>
+        <if test="loanApplicationName !=null and loanApplicationName != ''">
+            <!-- AND lp.LOAN_APPLICATION_NAME like '%${loanApplicationName}%' -->
+            and lPublish.loan_title like '%${loanApplicationName}%'
+        </if>
+        <if test="channel != null and channel !='-1'">
+            AND lp.CHANNEL = #{channel}
+        </if>
+        <if test='loanType != null and loanType != "-1"'>
+            AND lp.LOAN_TYPE = #{loanType}
+        </if>
+        <if test="userRealName !=null and userRealName != ''">
+            AND uEXT.REAL_NAME like '%${userRealName}%'
+        </if>
+        <if test="idCard !=null and idCard != ''">
+            AND substr(uEXT.ID_CARD,length(uEXT.id_card)-3) = #{idCard}
+        </if>
+        <if test="mobileNo !=null and mobileNo != ''">
+            AND uEXT.MOBILE_NO like '%${mobileNo}%'
+        </if>
+        <if test="planState !=null and planState != ''">
+            AND RPLAN.PLAN_STATE = #{planState}
+        </if>
+        <if test="beginRepaymentDay !=null and beginRepaymentDay != ''">
+            <![CDATA[
+            	AND RPLAN.REPAYMENT_DAY >=  TO_DATE(#{beginRepaymentDay}, 'yyyy-MM-dd')
+            ]]>
+        </if>
+        <if test="endRepaymentDay !=null and endRepaymentDay != ''">
+        	<![CDATA[
+            	AND RPLAN.REPAYMENT_DAY <=  TO_DATE(#{endRepaymentDay}, 'yyyy-MM-dd')
+            ]]>
+        </if>
+
+        order by lp.LOAN_APPLICATION_ID, RPLAN.REPAYMENT_PLAN_ID
+
+
+    </select>
+    <select id="count_getRepaymentPlanList" parameterType="java.util.Map" resultType="int">
+        select count(1) from (
+        select RPLAN.REPAYMENT_PLAN_ID,RPLAN.START_DATE,RPLAN.REPAYMENT_DAY,RPLAN.SHOULD_CAPITAL2,RPLAN.SHOULD_INTEREST2,
+        RPLAN.SHOULD_BALANCE2,RPLAN.FACT_CAPITAL,RPLAN.FACT_INTEREST,RPLAN.FACT_BALANCE,RPLAN.PLAN_STATE,
+        lp.LOAN_APPLICATION_CODE,lp.LOAN_APPLICATION_NAME,uEXT.REAL_NAME,ui.LOGIN_NAME
+        from REPAYMENT_PLAN RPLAN,LOAN_APPLICATION lp,USER_INFO_EXT uEXT,USER_INFO ui
+        where  RPLAN.LOAN_APPLICATION_ID = lp. LOAN_APPLICATION_ID
+        and lp.USER_ID = ui.USER_ID
+        and ui.USER_ID = uEXT.USER_ID
+        and RPLAN.CHANNEL_TYPE='2'
+        <if test="loanApplicationCode !=null and loanApplicationCode != ''">
+            and lp.LOAN_APPLICATION_CODE like '%${loanApplicationCode}%'
+        </if>
+        <if test="loanApplicationName !=null and loanApplicationName != ''">
+            AND lp.LOAN_APPLICATION_NAME like '%${loanApplicationName}%'
+        </if>
+        <if test="channel != null and channel !='-1'">
+            AND lp.CHANNEL = #{channel}
+        </if>
+        <if test='loanType != null and loanType != "-1"'>
+            AND lp.LOAN_TYPE = #{loanType}
+        </if>
+        <if test="userRealName !=null and userRealName != ''">
+            AND uEXT.REAL_NAME like '%${userRealName}%'
+        </if>
+        <if test="idCard !=null and idCard != ''">
+            AND substr(uEXT.ID_CARD,length(uEXT.id_card)-3) = #{idCard}
+        </if>
+        <if test="mobileNo !=null and mobileNo != ''">
+            AND uEXT.MOBILE_NO like '%${mobileNo}%'
+        </if>
+        <if test="planState !=null and planState != ''">
+            AND RPLAN.PLAN_STATE = #{planState}
+        </if>
+        <if test="beginRepaymentDay !=null and beginRepaymentDay != ''">
+            <![CDATA[
+            	AND RPLAN.REPAYMENT_DAY >=  TO_DATE(#{beginRepaymentDay}, 'yyyy-MM-dd')
+            ]]>
+        </if>
+        <if test="endRepaymentDay !=null and endRepaymentDay != ''">
+        	<![CDATA[
+            	AND RPLAN.REPAYMENT_DAY <=  TO_DATE(#{endRepaymentDay}, 'yyyy-MM-dd')
+            ]]>
+        </if>
+
+        )
+
+    </select>
+    
+    <select id="getRepaymentList" parameterType="java.util.Map" resultMap="PlanDetailVOResultMap">
+        SELECT LA.LOAN_APPLICATION_ID,
+		       RR.OPERTION_DATE,
+		       RR.PAY_ID,
+		       RR.FACT_BALANCE,
+		       RC.TYPE,
+		       LP.REPAYMENT_METHOD,
+		       LA.USER_ID,
+		       (SELECT TRUNC((SUM(RP.SHOULD_BALANCE2) - SUM(RP.FACT_BALANCE)) /
+		                     SUM(RP.SHOULD_BALANCE2),
+		                     2) * 100 
+		          FROM REPAYMENT_PLAN RP
+		         WHERE RP.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+		         GROUP BY RP.LOAN_APPLICATION_ID) NOREPAYMENTPERCENT
+		  FROM RECHARGE_CHANNEL RC,
+		       RECHARGE_ORDER   RO,
+		       PAY_ORDER        PO,
+		       REPAYMENT_RECORD RR,
+		       LOAN_APPLICATION LA,
+		       LOAN_PRODUCT     LP
+		 WHERE RC.CHANNEL_CODE = RO.CHANNEL_CODE
+		   AND PO.PAY_ID = RO.PAY_ID
+		   AND PO.PAY_ID = RR.PAY_ID
+		   AND RR.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+		   AND LA.LOAN_PRODUCT_ID = LP.LOAN_PRODUCT_ID
+		   AND LA.USER_ID = #{userId}
+		   <if test="startDate !=null and startDate != ''">
+		   	<![CDATA[
+            	AND RR.OPERTION_DATE >= TO_DATE(#{startDate}, 'yyyy-MM-dd')
+            ]]>
+			</if>
+		   <if test="endDate !=null and endDate != ''">
+		   	<![CDATA[
+            	AND RR.OPERTION_DATE <= TO_DATE(#{endDate}, 'yyyy-MM-dd')
+            ]]>
+			</if>
+		   <if test="channelCode !=null and channelCode != ''">
+		   	<![CDATA[
+            	AND RC.TYPE = #{channelCode}
+            ]]>
+			</if>
+    </select>
+    
+    <select id="count_getRepaymentList" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(0)
+		  FROM RECHARGE_CHANNEL RC,
+		       RECHARGE_ORDER   RO,
+		       PAY_ORDER        PO,
+		       REPAYMENT_RECORD RR,
+		       LOAN_APPLICATION LA,
+		       LOAN_PRODUCT     LP
+		 WHERE RC.CHANNEL_CODE = RO.CHANNEL_CODE
+		   AND PO.PAY_ID = RO.PAY_ID
+		   AND PO.PAY_ID = RR.PAY_ID
+		   AND RR.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+		   AND LA.LOAN_PRODUCT_ID = LP.LOAN_PRODUCT_ID
+		   AND LA.USER_ID = #{userId}
+		   <if test="startDate !=null and startDate != ''">
+		   	<![CDATA[
+            	AND RR.OPERTION_DATE >= TO_DATE(#{startDate}, 'yyyy-MM-dd')
+            ]]>
+			</if>
+		   <if test="endDate !=null and endDate != ''">
+		   	<![CDATA[
+            	AND RR.OPERTION_DATE <= TO_DATE(#{endDate}, 'yyyy-MM-dd')
+            ]]>
+			</if>
+		   <if test="channelCode !=null and channelCode != ''">
+		   	<![CDATA[
+            	AND RC.TYPE = #{channelCode}
+            ]]>
+			</if>
+    </select>
+    
+    <select id="getRepaymentDetailListByLoanAppId" parameterType="long" resultMap="PlanDetailVOResultMap">
+		<![CDATA[
+		SELECT RP.*,
+		       (SELECT SUM(DEPAL_FINE)
+		          FROM REPAYMENT_RECORD RR
+		         WHERE RP.REPAYMENT_PLAN_ID = RR.REPAYMENT_PLAN_ID) DEPAL_FINE,
+		       (SELECT SUM(REPAYMENT_FEES)
+		          FROM REPAYMENT_RECORD RR
+		         WHERE RP.REPAYMENT_PLAN_ID = RR.REPAYMENT_PLAN_ID) REPAYMENT_FEES,
+		       (SELECT TRUNC((SUM(RP1.SHOULD_BALANCE2) - SUM(RP1.FACT_BALANCE)) /
+		                     SUM(RP1.SHOULD_BALANCE2),
+		                     2) * 100
+		          FROM REPAYMENT_PLAN RP1
+		         WHERE RP1.LOAN_APPLICATION_ID = RP.LOAN_APPLICATION_ID
+		           AND RP1.SECTION_CODE <= RP.SECTION_CODE) NOREPAYMENTPERCENT
+		  FROM REPAYMENT_PLAN RP
+		 WHERE RP.LOAN_APPLICATION_ID = #{loanApplicationId}
+		 ]]>
+    </select>
+    
+    <select id="count_getRepaymentDetailListByLoanAppId" parameterType="java.util.Map" resultType="int">
+        <![CDATA[
+		SELECT COUNT(0)
+		  FROM REPAYMENT_PLAN RP
+		 WHERE RP.LOAN_APPLICATION_ID = #{loanApplicationId}
+		 ]]>
+    </select>
+    
+      <select id="findOverdueByTime" parameterType="java.util.Date" resultType="long">
+       
+        select
+        	rp.repayment_plan_id
+        from REPAYMENT_PLAN  rp
+          <![CDATA[
+        where  rp.repayment_day <  #{now}
+        	and rp.PLAN_STATE in ('1','2')
+   			and rp.CHANNEL_TYPE = '2'
+        	]]>
+    </select>
+    
+     <select id="queryPenaltyData" resultMap="LoanFeeDetailVO">
+       select loanfee.LOAN_APPLICATION_FEES_ITEM_ID as LOAN_APPLICATION_FEES_ITEM_ID,
+	       repay.LOAN_APPLICATION_ID as LOAN_APPLICATION_ID,
+	       loanfee.charge_cycle as FEES_CYCLE,
+	       repay.section_code as SECTION_CODE,
+	       repay.REPAYMENT_PLAN_ID as REPAYMENT_PLAN_ID,
+	       repay.customer_account_id as ACC_ID,
+	       loanfee.radices_type,
+	       loanfee.fees_rate,
+	       loanfee.item_type,
+	       loanfeedetail.loan_fees_detail_id,
+	       repay.should_capital,
+	       repay.should_interest,
+	       repay.should_balance,
+	       repay.fact_capital,
+	       repay.fact_interest,
+	       repay.fact_balance,
+	       loan.confirm_balance,
+	       loan.interest_balance as LOAN_INTEREST_BALANCE
+	
+	  from REPAYMENT_PLAN repay
+	
+	  left join LOAN_APPLICATION_FEES_ITEM loanfee on repay.loan_application_id =
+	                                                      loanfee.loan_application_id
+	                                                  	  and loanfee.item_type = '5'
+	  left join LOAN_FEES_DETAIL loanfeedetail on loanfeedetail.loan_application_fees_item_id =
+	                                              	    loanfee.loan_application_fees_item_id 
+	                                              	    and loanfeedetail.SECTION_CODE=repay.SECTION_CODE
+	  left join LOAN_APPLICATION loan on loan.loan_application_id = 
+	  													loanfee.loan_application_id
+	<![CDATA[
+	where  repay.PLAN_STATE = '4'
+	   and repay.CHANNEL_TYPE = '2' 
+	   ]]>
+    </select>
+    
+    
+     <select id="queryDefaultInterestData"   resultMap="LoanFeeDetailVO">
+       
+		select loanfee.LOAN_APPLICATION_FEES_ITEM_ID as LOAN_APPLICATION_FEES_ITEM_ID,
+		       repay.LOAN_APPLICATION_ID as LOAN_APPLICATION_ID,
+		       loanfee.charge_cycle as FEES_CYCLE,
+		       repay.section_code as SECTION_CODE,
+		       repay.REPAYMENT_PLAN_ID as REPAYMENT_PLAN_ID,
+		       repay.customer_account_id as ACC_ID,
+		       loanfee.radices_type,
+		       loanfee.fees_rate,
+		       loanfee.item_type,
+		       repay.should_capital,
+		       repay.should_interest,
+		       repay.should_balance,
+		       repay.fact_capital,
+		       repay.fact_interest,
+		       repay.fact_balance,
+		       repay.repayment_day,
+		       to_char(dfinter.interest_date,'yyyy-MM-dd') as df_interest_date_string,
+		       dfinter.DEFAULT_INTEREST_DETAIL_ID,
+		       loan.confirm_balance,
+	       	   loan.interest_balance as LOAN_INTEREST_BALANCE
+		       
+		  from REPAYMENT_PLAN repay
+		
+		  inner join LOAN_APPLICATION_FEES_ITEM loanfee on repay.loan_application_id =
+		                                                      loanfee.loan_application_id
+		                                                  and loanfee.item_type = '6'
+		  left join DEFAULT_INTEREST_DETAIL dfinter on dfinter.repayment_plan_id = repay.repayment_plan_id
+		  left join LOAN_APPLICATION loan on loan.loan_application_id = 
+	  													loanfee.loan_application_id
+		<![CDATA[
+		   where  repay.PLAN_STATE = '4'  
+			   and  repay.CHANNEL_TYPE = '2'   
+		   	]]>
+    </select>
+    
+    <select id="findBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT RPLAN.*
+		  FROM REPAYMENT_PLAN RPLAN, LOAN_APPLICATION LAPP
+		 WHERE RPLAN.LOAN_APPLICATION_ID = LAPP.LOAN_APPLICATION_ID
+        <if test="_parameter.containsKey('planState')">
+            <if test="planState != 0">
+                and rPlan.plan_State = #{planState}
+            </if>
+        </if>
+        <if test="_parameter.containsKey('planStateList')">
+            <if test="planStateList != null">
+                and rPlan.plan_State in
+                <foreach collection="planStateList" item="planState" open="(" separator="," close=")">
+                    #{planState}
+                </foreach>
+
+            </if>
+        </if>
+        <if test="_parameter.containsKey('defaultDay')">
+            <if test="defaultDay != null">
+                <![CDATA[
+                and rPlan.repayment_day < to_date(#{defaultDay},'yyyy-MM-dd')
+                  ]]>
+            </if>
+        </if>
+        <if test="_parameter.containsKey('beginTime') and _parameter.containsKey('endTime')">
+            <if test="beginTime != null and endTime != null">
+                and (repayment_Day between #{beginTime} and #{endTime})
+            </if>
+        </if>
+        <if test="_parameter.containsKey('loanApplicationId')">
+            <if test="loanApplicationId != null">
+                and lapp.loan_application_id = #{loanApplicationId}
+            </if>
+        </if>
+        <if test="_parameter.containsKey('channelType')">
+            <if test="channelType != 0">
+                and rPlan.channel_type = #{channelType}
+            </if>
+        </if>
+    </select>
+    
+    <select id="getTheMinRepaymentForCreditorRights" parameterType = "long" resultType="int" >
+    		select rp.section_code
+			  from repayment_plan rp
+			 where rp.repayment_plan_id in
+			       (select min(rrd.repayment_plan_id)
+			          from rights_repayment_detail rrd, creditor_rights cr
+			         where rrd.creditor_rights_id = cr.creditor_rights_id
+			           and rrd.creditor_rights_id = #{creditorRightsId})
+    </select>
+    
+    <!-- 获取指定还款计划信息，根据借款申请ID查询(总的期数，转让前的数量，下一期还款日期) -->
+    <select id="getRepaymentPlanByLoanApplicationId" resultMap="PlanVOResultMap" parameterType="long" >
+	    select aa.d1 sumSectionCode,aa.d2 nowSectionCode,  case when aa.d3 != 0 
+	       then (select min(rp2.REPAYMENT_DAY)  from REPAYMENT_PLAN rp2  
+	               where rp2.LOAN_APPLICATION_ID = #{loanApplicationId} and rp2.PLAN_STATE in ('1', '2'))      
+	       else (select max(rp3.REPAYMENT_DAY)  from REPAYMENT_PLAN rp3
+	                where rp3.LOAN_APPLICATION_ID = #{loanApplicationId})
+	       end nextRepaymentDay from 
+		(
+		select 
+		  sum(c1) d1,
+		  sum(c2) d2,
+		  sum(c3) d3
+		    from 
+	  (select case when r1.LOAN_APPLICATION_ID=#{loanApplicationId} then 1 else 0 end c1,
+	          case when r1.LOAN_APPLICATION_ID=#{loanApplicationId} and r1.PLAN_STATE not in ('1', '2') then 1 else 0 end c2,
+	          case when r1.loan_application_id=#{loanApplicationId} and r1.PLAN_STATE in ('1', '2') then 1 else 0 end c3
+	     from REPAYMENT_PLAN r1 )) aa
+    </select>
+</mapper>

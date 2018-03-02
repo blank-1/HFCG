@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CRM_ORG" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CrmOrg" >
+    <id column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="ORG_DESC" property="orgDesc" jdbcType="VARCHAR" />
+    <result column="ORG_STATUS" property="orgStatus" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="ORGANIZATION_PARENT_ID" property="organizationParentId" jdbcType="DECIMAL" />
+    <result column="ORG_CODE" property="code" jdbcType="VARCHAR" />
+    <result column="ORG_TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="ORG_ATTR" property="attr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ORG_ID, ORG_NAME, ORG_DESC, ORG_STATUS, CREATE_TIME, LAST_UPDATE_TIME, ORGANIZATION_PARENT_ID,ORG_CODE,ORG_TYPE,ORG_ATTR
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ORG
+    where ORG_ID = #{orgId,jdbcType=DECIMAL} and ORG_STATUS='0'
+  </select>
+  <select id="selectAllOrgs" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ORG
+    where ORG_STATUS='0' order by ORG_ID
+  </select>
+  <select id="selectAllMainOrg" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ORG
+    where ORGANIZATION_PARENT_ID is null  and ORG_STATUS='0'
+  </select>
+  <select id="findChildOrg" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ORG
+    where ORGANIZATION_PARENT_ID = #{orgId,jdbcType=DECIMAL}  and ORG_STATUS='0'
+  </select>
+  <delete id="deleteDependByStatus" parameterType="java.lang.Long" >
+    update CRM_ORG set ORG_STATUS='1'
+    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_ORG
+    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteOrgs" parameterType="map" >
+    delete from CRM_ORG
+    where <![CDATA[(${ids})]]>
+  </delete>
+  <delete id="deleteOrgMapping" parameterType="map" >
+    delete from CRM_ORG_FRANCHISE
+    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CrmOrg" >
+  		<selectKey keyProperty="orgId" order="BEFORE" resultType="long">
+			SELECT SEQ_CRM_ORG.NEXTVAL as orgId FROM dual
+		</selectKey>
+    insert into CRM_ORG (ORG_ID, ORG_NAME, ORG_DESC, 
+      ORG_STATUS, CREATE_TIME, LAST_UPDATE_TIME, 
+      ORGANIZATION_PARENT_ID,ORG_CODE,ORG_TYPE,ORG_ATTR)
+    values (#{orgId,jdbcType=DECIMAL}, #{orgName,jdbcType=VARCHAR}, #{orgDesc,jdbcType=VARCHAR}, 
+      #{orgStatus,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{organizationParentId,jdbcType=DECIMAL}, #{code,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{attr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CrmOrg" >
+    insert into CRM_ORG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="orgName != null" >
+        ORG_NAME,
+      </if>
+      <if test="orgDesc != null" >
+        ORG_DESC,
+      </if>
+      <if test="orgStatus != null" >
+        ORG_STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="organizationParentId != null" >
+        ORGANIZATION_PARENT_ID,
+      </if>
+      <if test="code != null" >
+        ORG_CODE,
+      </if>
+      <if test="type != null" >
+        ORG_TYPE,
+      </if>
+      <if test="attr != null" >
+        ORG_ATTR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgDesc != null" >
+        #{orgDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStatus != null" >
+        #{orgStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="organizationParentId != null" >
+        #{organizationParentId,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="attr != null" >
+        attr,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CrmOrg" >
+    update CRM_ORG
+    <set >
+      <if test="orgName != null" >
+        ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgDesc != null" >
+        ORG_DESC = #{orgDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStatus != null" >
+        ORG_STATUS = #{orgStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="organizationParentId != null" >
+        ORGANIZATION_PARENT_ID = #{organizationParentId,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null" >
+        ORG_CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        ORG_TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="attr != null" >
+        ORG_ATTR = #{attr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CrmOrg" >
+    update CRM_ORG
+    set ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      ORG_DESC = #{orgDesc,jdbcType=VARCHAR},
+      ORG_STATUS = #{orgStatus,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      ORGANIZATION_PARENT_ID = #{organizationParentId,jdbcType=DECIMAL},
+      ORG_CODE = #{code,jdbcType=VARCHAR},
+      ORG_TYPE = #{type,jdbcType=VARCHAR},
+      ORG_ATTR = #{attr,jdbcType=VARCHAR}
+    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+  </update>
+  <select id="selectOrgsBySelf" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ORG
+    where <![CDATA[(${ids})]]>
+  </select>
+  <select id="selectOrgByStaffId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from CRM_ORG o
+	left join CRM_FRAN_EMP e on e.org_id=o.org_id
+	where e.staff_id=#{staffId,jdbcType=DECIMAL}
+  </select>
+  <select id="countNumsByPid" resultType="int" parameterType="map" >
+    select count(1) from CRM_ORG where 
+    <if test="pid == null">
+    	ORGANIZATION_PARENT_ID is null
+    </if>
+    <if test="pid != null">
+    	ORGANIZATION_PARENT_ID = #{pid,jdbcType=DECIMAL}
+    </if>
+  </select>
+  <select id="findFirstOrg" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ORG t
+    where rownum=1 and t.organization_parent_id is null order by t.org_id
+  </select>
+  <select id="selectByOrgName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ORG
+    where ORG_NAME like '%${orgName}%' and ORG_STATUS='0'
+  </select>
+  <select id="findFranIdByOId" resultType="long" parameterType="long" >
+    	select f.franchise_id from CRM_ORG_FRANCHISE f where f.org_id=#{oid,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByOrgCode" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_ORG
+    where ORG_CODE like '%${code}%' and ORG_STATUS='0'
+  </select>
+</mapper>

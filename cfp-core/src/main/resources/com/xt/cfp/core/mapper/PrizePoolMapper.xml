@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PRIZE_POOL" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.PrizePool" >
+    <id column="PRIZE_POOL_ID" property="prizePoolId" jdbcType="DECIMAL" />
+    <result column="PRIZE_PRODUCT_ID" property="prizeProductId" jdbcType="DECIMAL" />
+    <result column="PRIZE_TYPE" property="prizeType" jdbcType="VARCHAR" />
+    <result column="PRIZE_NUM" property="prizeNum" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_NUMBER" property="activityNumber" jdbcType="VARCHAR" />
+    <result column="DISABLE" property="disable" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PRIZE_POOL_ID, PRIZE_PRODUCT_ID, PRIZE_TYPE, PRIZE_NUM, ACTIVITY_NUMBER, DISABLE, 
+    ADD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from PRIZE_POOL
+    where PRIZE_POOL_ID = #{prizePoolId,jdbcType=DECIMAL}
+    <if test="lock != null">
+      for update
+    </if>
+  </select>
+  
+  <select id="selectByProductId" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from PRIZE_POOL
+    where prize_product_id = #{productId,jdbcType=DECIMAL}
+    and  activity_number= #{name,jdbcType=VARCHAR}
+    for update
+  </select>
+  
+  <select id="selectByActivityNum" resultMap="BaseResultMap" parameterType="map" >
+    SELECT *
+	FROM prize_pool
+	WHERE activity_number = #{activityNumber,jdbcType=VARCHAR}
+	ORDER BY add_time 
+	<if test="lock != null">
+      for update
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PRIZE_POOL
+    where PRIZE_POOL_ID = #{prizePoolId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.PrizePool" >
+    insert into PRIZE_POOL (PRIZE_POOL_ID, PRIZE_PRODUCT_ID, PRIZE_TYPE, 
+      PRIZE_NUM, ACTIVITY_NUMBER, DISABLE, 
+      ADD_TIME)
+    values (#{prizePoolId,jdbcType=DECIMAL}, #{prizeProductId,jdbcType=DECIMAL}, #{prizeType,jdbcType=VARCHAR}, 
+      #{prizeNum,jdbcType=DECIMAL}, #{activityNumber,jdbcType=VARCHAR}, #{disable,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.PrizePool" >
+    insert into PRIZE_POOL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prizePoolId != null" >
+        PRIZE_POOL_ID,
+      </if>
+      <if test="prizeProductId != null" >
+        PRIZE_PRODUCT_ID,
+      </if>
+      <if test="prizeType != null" >
+        PRIZE_TYPE,
+      </if>
+      <if test="prizeNum != null" >
+        PRIZE_NUM,
+      </if>
+      <if test="activityNumber != null" >
+        ACTIVITY_NUMBER,
+      </if>
+      <if test="disable != null" >
+        DISABLE,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prizePoolId != null" >
+        #{prizePoolId,jdbcType=DECIMAL},
+      </if>
+      <if test="prizeProductId != null" >
+        #{prizeProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="prizeType != null" >
+        #{prizeType,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeNum != null" >
+        #{prizeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="activityNumber != null" >
+        #{activityNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="disable != null" >
+        #{disable,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.PrizePool" >
+    update PRIZE_POOL
+    <set >
+      <if test="prizeProductId != null" >
+        PRIZE_PRODUCT_ID = #{prizeProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="prizeType != null" >
+        PRIZE_TYPE = #{prizeType,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeNum != null" >
+        PRIZE_NUM = #{prizeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="activityNumber != null" >
+        ACTIVITY_NUMBER = #{activityNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="disable != null" >
+        DISABLE = #{disable,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PRIZE_POOL_ID = #{prizePoolId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.PrizePool" >
+    update PRIZE_POOL
+    set PRIZE_PRODUCT_ID = #{prizeProductId,jdbcType=DECIMAL},
+      PRIZE_TYPE = #{prizeType,jdbcType=VARCHAR},
+      PRIZE_NUM = #{prizeNum,jdbcType=DECIMAL},
+      ACTIVITY_NUMBER = #{activityNumber,jdbcType=VARCHAR},
+      DISABLE = #{disable,jdbcType=VARCHAR},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP}
+    where PRIZE_POOL_ID = #{prizePoolId,jdbcType=DECIMAL}
+  </update>
+  <select id="selectUserDrawNum" resultType="int" parameterType="map" >
+    select count(1) from VOUCHER_PHONE vp
+	where 1=1
+	<if test='mobile != null'>
+		and vp.MOBILE_NO = #{mobile}
+    </if>
+    <if test='name != null'>
+		and vp.activity_number = #{name}
+    </if>
+  </select>
+</mapper>

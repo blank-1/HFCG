@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="GUARANTEE_COMPANY" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.GuaranteeCompany" >
+    <id column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="COMPANY_LOCATION" property="companyLocation" jdbcType="VARCHAR" />
+    <result column="CONTACT_PERSION" property="contactPersion" jdbcType="VARCHAR" />
+    <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="COMPANY_TYPE" property="companyType" jdbcType="CHAR" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <resultMap id="guaranteeCompanyVo" type="com.xt.cfp.core.pojo.ext.GuaranteeCompanyExt" extends="BaseResultMap">
+    <result property="avilableValue" column="AVAIL_VALUE" jdbcType="DECIMAL" />
+    <result property="freezeValue" column="FROZE_VALUE" jdbcType="DECIMAL" />
+    <result property="value" column="VALUE" jdbcType="DECIMAL" />
+    <result property="borrowCount" column="BORROW_COUNT" javaType="java.lang.Long"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    COMPANY_ID, COMPANY_NAME, COMPANY_LOCATION, CONTACT_PERSION, CONTACT_PHONE, STATUS, 
+    CREATE_TIME, COMPANY_TYPE, USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from GUARANTEE_COMPANY
+    where COMPANY_ID = #{companyId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from GUARANTEE_COMPANY
+    where COMPANY_ID = #{companyId,jdbcType=DECIMAL}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.GuaranteeCompany" >
+
+    <selectKey keyProperty="companyId" order="BEFORE" resultType="long">
+      SELECT SEQ_GUARANTEE_COMPANY.NEXTVAL as companyId FROM dual
+    </selectKey>
+
+    insert into GUARANTEE_COMPANY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+      <if test="companyLocation != null" >
+        COMPANY_LOCATION,
+      </if>
+      <if test="contactPersion != null" >
+        CONTACT_PERSION,
+      </if>
+      <if test="contactPhone != null" >
+        CONTACT_PHONE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="companyType != null" >
+        COMPANY_TYPE,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyLocation != null" >
+        #{companyLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPersion != null" >
+        #{contactPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyType != null" >
+        #{companyType,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.GuaranteeCompany" >
+    update GUARANTEE_COMPANY
+    <set >
+      <if test="companyName != null" >
+        COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyLocation != null" >
+        COMPANY_LOCATION = #{companyLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPersion != null" >
+        CONTACT_PERSION = #{contactPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyType != null" >
+        COMPANY_TYPE = #{companyType,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where COMPANY_ID = #{companyId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.GuaranteeCompany" >
+    update GUARANTEE_COMPANY
+    set COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      COMPANY_LOCATION = #{companyLocation,jdbcType=VARCHAR},
+      CONTACT_PERSION = #{contactPersion,jdbcType=VARCHAR},
+      CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      COMPANY_TYPE = #{companyType,jdbcType=CHAR},
+      USER_ID = #{userId,jdbcType=DECIMAL}
+    where COMPANY_ID = #{companyId,jdbcType=DECIMAL}
+  </update>
+
+  <update id="changeGuaranteeCompanyStatus" parameterType="map" >
+    update GUARANTEE_COMPANY
+    set
+    STATUS = #{guaranteeCompanyStatus,jdbcType=CHAR}
+    where COMPANY_ID = #{companyId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="getGuaranteeCompanyDetail" resultMap="guaranteeCompanyVo" parameterType="java.lang.Long"  >
+    SELECT bs.*,
+    T.AVAIL_VALUE,
+    T.FROZE_VALUE,
+    T.VALUE
+    FROM GUARANTEE_COMPANY bs
+    LEFT JOIN
+    (  SELECT SUM (UA.AVAIL_VALUE) AVAIL_VALUE,
+    SUM (UA.FROZE_VALUE) FROZE_VALUE,
+    SUM (UA.VALUE) VALUE,
+    b_s.COMPANY_ID
+    FROM GUARANTEE_COMPANY b_s
+    LEFT JOIN USER_ACCOUNT UA ON b_s.USER_ID = UA.USER_ID
+    GROUP BY b_s.COMPANY_ID) T
+    ON T.COMPANY_ID = BS.COMPANY_ID
+    where bs.COMPANY_ID = #{companyId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getGuaranteeCompanyPaging" resultMap="guaranteeCompanyVo" parameterType="map" >
+    SELECT bs.*,
+    T.AVAIL_VALUE,
+    T.FROZE_VALUE,
+    T.VALUE,
+    0 AS BORROW_COUNT
+    FROM GUARANTEE_COMPANY bs
+    LEFT JOIN
+    (  SELECT SUM (UA.AVAIL_VALUE) AVAIL_VALUE,
+    SUM (UA.FROZE_VALUE) FROZE_VALUE,
+    SUM (UA.VALUE) VALUE,
+    b_s.COMPANY_ID
+    FROM GUARANTEE_COMPANY b_s
+    LEFT JOIN USER_ACCOUNT UA ON b_s.USER_ID = UA.USER_ID
+    GROUP BY b_s.COMPANY_ID) T
+    ON T.COMPANY_ID = BS.COMPANY_ID
+    <where>
+      <if test="guaranteeCompany != null">
+        <if test="guaranteeCompany.companyName != null and guaranteeCompany.companyName != ''">
+          AND bs.COMPANY_NAME like  '%${guaranteeCompany.companyName}%'
+        </if>
+        <if test="guaranteeCompany.companyLocation != null and guaranteeCompany.companyLocation != ''">
+          AND bs.COMPANY_LOCATION like '%${guaranteeCompany.companyLocation}%'
+        </if>
+        <if test="guaranteeCompany.status != null and guaranteeCompany.status != ''">
+          AND bs.STATUS = #{guaranteeCompany.status,jdbcType=VARCHAR}
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+    ORDER BY bs.COMPANY_ID DESC
+  </select>
+
+  <select id="count_getGuaranteeCompanyPaging"  resultType="int" parameterType="map" >
+    SELECT COUNT(1)
+    FROM GUARANTEE_COMPANY BS
+    <where>
+      <if test="guaranteeCompany != null">
+        <if test="guaranteeCompany.companyName != null and guaranteeCompany.companyName != ''">
+          AND bs.COMPANY_NAME like  '%${guaranteeCompany.companyName}%'
+        </if>
+        <if test="guaranteeCompany.companyLocation != null and guaranteeCompany.companyLocation != ''">
+          AND bs.COMPANY_LOCATION like '%${guaranteeCompany.companyLocation}%'
+        </if>
+        <if test="guaranteeCompany.status != null and guaranteeCompany.status != ''">
+          AND bs.STATUS = #{guaranteeCompany.status,jdbcType=VARCHAR}
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+
+      </if>
+    </where>
+  </select>
+
+	<select id="findAll" resultMap="BaseResultMap"
+		parameterType="com.xt.cfp.core.pojo.GuaranteeCompany">
+		select
+		<include refid="Base_Column_List" />
+		from GUARANTEE_COMPANY
+		<where>
+			<if test="companyName != null">
+				AND COMPANY_NAME = #{companyName,jdbcType=VARCHAR}
+			</if>
+			<if test="companyLocation != null">
+				AND COMPANY_LOCATION = #{companyLocation,jdbcType=VARCHAR}
+			</if>
+			<if test="contactPersion != null">
+				AND CONTACT_PERSION = #{contactPersion,jdbcType=VARCHAR}
+			</if>
+			<if test="contactPhone != null">
+				AND CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null">
+				AND STATUS = #{status,jdbcType=CHAR}
+			</if>
+			<if test="createTime != null">
+				AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="companyType != null">
+				AND COMPANY_TYPE = #{companyType,jdbcType=CHAR}
+			</if>
+			<if test="userId != null">
+				AND USER_ID = #{userId,jdbcType=DECIMAL}
+			</if>
+		</where>
+
+	</select>
+
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SL_ADMIN_ROLE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.SalesAdminRole" >
+    <id column="ADMIN_ROLE_ID" property="adminRoleId" jdbcType="DECIMAL" />
+    <result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+    <result column="ROLE_STATE" property="roleState" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADMIN_ROLE_ID, ROLE_ID, ADMIN_ID, ROLE_STATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from SL_ADMIN_ROLE
+    where ADMIN_ROLE_ID = #{adminRoleId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from SL_ADMIN_ROLE
+    where ADMIN_ROLE_ID = #{adminRoleId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.SalesAdminRole" >
+    <selectKey keyProperty="adminRoleId" order="BEFORE" resultType="long">
+      SELECT SEQ_SL_ADMIN_ROLE.NEXTVAL as adminRoleId FROM dual
+    </selectKey>
+    insert into SL_ADMIN_ROLE (ADMIN_ROLE_ID, ROLE_ID, ADMIN_ID, 
+      ROLE_STATE)
+    values (#{adminRoleId,jdbcType=DECIMAL}, #{roleId,jdbcType=DECIMAL}, #{adminId,jdbcType=DECIMAL}, 
+      #{roleState,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.SalesAdminRole" >
+    insert into SL_ADMIN_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminRoleId != null" >
+        ADMIN_ROLE_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+      <if test="roleState != null" >
+        ROLE_STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminRoleId != null" >
+        #{adminRoleId,jdbcType=DECIMAL},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="roleState != null" >
+        #{roleState,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.SalesAdminRole" >
+    update SL_ADMIN_ROLE
+    <set >
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="roleState != null" >
+        ROLE_STATE = #{roleState,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ADMIN_ROLE_ID = #{adminRoleId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.SalesAdminRole" >
+    update SL_ADMIN_ROLE
+    set ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      ROLE_STATE = #{roleState,jdbcType=DECIMAL}
+    where ADMIN_ROLE_ID = #{adminRoleId,jdbcType=DECIMAL}
+  </update>
+
+  <!-- 根据角色ID查询角色权限关联列表 -->
+  <select id="getAdminRoleByAdminId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from SL_ADMIN_ROLE
+    where ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+  </select>
+</mapper>

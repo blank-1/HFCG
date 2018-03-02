@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CONSTANTDEFINE">
+
+    <resultMap type="com.xt.cfp.core.pojo.ConstantDefine" id="constantDefineMap">
+        <id column="CONSTANT_DEFINE_ID" property="constantDefineId" jdbcType="DECIMAL" />
+        <result column="CONSTANT_TYPE" property="constantType" jdbcType="VARCHAR" />
+        <result column="CONSTANT_NAME" property="constantName" jdbcType="VARCHAR" />
+        <result column="CONSTANT_VALUE" property="constantValue" jdbcType="VARCHAR" />
+        <result column="CONSTANT_TYPE_CODE" property="constantTypeCode" jdbcType="VARCHAR" />
+        <result column="PARENT_CONSTANT" property="parentConstant" jdbcType="DECIMAL" />
+        <result column="CONSTANT_STATUS" property="constantStatus" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        CONSTANT_DEFINE_ID, CONSTANT_TYPE, CONSTANT_NAME, CONSTANT_VALUE, CONSTANT_TYPE_CODE,
+        PARENT_CONSTANT,CONSTANT_STATUS
+    </sql>
+
+    <select id="findAll" resultMap="constantDefineMap">
+        SELECT * FROM CONSTANT_DEFINE constantDefine
+        where 1=1
+        <if test="constantName != null">
+            and CONSTANT_NAME like '%${constantName}%'
+        </if>
+        <if test="constantType != null">
+            and CONSTANT_TYPE like '%${constantType}%'
+        </if>
+        <if test="constantTypeCode != null">
+            and CONSTANT_TYPE_CODE like '%${constantTypeCode}%'
+        </if>
+        order by CONSTANT_TYPE_CODE ,CONSTANT_VALUE
+    </select>
+
+    <select id="countFindAllConstantDefine" resultType="Integer">
+        SELECT count(1) FROM CONSTANT_DEFINE constantDefine
+        where 1=1
+        <if test="constantName != null">
+            and CONSTANT_NAME like '%${constantName}%'
+        </if>
+        <if test="constantType != null">
+            and CONSTANT_TYPE like '%${constantType}%'
+        </if>
+        <if test="constantTypeCode != null">
+            and CONSTANT_TYPE_CODE like '%${constantTypeCode}%'
+        </if>
+    </select>
+
+    <select id="findById" resultMap="constantDefineMap" parameterType="Long">
+        select * from  CONSTANT_DEFINE
+        where CONSTANT_DEFINE_ID=#{value}
+    </select>
+
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.ConstantDefine" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="constantDefineId" order="BEFORE">
+            select SEQ_CONSTANT_DEFINE.nextval as constantDefineId from dual
+        </selectKey>
+        INSERT INTO CONSTANT_DEFINE
+        ( CONSTANT_DEFINE_ID,CONSTANT_TYPE,
+        CONSTANT_NAME,
+        CONSTANT_VALUE,
+        CONSTANT_TYPE_CODE,
+        PARENT_CONSTANT,
+        CONSTANT_STATUS
+        )
+        VALUES (#{constantDefineId}, #{constantType},
+        #{constantName},
+        #{constantValue},
+        #{constantTypeCode},
+        #{parentConstant},#{constantStatus})
+    </insert>
+
+
+    <select id="findsById" resultMap="constantDefineMap" parameterType="Long">
+		SELECT * FROM CONSTANT_DEFINE
+		WHERE PARENT_CONSTANT=#{value}
+		order by CONSTANT_VALUE
+	</select>
+
+    <select id="getConstantDefinesByType" resultMap="constantDefineMap" parameterType="String">
+        select * from CONSTANT_DEFINE where CONSTANT_TYPE_CODE = #{value} and CONSTANT_STATUS = '0'
+        order by CONSTANT_VALUE
+    </select>
+    <select id="getConstantDefinesByTypeNeedSort" resultMap="constantDefineMap" parameterType="String">
+        select * from CONSTANT_DEFINE where CONSTANT_TYPE_CODE = #{value} and CONSTANT_STATUS = '0'
+        order by CONSTANT_TYPE desc 
+    </select>
+
+    <select id="findByTypeCodeAndValueAndParentValue" resultMap="constantDefineMap" parameterType="String">
+       select c.* from CONSTANT_DEFINE c left join CONSTANT_DEFINE t on c.PARENT_CONSTANT =t.CONSTANT_DEFINE_ID
+       where c.CONSTANT_TYPE_CODE=#{constantTypeCode} and c.CONSTANT_VALUE=#{key} and t.CONSTANT_VALUE = #{parentKey}
+    </select>
+
+    <!-- 处理费用类别回显开始-->
+    <select id="doFeesTypeEcho" resultMap="constantDefineMap" parameterType="String">
+        select *
+        from CONSTANT_DEFINE
+        where CONSTANT_DEFINE_ID =
+        (select PARENT_CONSTANT
+        from CONSTANT_DEFINE
+        where CONSTANT_TYPE_CODE = 'itemChildType'
+        and CONSTANT_VALUE = #{constantvalue})
+    </select>
+    <!-- 处理费用类别回显结束-->
+
+    <update id="update" parameterType="com.xt.cfp.core.pojo.ConstantDefine">
+        update CONSTANT_DEFINE a
+           set a.CONSTANT_TYPE =#{constantType},
+               a.CONSTANT_NAME =#{constantName},
+               a.CONSTANT_VALUE =#{constantValue}  ,
+               a.CONSTANT_TYPE_CODE = #{constantTypeCode},
+               a.CONSTANT_STATUS = #{constantStatus},
+               a.PARENT_CONSTANT=#{parentConstant}
+               where a.CONSTANT_DEFINE_ID=#{constantDefineId}
+    </update>
+
+    <select id="findByTypeCodeAndParentConstant" resultMap="constantDefineMap" parameterType="com.xt.cfp.core.pojo.ConstantDefine">
+        select * from CONSTANT_DEFINE where CONSTANT_TYPE_CODE = #{constantTypeCode} and PARENT_CONSTANT=#{parentConstant}  and CONSTANT_STATUS = '0'
+        order by CONSTANT_VALUE asc
+    </select>
+    <select id="findConstantByTypeCodeAndValue" resultMap="constantDefineMap" parameterType="com.xt.cfp.core.pojo.ConstantDefine">
+        select * from CONSTANT_DEFINE where CONSTANT_TYPE_CODE = #{constantTypeCode,jdbcType=VARCHAR}
+        and CONSTANT_VALUE = #{constantValue,jdbcType=VARCHAR} 
+        <if test="parentConstant != 0">
+        	and PARENT_CONSTANT = #{parentConstant,jdbcType=DECIMAL}
+        </if>
+    </select>
+    
+    <!-- 分页查询列表 -->
+    <select id="findConstantDefineByPage" resultMap="constantDefineMap">
+        SELECT * FROM CONSTANT_DEFINE constantDefine
+        where 1=1
+        <if test="constantName != null">
+            and CONSTANT_NAME like '%${constantName}%'
+        </if>
+        <if test="constantType != null">
+            and CONSTANT_TYPE like '%${constantType}%'
+        </if>
+        <if test="constantTypeCode != null">
+            and CONSTANT_TYPE_CODE like '%${constantTypeCode}%'
+        </if>
+        order by CONSTANT_TYPE_CODE ,CONSTANT_VALUE
+    </select>
+
+	<!-- 分页查询数量 -->
+    <select id="count_findConstantDefineByPage" resultType="Integer">
+        SELECT count(1) FROM CONSTANT_DEFINE constantDefine
+        where 1=1
+        <if test="constantName != null">
+            and CONSTANT_NAME like '%${constantName}%'
+        </if>
+        <if test="constantType != null">
+            and CONSTANT_TYPE like '%${constantType}%'
+        </if>
+        <if test="constantTypeCode != null">
+            and CONSTANT_TYPE_CODE like '%${constantTypeCode}%'
+        </if>
+    </select>
+    <!-- 查询父节点的数据 -->
+    <select id="findConstantTypeCode" resultMap="constantDefineMap" parameterType="String">
+        select * from  constant_Define
+        where constant_Type_Code = #{value}  and CONSTANT_STATUS = '0'
+    </select>
+    <select id="findConstantValueOrCode" resultMap="constantDefineMap" parameterType="com.xt.cfp.core.pojo.ConstantDefine">
+        select * from constant_define
+        where parent_constant = (select constant_define_id from constant_define where constant_value = #{constantValue} and constant_type_code = #{constantTypeCode})
+    </select>
+
+    <select id="getConstantDefinePaging" resultMap="constantDefineMap" parameterType="com.xt.cfp.core.pojo.ConstantDefine">
+        SELECT * from constant_Define
+        <where>
+            <if test="constantDefine != null">
+                <if test="constantDefine.constantName != null  and constantDefine.constantName != ''">
+                    and CONSTANT_NAME like '%${constantDefine.constantName}%'
+                </if>
+                <if test="constantDefine.constantType != null  and constantDefine.constantType != ''">
+                    and CONSTANT_TYPE like '%${constantDefine.constantType}%'
+                </if>
+                <if test="constantDefine.constantTypeCode != null  and constantDefine.constantTypeCode != ''">
+                    and CONSTANT_TYPE_CODE like '%${constantDefine.constantTypeCode}%'
+                </if>
+            </if>
+            <if test="customParams != null">
+                <!--添加时间查询-->
+
+            </if>
+        </where>
+        ORDER BY CONSTANT_DEFINE_ID DESC
+    </select>
+
+    <select id="count_getConstantDefinePaging" resultType="int" parameterType="map">
+        SELECT  count(1)  from constant_Define
+        <where>
+            <if test="constantDefine != null">
+                <if test="constantDefine.constantName != null  and constantDefine.constantName != ''">
+                    and CONSTANT_NAME like '%${constantDefine.constantName}%'
+                </if>
+                <if test="constantDefine.constantType != null  and constantDefine.constantType != ''">
+                    and CONSTANT_TYPE like '%${constantDefine.constantType}%'
+                </if>
+                <if test="constantDefine.constantTypeCode != null  and constantDefine.constantTypeCode != ''">
+                    and CONSTANT_TYPE_CODE like '%${constantDefine.constantTypeCode}%'
+                </if>
+            </if>
+            <if test="customParams != null">
+                <!--添加时间查询-->
+
+            </if>
+        </where>
+        ORDER BY CONSTANT_DEFINE_ID DESC
+    </select>
+</mapper>

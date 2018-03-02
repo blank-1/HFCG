@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ENTERPRISE_FACTORING_SNAPSHOT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.EnterpriseFactoringSnapshot" >
+    <id column="ENTERPRISE_FACTORING_ID" property="enterpriseFactoringId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="FINANCING_AMOUNT" property="financingAmount" jdbcType="DECIMAL" />
+    <result column="FINANCING_PARTY" property="financingParty" jdbcType="DECIMAL" />
+    <result column="PAYMENT_PARTY" property="paymentParty" jdbcType="DECIMAL" />
+    <result column="SOURCE_OF_REPAYMENT" property="sourceOfRepayment" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_RECEIVABLE_DESCRIPTION" property="accountReceivableDescription" jdbcType="VARCHAR" />
+    <result column="PROJECT_COMPREHENSIVE_EVALUATI" property="projectComprehensiveEvaluati" jdbcType="VARCHAR" />
+    <result column="MONEY_RISK_ASSESSMENT" property="moneyRiskAssessment" jdbcType="VARCHAR" />
+    <result column="FIELD_ADJUSTMENT_MARK" property="fieldAdjustmentMark" jdbcType="CHAR" />
+    <result column="FIELD_ADJUSTMENT_VALUE" property="fieldAdjustmentValue" jdbcType="VARCHAR" />
+    <result column="REPAYMENT_GUARANTEE_MARK" property="repaymentGuaranteeMark" jdbcType="CHAR" />
+    <result column="REPAYMENT_GUARANTEE_VALUE" property="repaymentGuaranteeValue" jdbcType="VARCHAR" />
+    <result column="AID_FUND_MARK" property="aidFundMark" jdbcType="CHAR" />
+    <result column="AID_FUND_VALUE" property="aidFundValue" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ENTERPRISE_FACTORING_ID, LOAN_APPLICATION_ID, FINANCING_AMOUNT, FINANCING_PARTY, 
+    PAYMENT_PARTY, SOURCE_OF_REPAYMENT, ACCOUNT_RECEIVABLE_DESCRIPTION, PROJECT_COMPREHENSIVE_EVALUATI, 
+    MONEY_RISK_ASSESSMENT, FIELD_ADJUSTMENT_MARK, FIELD_ADJUSTMENT_VALUE, REPAYMENT_GUARANTEE_MARK, 
+    REPAYMENT_GUARANTEE_VALUE, AID_FUND_MARK, AID_FUND_VALUE, CREATE_TIME, LAST_UPDATE_TIME, MAIN_LOAN_APPLICATION_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_FACTORING_SNAPSHOT
+    where ENTERPRISE_FACTORING_ID = #{enterpriseFactoringId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ENTERPRISE_FACTORING_SNAPSHOT
+    where ENTERPRISE_FACTORING_ID = #{enterpriseFactoringId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.EnterpriseFactoringSnapshot" >
+  	<selectKey keyProperty="enterpriseFactoringId" order="BEFORE" resultType="long">
+      SELECT SEQ_ENTERPRISE_FACTORING.NEXTVAL as enterpriseFactoringId FROM dual
+    </selectKey>
+    insert into ENTERPRISE_FACTORING_SNAPSHOT (ENTERPRISE_FACTORING_ID, LOAN_APPLICATION_ID, 
+      FINANCING_AMOUNT, FINANCING_PARTY, PAYMENT_PARTY, 
+      SOURCE_OF_REPAYMENT, ACCOUNT_RECEIVABLE_DESCRIPTION, 
+      PROJECT_COMPREHENSIVE_EVALUATI, MONEY_RISK_ASSESSMENT, 
+      FIELD_ADJUSTMENT_MARK, FIELD_ADJUSTMENT_VALUE, 
+      REPAYMENT_GUARANTEE_MARK, REPAYMENT_GUARANTEE_VALUE, 
+      AID_FUND_MARK, AID_FUND_VALUE, CREATE_TIME, 
+      LAST_UPDATE_TIME, MAIN_LOAN_APPLICATION_ID)
+    values (#{enterpriseFactoringId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, 
+      #{financingAmount,jdbcType=DECIMAL}, #{financingParty,jdbcType=DECIMAL}, #{paymentParty,jdbcType=DECIMAL}, 
+      #{sourceOfRepayment,jdbcType=VARCHAR}, #{accountReceivableDescription,jdbcType=VARCHAR}, 
+      #{projectComprehensiveEvaluati,jdbcType=VARCHAR}, #{moneyRiskAssessment,jdbcType=VARCHAR}, 
+      #{fieldAdjustmentMark,jdbcType=CHAR}, #{fieldAdjustmentValue,jdbcType=VARCHAR}, 
+      #{repaymentGuaranteeMark,jdbcType=CHAR}, #{repaymentGuaranteeValue,jdbcType=VARCHAR}, 
+      #{aidFundMark,jdbcType=CHAR}, #{aidFundValue,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{mainLoanApplicationId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.EnterpriseFactoringSnapshot" >
+    insert into ENTERPRISE_FACTORING_SNAPSHOT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enterpriseFactoringId != null" >
+        ENTERPRISE_FACTORING_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="financingAmount != null" >
+        FINANCING_AMOUNT,
+      </if>
+      <if test="financingParty != null" >
+        FINANCING_PARTY,
+      </if>
+      <if test="paymentParty != null" >
+        PAYMENT_PARTY,
+      </if>
+      <if test="sourceOfRepayment != null" >
+        SOURCE_OF_REPAYMENT,
+      </if>
+      <if test="accountReceivableDescription != null" >
+        ACCOUNT_RECEIVABLE_DESCRIPTION,
+      </if>
+      <if test="projectComprehensiveEvaluati != null" >
+        PROJECT_COMPREHENSIVE_EVALUATI,
+      </if>
+      <if test="moneyRiskAssessment != null" >
+        MONEY_RISK_ASSESSMENT,
+      </if>
+      <if test="fieldAdjustmentMark != null" >
+        FIELD_ADJUSTMENT_MARK,
+      </if>
+      <if test="fieldAdjustmentValue != null" >
+        FIELD_ADJUSTMENT_VALUE,
+      </if>
+      <if test="repaymentGuaranteeMark != null" >
+        REPAYMENT_GUARANTEE_MARK,
+      </if>
+      <if test="repaymentGuaranteeValue != null" >
+        REPAYMENT_GUARANTEE_VALUE,
+      </if>
+      <if test="aidFundMark != null" >
+        AID_FUND_MARK,
+      </if>
+      <if test="aidFundValue != null" >
+        AID_FUND_VALUE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enterpriseFactoringId != null" >
+        #{enterpriseFactoringId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="financingAmount != null" >
+        #{financingAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="financingParty != null" >
+        #{financingParty,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentParty != null" >
+        #{paymentParty,jdbcType=DECIMAL},
+      </if>
+      <if test="sourceOfRepayment != null" >
+        #{sourceOfRepayment,jdbcType=VARCHAR},
+      </if>
+      <if test="accountReceivableDescription != null" >
+        #{accountReceivableDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="projectComprehensiveEvaluati != null" >
+        #{projectComprehensiveEvaluati,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyRiskAssessment != null" >
+        #{moneyRiskAssessment,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldAdjustmentMark != null" >
+        #{fieldAdjustmentMark,jdbcType=CHAR},
+      </if>
+      <if test="fieldAdjustmentValue != null" >
+        #{fieldAdjustmentValue,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentGuaranteeMark != null" >
+        #{repaymentGuaranteeMark,jdbcType=CHAR},
+      </if>
+      <if test="repaymentGuaranteeValue != null" >
+        #{repaymentGuaranteeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="aidFundMark != null" >
+        #{aidFundMark,jdbcType=CHAR},
+      </if>
+      <if test="aidFundValue != null" >
+        #{aidFundValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.EnterpriseFactoringSnapshot" >
+    update ENTERPRISE_FACTORING_SNAPSHOT
+    <set >
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="financingAmount != null" >
+        FINANCING_AMOUNT = #{financingAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="financingParty != null" >
+        FINANCING_PARTY = #{financingParty,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentParty != null" >
+        PAYMENT_PARTY = #{paymentParty,jdbcType=DECIMAL},
+      </if>
+      <if test="sourceOfRepayment != null" >
+        SOURCE_OF_REPAYMENT = #{sourceOfRepayment,jdbcType=VARCHAR},
+      </if>
+      <if test="accountReceivableDescription != null" >
+        ACCOUNT_RECEIVABLE_DESCRIPTION = #{accountReceivableDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="projectComprehensiveEvaluati != null" >
+        PROJECT_COMPREHENSIVE_EVALUATI = #{projectComprehensiveEvaluati,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyRiskAssessment != null" >
+        MONEY_RISK_ASSESSMENT = #{moneyRiskAssessment,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldAdjustmentMark != null" >
+        FIELD_ADJUSTMENT_MARK = #{fieldAdjustmentMark,jdbcType=CHAR},
+      </if>
+      <if test="fieldAdjustmentValue != null" >
+        FIELD_ADJUSTMENT_VALUE = #{fieldAdjustmentValue,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentGuaranteeMark != null" >
+        REPAYMENT_GUARANTEE_MARK = #{repaymentGuaranteeMark,jdbcType=CHAR},
+      </if>
+      <if test="repaymentGuaranteeValue != null" >
+        REPAYMENT_GUARANTEE_VALUE = #{repaymentGuaranteeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="aidFundMark != null" >
+        AID_FUND_MARK = #{aidFundMark,jdbcType=CHAR},
+      </if>
+      <if test="aidFundValue != null" >
+        AID_FUND_VALUE = #{aidFundValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ENTERPRISE_FACTORING_ID = #{enterpriseFactoringId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.EnterpriseFactoringSnapshot" >
+    update ENTERPRISE_FACTORING_SNAPSHOT
+    set LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      FINANCING_AMOUNT = #{financingAmount,jdbcType=DECIMAL},
+      FINANCING_PARTY = #{financingParty,jdbcType=DECIMAL},
+      PAYMENT_PARTY = #{paymentParty,jdbcType=DECIMAL},
+      SOURCE_OF_REPAYMENT = #{sourceOfRepayment,jdbcType=VARCHAR},
+      ACCOUNT_RECEIVABLE_DESCRIPTION = #{accountReceivableDescription,jdbcType=VARCHAR},
+      PROJECT_COMPREHENSIVE_EVALUATI = #{projectComprehensiveEvaluati,jdbcType=VARCHAR},
+      MONEY_RISK_ASSESSMENT = #{moneyRiskAssessment,jdbcType=VARCHAR},
+      FIELD_ADJUSTMENT_MARK = #{fieldAdjustmentMark,jdbcType=CHAR},
+      FIELD_ADJUSTMENT_VALUE = #{fieldAdjustmentValue,jdbcType=VARCHAR},
+      REPAYMENT_GUARANTEE_MARK = #{repaymentGuaranteeMark,jdbcType=CHAR},
+      REPAYMENT_GUARANTEE_VALUE = #{repaymentGuaranteeValue,jdbcType=VARCHAR},
+      AID_FUND_MARK = #{aidFundMark,jdbcType=CHAR},
+      AID_FUND_VALUE = #{aidFundValue,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+    where ENTERPRISE_FACTORING_ID = #{enterpriseFactoringId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getByloanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_FACTORING_SNAPSHOT
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getByMainLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_FACTORING_SNAPSHOT
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </select>
+</mapper>

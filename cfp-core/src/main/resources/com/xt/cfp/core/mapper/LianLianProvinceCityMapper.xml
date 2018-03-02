@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LIANLIAN_PROVINCE_CITY" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LianLianProvinceCity" >
+    <id column="PROVINCE_CITY_ID" property="provinceCityId" jdbcType="DECIMAL" />
+    <result column="PROVINCE_NAME" property="provinceName" jdbcType="VARCHAR" />
+    <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+    <result column="PROVINCE_CITY_CODE" property="provinceCityCode" jdbcType="VARCHAR" />
+    <result column="P_PROVINCE_CITY_ID" property="pProvinceCityId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PROVINCE_CITY_ID, PROVINCE_NAME, CITY_NAME, PROVINCE_CITY_CODE, P_PROVINCE_CITY_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LIANLIAN_PROVINCE_CITY
+    where PROVINCE_CITY_ID = #{provinceCityId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LIANLIAN_PROVINCE_CITY
+    where PROVINCE_CITY_ID = #{provinceCityId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LianLianProvinceCity" >
+    insert into LIANLIAN_PROVINCE_CITY (PROVINCE_CITY_ID, PROVINCE_NAME, CITY_NAME, 
+      PROVINCE_CITY_CODE, P_PROVINCE_CITY_ID)
+    values (#{provinceCityId,jdbcType=DECIMAL}, #{provinceName,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{provinceCityCode,jdbcType=VARCHAR}, #{pProvinceCityId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LianLianProvinceCity" >
+    insert into LIANLIAN_PROVINCE_CITY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="provinceCityId != null" >
+        PROVINCE_CITY_ID,
+      </if>
+      <if test="provinceName != null" >
+        PROVINCE_NAME,
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME,
+      </if>
+      <if test="provinceCityCode != null" >
+        PROVINCE_CITY_CODE,
+      </if>
+      <if test="pProvinceCityId != null" >
+        P_PROVINCE_CITY_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="provinceCityId != null" >
+        #{provinceCityId,jdbcType=DECIMAL},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCityCode != null" >
+        #{provinceCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pProvinceCityId != null" >
+        #{pProvinceCityId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LianLianProvinceCity" >
+    update LIANLIAN_PROVINCE_CITY
+    <set >
+      <if test="provinceName != null" >
+        PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCityCode != null" >
+        PROVINCE_CITY_CODE = #{provinceCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pProvinceCityId != null" >
+        P_PROVINCE_CITY_ID = #{pProvinceCityId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PROVINCE_CITY_ID = #{provinceCityId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LianLianProvinceCity" >
+    update LIANLIAN_PROVINCE_CITY
+    set PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR},
+      CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      PROVINCE_CITY_CODE = #{provinceCityCode,jdbcType=VARCHAR},
+      P_PROVINCE_CITY_ID = #{pProvinceCityId,jdbcType=DECIMAL}
+    where PROVINCE_CITY_ID = #{provinceCityId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 根据父ID获取省市列表 -->
+  <select id="getLianLianProvinceCityByPID" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LIANLIAN_PROVINCE_CITY
+    where P_PROVINCE_CITY_ID = #{pProvinceCityId,jdbcType=DECIMAL}
+    order by PROVINCE_CITY_ID asc
+  </select>
+  
+</mapper>

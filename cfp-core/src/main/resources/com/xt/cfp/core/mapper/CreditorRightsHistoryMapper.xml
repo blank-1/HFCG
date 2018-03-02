@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CREDITOR_RIGHTS_HISTORY" >
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CreditorRightsHistory" >
+        <id column="CR_HISTORY_ID" property="creditorRightsHistoryId" jdbcType="DECIMAL" />
+        <result column="CR_ID_BEFORE_CHANGE" property="creditorRightsIdBeforeChange" jdbcType="DECIMAL" />
+        <result column="CR_ID_AFTER_CHANGE" property="creditorRightsIdAfterChange" jdbcType="DECIMAL" />
+        <result column="CHANGE_TYPE" property="changeType" jdbcType="CHAR" />
+        <result column="CHANGE_BALANCE" property="changeBalance" jdbcType="DECIMAL" />
+        <result column="CR_WORTH_BEFORE_CHANGE" property="rightsWorthAfterChange" jdbcType="DECIMAL" />
+        <result column="CR_WORTH_AFTER_CHANGE" property="rightsWorthBeforeChange" jdbcType="DECIMAL" />
+        <result column="LEND_PRICE_BEFORE_CHANGE" property="lendPriceBeforeChange" jdbcType="DECIMAL" />
+        <result column="LEND_PRICE_AFTER_CHANGE" property="lendPriceAfterChange" jdbcType="DECIMAL" />
+        <result column="ANNUAL_RATE_BEFORE_CHANGE" property="annualRateBeforeChange" jdbcType="DECIMAL" />
+        <result column="ANNUAL_RATE_AFTER_CHANGE" property="annualRateAfterChange" jdbcType="DECIMAL" />
+        <result column="REPAYMENT_CYCLE_BEFORE_CHANGE" property="repaymentCycleBeforeChange" jdbcType="DECIMAL" />
+        <result column="REPAYMENT_CYCLE_AFTRE_CHANGE" property="repaymentCycleAftreChange" jdbcType="DECIMAL" />
+        <result column="RIGHTS_STATE_BEFORE_CHANGE" property="rightsStateBeforeChange" jdbcType="CHAR" />
+        <result column="RIGHTS_STATE_AFTRE_CHANGE" property="rightsStateAftreChange" jdbcType="CHAR" />
+        <result column="DISPLAY_STATE_BEFORE_CHANGE" property="displayStateBeforeChange" jdbcType="CHAR" />
+        <result column="DISPLAY_STATE_AFTER_CHANGE" property="displayStateAfterChange" jdbcType="CHAR" />
+        <result column="IS_DELAY_BEFORE_CHANGE" property="isDelayBeforeChange" jdbcType="CHAR" />
+        <result column="IS_DELAY_AFTER_CHNAGE" property="isDelayAfterChnage" jdbcType="CHAR" />
+        <result column="CHANGE_TIME" property="changeTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    CR_HISTORY_ID,CR_ID_BEFORE_CHANGE,CR_ID_AFTER_CHANGE,CHANGE_TYPE,CHANGE_BALANCE,CR_WORTH_BEFORE_CHANGE,CR_WORTH_AFTER_CHANGE,
+    LEND_PRICE_BEFORE_CHANGE,LEND_PRICE_AFTER_CHANGE,ANNUAL_RATE_BEFORE_CHANGE,ANNUAL_RATE_AFTER_CHANGE,
+    REPAYMENT_CYCLE_BEFORE_CHANGE,REPAYMENT_CYCLE_AFTRE_CHANGE,RIGHTS_STATE_BEFORE_CHANGE,RIGHTS_STATE_AFTRE_CHANGE,
+    DISPLAY_STATE_BEFORE_CHANGE,DISPLAY_STATE_AFTER_CHANGE,IS_DELAY_BEFORE_CHANGE,IS_DELAY_AFTER_CHNAGE,CHANGE_TIME
+  </sql>
+
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.CreditorRightsHistory" >
+        <selectKey keyProperty="creditorRightsHistoryId" order="BEFORE" resultType="long">
+            SELECT SEQ_CREDITOR_RIGHTS_HISTORY.NEXTVAL as creditorRightsHistoryId FROM dual
+        </selectKey>
+
+        insert into CREDITOR_RIGHTS_HISTORY
+        (CR_HISTORY_ID,CR_ID_BEFORE_CHANGE,CR_ID_AFTER_CHANGE,CHANGE_TYPE,CHANGE_BALANCE,CR_WORTH_BEFORE_CHANGE,CR_WORTH_AFTER_CHANGE,
+        LEND_PRICE_BEFORE_CHANGE,LEND_PRICE_AFTER_CHANGE,ANNUAL_RATE_BEFORE_CHANGE,ANNUAL_RATE_AFTER_CHANGE,
+        REPAYMENT_CYCLE_BEFORE_CHANGE,REPAYMENT_CYCLE_AFTRE_CHANGE,RIGHTS_STATE_BEFORE_CHANGE,RIGHTS_STATE_AFTRE_CHANGE,
+        DISPLAY_STATE_BEFORE_CHANGE,DISPLAY_STATE_AFTER_CHANGE,IS_DELAY_BEFORE_CHANGE,IS_DELAY_AFTER_CHNAGE,CHANGE_TIME)
+        values
+        (
+        #{creditorRightsHistoryId,jdbcType=DECIMAL},#{creditorRightsIdBeforeChange,jdbcType=DECIMAL},#{creditorRightsIdAfterChange,jdbcType=DECIMAL},
+        #{changeType,jdbcType=CHAR},#{changeBalance,jdbcType=DECIMAL},#{rightsWorthAfterChange,jdbcType=DECIMAL},#{rightsWorthBeforeChange,jdbcType=DECIMAL},
+        #{lendPriceBeforeChange,jdbcType=DECIMAL},#{lendPriceAfterChange,jdbcType=DECIMAL},#{annualRateBeforeChange,jdbcType=DECIMAL},#{annualRateAfterChange,jdbcType=DECIMAL},
+        #{repaymentCycleBeforeChange,jdbcType=DECIMAL},#{repaymentCycleAftreChange,jdbcType=DECIMAL},#{rightsStateBeforeChange,jdbcType=CHAR},#{rightsStateAftreChange,jdbcType=CHAR},
+        #{displayStateBeforeChange,jdbcType=CHAR},#{displayStateAfterChange,jdbcType=CHAR},#{isDelayBeforeChange,jdbcType=CHAR},#{isDelayAfterChnage,jdbcType=CHAR},
+        #{changeTime,jdbcType=DECIMAL}
+        )
+    </insert>
+
+
+</mapper>

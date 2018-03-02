@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ENTERPRISE_UPLOAD_SNAPSHOT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.EnterpriseUploadSnapshot" >
+    <id column="SNAPSHOT_ID" property="snapshotId" jdbcType="DECIMAL" />
+    <result column="ATTACH_ID" property="attachId" jdbcType="DECIMAL" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="DECIMAL" />
+    <result column="SEQ_NUM" property="seqNum" jdbcType="DECIMAL" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="ISDISPLAY" property="isdisplay" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="attachment" type="com.xt.cfp.core.pojo.ext.EnterpriseUploadSnapshotVO" extends="BaseResultMap">
+    <association property="attachment" column="ATTACH_ID" resultMap="AttachmentPojo"/>
+  </resultMap>
+  <resultMap id="AttachmentPojo" type="com.xt.cfp.core.pojo.Attachment" >
+    <id column="ATTACH_ID" property="attachId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="PHYSICAL_ADDRESS" property="physicalAddress" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="THUMBNAIL_URL" property="thumbnailUrl" jdbcType="VARCHAR" />
+    <result column="IS_CODE" property="isCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    SNAPSHOT_ID, ATTACH_ID, ENTERPRISE_ID, SEQ_NUM, TYPE, STATUS, ISDISPLAY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENTERPRISE_UPLOAD_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ENTERPRISE_UPLOAD_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.EnterpriseUploadSnapshot" >
+    <selectKey keyProperty="snapshotId" order="BEFORE" resultType="long">
+      SELECT SEQ_ENTERPRISE_UPLOAD_SNAPSHOT.NEXTVAL as snapshotId FROM dual
+    </selectKey>
+    insert into ENTERPRISE_UPLOAD_SNAPSHOT (SNAPSHOT_ID, ATTACH_ID, ENTERPRISE_ID, 
+      SEQ_NUM, TYPE, STATUS, ISDISPLAY
+      )
+    values (#{snapshotId,jdbcType=DECIMAL}, #{attachId,jdbcType=DECIMAL}, #{enterpriseId,jdbcType=DECIMAL}, 
+      #{seqNum,jdbcType=DECIMAL}, #{type,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{isdisplay,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.EnterpriseUploadSnapshot" >
+    insert into ENTERPRISE_UPLOAD_SNAPSHOT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        SNAPSHOT_ID,
+      </if>
+      <if test="attachId != null" >
+        ATTACH_ID,
+      </if>
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID,
+      </if>
+      <if test="seqNum != null" >
+        SEQ_NUM,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="isdisplay != null" >
+        ISDISPLAY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        #{snapshotId,jdbcType=DECIMAL},
+      </if>
+      <if test="attachId != null" >
+        #{attachId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterpriseId != null" >
+        #{enterpriseId,jdbcType=DECIMAL},
+      </if>
+      <if test="seqNum != null" >
+        #{seqNum,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="isdisplay != null" >
+        #{isdisplay,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.EnterpriseUploadSnapshot" >
+    update ENTERPRISE_UPLOAD_SNAPSHOT
+    <set >
+      <if test="attachId != null" >
+        ATTACH_ID = #{attachId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL},
+      </if>
+      <if test="seqNum != null" >
+        SEQ_NUM = #{seqNum,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="isdisplay != null" >
+        ISDISPLAY = #{isdisplay,jdbcType=CHAR},
+      </if>
+    </set>
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.EnterpriseUploadSnapshot" >
+    update ENTERPRISE_UPLOAD_SNAPSHOT
+    set ATTACH_ID = #{attachId,jdbcType=DECIMAL},
+      ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL},
+      SEQ_NUM = #{seqNum,jdbcType=DECIMAL},
+      TYPE = #{type,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      ISDISPLAY = #{isdisplay,jdbcType=CHAR}
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getEnterpriseSeqNum" resultType="int" parameterType="map" >
+   	select nvl(max(seq_num),0) seqNum
+    from ENTERPRISE_UPLOAD_SNAPSHOT 
+    where ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL} 
+    and TYPE = #{type,jdbcType=CHAR}
+    and STATUS = '0'
+  </select>
+  
+  <update id="logicalDel" parameterType="map">
+  	update ENTERPRISE_UPLOAD_SNAPSHOT set status = #{status,jdbcType=CHAR} where snapshot_id = #{cusId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getEnterpriseUploadSnapshotList" resultMap="BaseResultMap" parameterType="map">
+  	select * from ENTERPRISE_UPLOAD_SNAPSHOT
+  	where
+  	ENTERPRISE_ID = #{enterpriseId}
+  	and STATUS = '0'
+  	<if test="type !=null ">
+      and TYPE = #{type,jdbcType=CHAR}
+    </if>
+  	ORDER BY TYPE,SEQ_NUM
+  </select>
+  
+  <select id="getEnterpriseUploadAttachment" resultMap="attachment" parameterType="map" >
+   	select * from  ENTERPRISE_UPLOAD_SNAPSHOT t left join ATTACHMENT a on T.ATTACH_ID = A.ATTACH_ID
+	where T.ENTERPRISE_ID=#{enterpriseId} AND T.STATUS = '0' 
+	<if test="isCode != null">
+		<if test="isCode != ''">
+			and a.IS_CODE=#{isCode}
+		</if>
+	</if>
+	order by t.type,seq_num
+  </select>
+  
+</mapper>

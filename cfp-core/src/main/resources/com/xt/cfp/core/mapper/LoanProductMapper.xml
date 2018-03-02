@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LOANPRODUCT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LoanProduct" >
+    <id column="LOAN_PRODUCT_ID" property="loanProductId" jdbcType="DECIMAL" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+    <result column="LEND_PRODUCT_ID" property="lendProductId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_CODE" property="productCode" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="ANNUAL_RATE" property="annualRate" jdbcType="DECIMAL" />
+    <result column="REPAYMENT_METHOD" property="repaymentMethod" jdbcType="CHAR" />
+    <result column="REPAYMENT_CYCLE" property="repaymentCycle" jdbcType="CHAR" />
+    <result column="CYCLE_VALUE" property="cycleValue" jdbcType="DECIMAL" />
+    <result column="CYCLE_COUNTS" property="cycleCounts" jdbcType="DECIMAL" />
+    <result column="REPAYMENT_TYPE" property="repaymentType" jdbcType="CHAR" />
+    <result column="DUE_TIME_TYPE" property="dueTimeType" jdbcType="CHAR" />
+    <result column="DUE_TIME" property="dueTime" jdbcType="DECIMAL" />
+    <result column="PRODUCT_DESC" property="productDesc" jdbcType="VARCHAR" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_STATE" property="productState" jdbcType="CHAR" />
+    <result column="VERSION_CODE" property="versionCode" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_MDF_TIME" property="lastMdfTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LOAN_PRODUCT_ID, ADMIN_ID, LEND_PRODUCT_ID, PRODUCT_CODE, PRODUCT_NAME, ANNUAL_RATE, 
+    REPAYMENT_METHOD, REPAYMENT_CYCLE, CYCLE_VALUE, CYCLE_COUNTS, REPAYMENT_TYPE, DUE_TIME_TYPE, 
+    DUE_TIME, PRODUCT_DESC, START_DATE, END_DATE, PRODUCT_STATE, VERSION_CODE, CREATE_TIME, 
+    LAST_MDF_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LOAN_PRODUCT
+    where LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL}
+  </select>
+
+	<select id="selectLoanProductByOrderId" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		lp.LOAN_PRODUCT_ID,
+		lp.ADMIN_ID,
+		lp.LEND_PRODUCT_ID,
+		lp.PRODUCT_CODE,
+		lp.PRODUCT_NAME,
+		lp.ANNUAL_RATE,
+		lp.REPAYMENT_METHOD,
+		lp.REPAYMENT_CYCLE,
+		lp.CYCLE_VALUE,
+		lp.CYCLE_COUNTS,
+		lp.REPAYMENT_TYPE,
+		lp.DUE_TIME_TYPE,
+		lp.DUE_TIME,
+		lp.PRODUCT_DESC,
+		lp.START_DATE,
+		lp.END_DATE,
+		lp.PRODUCT_STATE,
+		lp.VERSION_CODE,
+		lp.CREATE_TIME,
+		lp.LAST_MDF_TIME
+		from loan_product lp
+        left join   loan_application la on la.loan_product_id=lp.loan_product_id
+        left join lend_order_bid_detail lob on lob.loan_application_id = la.loan_application_id
+        where lob.lend_order_id=#{lendOrderId,jdbcType=DECIMAL}
+	</select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LOAN_PRODUCT
+    where LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LoanProduct" >
+	<selectKey keyProperty="loanProductId" order="BEFORE" resultType="long">
+      SELECT SEQ_LOAN_PRODUCT.NEXTVAL as loanProductId FROM dual
+    </selectKey>
+    insert into LOAN_PRODUCT (LOAN_PRODUCT_ID, ADMIN_ID, LEND_PRODUCT_ID, 
+      PRODUCT_CODE, PRODUCT_NAME, ANNUAL_RATE, 
+      REPAYMENT_METHOD, REPAYMENT_CYCLE, CYCLE_VALUE, 
+      CYCLE_COUNTS, REPAYMENT_TYPE, DUE_TIME_TYPE, 
+      DUE_TIME, PRODUCT_DESC, START_DATE, 
+      END_DATE, PRODUCT_STATE, VERSION_CODE, 
+      CREATE_TIME, LAST_MDF_TIME)
+    values (#{loanProductId,jdbcType=DECIMAL}, #{adminId,jdbcType=DECIMAL}, #{lendProductId,jdbcType=DECIMAL}, 
+      #{productCode,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{annualRate,jdbcType=DECIMAL}, 
+      #{repaymentMethod,jdbcType=CHAR}, #{repaymentCycle,jdbcType=CHAR}, #{cycleValue,jdbcType=DECIMAL}, 
+      #{cycleCounts,jdbcType=DECIMAL}, #{repaymentType,jdbcType=CHAR}, #{dueTimeType,jdbcType=CHAR}, 
+      #{dueTime,jdbcType=DECIMAL}, #{productDesc,jdbcType=VARCHAR}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{productState,jdbcType=CHAR}, #{versionCode,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastMdfTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LoanProduct" >
+    insert into LOAN_PRODUCT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loanProductId != null" >
+        LOAN_PRODUCT_ID,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID,
+      </if>
+      <if test="productCode != null" >
+        PRODUCT_CODE,
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME,
+      </if>
+      <if test="annualRate != null" >
+        ANNUAL_RATE,
+      </if>
+      <if test="repaymentMethod != null" >
+        REPAYMENT_METHOD,
+      </if>
+      <if test="repaymentCycle != null" >
+        REPAYMENT_CYCLE,
+      </if>
+      <if test="cycleValue != null" >
+        CYCLE_VALUE,
+      </if>
+      <if test="cycleCounts != null" >
+        CYCLE_COUNTS,
+      </if>
+      <if test="repaymentType != null" >
+        REPAYMENT_TYPE,
+      </if>
+      <if test="dueTimeType != null" >
+        DUE_TIME_TYPE,
+      </if>
+      <if test="dueTime != null" >
+        DUE_TIME,
+      </if>
+      <if test="productDesc != null" >
+        PRODUCT_DESC,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="productState != null" >
+        PRODUCT_STATE,
+      </if>
+      <if test="versionCode != null" >
+        VERSION_CODE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="lastMdfTime != null" >
+        LAST_MDF_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loanProductId != null" >
+        #{loanProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendProductId != null" >
+        #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="productCode != null" >
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="annualRate != null" >
+        #{annualRate,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentMethod != null" >
+        #{repaymentMethod,jdbcType=CHAR},
+      </if>
+      <if test="repaymentCycle != null" >
+        #{repaymentCycle,jdbcType=CHAR},
+      </if>
+      <if test="cycleValue != null" >
+        #{cycleValue,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleCounts != null" >
+        #{cycleCounts,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentType != null" >
+        #{repaymentType,jdbcType=CHAR},
+      </if>
+      <if test="dueTimeType != null" >
+        #{dueTimeType,jdbcType=CHAR},
+      </if>
+      <if test="dueTime != null" >
+        #{dueTime,jdbcType=DECIMAL},
+      </if>
+      <if test="productDesc != null" >
+        #{productDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productState != null" >
+        #{productState,jdbcType=CHAR},
+      </if>
+      <if test="versionCode != null" >
+        #{versionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastMdfTime != null" >
+        #{lastMdfTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LoanProduct" >
+    update LOAN_PRODUCT
+    <set >
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="productCode != null" >
+        PRODUCT_CODE = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="annualRate != null" >
+        ANNUAL_RATE = #{annualRate,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentMethod != null" >
+        REPAYMENT_METHOD = #{repaymentMethod,jdbcType=CHAR},
+      </if>
+      <if test="repaymentCycle != null" >
+        REPAYMENT_CYCLE = #{repaymentCycle,jdbcType=CHAR},
+      </if>
+      <if test="cycleValue != null" >
+        CYCLE_VALUE = #{cycleValue,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleCounts != null" >
+        CYCLE_COUNTS = #{cycleCounts,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentType != null" >
+        REPAYMENT_TYPE = #{repaymentType,jdbcType=CHAR},
+      </if>
+      <if test="dueTimeType != null" >
+        DUE_TIME_TYPE = #{dueTimeType,jdbcType=CHAR},
+      </if>
+      <if test="dueTime != null" >
+        DUE_TIME = #{dueTime,jdbcType=DECIMAL},
+      </if>
+      <if test="productDesc != null" >
+        PRODUCT_DESC = #{productDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productState != null" >
+        PRODUCT_STATE = #{productState,jdbcType=CHAR},
+      </if>
+      <if test="versionCode != null" >
+        VERSION_CODE = #{versionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastMdfTime != null" >
+        LAST_MDF_TIME = #{lastMdfTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LoanProduct" >
+    update LOAN_PRODUCT
+    set ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      PRODUCT_CODE = #{productCode,jdbcType=VARCHAR},
+      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      ANNUAL_RATE = #{annualRate,jdbcType=DECIMAL},
+      REPAYMENT_METHOD = #{repaymentMethod,jdbcType=CHAR},
+      REPAYMENT_CYCLE = #{repaymentCycle,jdbcType=CHAR},
+      CYCLE_VALUE = #{cycleValue,jdbcType=DECIMAL},
+      CYCLE_COUNTS = #{cycleCounts,jdbcType=DECIMAL},
+      REPAYMENT_TYPE = #{repaymentType,jdbcType=CHAR},
+      DUE_TIME_TYPE = #{dueTimeType,jdbcType=CHAR},
+      DUE_TIME = #{dueTime,jdbcType=DECIMAL},
+      PRODUCT_DESC = #{productDesc,jdbcType=VARCHAR},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      PRODUCT_STATE = #{productState,jdbcType=CHAR},
+      VERSION_CODE = #{versionCode,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_MDF_TIME = #{lastMdfTime,jdbcType=TIMESTAMP}
+    where LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 下面是自行添加的******************************************************************************************************************************** -->
+  
+  <!-- 获取借款产品分页列表 -->
+   <select id="findAllLoanProductByPage" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.LoanProduct">
+        SELECT * FROM LOAN_PRODUCT
+        where 1=1
+        <if test="productName != null">
+            and PRODUCT_NAME like '%${productName}%'
+        </if>
+        <if test="annualRate != null">
+            <if test="annualRate != -1">
+                and ANNUAL_RATE = #{annualRate}
+            </if>
+        </if>
+        <if test="searchDueTime != null">
+            <if test="searchDueTime != '-1'">
+                and DUE_TIME = #{dueTime}
+                and DUE_TIME_TYPE = #{dueTimeType}
+            </if>
+        </if>
+        <if test="loanSearchState != null">
+            <if test="loanSearchState != -1">
+                and PRODUCT_STATE = #{loanSearchState}
+            </if>
+        </if>
+        order by CREATE_TIME desc
+    </select>
+    
+    <!-- 获取借款产品总条数 -->
+    <select id="count_findAllLoanProductByPage" resultType="Integer">
+        SELECT count(1) FROM LOAN_PRODUCT
+        where 1=1
+        <if test="productName != null">
+            and PRODUCT_NAME like '%${productName}%'
+        </if>
+        <if test="annualRate != null">
+            <if test="annualRate != -1">
+                and ANNUAL_RATE = #{annualRate}
+            </if>
+        </if>
+        <if test="searchDueTime != null">
+            <if test="searchDueTime != '-1'">
+                and DUE_TIME = #{dueTime}
+                and DUE_TIME_TYPE = #{dueTimeType}
+            </if>
+        </if>
+        <if test="loanSearchState != null">
+            <if test="loanSearchState != -1">
+                and PRODUCT_STATE = #{loanSearchState}
+            </if>
+        </if>
+    </select>
+    
+    <select id="findLoanApplicationState" resultMap="BaseResultMap" parameterType="Long">
+        select * from LOAN_PRODUCT lp where lp.LOAN_PRODUCT_ID = #{loanProductId} and 1=2
+        
+        <!-- 注意：由于还没有LoanApplication 这个表暂时先这样写
+         select *
+         from LoanApplication la, loanproduct lp
+         where la.loadproductid = lp.loanproductid(+)
+         and lp.loanproductid = #{loanProductId}
+         and la.applicationState not in ('Z','8','9')
+          -->
+    </select>
+    
+    <select id="findById" resultMap="BaseResultMap" parameterType="Long">
+        select * from  LOAN_PRODUCT
+        where LOAN_PRODUCT_ID=#{value}
+    </select>
+    
+    <update id="enableOrDisableLoanProduct" parameterType="com.xt.cfp.core.pojo.LoanProduct">
+        update LOAN_PRODUCT
+        set
+            PRODUCT_STATE=#{productState,jdbcType=CHAR}
+        where
+            LOAN_PRODUCT_ID=#{loanProductId}
+    </update>
+    
+    <select id="findAnnualRate" resultMap="BaseResultMap">
+        select distinct (ANNUAL_RATE)
+          from LOAN_PRODUCT
+    </select>
+    
+    <select id="findDueTimeMonth" resultMap="BaseResultMap">
+        select distinct (DUE_TIME)
+                          from LOAN_PRODUCT
+                         where DUE_TIME_TYPE = 2
+
+                         order by DUE_TIME asc
+    </select>
+    
+    <select id="findDueTimeDay" resultMap="BaseResultMap">
+        select distinct (DUE_TIME)
+                          from LOAN_PRODUCT
+                         where DUE_TIME_TYPE = 1
+    </select>
+    
+    <select id="doProductStateByName" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.LoanProduct">
+        select *
+          from LOAN_PRODUCT a
+         where a.PRODUCT_NAME = #{productname,jdbcType=VARCHAR}
+           and a.PRODUCT_STATE = #{productstate,jdbcType=CHAR}
+    </select>
+    
+    <select id="doProductVersionByName" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.LoanProduct">
+        select *
+        from LOAN_PRODUCT a
+        where a.VERSION_CODE = #{versioncode,jdbcType=VARCHAR}
+    </select>
+    
+     <update id="updateByLendProductId" parameterType="long">
+        update LOAN_PRODUCT set LEND_PRODUCT_ID = null  where LEND_PRODUCT_ID  = #{lendProductId}
+    </update>
+    
+    <select id="findAll" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.LoanProduct">
+        SELECT * FROM LOAN_PRODUCT
+        where 1=1
+        <if test="productName != null">
+            and PRODUCT_NAME like '%${productName}%'
+        </if>
+        <if test="annualRate != null">
+            <if test="annualRate != -1">
+                and ANNUAL_RATE = #{annualRate}
+            </if>
+        </if>
+        <if test="dueTime != null">
+            <if test="dueTimeType != '-1'">
+                and DUE_TIME = #{dueTime}
+                and DUE_TIME_TYPE = #{dueTimeType}
+            </if>
+        </if>
+        <if test="loanSearchState != null">
+            <if test="loanSearchState != -1">
+                and PRODUCT_STATE = #{loanSearchState}
+            </if>
+        </if>
+        order by CREATE_TIME desc
+    </select>
+    
+    
+    <select id="findAllByValid" resultMap="BaseResultMap">
+		select distinct lp.* from LOAN_PRODUCT lp ,LEND_PRODUCT_PUBLISH lpp where lp.LEND_PRODUCT_ID = lpp.LEND_PRODUCT_ID
+		and lp.LEND_PRODUCT_ID is not null
+		<![CDATA[
+   			and sysdate >= lp.START_DATE 
+   		]]>
+		<![CDATA[
+   			and sysdate <= lp.END_DATE
+   		]]>
+   		and lp.PRODUCT_STATE = '0'
+		order by lp.LOAN_PRODUCT_ID desc
+    </select>
+    
+    
+    <select id="findNoLendProduct" resultMap="BaseResultMap">
+        SELECT * FROM LOAN_PRODUCT where LEND_PRODUCT_ID is null and PRODUCT_STATE = '0'
+    </select>
+    
+</mapper>

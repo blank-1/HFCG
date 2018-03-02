@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AGREEMENT_INFO" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.AgreementInfo" >
+    <id column="AGREEMENT_ID" property="agreementId" jdbcType="DECIMAL" />
+    <result column="AGREEMENT_CODE" property="agreementCode" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_NAME" property="agreementName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AGREEMENT_TYPE" property="agreementType" jdbcType="CHAR" />
+    <result column="CREDITOR_RIGHTS_ID" property="creditorRightsId" jdbcType="DECIMAL" />
+    <result column="NEW_RIGHTS_ID" property="newRightsId" jdbcType="DECIMAL" />
+    <result column="AGREEMENT_STATUS" property="agreementStatus" jdbcType="CHAR" />
+    <result column="STORGE_PATH" property="storgePath" jdbcType="VARCHAR" />
+    <result column="HREF" property="href" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_ASSIGNMENT_CODE" property="agreementAssignmentCode" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AGREEMENT_ID, AGREEMENT_CODE, AGREEMENT_NAME, CREATE_TIME, AGREEMENT_TYPE, CREDITOR_RIGHTS_ID, 
+    NEW_RIGHTS_ID, AGREEMENT_STATUS, STORGE_PATH, HREF,AGREEMENT_ASSIGNMENT_CODE,VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from AGREEMENT_INFO
+    where AGREEMENT_ID = #{agreementId,jdbcType=DECIMAL}
+  </select>
+   <select id="findByCreditorRightsId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from AGREEMENT_INFO
+    where CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from AGREEMENT_INFO
+    where AGREEMENT_ID = #{agreementId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.AgreementInfo" >
+      <selectKey keyProperty="agreementId" order="BEFORE" resultType="long">
+          SELECT SEQ_AGREEMENT_INFO.NEXTVAL as agreementId FROM dual
+      </selectKey>
+    insert into AGREEMENT_INFO (AGREEMENT_ID, AGREEMENT_CODE, AGREEMENT_NAME, 
+      CREATE_TIME, AGREEMENT_TYPE, CREDITOR_RIGHTS_ID, 
+      NEW_RIGHTS_ID, AGREEMENT_STATUS, STORGE_PATH, 
+      HREF,AGREEMENT_ASSIGNMENT_CODE,VERSION)
+    values (#{agreementId,jdbcType=DECIMAL}, #{agreementCode,jdbcType=VARCHAR}, #{agreementName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{agreementType,jdbcType=CHAR}, #{creditorRightsId,jdbcType=DECIMAL}, 
+      #{newRightsId,jdbcType=DECIMAL}, #{agreementStatus,jdbcType=CHAR}, #{storgePath,jdbcType=VARCHAR}, 
+      #{href,jdbcType=VARCHAR},#{agreementAssignmentCode,jdbcType=VARCHAR},#{version,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.AgreementInfo" >
+    insert into AGREEMENT_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="agreementId != null" >
+        AGREEMENT_ID,
+      </if>
+      <if test="agreementCode != null" >
+        AGREEMENT_CODE,
+      </if>
+      <if test="agreementName != null" >
+        AGREEMENT_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="agreementType != null" >
+        AGREEMENT_TYPE,
+      </if>
+      <if test="creditorRightsId != null" >
+        CREDITOR_RIGHTS_ID,
+      </if>
+      <if test="newRightsId != null" >
+        NEW_RIGHTS_ID,
+      </if>
+      <if test="agreementStatus != null" >
+        AGREEMENT_STATUS,
+      </if>
+      <if test="storgePath != null" >
+        STORGE_PATH,
+      </if>
+      <if test="href != null" >
+        HREF,
+      </if>
+      <if test="agreementAssignmentCode != null" >
+        AGREEMENT_ASSIGNMENT_CODE,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="agreementId != null" >
+        #{agreementId,jdbcType=DECIMAL},
+      </if>
+      <if test="agreementCode != null" >
+        #{agreementCode,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementName != null" >
+        #{agreementName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agreementType != null" >
+        #{agreementType,jdbcType=CHAR},
+      </if>
+      <if test="creditorRightsId != null" >
+        #{creditorRightsId,jdbcType=DECIMAL},
+      </if>
+      <if test="newRightsId != null" >
+        #{newRightsId,jdbcType=DECIMAL},
+      </if>
+      <if test="agreementStatus != null" >
+        #{agreementStatus,jdbcType=CHAR},
+      </if>
+      <if test="storgePath != null" >
+        #{storgePath,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementAssignmentCode != null" >
+        #{agreementAssignmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.AgreementInfo" >
+    update AGREEMENT_INFO
+    <set >
+      <if test="agreementCode != null" >
+        AGREEMENT_CODE = #{agreementCode,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementName != null" >
+        AGREEMENT_NAME = #{agreementName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agreementType != null" >
+        AGREEMENT_TYPE = #{agreementType,jdbcType=CHAR},
+      </if>
+      <if test="creditorRightsId != null" >
+        CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL},
+      </if>
+      <if test="newRightsId != null" >
+        NEW_RIGHTS_ID = #{newRightsId,jdbcType=DECIMAL},
+      </if>
+      <if test="agreementStatus != null" >
+        AGREEMENT_STATUS = #{agreementStatus,jdbcType=CHAR},
+      </if>
+      <if test="storgePath != null" >
+        STORGE_PATH = #{storgePath,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        HREF = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementAssignmentCode != null" >
+        AGREEMENT_ASSIGNMENT_CODE = #{agreementAssignmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where AGREEMENT_ID = #{agreementId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.AgreementInfo" >
+    update AGREEMENT_INFO
+    set AGREEMENT_CODE = #{agreementCode,jdbcType=VARCHAR},
+      AGREEMENT_NAME = #{agreementName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      AGREEMENT_TYPE = #{agreementType,jdbcType=CHAR},
+      CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL},
+      NEW_RIGHTS_ID = #{newRightsId,jdbcType=DECIMAL},
+      AGREEMENT_STATUS = #{agreementStatus,jdbcType=CHAR},
+      STORGE_PATH = #{storgePath,jdbcType=VARCHAR},
+      HREF = #{href,jdbcType=VARCHAR},
+      AGREEMENT_ASSIGNMENT_CODE=#{agreementAssignmentCode,jdbcType=VARCHAR},
+      VERSION=#{version,jdbcType=DECIMAL}
+    where AGREEMENT_ID = #{agreementId,jdbcType=DECIMAL}
+  </update>
+  
+   <select id="findVersionByCreditorRightsIdAgreeType" resultMap="BaseResultMap" parameterType="long" >
+		select 
+		  nvl(ai.version,1) as version,
+ 		  ai.agreement_id,
+ 		  ai.agreement_code,
+    	  ai.storge_path
+		from agreement_info ai where 
+		<![CDATA[
+			ai.creditor_rights_id=#{creditorRightsId} 
+			and ai.agreement_status = '2' 
+			and rownum <=1 order by ai.version desc  
+		]]>
+  </select>
+  
+  <select id="findAgreeListByCreditorRightsId" resultMap="BaseResultMap" parameterType="map" >
+	SELECT AGREEMENT_ID,
+	       AGREEMENT_CODE,
+	       AGREEMENT_NAME,
+	       CREATE_TIME,
+	       AGREEMENT_TYPE,
+	       CREDITOR_RIGHTS_ID,
+	       NEW_RIGHTS_ID,
+	       AGREEMENT_STATUS,
+	       STORGE_PATH,
+	       HREF,
+	       AGREEMENT_ASSIGNMENT_CODE,
+	       NVL(AI.VERSION, 1) AS VERSION
+	  FROM AGREEMENT_INFO AI
+	 WHERE AI.CREDITOR_RIGHTS_ID = #{creditorRightsId,jdbcType=DECIMAL}
+	   AND AI.AGREEMENT_STATUS = #{status,jdbcType=CHAR}
+	 ORDER BY AI.VERSION DESC
+	</select>
+  
+</mapper>

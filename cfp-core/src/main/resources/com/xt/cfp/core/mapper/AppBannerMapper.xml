@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="APP_BANNER" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.AppBanner" >
+    <id column="APP_BANNER_ID" property="appBannerId" jdbcType="DECIMAL" />
+    <result column="APP_TYPE" property="appType" jdbcType="CHAR" />
+    <result column="ORDER_BY" property="orderBy" jdbcType="DECIMAL" />
+    <result column="BANNER_NAME" property="bannerName" jdbcType="VARCHAR" />
+    <result column="HTTP_URL" property="httpUrl" jdbcType="VARCHAR" />
+    <result column="HTTP_METHOD" property="httpMethod" jdbcType="VARCHAR" />
+    <result column="HTTP_IS_TOKEN" property="httpIsToken" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="DESC" property="desc" jdbcType="VARCHAR" />
+    <result column="LINK" property="link" jdbcType="VARCHAR" />
+    <result column="SHARE_CLOSE_URL" property="shareCloseUrl" jdbcType="VARCHAR" />
+    <result column="CLOSE_URL" property="closeUrl" jdbcType="VARCHAR" />
+    <result column="SHARE_BACK_URL" property="shareBackUrl" jdbcType="VARCHAR" />
+    <result column="IMAGE_SRC" property="imageSrc" jdbcType="VARCHAR" />
+    <result column="PHYSICS_IMAGE_SRC" property="physicsImageSrc" jdbcType="VARCHAR" />
+    <result column="IMG_URL" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="PHYSICS_IMG_URL" property="physicsImgUrl" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="CHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+    <result column="ADMIN_DISPLAY_NAME" property="adminDisplayName" jdbcType="VARCHAR" />
+    
+    <result column="PUBLISHDATE_STATE" property="publishState" jdbcType="CHAR" />
+    <result column="PUBLISHDATE" property="publishDate" jdbcType="TIMESTAMP" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    APP_BANNER_ID, APP_TYPE, ORDER_BY, BANNER_NAME, HTTP_URL, HTTP_METHOD, HTTP_IS_TOKEN, 
+    TITLE, "DESC", "LINK", SHARE_CLOSE_URL, CLOSE_URL, SHARE_BACK_URL, IMAGE_SRC, PHYSICS_IMAGE_SRC, 
+    IMG_URL, PHYSICS_IMG_URL, STATE, UPDATE_TIME, ADMIN_ID,PUBLISHDATE,PUBLISHDATE_STATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from APP_BANNER
+    where APP_BANNER_ID = #{appBannerId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from APP_BANNER
+    where APP_BANNER_ID = #{appBannerId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.AppBanner" >
+  	<selectKey keyProperty="appBannerId" order="BEFORE" resultType="long">
+      SELECT SEQ_APP_BANNER.NEXTVAL as appBannerId FROM dual
+    </selectKey>
+    insert into APP_BANNER (APP_BANNER_ID, APP_TYPE, ORDER_BY, 
+      BANNER_NAME, HTTP_URL, HTTP_METHOD, 
+      HTTP_IS_TOKEN, TITLE, "DESC", 
+      "LINK", SHARE_CLOSE_URL, CLOSE_URL, 
+      SHARE_BACK_URL, IMAGE_SRC, PHYSICS_IMAGE_SRC, 
+      IMG_URL, PHYSICS_IMG_URL, STATE, 
+      UPDATE_TIME, ADMIN_ID,PUBLISHDATE_STATE,PUBLISHDATE)
+    values (#{appBannerId,jdbcType=DECIMAL}, #{appType,jdbcType=CHAR}, #{orderBy,jdbcType=DECIMAL}, 
+      #{bannerName,jdbcType=VARCHAR}, #{httpUrl,jdbcType=VARCHAR}, #{httpMethod,jdbcType=VARCHAR}, 
+      #{httpIsToken,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
+      #{link,jdbcType=VARCHAR}, #{shareCloseUrl,jdbcType=VARCHAR}, #{closeUrl,jdbcType=VARCHAR}, 
+      #{shareBackUrl,jdbcType=VARCHAR}, #{imageSrc,jdbcType=VARCHAR}, #{physicsImageSrc,jdbcType=VARCHAR}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{physicsImgUrl,jdbcType=VARCHAR}, #{state,jdbcType=CHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{adminId,jdbcType=DECIMAL} ,#{publishState,jdbcType=CHAR}, #{publishDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.AppBanner" >
+    insert into APP_BANNER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appBannerId != null" >
+        APP_BANNER_ID,
+      </if>
+      <if test="appType != null" >
+        APP_TYPE,
+      </if>
+      <if test="orderBy != null" >
+        ORDER_BY,
+      </if>
+      <if test="bannerName != null" >
+        BANNER_NAME,
+      </if>
+      <if test="httpUrl != null" >
+        HTTP_URL,
+      </if>
+      <if test="httpMethod != null" >
+        HTTP_METHOD,
+      </if>
+      <if test="httpIsToken != null" >
+        HTTP_IS_TOKEN,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="desc != null" >
+        DESC,
+      </if>
+      <if test="link != null" >
+        LINK,
+      </if>
+      <if test="shareCloseUrl != null" >
+        SHARE_CLOSE_URL,
+      </if>
+      <if test="closeUrl != null" >
+        CLOSE_URL,
+      </if>
+      <if test="shareBackUrl != null" >
+        SHARE_BACK_URL,
+      </if>
+      <if test="imageSrc != null" >
+        IMAGE_SRC,
+      </if>
+      <if test="physicsImageSrc != null" >
+        PHYSICS_IMAGE_SRC,
+      </if>
+      <if test="imgUrl != null" >
+        IMG_URL,
+      </if>
+      <if test="physicsImgUrl != null" >
+        PHYSICS_IMG_URL,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+      
+       <if test="publishState != null" >
+        PUBLISHDATE_STATE,
+      </if>
+      <if test="publishDate != null" >
+        PUBLISHDATE,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appBannerId != null" >
+        #{appBannerId,jdbcType=DECIMAL},
+      </if>
+      <if test="appType != null" >
+        #{appType,jdbcType=CHAR},
+      </if>
+      <if test="orderBy != null" >
+        #{orderBy,jdbcType=DECIMAL},
+      </if>
+      <if test="bannerName != null" >
+        #{bannerName,jdbcType=VARCHAR},
+      </if>
+      <if test="httpUrl != null" >
+        #{httpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="httpMethod != null" >
+        #{httpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="httpIsToken != null" >
+        #{httpIsToken,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null" >
+        #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCloseUrl != null" >
+        #{shareCloseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="closeUrl != null" >
+        #{closeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shareBackUrl != null" >
+        #{shareBackUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imageSrc != null" >
+        #{imageSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="physicsImageSrc != null" >
+        #{physicsImageSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="physicsImgUrl != null" >
+        #{physicsImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+       <if test="publishState != null" >
+         #{publishState,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.AppBanner" >
+    update APP_BANNER
+    <set >
+      <if test="appType != null" >
+        APP_TYPE = #{appType,jdbcType=CHAR},
+      </if>
+      <if test="orderBy != null" >
+        ORDER_BY = #{orderBy,jdbcType=DECIMAL},
+      </if>
+      <if test="bannerName != null" >
+        BANNER_NAME = #{bannerName,jdbcType=VARCHAR},
+      </if>
+      <if test="httpUrl != null" >
+        HTTP_URL = #{httpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="httpMethod != null" >
+        HTTP_METHOD = #{httpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="httpIsToken != null" >
+        HTTP_IS_TOKEN = #{httpIsToken,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        DESC = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null" >
+        LINK = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCloseUrl != null" >
+        SHARE_CLOSE_URL = #{shareCloseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="closeUrl != null" >
+        CLOSE_URL = #{closeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shareBackUrl != null" >
+        SHARE_BACK_URL = #{shareBackUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imageSrc != null" >
+        IMAGE_SRC = #{imageSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="physicsImageSrc != null" >
+        PHYSICS_IMAGE_SRC = #{physicsImageSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="physicsImgUrl != null" >
+        PHYSICS_IMG_URL = #{physicsImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="publishState != null" >
+       PUBLISHDATE_STATE= #{publishState,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishDate != null" >
+        PUBLISHDATE=#{publishDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where APP_BANNER_ID = #{appBannerId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.AppBanner" >
+    update APP_BANNER
+    set APP_TYPE = #{appType,jdbcType=CHAR},
+      ORDER_BY = #{orderBy,jdbcType=DECIMAL},
+      BANNER_NAME = #{bannerName,jdbcType=VARCHAR},
+      HTTP_URL = #{httpUrl,jdbcType=VARCHAR},
+      HTTP_METHOD = #{httpMethod,jdbcType=VARCHAR},
+      HTTP_IS_TOKEN = #{httpIsToken,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      "DESC" = #{desc,jdbcType=VARCHAR},
+      "LINK" = #{link,jdbcType=VARCHAR},
+      SHARE_CLOSE_URL = #{shareCloseUrl,jdbcType=VARCHAR},
+      CLOSE_URL = #{closeUrl,jdbcType=VARCHAR},
+      SHARE_BACK_URL = #{shareBackUrl,jdbcType=VARCHAR},
+      IMAGE_SRC = #{imageSrc,jdbcType=VARCHAR},
+      PHYSICS_IMAGE_SRC = #{physicsImageSrc,jdbcType=VARCHAR},
+      IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+      PHYSICS_IMG_URL = #{physicsImgUrl,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      PUBLISHDATE_STATE= #{publishState,jdbcType=TIMESTAMP},
+      PUBLISHDATE=#{publishDate,jdbcType=TIMESTAMP}
+    where APP_BANNER_ID = #{appBannerId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 获取数据列表 -->
+  <select id="getAppBannerByList" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select * from APP_BANNER
+    where 1=1
+    <if test="appType != null and appType != ''">
+    	AND APP_TYPE = #{appType,jdbcType=CHAR}
+    </if>
+    <if test="state != null and state != ''">
+    	AND STATE = #{state,jdbcType=CHAR}
+    </if>
+    <if test="orderBy != null and orderBy != ''">
+    	AND ORDER_BY = #{orderBy,jdbcType=DECIMAL}
+    </if>
+      <!-- 名称 -->
+     <if test="bannerName != null and bannerName != ''">
+    	AND BANNER_NAME like '%${bannerName}%' 
+    </if>
+    <!-- 时间段 -->
+	<if test="startPublishDate != null and startPublishDate != ''">
+      	<![CDATA[
+      	AND publishDate >=  to_date(#{startPublishDate},'yyyy-MM-dd')
+      	]]>
+	</if>
+	<if test="endPublishDate != null and endPublishDate != ''">
+      	<![CDATA[
+      	AND publishDate <= to_date(#{endPublishDate},'yyyy-MM-dd')
+      	]]>
+	</if>
+	
+	<if test="rowNum != null and rowNum != ''">
+      	<![CDATA[
+      	AND rownum <=7 
+      	]]>
+	</if>
+    order by ORDER_BY asc
+  </select>
+  
+  <!-- 分页查询-列表 -->
+  <select id="findAppBannerByPage" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+	select ab.*,
+	(select ai.DISPLAY_NAME from ADMIN_INFO ai where ai.ADMIN_ID = ab.ADMIN_ID) as ADMIN_DISPLAY_NAME
+	from APP_BANNER ab
+	
+	
+	where 1=1
+    <if test="appType != null and appType != ''">
+    	AND APP_TYPE = #{appType,jdbcType=CHAR}
+    </if>
+    
+    <if test="appTypeRevo != null and appTypeRevo != ''">
+    	AND APP_TYPE != '4'
+    </if>
+    <if test="state != null and state != ''">
+    	AND STATE = #{state,jdbcType=CHAR}
+    </if>
+    <if test="orderBy != null and orderBy != ''">
+    	AND ORDER_BY = #{orderBy,jdbcType=DECIMAL}
+    </if>
+      <!-- 名称 -->
+     <if test="bannerName != null and bannerName != ''">
+    	AND BANNER_NAME like '%${bannerName}%' 
+    </if>
+      <!-- 时间段 -->
+	<if test="startPublishDate != null and startPublishDate != ''">
+      	<![CDATA[
+      	AND publishDate >=  to_date(#{startPublishDate},'yyyy-MM-dd')
+      	]]>
+	</if>
+	<if test="endPublishDate != null and endPublishDate != ''">
+      	<![CDATA[
+      	AND publishDate <= to_date(#{endPublishDate},'yyyy-MM-dd')
+      	]]>
+	</if>
+    
+	
+	order by ab.APP_TYPE asc,ab.ORDER_BY asc,ab.APP_BANNER_ID desc
+  </select>
+  
+  <!-- 分页查询-数量 -->
+  <select id="count_findAppBannerByPage" resultType="int" parameterType="java.util.HashMap">
+    select count(1) from APP_BANNER
+    where 1=1
+    <if test="appType != null and appType != ''">
+    	AND APP_TYPE = #{appType,jdbcType=CHAR}
+    </if>
+    <if test="state != null and state != ''">
+    	AND STATE = #{state,jdbcType=CHAR}
+    </if>
+    <if test="orderBy != null and orderBy != ''">
+    	AND ORDER_BY = #{orderBy,jdbcType=DECIMAL}
+    </if>
+    <!-- 名称 -->
+     <if test="bannerName != null and bannerName != ''">
+    	AND BANNER_NAME like '%${bannerName}%' 
+    </if>
+      <!-- 时间段 -->
+	<if test="startPublishDate != null and startPublishDate != ''">
+      	<![CDATA[
+      	AND publishDate >=  to_date(#{startPublishDate},'yyyy-MM-dd')
+      	]]>
+	</if>
+	<if test="endPublishDate != null and endPublishDate != ''">
+      	<![CDATA[
+      	AND publishDate <= to_date(#{endPublishDate},'yyyy-MM-dd')
+      	]]>
+	</if>
+  </select>
+  
+</mapper>

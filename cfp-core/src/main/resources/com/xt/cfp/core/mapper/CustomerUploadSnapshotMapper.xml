@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CUSTOMER_UPLOAD_SNAPSHOT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CustomerUploadSnapshot" >
+    <id column="SNAPSHOT_ID" property="snapshotId" jdbcType="DECIMAL" />
+    <result column="ATTACH_ID" property="attachId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="SEQ_NUM" property="seqNum" jdbcType="DECIMAL" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="attachment" type="com.xt.cfp.core.pojo.ext.CustomerUploadSnapshotVO" extends="BaseResultMap">
+    <association property="attachment" column="ATTACH_ID"
+                 resultMap="AttachmentPojo"/>
+  </resultMap>
+  <resultMap id="AttachmentPojo" type="com.xt.cfp.core.pojo.Attachment" >
+    <id column="ATTACH_ID" property="attachId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="PHYSICAL_ADDRESS" property="physicalAddress" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="THUMBNAIL_URL" property="thumbnailUrl" jdbcType="VARCHAR" />
+    <result column="IS_CODE" property="isCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SNAPSHOT_ID, ATTACH_ID, LOAN_APPLICATION_ID, SEQ_NUM, TYPE, STATUS, MAIN_LOAN_APPLICATION_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_UPLOAD_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getcustomerUploadSnapshotList" resultMap="BaseResultMap" parameterType="map">
+  	select * from customer_upload_snapshot
+  	where
+  	loan_application_id = #{loanApplicationId}
+  	and status = '0'
+  	<if test="type !=null ">
+      and type = #{type,jdbcType=CHAR}
+    </if>
+
+  	order by type,seq_num
+  </select>
+  
+  <!-- by mainid -->
+  <select id="getCustomerUploadSnapshotListByMainId" resultMap="BaseResultMap" parameterType="map">
+  	select * from customer_upload_snapshot
+  	where
+  	MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  	and status = '0'
+  	<if test="type !=null ">
+      and type = #{type,jdbcType=CHAR}
+    </if>
+
+  	order by type,seq_num
+  </select>
+
+  
+  <select id="getCustomerSeqNum" resultType="int" parameterType="map" >
+   	select nvl(max(seq_num),0) seqNum
+    from CUSTOMER_UPLOAD_SNAPSHOT 
+    where loan_application_id = #{loanApplicationId,jdbcType=DECIMAL} 
+    and type = #{type,jdbcType=CHAR}
+    and status = '0'
+  </select>
+  
+  <!-- by mainid -->
+  <select id="getCustomerSeqNumByMainId" resultType="int" parameterType="map" >
+   	select nvl(max(seq_num),0) seqNum
+    from CUSTOMER_UPLOAD_SNAPSHOT 
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL} 
+    and type = #{type,jdbcType=CHAR}
+    and status = '0'
+  </select>
+
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CUSTOMER_UPLOAD_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CustomerUploadSnapshot" >
+  	<selectKey keyProperty="snapshotId" order="BEFORE" resultType="long">
+      SELECT SEQ_CUSTOMER_UPLOAD_SNAPSHOT.NEXTVAL as snapshotId FROM dual
+    </selectKey>
+    insert into CUSTOMER_UPLOAD_SNAPSHOT (SNAPSHOT_ID, ATTACH_ID, LOAN_APPLICATION_ID, 
+      SEQ_NUM, TYPE, STATUS, MAIN_LOAN_APPLICATION_ID)
+    values (#{snapshotId,jdbcType=DECIMAL}, #{attachId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, 
+      #{seqNum,jdbcType=DECIMAL}, #{type,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{mainLoanApplicationId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CustomerUploadSnapshot" >
+    insert into CUSTOMER_UPLOAD_SNAPSHOT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        SNAPSHOT_ID,
+      </if>
+      <if test="attachId != null" >
+        ATTACH_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="seqNum != null" >
+        SEQ_NUM,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        #{snapshotId,jdbcType=DECIMAL},
+      </if>
+      <if test="attachId != null" >
+        #{attachId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="seqNum != null" >
+        #{seqNum,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="logicalDel" parameterType="map">
+  	update customer_upload_snapshot set status = #{status,jdbcType=CHAR} where snapshot_id = #{cusId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CustomerUploadSnapshot" >
+    update CUSTOMER_UPLOAD_SNAPSHOT
+    <set >
+      <if test="attachId != null" >
+        ATTACH_ID = #{attachId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="seqNum != null" >
+        SEQ_NUM = #{seqNum,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CustomerUploadSnapshot" >
+    update CUSTOMER_UPLOAD_SNAPSHOT
+    set ATTACH_ID = #{attachId,jdbcType=DECIMAL},
+      LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      SEQ_NUM = #{seqNum,jdbcType=DECIMAL},
+      TYPE = #{type,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="getcustomerUploadAttachment" resultMap="attachment" parameterType="map" >
+   	select * from  CUSTOMER_UPLOAD_SNAPSHOT t left join ATTACHMENT a on T.ATTACH_ID = A.ATTACH_ID
+	where T.LOAN_APPLICATION_ID=#{loanApplicationId} AND T.STATUS = '0' and a.IS_CODE=#{isCode}
+	order by t.type,seq_num
+  </select>
+  
+  <!-- by mainid -->
+  <select id="getCustomerUploadAttachmentByMainId" resultMap="attachment" parameterType="map" >
+   	select * from  CUSTOMER_UPLOAD_SNAPSHOT t left join ATTACHMENT a on T.ATTACH_ID = A.ATTACH_ID
+	where T.MAIN_LOAN_APPLICATION_ID=#{mainLoanApplicationId,jdbcType=DECIMAL} AND T.STATUS = '0' and a.IS_CODE=#{isCode,jdbcType=VARCHAR}
+	order by t.type, t.seq_num
+  </select>
+</mapper>

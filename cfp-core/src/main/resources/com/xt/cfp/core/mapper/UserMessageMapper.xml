@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MESSAGE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.UserMessage" >
+    <id column="MSG_ID" property="msgId" jdbcType="DECIMAL" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="SENDER_ID" property="senderId" jdbcType="DECIMAL" />
+    <result column="SENDER_NAME" property="senderName" jdbcType="VARCHAR" />
+    <result column="SEND_TIME" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="TOP_SIGN" property="topSign" jdbcType="VARCHAR" />
+    <result column="RECIVER_TYPE" property="reciverType" jdbcType="VARCHAR" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="IMG_ADDRESS" property="imgAddress" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <resultMap id="ReciveResultMap" type="com.xt.cfp.core.pojo.UserRecive" extends="BaseResultMap">
+    <id column="RECIVE_ID" property="reciveId" jdbcType="DECIMAL" />
+    <result column="MSG_ID" property="msgId" jdbcType="DECIMAL" />
+    <result column="RECIVER_ID" property="reciverId" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="VIEW_TIME" property="viewTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    MSG_ID, NAME, TYPE, SENDER_ID, SENDER_NAME, SEND_TIME, END_TIME, TOP_SIGN, CONTENT, RECIVER_TYPE, IMG_ADDRESS
+  </sql>
+
+  <select id="selectBySysPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select m.*,u.login_name 
+    from(select * from message where type = '0')  m inner join user_recive r on m.msg_id = r.msg_id inner join user_info u on r.reciver_id = u.user_id
+    where m.MSG_ID = #{msgId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from MESSAGE
+    where MSG_ID = #{msgId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getLoginNameList" resultMap="BaseResultMap" parameterType="java.lang.Long">
+  	select ui.login_name from user_info ui join 
+  	(select * from user_recive where msg_id = #{msgId,jdbcType=DECIMAL}) ur on ui.user_id = ur.reciver_id
+  </select>
+  
+  <select id="getStageMessageAllList" resultMap="ReciveResultMap" parameterType="map" >
+    select * from
+   	 	USER_RECIVE r right join (select * from MESSAGE where type in (#{stationMessageType},#{noticeMessage},#{systemMessage})
+	   	 <choose>
+	   	 	<when test="systemMessage == null">
+	   	 		and reciver_type in ('0',#{reciverType})
+	   	 	</when>
+	   	 	<otherwise>
+	   	 		and reciver_type in ('0',#{reciverType},'3')
+	   	 	</otherwise>
+	   	 </choose> 
+   	 	) m on m.MSG_ID = r.MSG_ID and r.RECIVER_ID = #{reciverId}
+    	ORDER BY SEND_TIME DESC
+  </select>
+  
+  <select id="count_getStageMessageAllList" resultType="int" parameterType="map" >
+    select count(1) from 
+   		USER_RECIVE r right join (select * from MESSAGE where type in (#{stationMessageType},#{noticeMessage},#{systemMessage})
+	   	 <choose>
+	   	 	<when test="systemMessage == null">
+	   	 		and reciver_type in ('0',#{reciverType})
+	   	 	</when>
+	   	 	<otherwise>
+	   	 		and reciver_type in ('0',#{reciverType},'3')
+	   	 	</otherwise>
+	   	 </choose> 
+   	 	) m on m.MSG_ID = r.MSG_ID and r.RECIVER_ID = #{reciverId}
+
+  </select>
+  
+  <select id="getAllMessageListPaging" resultMap="ReciveResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from (select * from MESSAGE where type !='0') m
+    <where>
+    	<if test="name != null and name !=''">
+    	  	AND m.NAME like '%${name}%'
+    	</if>
+    	<if test="type != null and type != ''">
+    	 	AND m.TYPE = #{type}
+    	</if>
+    	<if test="releaseStartTime != null and releaseStartTime != ''">
+    		AND <![CDATA[TO_CHAR(m.SEND_TIME,'yyyy-MM-dd') >= #{releaseStartTime}]]>
+    	</if>
+    	<if test="releaseEndTime != null and releaseEndTime != ''">
+    		AND <![CDATA[TO_CHAR(m.SEND_TIME,'yyyy-MM-dd') <= #{releaseEndTime}]]>
+    	</if>
+    </where>
+        ORDER BY m.SEND_TIME DESC
+  </select>
+  
+  <select id="count_getAllMessageListPaging" resultType="int" parameterType="map" >
+    select count(1)
+    from (select * from MESSAGE where type !='0') m
+    <where>
+    	<if test="name != null and name !=''">
+    	  	AND m.NAME like '%${name}%'
+    	</if>
+    	<if test="type != null and type != ''">
+    	 	AND m.TYPE = #{type}
+    	</if>
+    	<if test="releaseStartTime != null and releaseStartTime != ''">
+    		AND <![CDATA[TO_CHAR(m.SEND_TIME,'yyyy-MM-dd') >= #{releaseStartTime}]]>
+    	</if>
+    	<if test="releaseEndTime != null and releaseEndTime != ''">
+    		AND <![CDATA[TO_CHAR(m.SEND_TIME,'yyyy-MM-dd') <= #{releaseEndTime}]]>
+    	</if>
+    </where>
+  </select>
+  
+  <select id="receptionUserMessageListPaging" resultMap="ReciveResultMap" parameterType="map">
+  
+  
+  
+select *
+  from (select ur.RECIVE_ID,
+               ur.RECIVER_ID,
+               ur.STATUS,
+               ur.VIEW_TIME,
+               um.MSG_ID,
+               um.NAME,
+               um.CONTENT,
+               um.TYPE,
+               um.SENDER_ID,
+               um.SENDER_NAME,
+               um.SEND_TIME,
+               um.END_TIME,
+               um.RECIVER_TYPE,
+               um.TOP_SIGN,
+               um.IMG_ADDRESS
+        
+          from (select m1.*
+                  from message m1
+                 where send_time > (select create_time
+                                      from user_info ui
+                                     where ui.user_id = #{userId,jdbcType=DECIMAL})) um
+          left join (select * from user_recive where reciver_id = #{userId,jdbcType=DECIMAL}) ur on um.msg_id =
+                                                                              ur.msg_id
+        
+         where um.reciver_type not in ('1', '2')
+           and   um.reciver_type not in ('1', '2')  and <![CDATA[to_char(sysdate,'yyyy-MM-dd') <= to_char(nvl(um.end_time,sysdate),'yyyy-MM-dd')]]>
+        
+        union all
+        select ur1.RECIVE_ID,
+               ur1.RECIVER_ID,
+               ur1.STATUS,
+               ur1.VIEW_TIME,
+               um1.MSG_ID,
+               um1.NAME,
+               um1.CONTENT,
+               um1.TYPE,
+               um1.SENDER_ID,
+               um1.SENDER_NAME,
+               um1.SEND_TIME,
+               um1.END_TIME,
+               um1.RECIVER_TYPE,
+               um1.TOP_SIGN,
+               um1.IMG_ADDRESS
+          from (select *
+                  from message m2
+                 where send_time > (select create_time
+                                      from user_info ui
+                                     where ui.user_id = #{userId,jdbcType=DECIMAL})) um1
+         inner join (select * from user_recive where reciver_id = #{userId,jdbcType=DECIMAL}) ur1 on um1.msg_id =
+                                                                               ur1.msg_id
+        
+         where um1.reciver_type in ('2')
+         and  um1.reciver_type in ('2')  and <![CDATA[to_char(sysdate,'yyyy-MM-dd') <= to_char(nvl(um1.end_time,sysdate),'yyyy-MM-dd')]]>  
+        ) um2  where 1=1
+  
+  	<!-- select *
+	  from (select * from message where send_time>(select create_time from user_info ui where ui.user_id = #{userId,jdbcType=DECIMAL})) um
+	  inner join (select * from user_recive where reciver_id = #{userId,jdbcType=DECIMAL}) ur on um.msg_id =
+	                                                                    ur.msg_id
+	 where <![CDATA[to_char(sysdate,'yyyy-MM-dd') <= to_char(nvl(um.end_time,sysdate),'yyyy-MM-dd')]]> -->
+	 <if test="status != ''">
+	 	<if test='status == "1"'>
+	 		and um2.status = '1' 
+	 	</if>
+	 	<if test='status == "0"'>
+	 		and (um2.status = '0' or um2.status is null)
+	 	</if>
+	 </if>
+	 <if test="messagetypes != ''">
+	 	and um2.type in 
+	 	<foreach collection="messagetypes" item="type" open="(" separator="," close=")">
+                #{type,jdbcType=CHAR}
+            </foreach>
+	 </if>
+	 <if test="reciverType != null">
+	 	and um2.reciver_type != '1'	
+	 </if>  
+	  order by um2.top_sign,um2.send_time desc      
+  </select>
+  
+  <select id="count_receptionUserMessageListPaging" resultType="int" parameterType="map">
+  	select count(1)
+	  from (select * from message where send_time>(select create_time from user_info ui where ui.user_id = #{userId,jdbcType=DECIMAL})) um
+	  inner join (select * from user_recive where reciver_id = #{userId,jdbcType=DECIMAL}) ur on um.msg_id =
+	                                                                    ur.msg_id
+	  where <![CDATA[to_char(sysdate,'yyyy-MM-dd') <= to_char(nvl(um.end_time,sysdate),'yyyy-MM-dd')]]>
+	 <if test="status != ''">
+	 	<if test='status == "1"'>
+	 		and ur.status = '1' 
+	 	</if>
+	 	<if test='status == "0"'>
+	 		and (ur.status = '0' or ur.status is null)
+	 	</if>
+	 </if>
+	 <if test="messagetypes != ''">
+	 	and type in 
+	 	<foreach collection="messagetypes" item="type" open="(" separator="," close=")">
+                #{type,jdbcType=CHAR}
+            </foreach>
+	 </if>
+	 <if test="reciverType != null">
+	 	and um.reciver_type != '1'	
+	 </if>     
+  </select>
+  
+  <select id="getSystemMessageListPaging" resultMap="ReciveResultMap" parameterType="map" >
+    select m.*,r.status,r.reciver_id,u.login_name 
+    from(select * from message where type = '0')  m join user_recive r on m.msg_id = r.msg_id join user_info u on r.reciver_id = u.user_id
+    <where>
+    	<if test="name != null and name !=''">
+    	  	AND m.NAME like '%${name}%'
+    	</if>
+    	<if test="releaseStartTime != null and releaseStartTime != ''">
+    		AND <![CDATA[TO_CHAR(SEND_TIME,'yyyy-MM-dd') >= #{releaseStartTime}]]>
+    	</if>
+    	<if test="releaseEndTime != null and releaseEndTime != ''">
+    		AND <![CDATA[TO_CHAR(SEND_TIME,'yyyy-MM-dd') <= #{releaseEndTime}]]>
+    	</if>
+    </where>
+     ORDER BY m.SEND_TIME DESC
+  </select>
+
+  <select id="count_getSystemMessageListPaging" resultType="int" parameterType="map" >
+     select count(1) 
+     from(select * from message where type = '0')  m join user_recive r on m.msg_id = r.msg_id join user_info u on r.reciver_id = u.user_id
+    <where>
+    	<if test="name != null and name !=''">
+    	  	AND m.NAME like '%${name}%'
+    	</if>
+    	<if test="releaseStartTime != null and releaseStartTime != ''">
+    		AND <![CDATA[TO_CHAR(m.SEND_TIME,'yyyy-MM-dd') >= #{releaseStartTime}]]>
+    	</if>
+    	<if test="releaseEndTime != null and releaseEndTime != ''">
+    		AND <![CDATA[TO_CHAR(m.SEND_TIME,'yyyy-MM-dd') <= #{releaseEndTime}]]>
+    	</if>
+    </where>
+   
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from MESSAGE
+    where MSG_ID = #{msgId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.UserMessage" >
+  	<selectKey keyProperty="msgId" order="BEFORE" resultType="long">
+      SELECT SEQ_MESSAGE.NEXTVAL as resId FROM dual
+    </selectKey>
+    insert into MESSAGE (MSG_ID, NAME, TYPE, 
+      SENDER_ID, SENDER_NAME, SEND_TIME, 
+      END_TIME, TOP_SIGN, RECIVER_TYPE, 
+      CONTENT, IMG_ADDRESS)
+    values (#{msgId,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{senderId,jdbcType=DECIMAL}, #{senderName,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{topSign,jdbcType=VARCHAR}, #{reciverType,jdbcType=VARCHAR}, 
+      #{content,jdbcType=BLOB}, #{imgAddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.UserMessage" useGeneratedKeys="true">
+    <selectKey keyProperty="msgId" order="BEFORE" resultType="long">
+      SELECT SEQ_MESSAGE.NEXTVAL as msgId FROM dual
+    </selectKey>
+    insert into MESSAGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msgId != null" >
+        MSG_ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="senderId != null" >
+        SENDER_ID,
+      </if>
+      <if test="senderName != null" >
+        SENDER_NAME,
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="topSign != null" >
+        TOP_SIGN,
+      </if>
+      <if test="reciverType != null" >
+        RECIVER_TYPE,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="imgAddress != null">
+      	IMG_ADDRESS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msgId != null" >
+        #{msgId,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="senderId != null" >
+        #{senderId,jdbcType=DECIMAL},
+      </if>
+      <if test="senderName != null" >
+        #{senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topSign != null" >
+        #{topSign,jdbcType=VARCHAR},
+      </if>
+      <if test="reciverType != null" >
+        #{reciverType,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=BLOB},
+      </if>
+      <if test="imgAddress != null">
+      	#{imgAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.UserMessage" >
+    update MESSAGE
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="senderId != null" >
+        SENDER_ID = #{senderId,jdbcType=DECIMAL},
+      </if>
+      <if test="senderName != null" >
+        SENDER_NAME = #{senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topSign != null" >
+        TOP_SIGN = #{topSign,jdbcType=VARCHAR},
+      </if>
+      <if test="reciverType != null" >
+        RECIVER_TYPE = #{reciverType,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=BLOB},
+      </if>
+      <if test="imgAddress != null">
+      	IMG_ADDRESS = #{imgAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MSG_ID = #{msgId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xt.cfp.core.pojo.UserMessage" >
+    update MESSAGE
+    set NAME = #{name,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      SENDER_ID = #{senderId,jdbcType=DECIMAL},
+      SENDER_NAME = #{senderName,jdbcType=VARCHAR},
+      SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      TOP_SIGN = #{topSign,jdbcType=VARCHAR},
+      RECIVER_TYPE = #{reciverType,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=BLOB},
+      IMG_ADDRESS = #{imgAddress,jdbcType=VARCHAR}
+    where MSG_ID = #{msgId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateTopSign" parameterType="map">
+  	update MESSAGE 
+  	set top_sign = #{topSign,jdbcType=VARCHAR}
+	where MSG_ID = #{msgId,jdbcType=DECIMAL}
+  </update>
+</mapper>

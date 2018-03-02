@@ -1,0 +1,72 @@
+﻿@charset "utf-8";
+/* CSS Document */
+a{color:#333;}
+.clear_0{clear:both;}
+.s_content{height:auto; background:#f2f2f2; overflow:hidden;}
+.headNav{width:100%; color:#999999; display:-webkit-box; background:#fff; position:fixed; top:0; left:0; z-index:99;border-bottom: solid 1px #e5e5e5;box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;}
+.headNav li{width:50%; padding:1rem 0; text-align:center; color:#ff5e61; font-size:1.4rem;}
+.headNav li a{color:#666;}
+.headNav .listCur a{color:#ff5e61; position:relative;}
+.headNav .listCur:after{content:""; width:6rem; height:3px; position:absolute; background:#ff5e61; bottom:0; margin-left:-5.2rem;}
+.mainList{width:100%; margin-top:3.5rem;
+	height:calc(100% - 3.5rem ); 
+	-webkit-height:calc(100% - 3.5rem - 50px); 
+	-moz-height:calc(100% - 3.5rem - 50px);
+	-o-height: calc(100% - 3.5rem - 50px); 
+}
+.page{width:100%; height:auto; overflow-y:scroll; overflow:auto;}
+.page::-webkit-scrollbar{display:none;}
+.huikBox{padding:0 1.5rem; height:auto; margin-top:1rem; background:#fff; border-top:1px #e6e6e6 solid; border-bottom:1px #e6e6e6 solid;}
+.huikBox_p1{border-bottom:1px #e6e6e6 solid; height:3.5rem; }
+.huikBox_p1Le{float:left; padding:.2rem 1.3rem .4rem; background:#ff5e61; color:#fff; margin-top:.7rem; border-radius:4px; 
+border-bottom:1px #e6e6e6 solid;} 
+.huikBox_p1Ri{float:right; line-height:3.6rem; color:red;}
+.huikBox_p2{height:4rem; line-height:5rem; color:#333; position:relative; text-indent:2rem; font-size:1.2rem; border-bottom:1px #e6e6e6 solid;}
+.huikBox_p2::before{content:"个"; position:absolute; width:1.2rem; height:1.2rem; color:#333; font-size:1rem; line-height:1.2rem;
+text-align:center; top:50%; margin-top:-.2rem; left:0; text-indent:0; border-radius:2px; border:1px #333 solid;}
+.huikBoxcon{width:100%; height:auto; padding:.6rem 0;}
+.huikBox_p3{height:1.7rem; line-height:1.7rem; font-size:1rem;}
+.huikBox_p3Le{width:33.33%; float:left; text-align:left; color:#333;}
+.huikBox_p3Le i{font-weight:bold;}
+.huikBox_p3Cen{width:33.33%; float:left; text-align:center;}
+.huikBox_p3Ri{width:33.33%; float:left; text-align:right;}
+.color_hui{color:#666;}
+
+.huikBox_p2_s::before{content:"省"; position:absolute; width:1.2rem; height:1.2rem; color:#333; font-size:1rem; line-height:1.2rem;
+text-align:center; top:50%; margin-top:-.7rem; left:0; text-indent:0; border-radius:2px; border:1px #333 solid;}
+
+.huikBox_p2_person::before{content:"个"; position:absolute; width:1.2rem; height:1.2rem; color:#333; font-size:1rem; line-height:1.2rem;
+text-align:center; top:50%; margin-top:-.7rem; left:0; text-indent:0; border-radius:2px; border:1px #333 solid;}
+
+
+.huikBox_p2_company::before{content:"企"; position:absolute; width:1.2rem; height:1.2rem; color:#333; font-size:1rem; line-height:1.2rem;
+text-align:center; top:50%; margin-top:-.7rem; left:0; text-indent:0; border-radius:2px; border:1px #333 solid;}
+
+.huikBox_p2_apartment::before{content:"房"; position:absolute; width:1.2rem; height:1.2rem; color:#333; font-size:1rem; line-height:1.2rem;
+text-align:center; top:50%; margin-top:-.7rem; left:0; text-indent:0; border-radius:2px; border:1px #333 solid;}
+
+
+.huikBox_p2_car::before{content:"车"; position:absolute; width:1.2rem; height:1.2rem; color:#333; font-size:1rem; line-height:1.2rem;
+text-align:center; top:50%; margin-top:-.7rem; left:0; text-indent:0; border-radius:2px; border:1px #333 solid;}
+
+
+.huikBox_p2_baoli::before{content:"保"; position:absolute; width:1.2rem; height:1.2rem; color:#333; font-size:1rem; line-height:1.2rem;
+text-align:center; top:50%; margin-top:-.7rem; left:0; text-indent:0; border-radius:2px; border:1px #333 solid;}
+
+
+.huikBox_p2_inverst::before{content:"基"; position:absolute; width:1.2rem; height:1.2rem; color:#333; font-size:1rem; line-height:1.2rem;
+text-align:center; top:50%; margin-top:-.7rem; left:0; text-indent:0; border-radius:2px; border:1px #333 solid;}
+
+.huikBox_p2_belive::before{content:"信"; position:absolute; width:1.2rem; height:1.2rem; color:#333; font-size:1rem; line-height:1.2rem;
+text-align:center; top:50%; margin-top:-.7rem; left:0; text-indent:0; border-radius:2px; border:1px #333 solid;}
+
+.huikBox>p:nth-of-type(2){position: relative;text-indent: 2rem;height: 2rem;line-height: 2rem;}
+
+
+.huikBox_p2_shan::before{content:"闪"; position:absolute; width:1.2rem; height:1.2rem; color:#333; font-size:1rem; line-height:1.2rem;
+	text-align:center; top:50%; margin-top:-.7rem; left:0; text-indent:0; border-radius:2px; border:1px #333 solid;}
+
+
+
+
+

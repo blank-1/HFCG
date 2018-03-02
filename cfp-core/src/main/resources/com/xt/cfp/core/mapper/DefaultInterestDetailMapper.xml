@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DEFAULTINTERESTDETAIL">
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.DefaultInterestDetail">
+        <id column="DEFAULT_INTEREST_DETAIL_ID" property="defaultInterestDetailId" jdbcType="DECIMAL"/>
+        <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL"/>
+        <result column="ACC_ID" property="customerAccountId" jdbcType="DECIMAL"/>
+        <result column="REPAYMENT_PLAN_ID" property="repaymentPlanId" jdbcType="DECIMAL"/>
+        <result column="INTEREST_DATE" property="interestDate" jdbcType="DATE"/>
+        <result column="INTEREST_CAPITAL" property="interestCapital" jdbcType="DECIMAL"/>
+        <result column="INTEREST_RATIO" property="interestRatio" jdbcType="DECIMAL"/>
+        <result column="INTEREST_BALANCE" property="interestBalance" jdbcType="DECIMAL"/>
+        <result column="INTEREST_BALANCE2" property="interestBalance2" jdbcType="DECIMAL"/>
+        <result column="REPAYMENT_BALANCE" property="repaymentBalance" jdbcType="DECIMAL"/>
+        <result column="REPAYMENT_STATE" property="repaymentState" jdbcType="CHAR"/>
+        <result column="REDUCTION_BALANCE" property="reductionBalance" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    DEFAULT_INTEREST_DETAIL_ID, LOAN_APPLICATION_ID, ACC_ID,REPAYMENT_PLAN_ID,INTEREST_DATE,INTEREST_CAPITAL,INTEREST_RATIO,
+    INTEREST_BALANCE,INTEREST_BALANCE2,REPAYMENT_BALANCE,REPAYMENT_STATE,REDUCTION_BALANCE
+  </sql>
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.DefaultInterestDetail">
+        <selectKey keyProperty="defaultInterestDetailId" resultType="java.lang.Long" order="BEFORE">
+            select SEQ_DEFAULT_INTEREST_DETAIL.nextval from dual
+        </selectKey>
+        insert into DEFAULT_INTEREST_DETAIL
+        (DEFAULT_INTEREST_DETAIL_ID, LOAN_APPLICATION_ID,
+        ACC_ID,REPAYMENT_PLAN_ID,INTEREST_DATE,INTEREST_CAPITAL,INTEREST_RATIO,
+        INTEREST_BALANCE,INTEREST_BALANCE2,REPAYMENT_STATE)
+        values
+        (#{defaultInterestDetailId,jdbcType=DECIMAL},#{loanApplicationId,jdbcType=DECIMAL},#{customerAccountId,jdbcType=DECIMAL},#{repaymentPlanId,jdbcType=DECIMAL},
+        #{interestDate,jdbcType=DATE},#{interestCapital,jdbcType=DECIMAL}
+        ,#{interestRatio,jdbcType=DECIMAL},#{interestBalance,jdbcType=DECIMAL},#{interestBalance2,jdbcType=DECIMAL},#{repaymentState,jdbcType=CHAR})
+    </insert>
+
+    <update id="update" parameterType="com.xt.cfp.core.pojo.DefaultInterestDetail">
+        update DEFAULT_INTEREST_DETAIL
+        <set>
+            <if test="interestDate != null">
+                INTEREST_DATE = #{interestDate,jdbcType=DATE},
+            </if>
+            <if test="interestCapital != null">
+                INTEREST_CAPITAL = #{interestCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="interestBalance != null">
+                INTEREST_BALANCE = #{interestBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="interestBalance2 != null">
+                INTEREST_BALANCE2 = #{interestBalance2,jdbcType=DECIMAL},
+            </if>
+            <if test="repaymentBalance != null">
+                REPAYMENT_BALANCE = #{repaymentBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="repaymentState != null">
+                REPAYMENT_STATE = #{repaymentState,jdbcType=CHAR},
+            </if>
+            <if test="reductionBalance != null">
+                REDUCTION_BALANCE = #{reductionBalance,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where DEFAULT_INTEREST_DETAIL_ID=#{defaultInterestDetailId}
+    </update>
+
+    <select id="getDefaultInterestByUserId" resultType="java.util.HashMap" parameterType="java.lang.Long" >
+        SELECT NVL (SUM (did.INTEREST_BALANCE2), 0) interest,
+                   NVL (SUM (did.REPAYMENT_BALANCE), 0) paid,
+                   NVL (SUM (did.REDUCTION_BALANCE), 0) reduction
+              FROM DEFAULT_INTEREST_DETAIL did left join LOAN_APPLICATION  la
+              on DID.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+              where LA.USER_ID = #{value}
+    </select>
+
+    <select id="getDefaultInterestByRepaymentPlanId" resultType="java.math.BigDecimal" parameterType="java.lang.Long" >
+        SELECT NVL (SUM (INTEREST_BALANCE2), 0)
+
+              FROM DEFAULT_INTEREST_DETAIL
+              where REPAYMENT_PLAN_ID = #{value}
+    </select>
+
+    <select id="getDefaultInterestPaidByRepaymentPlanId" resultType="java.math.BigDecimal" parameterType="java.lang.Long" >
+        SELECT NVL (SUM (REPAYMENT_BALANCE), 0)
+
+              FROM DEFAULT_INTEREST_DETAIL
+              where REPAYMENT_PLAN_ID = #{value}
+    </select>
+
+    <select id="findBy" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select * from DEFAULT_INTEREST_DETAIL
+        where 1 = 1
+        <if test="_parameter.containsKey('loanApplicationId')">
+            and LOAN_APPLICATION_ID = #{loanApplicationId}
+        </if>
+        <if test="_parameter.containsKey('repaymentPlanId')">
+            and REPAYMENT_PLAN_ID = #{repaymentPlanId}
+        </if>
+        <if test="_parameter.containsKey('repaymentState')">
+            and REPAYMENT_STATE = #{repaymentState}
+        </if>
+        <if test="_parameter.containsKey('UNCOMPLETE_WAIVER')">
+            and (REPAYMENT_STATE = '1' or REPAYMENT_STATE = '3')
+        </if>
+    </select>
+    <select id="getInterestDetailsByLoanAppAndState" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select * from DEFAULT_INTEREST_DETAIL
+        where REPAYMENT_PLAN_ID = #{repaymentPlanId}
+        and REPAYMENT_STATE = #{repaymentState}
+        order by interestDate
+    </select>
+</mapper>

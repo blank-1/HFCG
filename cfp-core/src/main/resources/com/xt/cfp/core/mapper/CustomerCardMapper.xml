@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CUSTOMERCARD" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CustomerCard" >
+    <id column="CUSTOMER_CARD_ID" property="customerCardId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="BANK_CODE" property="bankCode" jdbcType="DECIMAL" />
+    <result column="REGISTERED_BANK" property="registeredBank" jdbcType="VARCHAR" />
+    <result column="CARD_TYPE" property="cardType" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="CARD_CODE" property="cardCode" jdbcType="VARCHAR" />
+    <result column="BIND_STATUS" property="bindStatus" jdbcType="VARCHAR" />
+    <result column="CARD_CUSTOMER_NAME" property="cardCustomerName" jdbcType="VARCHAR" />
+    <result column="MOBILE_NO" property="mobile" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="BELONG_CHANNEL" property="belongChannel" jdbcType="VARCHAR" />
+    <result column="AGREE_NO" property="agreeNo" jdbcType="VARCHAR" />
+    <result column="PROVINCE_CITY_ID" property="provinceCityId" jdbcType="DECIMAL" />
+    <result column="BANK_LINE_NUMBER" property="bankLineNumber" jdbcType="VARCHAR" />
+    <result column="BRANCH_NAME" property="branchName" jdbcType="VARCHAR" />
+    <result column="BANK_NUM" property="bankNum" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="cgBankResult" type="com.xt.cfp.core.pojo.CgBank">
+    <result column="CODE" property="code" jdbcType="VARCHAR"/>
+    <result column="NAME" property="name" jdbcType="VARCHAR"/>
+    <result column="TYPE" property="type" jdbcType="VARCHAR"/>
+    <result column="ICON_CODE" property="iconCode" jdbcType="INTEGER"/>
+    <result column="ID_TYPE" property="idType" jdbcType="INTEGER"/>
+  </resultMap>
+  <resultMap id="combineResultMap" type="com.xt.cfp.core.pojo.ext.CustomerCardVO" extends="BaseResultMap">
+    <association property="cgBank" resultMap="cgBankResult" />
+  </resultMap>
+
+  <resultMap id="CustomerCardsResultMap" type="com.xt.cfp.core.pojo.ext.CustomerCardVO" extends="BaseResultMap">
+	<result column="CONSTANT_VALUE" property="shortName" jdbcType="VARCHAR" />
+	<result column="CONSTANT_NAME" property="bankName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    CUSTOMER_CARD_ID, USER_ID, BANK_CODE, REGISTERED_BANK, CARD_TYPE, CARD_CODE, CARD_CUSTOMER_NAME, STATUS, MOBILE_NO, UPDATE_TIME ,BIND_STATUS,AGREE_NO,BELONG_CHANNEL,PROVINCE_CITY_ID,BANK_LINE_NUMBER,BRANCH_NAME,BANK_NUM
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CARD
+    where CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL}
+  </select>
+    <select id="findVOById" resultMap="CustomerCardsResultMap" parameterType="map">
+        SELECT *
+	  FROM CUSTOMER_CARD CARD, CONSTANT_DEFINE CONS
+	  WHERE CARD.BANK_CODE = CONS.CONSTANT_DEFINE_ID
+	  AND CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL}
+    </select>
+
+  <select id="getCustomerCardByCardNo" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CARD
+    where CARD_CODE = #{cardCode,jdbcType=DECIMAL} and STATUS = #{status,jdbcType=CHAR}
+  </select>
+  <select id="getCustomerCardByUserId" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CARD
+    where USER_ID = #{userId,jdbcType=DECIMAL} and STATUS = #{status,jdbcType=CHAR}
+  </select>
+
+  <select id="getCustomerBindCardByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CARD
+    where USER_ID = #{userId,jdbcType=DECIMAL} and STATUS = '1' and BIND_STATUS = '1'
+  </select>
+
+  <select id="getCustomerBindCardByThirdChannel" resultMap="combineResultMap" parameterType="map">
+    select t.*,t2.*
+    from CUSTOMER_CARD t
+    left join cg_bank t2 on t2.code=t.bank_num and t2.type='product' and t2.id_type=1
+    where t.USER_ID = #{userId,jdbcType=DECIMAL} and t.BELONG_CHANNEL = #{belong,jdbcType=VARCHAR} and t.STATUS = '1' and t.BIND_STATUS = '1'
+  </select>
+
+  <select id="getCustomerCardByThirdChannel" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CARD
+    where USER_ID = #{userId,jdbcType=DECIMAL} and BELONG_CHANNEL = #{belong,jdbcType=VARCHAR} and STATUS = '1'
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CUSTOMER_CARD
+    where CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CustomerCard" >
+      <selectKey keyProperty="customerCardId" order="BEFORE" resultType="long">
+      SELECT SEQ_CUSTOMER_CARD.NEXTVAL as customerCardId FROM dual
+    </selectKey>
+    insert into CUSTOMER_CARD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerCardId != null" >
+        CUSTOMER_CARD_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE,
+      </if>
+      <if test="registeredBank != null" >
+        REGISTERED_BANK,
+      </if>
+      <if test="cardType != null" >
+        CARD_TYPE,
+      </if>
+      <if test="cardCode != null" >
+        CARD_CODE,
+      </if>
+      <if test="cardCustomerName != null" >
+        CARD_CUSTOMER_NAME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="mobile != null" >
+        MOBILE_NO,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+
+      <if test="bindStatus != null" >
+        BIND_STATUS,
+      </if>
+
+      <if test="agreeNo != null" >
+        AGREE_NO,
+      </if>
+      <if test="belongChannel != null" >
+        BELONG_CHANNEL,
+      </if>
+      <if test="provinceCityId != null" >
+        PROVINCE_CITY_ID,
+      </if>
+      <if test="bankLineNumber != null" >
+        BANK_LINE_NUMBER,
+      </if>
+      <if test="branchName != null" >
+        BRANCH_NAME,
+      </if>
+      <if test="bankNum != null" >
+        BANK_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customerCardId != null" >
+        #{customerCardId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="bankCode != null" >
+        #{bankCode,jdbcType=DECIMAL},
+      </if>
+      <if test="registeredBank != null" >
+        #{registeredBank,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        #{cardType,jdbcType=CHAR},
+      </if>
+      <if test="cardCode != null" >
+        #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardCustomerName != null" >
+        #{cardCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bindStatus != null" >
+        #{bindStatus,jdbcType=VARCHAR},
+      </if>
+
+      <if test="agreeNo != null" >
+        #{agreeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="belongChannel != null" >
+        #{belongChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCityId != null" >
+        #{provinceCityId,jdbcType=DECIMAL},
+      </if>
+      <if test="bankLineNumber != null" >
+        #{bankLineNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNum != null" >
+        #{bankNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CustomerCard" >
+    update CUSTOMER_CARD
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE = #{bankCode,jdbcType=DECIMAL},
+      </if>
+      <if test="registeredBank != null" >
+        REGISTERED_BANK = #{registeredBank,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        CARD_TYPE = #{cardType,jdbcType=CHAR},
+      </if>
+      <if test="cardCode != null" >
+        CARD_CODE = #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardcustomerName != null" >
+        CARD_CUSTOMER_NAME = #{cardcustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+       STATUS =  #{status,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+       MOBILE_NO = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bindStatus != null" >
+        BIND_STATUS = #{bindStatus,jdbcType=VARCHAR},
+      </if>
+
+      <if test="agreeNo != null" >
+        AGREE_NO = #{agreeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="belongChannel != null" >
+        BELONG_CHANNEL = #{belongChannel,jdbcType=VARCHAR},
+      </if>
+      
+       <if test="provinceCityId != null" >
+         PROVINCE_CITY_ID = #{provinceCityId,jdbcType=DECIMAL},
+      </if>
+      <if test="bankLineNumber != null" >
+        BANK_LINE_NUMBER = #{bankLineNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        BRANCH_NAME = #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNum != null" >
+        BANK_NUM = #{bankNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getCustomerCardsByUserId" resultMap="CustomerCardsResultMap" parameterType="java.lang.Long" >
+    SELECT *
+	  FROM CUSTOMER_CARD CARD
+	 WHERE 1=1
+		AND CARD.USER_ID = #{userId,jdbcType=DECIMAL}
+		AND CARD_TYPE = '3'
+  </select>
+
+  <select id="getCustomerAllCardsByUserId" resultMap="CustomerCardsResultMap" parameterType="java.lang.Long" >
+    SELECT *
+    FROM CUSTOMER_CARD CARD
+    WHERE 1=1
+    AND CARD.USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getAllCustomerCard" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.CustomerCard" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CARD where 1=1
+    <if test="userId != null">
+		and USER_ID = #{userId,jdbcType=DECIMAL}       	
+    </if>
+    <if test="cardCode != null" >
+        and CARD_CODE = #{cardCode,jdbcType=VARCHAR}
+      </if>
+    <if test="status != null">
+       	and STATUS =  #{status,jdbcType=CHAR}
+    </if>
+    <if test="bindStatus != null">
+       	and BIND_STATUS =  #{bindStatus,jdbcType=CHAR}
+    </if>
+  </select>
+  
+  <select id="getCardByEnterpriseId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select cc.CUSTOMER_CARD_ID,cc.CARD_CODE,cc.CARD_CUSTOMER_NAME
+	from ENTERPRISE_INFO ei,USER_INFO ui,CUSTOMER_CARD cc
+	where ei.USER_ID = ui.USER_ID 
+	and ei.USER_ID = cc.USER_ID
+	and ui.STATUS=0
+	and cc.STATUS=1
+	and cc.BIND_STATUS=1
+	and ei.ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL}
+	
+	union all
+	
+	select cc.CUSTOMER_CARD_ID,cc.CARD_CODE,cc.CARD_CUSTOMER_NAME
+	from ENTERPRISE_USER eu,USER_INFO ui,CUSTOMER_CARD cc
+	where eu.USER_ID = ui.USER_ID 
+	and eu.USER_ID = cc.USER_ID
+	and ui.STATUS=0
+	and cc.STATUS=1
+	and cc.BIND_STATUS=1
+	and eu.ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL}
+  </select>
+
+
+  <select id="getCustomerBindCardUseful" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select t.*
+    from (select rownum rn_, <include refid="Base_Column_List" />
+    from CUSTOMER_CARD
+    where USER_ID = #{userId,jdbcType=DECIMAL} and STATUS = '1')t
+    where t.rn_ BETWEEn 1 and 1
+  </select>
+
+  <select id="getCustomerBindCardUsefulWithBelongchannel" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CARD
+    where USER_ID = #{userId,jdbcType=DECIMAL} and STATUS = '1' and BELONG_CHANNEL='2'
+  </select>
+</mapper>

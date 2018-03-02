@@ -1,0 +1,255 @@
+@charset "utf-8";
+/* CSS Document */
+/*防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体*/
+html{ padding:0px; margin:0px; color:#000; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;box-sizing: border-box; min-height: 100%;}
+/*内外边距通常让各个浏览器样式的表现位置不同*/
+body{ font: 14px/1.5 '微软雅黑',YaHei,'MicroSoft YaHei',tahoma,arial; color:#666666;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,a,p,img,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{ margin:0px; padding:0px; font-size:14px; font-family:'MicroSoft YaHei';}
+
+button,input{font-family:YaHei}
+
+/*html5媒体文件跟img保持一致*/
+audio,canvas,video{ display:inline-block; *display:inline;*zoom:1;}
+/*去掉table cell的边距并让其边重合*/
+table{ border-collapse:collapse; border-spacing:0;}
+/* IE bug fixed:th 不继承 text-align*/
+th{ text-align:inherit;}
+/*去除默认边框*/
+fieldset,img{ border:0;}
+/*ie6 7 8(q) bug显示为行内显现*/
+iframe{ display:block;}
+/* 去掉列表前的标识，li 会继承*/
+ol,ul,li{ list-style:none;}
+/* 一致的 del样式*/
+del{ text-decoration:line-through;}
+
+/*来自 yahoo,让标题都自定义，适应多个系统应用*/
+h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:500;}
+
+q:before,q:after{ content:'';}
+i{ font-style:normal;}
+
+/* 统一上标和下标*/
+sub,sup{ font-size:75%; line-height:0; position:relative; vertical-align:baseline;}
+sup{ top:-0.5em;}
+sub{ bottom:-0.25em;}
+
+/* 默认不显示下划线，保持页面简洁*/
+ins,a{ text-decoration:none;}
+
+/* 清理浮动*/
+.clearFloat:after{ visibility:hidden; display:block; font-size:0; content:""; clear:both; height:0;}
+.clearFloat{ zoom:1;}/*兼容ie6 7*/
+
+/* 设置内联，减少浮动带来的bug*/
+.floatLeft,.floatRight{ display:inline;}
+.floatLeft{ float:left;}
+.floatRight{ float:right;}
+
+/* 重设html5标签，ie需要在js中 createElement(TAG)*/
+article,aside,details,figcaption,figure,footer,header,menu,nav,section{ display:block;}
+
+/* 去除浏览器中input文本框的默认自带样式 */
+input{ border:none; outline:medium;}
+
+/*去掉 firefox下此元素的边框*/
+abbr,acronym{ border:0; font-variant:normal;}
+address,caption,cite,code,dfn,em,th,var{ font-style:normal; font-weight:500;}
+
+/* blockquote元素前后添加了换行，并增加了外边距。
+q 双引号
+abbr全局的 title 属性
+*/
+
+/* -------------------------------- 链接颜色 ------------------------------- */
+a:link {color:#03004d; text-decoration:underline;}
+a:visited {color:#03004d;}
+a:hover {color:#03004d;}
+
+a.write:link{ color:#fff; text-decoration:none;}
+a.write:visited {color:#fff;}
+a.write:hover{color:#fff; text-decoration:underline;}
+
+a.ahui:link{ color:#5d5d5d; text-decoration:none;}
+a.ahui:visited {color:#5d5d5d;}
+a.ahui:hover{color:#5d5d5d;}
+
+a.ablue:link{ color:#3a8fc5;}
+a.ablue:visited {color:#3a8fc5;}
+a.ablue:hover{color:#3a8fc5; text-decoration:underline;}
+
+a.ared:link{ color:#fe2a4d;}
+a.ared:visited {color:#fe2a4d;}
+a.ared:hover{color:#fe2a4d; text-decoration:underline;}
+
+
+/* ----------------------------- cxm 自定义 颜色样式 -------------------------------*/
+.c_red{ color:#fe2a4d!important;}
+.c_blue{ color:#3a8fc5;}
+.c_orange{ color:#ff7b01;}
+
+/*------------------------------ cxm 自定义 背景颜色--------------------------------*/
+.bg_blue{ background:#1bb8e1;}
+
+/*------------------------------ cxm 自定义 字体大小 -----------------------------*/
+.fs_twelve{ font-size:12px;}
+
+/*------------------------------ cxm 自定义 常用 -----------------------------*/
+header,footer,article,section,nav,menu,hgroup {display: block;clear:both;}
+.wrapper{ width:1000px; margin:0 auto;}
+.wrapper2{ width:1200px; margin:0 auto;}
+
+/*------------------------------ 头部 css -----------------------------*/
+.bodycolor{ background:#03004c;}
+
+/* 顶部导航栏*/
+.toplink{ height:30px; line-height:30px; background:#03004c; border-bottom:#03004c 1px solid; color:#fff;  }
+.toplink .topright{ }
+.toplink a{ color:#fff; text-decoration:none;}
+.toplink .topright li{ max-width:100px; display:inline-block; float:left; padding:0 5px;}
+.toplink .topright li .liright{ display:inline-block; float:right;}
+
+nav{ background:#fff;  height:70px; line-height:70px;}
+nav .logo{ display:inline; float:left; line-height:70px; overflow:hidden;}
+nav .logo img{ margin-top:15px; border-right:1px solid #000; padding-right:20px; margin-right:20px;}
+.logobor{ border-bottom:1px solid #dddddd}
+.regissp{ height:60px; line-height:60px;color:#333;font-size:16px;color:#03004C;}
+.wrapnav{ display:inline; font-size:18px; float:right;}
+
+ul.navmiddle{ display:inline; float:left;}
+ul.navmiddle li.fb{ display:inline; float:left; position:relative;}
+ul.navmiddle li a.mb{ display:inline; float:left; padding:0 25px; color:#333;}
+
+ul.navmiddle li a.nav_icon{ background:url(../images/hx_03.png) 90% 50% no-repeat;}
+ul.navmiddle li:hover a.nav_icon{ background:url(../images/hx2_03.png) 90% 50% no-repeat; color:#e25453;}
+ul.navmiddle li a.nav_icon2:hover{ background:url(../images_new/dai/index/17_03.png) 85% 50% no-repeat;}/* 粉红色 */
+
+ul.nav_list{ display:none; padding:5px; z-index:9999; background:#fff; border:1px solid #ccc; line-height:2em; text-align:center; position:absolute; top:60px; left:20px; width:100px; font-size:14px;}
+ul.nav_list li{ display:block; float:none;}
+ul.nav_list li a{ display:block; padding:5px;}
+ul.nav_list li a:hover{ color:#fff; background:#e25453;}
+ul.nav_list:after{ content:""; width:9px; height:5px; border:1px solid #ccc; position:absolute; top:-4px; left:45%; display:block; z-index:99px; border-color: transparent #ccc transparent transparent;}
+
+/* 导航条*/
+.waylink{height:40px;line-height:40px; color:#494949; width:100%;}
+
+/*------------------------------ footer css -----------------------------*/
+.footer{ background:#03004c;}
+.footer a{ color:#fff; text-decoration:none;}
+.footer .ulone,.footer .ultwo{ display:inline-block; margin-top:20px; color:#fff;}
+.footer .ulone{ float:left; margin-left:40px;}
+.footer .ultwo{ float:right;}
+.footer .ulone li,.footer .ultwo li{ display:inline-block; height:15px; line-height:15px;}
+.footer .ulone li{float:left ; padding:0 10px; border-right:1px solid #fff;}
+.footer .ulone li.none{ border-right:none;}
+.footer .ultwo li{ float:right; padding:0 10px!important;}
+.footer .credibility{ text-align:center; margin:20px 0;}
+.footer .credibility img{ margin:0 5px; height:31px;}
+.footer .credibility a span{ background-repeat:no-repeat; margin:0 10px; display:inline-block;width:85px; height:32px;}
+.footer .credibility .imgsp1{ background-image:url(../images/credibility/img1.png) ;}
+.footer .credibility .imgsp2{ background-image:url(../images/credibility/img2.png);}
+.footer .credibility .imgsp3{ width:31px;  background-image:url(../images/credibility/img3.png);}
+.footer .credibility .imgsp4{ background-image:url(../images/credibility/img4.png) ;}
+.footer .credibility .imgsp1:hover{ background-image:url(../images/credibility/img1_hover.png)}
+.footer .credibility .imgsp3:hover{ background-image:url(../images/credibility/img3_hover.png)}
+
+
+.footer .botterbottom{ background:#000000; height:40px; line-height:40px; text-align:center; color:#999999;}
+
+/*------------------------------ footerindex css -----------------------------*/
+.footerindex{ background:#04004d; color:#f0eefc; padding-bottom:40px; margin-top:40px;}
+.footerindex a{ color:#f0eefc; text-decoration:none;}
+.footerindex .foul1 li{ display: inline-block; float:left; padding:0 18px; border-right:1px solid #51535f; height:15px; line-height:15px;}
+.foleft,.foright{ display:inline;}
+.foleft{ width:550px; float:left; font-size:12px;}
+.foright{ float:right; margin-top:40px;}
+.footerindex .foul1{ margin-top:35px;}
+.footerindex .foul1 li.first{ padding-left:0px;}
+.footerindex .foul1 li.last{ border:none;}
+.foleft .fosp{ width:450px; margin-top:20px;}
+.foleft .fosp a{ display:inline-block; color:#6f727b; float:left; width:90px; line-height:25px;}
+.foleft .credibility{ margin-top:20px;}
+.foleft .credibility img{ margin-right:20px;}
+.foright .foweixin li{ display:inline; float:left; margin-left:50px;}
+.foright .foweixin li p{ font-size:12px}
+.foright .foweixin li .pfirst{ margin-top:25px;}
+
+
+
+.fbottom{ height:37px; line-height:37px; background:#000000; color:#818181; overflow:hidden;}
+.fbottom ul li{ display:inline-block; float:left; margin:0 25px;}\
+
+
+/*------------------------------ 左右结构 css -----------------------------*/
+/*整体布局*/
+.leftnav,.rightbody{ display:inline; margin-top:20px;}
+.leftnav{float:left;width:220px;}
+.rightbody{float:right;width:700px; background:#fff;}
+
+/*------------------------------ 顶部 -----------------------------*/
+.line2{ background:#03004c; color:#fff; height:30px; line-height:30px; }
+.line2 .lineright{ display:inline; float:right;}
+.line2 .lineright li{ display:inline-block; float:left; margin:0 20px;}
+.line2 .lineright li a{color:#fff; text-decoration:none;}
+.line2 .bluewrap{ background:#03004c; width:1000px}
+
+.navindex{ height:70px; line-height:70px; overflow:hidden;}
+.navindex .navleft,.navindex .navright{ display:inline;}
+.navindex .navleft{ float:left;}
+.navindex .navright{ float:right;}
+.navindex .navleft .borderright{ border-right:1px solid #e3e3e3;}
+.navindex .navleft img{ padding:0 5px; margin-top:15px;}
+.navindex .navright li{ text-align:center; height:65px; display:inline-block; float:left; margin:0 25px; border-bottom:5px solid #fff; cursor:pointer; width:72px;-webkit-transition: all .3s ease;}
+.navindex .navright li:hover,.navindex .navright li.action{ border-bottom:5px solid #03004c;}
+.navindex .navright li a{ color:#1b224b; font-size:16px; text-decoration:none; display:inline-block; height:100%; width:100%;}
+
+/*------------------------------- bottom3 start ---------------------------------*/
+.bottom3{ background:#03034c; text-align:center;}
+.bottom3 .boimg1{ margin-top:25px;}
+.bottom3 .b1,.bottom3 .b2,.bottom3 .b3{ color:#b8b8c4; margin:10px;}
+.bottom3 .b1{ font-size:32px; color:#b8b8c4}
+.bottom3 .b1 img,.bottom3 .b2 img,.bottom3 .b3 img{ margin-right:5px;}
+.bottom3 .b4{ margin-top:10px; position:relative;}
+.bottom3 .b4 span{ margin:0 8px; display:inline-block; width:51px; height:51px; background-repeat:no-repeat; background-position:center center;}
+.bottom3 .b4 .b41{ background-image:url(../images/bottom/bottom_23.png)}
+.bottom3 .b4 i{ position:absolute; top:-150px; left:47.3%; display:none; display:none; width:120px; height:137px; background:url(../images/bottom/bottom_03.png) no-repeat center center;}
+.bottom3 .b4 .b42{ background-image:url(../images/bottom/bottom_26.png)}
+.bottom3 .b4 .b41:hover{ background-image:url(../images/bottom/sina_.jpg)}
+.bottom3 .b4 .b41:hover i{display:block; background-image:url(../images/bottom/bottom_04.png); left:40.6%}
+.bottom3 .b4 .b42:hover{ background-image:url(../images/bottom/bottom_06.png)}
+.bottom3 .b4 .b42:hover i{ display:block;}
+.bottom3 .fo1{ margin-top:10px; color:#b8b8c4; margin-bottom:10px;}
+.bottom3 .fo1 span{ padding:0 5px 0 3px;}
+
+.bottom3 .fo2{ background:#01011e; margin-top:20px;color:#b8b8c4; line-height:60px;}
+.bottom3 .fo2 span{ display:inline-block; width:91px; height:33px; background-repeat:no-repeat; background-position:center center; margin:0 5px;}
+.bottom3 .fo2 .bosp1{ background-image:url(../images/bottom/bottom301_03.png)}
+.bottom3 .fo2 .bosp1:hover{ background-image:url(../images/credibility/img1_hover.png)}
+.bottom3 .fo2 .bosp2{ background-image:url(../images/bottom/bottom301_05.png)}
+.bottom3 .fo2 .bosp3{ background-image:url(../images/bottom/bottom301_07.png)}
+.bottom3 .fo2 .bosp4{ background-image:url(../images/bottom/bottom301_09.png); width:33px;}
+.bottom3 .fo2 .bosp4:hover{ background-image:url(../images/credibility/img3_hover.png)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

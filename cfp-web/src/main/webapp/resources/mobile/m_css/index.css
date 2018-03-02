@@ -1,0 +1,72 @@
+@charset "utf-8";
+@import url(base.css);
+/*--------------------- register css------------------------*/
+.nav,.nav img,.title2{ width:100%;}
+.index,.inbody{ margin:0 20px; }
+
+.index h2{ height:45px; line-height:45px; color:#475174; font-size:1.5em;}
+.ipt-group .ipt{border-radius: 0; width:100%; height:40px; line-height:40px; text-indent:1em; border:1px solid #d2d4dc;}
+
+.btn-group .btn{ display:block; width:100%; height:45px; line-height:45px; text-align:center; color:#fff; font-size:1.5em; cursor:pointer; border-radius:2px; margin-top:20px; margin-bottom:20px;}
+.btn-group .active{}
+.ipt-group em{ display:block; height:30px; line-height:30px; color:#FE2C4F; font-size:12px}
+.ipt-group em.hui{color:#9b9ea6; }
+
+
+.ipt-group .ipt-error{ border:1px solid #fe2a4d;}
+.ipt-group .ipt-input:hover, .ipt-group input.cut, .ipt-group input:focus{border:1px solid #409DFE;box-shadow:0 0 3px #409DFE;}
+.ipt-input[disabled]{ cursor:no-drop}
+.ipt-input[disabled]:hover{ box-shadow:none;border:1px solid #dddddd;}
+/* 邀请码*/
+.visite{ position:relative;}
+.visite span{ position:absolute; left:20px; top:10px;}
+.visite .ipt{ background:#d8d8d8; text-indent:5em;}
+/* 登录密码 */
+.login-pwd{ position:relative; }
+.login-pwd span{ position:absolute; right:-2px; top:0px; display:block; background:#d2d4dc; border:1px solid #d2d4dc; width:38px; height:38px; line-height:40px; color:#fff; text-align:center;}
+/* 短信验证码 */
+.short-info{ position:relative;}
+.short-info .ipt{ width:50%; position:relative; left:0px; right:140px; }
+
+/*--------------------- register-success css ------------------------*/
+.inbody .title{ text-align:center; margin-top:40px; line-height:30px; font-size:1.6em;}
+.inbody .title img.img1{ width:30px; margin-right:10px; margin-top:-5px;}
+.inbody .title span{ font-size:1.1em;}
+.inbody .title img.img2{ width:80%; margin-top:20px;}
+
+.mt-50{ margin-top:50px;}
+.title2{ text-align:center; margin-top:10px; font-size:1.2em;}
+
+@media (min-width:600px){
+	.inbody .title{ margin-top:30px; line-height:35px; font-size:1.8em;}
+	.inbody .title img.img1{ width:50px; margin-right:10px; margin-top:-5px;}
+	.title2{ font-size:1.4em;}
+	.short-info .ipt{ width:70%;}
+}
+@media (max-width:365px){
+	.title2{ font-size:1.0em;}
+}
+
+/* 红色按钮 */
+.btn-error{border-radius: 0;
+	border:none;
+	  background:#fe2b4e;
+	  background: -webkit-linear-gradient(#fe405f, #fe2b4e); /* Safari 5.1 - 6.0 */
+	  background: -o-linear-gradient(#fe405f, #fe2b4e); /* Opera 11.1 - 12.0 */
+	  background: -moz-linear-gradient(#fe405f, #fe2b4e); /* Firefox 3.6 - 15 */
+	  background: linear-gradient(#fe405f, #fe2b4e); /* 标准的语法 */
+	  color: #fef4e9;}
+.btn-error:hover{background: #fe2b4e;}
+.btn-error:active{color: #475174;}
+.btn-error[disabled]{background: #ffacba;}
+
+/* 蓝色按钮 */
+.btn-blue{border-radius: 0;border:none;height:38px; line-height:38px; background:#3b3967; width:120px; color:#fff; text-align:center; font-size:16px; cursor:pointer;}
+.btn-blue:hover{background: #03004c;}
+.btn-blue:active{color: #c2deef;}
+.btn-blue[disabled]{background: #D8D8D8; border:1px solid #D2D4DC;}
+.text-p{ text-align:center;}
+.mb-50{ margin-bottom:50px;}
+.bottom{ background:#03004C; opacity:0.85; padding:20px 0 20px 0; color:#f1f1f1;}
+.btn-gray{border-radius: 0;
+	border:none;height:40px; line-height:40px; background:#ccc; width:120px; color:#fff; text-align:center; font-size:16px; cursor:pointer;}

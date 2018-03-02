@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <import resource="classpath*:applicationContext-datasource.xml"/>
+    <!--<bean id="scheduler"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        &lt;!&ndash; <property name="configLocation" value="classpath:quartz.properties"/> &ndash;&gt;
+        <property name="applicationContextSchedulerContextKey"
+                  value="applicationContextKey"/>
+        <property name="autoStartup" value="true"/>
+        <property name="startupDelay" value="30"/>
+        <property name="triggers">
+            <list>
+               &lt;!&ndash; <ref local="testTrigger" />&ndash;&gt;
+                <ref local="userAccountHisToYongYouTrigger" />
+                &lt;!&ndash; <ref local="test" /> &ndash;&gt;
+            </list>
+        </property>
+    </bean>-->
+    
+    <!--触发器的bean的设置，要触发的jobDetail是overdueRecallTask-->
+   <!-- <bean id="testTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService" />
+                <property name="targetMethod" value="failBidTask" />
+            </bean>
+        </property>
+        <property name="cronExpression">
+            <value>0 0 1 * * ?</value>
+        </property>
+    </bean>-->
+
+    
+    <!-- 用友流水报表 -->
+    <!--<bean id="userAccountHisToYongYouTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="exportAccountHisToYongYou"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0 2 * * ?" />&lt;!&ndash; 每晚2点触发 &ndash;&gt;
+        &lt;!&ndash; <property name="cronExpression" value="0 0/1 * * * ?" />每分钟 &ndash;&gt;
+    </bean>
+    
+      &lt;!&ndash; 用友流水报表 &ndash;&gt;
+    <bean id="test" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <bean class="frameworkx.springframework.scheduling.quartz.BeanInvokingJobDetailFactoryBean">
+                <property name="targetBean" value="bidTaskForTimerService"/>
+                <property name="targetMethod" value="test"/>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0/1 * * * ?" />&lt;!&ndash; 每分钟 &ndash;&gt;
+    </bean>-->
+    
+</beans>

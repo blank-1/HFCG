@@ -1,0 +1,35 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.l_NewScroll::-webkit-scrollbar {display: none;}
+header{width:100%;height: 20%;background: url(../images/p4_MyAssets_img1.png) 14% no-repeat, url(../images/p4_MyAssets_img2.png) center no-repeat; background-size: 16%,cover;position: relative;}
+.l_topInfo1{width: 66%;padding: 0 0 0 34%;color: #fff;}
+.l_topInfo1 li:nth-child(1){width: 2rem; height: 2rem; background: url(../images/p4_MyAssets_img3.png) center no-repeat; background-size: contain; position: absolute; top: 0.6rem; right: 1.4rem; }
+.l_topInfo1 li:nth-child(2){font-size: 1.4rem;position: absolute;top: 50%;margin-top: -2.5rem;} 
+.l_topInfo1 li:nth-child(3){font-size: 2.4rem; line-height: 3rem;position: absolute;top: 50%;margin-top: -0.7rem;}
+.l_topInfo1 li:nth-child(4){width: 100%;height:1.6rem;line-height:1.6rem;font-size: 1rem;color: #fff;background: #33b7ff;text-align: center;text-overflow: clip;white-space:nowrap;overflow: hidden;position: absolute;bottom: 0;left: 0;display: none;}
+#l_tips{display: inline-block;width:1.4rem;height: 1.4rem;background: url(../images/icon_myAssets1.png) 50% 100% no-repeat;background-size: contain;margin:0.2rem 0 0 0.5rem; }
+.l_midInfo1{width: 100%;height: 4rem;background: #d4f6ff;font-size: 1.2rem;line-height:4rem;text-indent: 5%; overflow: hidden; }
+.l_midInfo1 span:nth-child(2),.l_midInfo1 span:nth-child(3){display:block;width: 4rem;height:2rem;border: solid 1px #3bc2ff; border-radius:4px;float: right;margin-top: 1rem; line-height: 2rem;text-align: center;text-indent: 0; }
+.l_midInfo1 span:nth-child(2){margin-right: 5%;}
+.l_midInfo1 span:nth-child(3){margin-right: 2%;}
+section li{width: 86%;height: 5rem;line-height: 5rem;position: relative;color: #a4adbe;text-align: right;padding-right: 14%;font-size: 1rem;border-bottom:solid 1px #e1e3eb;}
+section li::after{content: ""; width: 1rem; height: 1rem; border-top:solid 1px #9ea7ca; border-right:solid 1px #9ea7ca; transform: rotate(45deg); -webkit-transform: rotate(45deg); position: absolute; right:6%; top: 50%; margin-top: -0.4rem; }
+section li:nth-child(1){border-top:1px solid #f6a8b5;border-bottom:1px solid #f6a8b5;background: #fffdf4 url(../images/p4_MyAssets_img4.png) 5% 50% no-repeat;background-size: 2rem;margin-top: 2%; }
+section li:nth-child(1)::before{content: "推广收益"; font-size: 1.5rem; line-height: 5rem; color: #7c8597; position: absolute; text-indent: 3rem; left: 5%; }
+section li:nth-child(2){background: #fff url(../images/p4_MyAssets_img5.png) 5% 50% no-repeat;background-size: 2rem;margin-top: 2%;}
+section li:nth-child(2)::before{content: "投资收益"; font-size: 1.5rem; line-height: 5rem; color: #7c8597; position: absolute; text-indent: 3rem; left: 5%; }
+section li:nth-child(3){background: #fff url(../images/p4_MyAssets_img6.png) 5% 50% no-repeat;background-size: 2rem;}
+section li:nth-child(3)::before{content: "在投资金"; font-size: 1.5rem; line-height: 5rem; color: #7c8597; position: absolute; text-indent: 3rem; left: 5%; }
+section li:nth-child(4){background: #fff url(../images/p4_MyAssets_img7.png) 5% 50% no-repeat;background-size: 2rem;}
+section li:nth-child(4)::before{content: "已冻结"; font-size: 1.5rem; line-height: 5rem; color: #7c8597; position: absolute; text-indent: 3rem; left: 5%; }
+section li:nth-child(5){background: #fff url(../images/p4_MyAssets_img8.png) 5% 50% no-repeat;background-size: 2rem;margin-top: 2%;}
+section li:nth-child(5)::before{content: "财富券"; font-size: 1.5rem; line-height: 5rem; color: #7c8597; position: absolute; text-indent: 3rem; left: 5%; }
+section li:nth-child(6){background: #fff url(../images/p4_MyAssets_img9.png) 5% 50% no-repeat;background-size: 2rem;}
+section li:nth-child(6)::before{content: "银行卡"; font-size: 1.5rem; line-height: 5rem; color: #7c8597; position: absolute; text-indent: 3rem; left: 5%; }
+button{width: 90%; font-size: 1.8rem; color: #fff; height: 3rem; line-height: 3rem; margin: 6% 0 6% 5%; }
+
+.mask{display: block;}
+.mask img{width: 80%;margin:2% 0 2% 10%;clear: both; }
+.mask p{width:3rem ;height: 3rem;float:right;background: url(../images/icon_userListC.png) 50% 50% no-repeat;background-size: contain;margin:20% 10% 0 0; }
+.mask span{display:block;width: 100%;text-align: center;color: #fff;font-size: 1rem;height: 3rem;line-height: 3rem;}
+.mask i{display:block;width:14rem;height: 3rem;line-height: 3rem;background: #ffcc00; font-size: 1.4rem;color:#bd5400;text-align: center;border-radius:3rem;margin:2% auto;  }

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CUSTOMER_CAR_SNAPSHOT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CustomerCarSnapshot" >
+    <id column="SNAPSHOT_ID" property="snapshotId" jdbcType="DECIMAL" />
+    <result column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL" />
+    <result column="CAR_MODEL" property="carModel" jdbcType="VARCHAR" />
+    <result column="CAR_MONEY" property="carMoney" jdbcType="DECIMAL" />
+    <result column="MILEAGE" property="mileage" jdbcType="DECIMAL" />
+    <result column="APPRAISAL" property="appraisal" jdbcType="DECIMAL" />
+    <result column="BUY_TIME" property="buyTime" jdbcType="TIMESTAMP" />
+    <result column="PLEDGE_TYPE" property="pledgeType" jdbcType="DECIMAL" />
+    <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+    <result column="ORIGINAL_PRICE" property="originalPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SNAPSHOT_ID, LOAN_APPLICATION_ID, CAR_MODEL, CAR_MONEY, MILEAGE, APPRAISAL, BUY_TIME, 
+    PLEDGE_TYPE, MAIN_LOAN_APPLICATION_ID,ORIGINAL_PRICE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CAR_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CUSTOMER_CAR_SNAPSHOT
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CustomerCarSnapshot" >
+  	<selectKey keyProperty="snapshotId" order="BEFORE" resultType="long">
+      SELECT SEQ_CUSTOMER_CAR_SNAPSHOT.NEXTVAL as snapshotId FROM dual
+    </selectKey>
+    insert into CUSTOMER_CAR_SNAPSHOT (SNAPSHOT_ID, LOAN_APPLICATION_ID, CAR_MODEL, 
+      CAR_MONEY, MILEAGE, APPRAISAL,
+      BUY_TIME, PLEDGE_TYPE, MAIN_LOAN_APPLICATION_ID,ORIGINAL_PRICE
+      )
+    values (#{snapshotId,jdbcType=DECIMAL}, #{loanApplicationId,jdbcType=DECIMAL}, #{carModel,jdbcType=VARCHAR}, 
+      #{carMoney,jdbcType=DECIMAL}, #{mileage,jdbcType=DECIMAL}, #{appraisal,jdbcType=DECIMAL}, 
+      #{buyTime,jdbcType=TIMESTAMP}, #{pledgeType,jdbcType=DECIMAL}, #{mainLoanApplicationId,jdbcType=DECIMAL},
+      #{originalPrice,jdbcType=DECIMAL}
+
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CustomerCarSnapshot" >
+    insert into CUSTOMER_CAR_SNAPSHOT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        SNAPSHOT_ID,
+      </if>
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID,
+      </if>
+      <if test="carModel != null" >
+        CAR_MODEL,
+      </if>
+      <if test="carMoney != null" >
+        CAR_MONEY,
+      </if>
+      <if test="mileage != null" >
+        MILEAGE,
+      </if>
+      <if test="appraisal != null" >
+        APPRAISAL,
+      </if>
+      <if test="buyTime != null" >
+        BUY_TIME,
+      </if>
+      <if test="pledgeType != null" >
+        PLEDGE_TYPE,
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID,
+      </if>
+
+      <if test="originalPrice != null" >
+        ORIGINAL_PRICE,
+      </if>
+
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="snapshotId != null" >
+        #{snapshotId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanApplicationId != null" >
+        #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="carModel != null" >
+        #{carModel,jdbcType=VARCHAR},
+      </if>
+      <if test="carMoney != null" >
+        #{carMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="mileage != null" >
+        #{mileage,jdbcType=DECIMAL},
+      </if>
+      <if test="appraisal != null" >
+        #{appraisal,jdbcType=DECIMAL},
+      </if>
+      <if test="buyTime != null" >
+        #{buyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pledgeType != null" >
+        #{pledgeType,jdbcType=DECIMAL},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="originalPrice != null" >
+        #{originalPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CustomerCarSnapshot" >
+    update CUSTOMER_CAR_SNAPSHOT
+    <set >
+      <if test="loanApplicationId != null" >
+        LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="carModel != null" >
+        CAR_MODEL = #{carModel,jdbcType=VARCHAR},
+      </if>
+      <if test="carMoney != null" >
+        CAR_MONEY = #{carMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="mileage != null" >
+        MILEAGE = #{mileage,jdbcType=DECIMAL},
+      </if>
+      <if test="appraisal != null" >
+        APPRAISAL = #{appraisal,jdbcType=DECIMAL},
+      </if>
+      <if test="buyTime != null" >
+        BUY_TIME = #{buyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pledgeType != null" >
+        PLEDGE_TYPE = #{pledgeType,jdbcType=DECIMAL},
+      </if>
+      <if test="mainLoanApplicationId != null" >
+        MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      </if>
+      <if test="originalPrice != null" >
+        ORIGINAL_PRICE=#{originalPrice,jdbcType=DECIMAL},
+      </if>
+
+    </set>
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CustomerCarSnapshot" >
+    update CUSTOMER_CAR_SNAPSHOT
+    set LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL},
+      CAR_MODEL = #{carModel,jdbcType=VARCHAR},
+      CAR_MONEY = #{carMoney,jdbcType=DECIMAL},
+      MILEAGE = #{mileage,jdbcType=DECIMAL},
+      APPRAISAL = #{appraisal,jdbcType=DECIMAL},
+      BUY_TIME = #{buyTime,jdbcType=TIMESTAMP},
+      PLEDGE_TYPE = #{pledgeType,jdbcType=DECIMAL},
+      ORIGINAL_PRICE=#{originalPrice,jdbcType=DECIMAL},
+      MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+
+    where SNAPSHOT_ID = #{snapshotId,jdbcType=DECIMAL}
+  </update>
+  <!-- 根据申请ID加载一条抵押信息 -->
+  <select id="getCarByLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CAR_SNAPSHOT
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- by main -->
+  <select id="getCarByMainLoanApplicationId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CUSTOMER_CAR_SNAPSHOT
+    where MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </select>
+</mapper>

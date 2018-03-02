@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="REPAYMENT_RECORD_DETAIL">
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RepaymentRecordDetail">
+    <id column="DETAIL_ID" jdbcType="DECIMAL" property="detailId" />
+    <result column="REPAYMENT_RECORD_ID" jdbcType="DECIMAL" property="repaymentRecordId" />
+    <result column="LEND_ORDER_ID" jdbcType="DECIMAL" property="lendOrderId" />
+    <result column="LEND_USER_ID" jdbcType="DECIMAL" property="lendUserId" />
+    <result column="RIGHTS_REPAYMENT_DETAIL_ID" jdbcType="DECIMAL" property="rightsRepaymentDetailId" />
+    <result column="SECTION_CODE" jdbcType="DECIMAL" property="sectionCode" />
+    <result column="FACT_RECEIVE_CAPITAL" jdbcType="DECIMAL" property="factReceiveCapital" />
+    <result column="FACT_RECEIVE_INTEREST" jdbcType="DECIMAL" property="factReceiveInterest" />
+    <result column="FACT_RECEIVE_PENALTY" jdbcType="DECIMAL" property="factReceivePenalty" />
+    <result column="FACT_RECEIVE_BALANCE" jdbcType="DECIMAL" property="factReceiveBalance" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DETAIL_ID, REPAYMENT_RECORD_ID, LEND_ORDER_ID, LEND_USER_ID, RIGHTS_REPAYMENT_DETAIL_ID, 
+    SECTION_CODE, FACT_RECEIVE_CAPITAL, FACT_RECEIVE_INTEREST, FACT_RECEIVE_PENALTY, 
+    FACT_RECEIVE_BALANCE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from REPAYMENT_RECORD_DETAIL
+    where DETAIL_ID = #{detailId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from REPAYMENT_RECORD_DETAIL
+    where DETAIL_ID = #{detailId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.RepaymentRecordDetail">
+      <selectKey resultType="long" keyProperty="detailId" order="BEFORE">
+          select SEQ_REPAYMENT_RECORD_DETAIL.nextval as detailId from dual
+      </selectKey>
+    insert into REPAYMENT_RECORD_DETAIL (DETAIL_ID, REPAYMENT_RECORD_ID, LEND_ORDER_ID, 
+      LEND_USER_ID, RIGHTS_REPAYMENT_DETAIL_ID, SECTION_CODE, 
+      FACT_RECEIVE_CAPITAL, FACT_RECEIVE_INTEREST, 
+      FACT_RECEIVE_PENALTY, FACT_RECEIVE_BALANCE)
+    values (#{detailId,jdbcType=DECIMAL}, #{repaymentRecordId,jdbcType=DECIMAL}, #{lendOrderId,jdbcType=DECIMAL}, 
+      #{lendUserId,jdbcType=DECIMAL}, #{rightsRepaymentDetailId,jdbcType=DECIMAL}, #{sectionCode,jdbcType=DECIMAL}, 
+      #{factReceiveCapital,jdbcType=DECIMAL}, #{factReceiveInterest,jdbcType=DECIMAL}, 
+      #{factReceivePenalty,jdbcType=DECIMAL}, #{factReceiveBalance,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.RepaymentRecordDetail">
+    insert into REPAYMENT_RECORD_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="detailId != null">
+        DETAIL_ID,
+      </if>
+      <if test="repaymentRecordId != null">
+        REPAYMENT_RECORD_ID,
+      </if>
+      <if test="lendOrderId != null">
+        LEND_ORDER_ID,
+      </if>
+      <if test="lendUserId != null">
+        LEND_USER_ID,
+      </if>
+      <if test="rightsRepaymentDetailId != null">
+        RIGHTS_REPAYMENT_DETAIL_ID,
+      </if>
+      <if test="sectionCode != null">
+        SECTION_CODE,
+      </if>
+      <if test="factReceiveCapital != null">
+        FACT_RECEIVE_CAPITAL,
+      </if>
+      <if test="factReceiveInterest != null">
+        FACT_RECEIVE_INTEREST,
+      </if>
+      <if test="factReceivePenalty != null">
+        FACT_RECEIVE_PENALTY,
+      </if>
+      <if test="factReceiveBalance != null">
+        FACT_RECEIVE_BALANCE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="detailId != null">
+        #{detailId,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentRecordId != null">
+        #{repaymentRecordId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null">
+        #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendUserId != null">
+        #{lendUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="rightsRepaymentDetailId != null">
+        #{rightsRepaymentDetailId,jdbcType=DECIMAL},
+      </if>
+      <if test="sectionCode != null">
+        #{sectionCode,jdbcType=DECIMAL},
+      </if>
+      <if test="factReceiveCapital != null">
+        #{factReceiveCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="factReceiveInterest != null">
+        #{factReceiveInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="factReceivePenalty != null">
+        #{factReceivePenalty,jdbcType=DECIMAL},
+      </if>
+      <if test="factReceiveBalance != null">
+        #{factReceiveBalance,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.RepaymentRecordDetail">
+    update REPAYMENT_RECORD_DETAIL
+    <set>
+      <if test="repaymentRecordId != null">
+        REPAYMENT_RECORD_ID = #{repaymentRecordId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null">
+        LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendUserId != null">
+        LEND_USER_ID = #{lendUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="rightsRepaymentDetailId != null">
+        RIGHTS_REPAYMENT_DETAIL_ID = #{rightsRepaymentDetailId,jdbcType=DECIMAL},
+      </if>
+      <if test="sectionCode != null">
+        SECTION_CODE = #{sectionCode,jdbcType=DECIMAL},
+      </if>
+      <if test="factReceiveCapital != null">
+        FACT_RECEIVE_CAPITAL = #{factReceiveCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="factReceiveInterest != null">
+        FACT_RECEIVE_INTEREST = #{factReceiveInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="factReceivePenalty != null">
+        FACT_RECEIVE_PENALTY = #{factReceivePenalty,jdbcType=DECIMAL},
+      </if>
+      <if test="factReceiveBalance != null">
+        FACT_RECEIVE_BALANCE = #{factReceiveBalance,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where DETAIL_ID = #{detailId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RepaymentRecordDetail">
+    update REPAYMENT_RECORD_DETAIL
+    set REPAYMENT_RECORD_ID = #{repaymentRecordId,jdbcType=DECIMAL},
+      LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      LEND_USER_ID = #{lendUserId,jdbcType=DECIMAL},
+      RIGHTS_REPAYMENT_DETAIL_ID = #{rightsRepaymentDetailId,jdbcType=DECIMAL},
+      SECTION_CODE = #{sectionCode,jdbcType=DECIMAL},
+      FACT_RECEIVE_CAPITAL = #{factReceiveCapital,jdbcType=DECIMAL},
+      FACT_RECEIVE_INTEREST = #{factReceiveInterest,jdbcType=DECIMAL},
+      FACT_RECEIVE_PENALTY = #{factReceivePenalty,jdbcType=DECIMAL},
+      FACT_RECEIVE_BALANCE = #{factReceiveBalance,jdbcType=DECIMAL}
+    where DETAIL_ID = #{detailId,jdbcType=DECIMAL}
+  </update>
+
+</mapper>

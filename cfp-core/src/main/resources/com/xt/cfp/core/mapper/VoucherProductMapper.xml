@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="VOUCHER_PRODUCT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.VoucherProduct" >
+    <id column="VOUCHER_PRODUCT_ID" property="voucherProductId" jdbcType="DECIMAL" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+    <result column="VOUCHER_NAME" property="voucherName" jdbcType="VARCHAR" />
+    <result column="VOUCHER_TYPE" property="voucherType" jdbcType="CHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="RATE" property="rate" jdbcType="DECIMAL" />
+    <result column="CARDINAL_TYPE" property="cardinalType" jdbcType="CHAR" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="EFFECTIVE_COUNT" property="effectiveCount" jdbcType="DECIMAL" />
+    <result column="USAGE_SCENARIO" property="usageScenario" jdbcType="CHAR" />
+    <result column="IS_OVERLAY" property="isOverlay" jdbcType="CHAR" />
+    <result column="CONDITION_AMOUNT" property="conditionAmount" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="VOUCHER_REMARK" property="voucherRemark" jdbcType="VARCHAR" />
+    <result column="IS_EXPERIENCE" property="isExperience" jdbcType="CHAR" />
+  </resultMap>
+
+  <resultMap id="voucherProductVO" type="com.xt.cfp.core.pojo.ext.VoucherProductVO" extends="BaseResultMap">
+    <result property="operateName" column="operateName" jdbcType="VARCHAR" />
+    <result property="usageCount" column="usageCount" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    VOUCHER_PRODUCT_ID, ADMIN_ID, VOUCHER_NAME,VOUCHER_TYPE, AMOUNT, RATE, CARDINAL_TYPE,
+    START_DATE, END_DATE, EFFECTIVE_COUNT, USAGE_SCENARIO, IS_OVERLAY, CONDITION_AMOUNT, 
+    STATUS, VOUCHER_REMARK, IS_EXPERIENCE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from VOUCHER_PRODUCT
+    where VOUCHER_PRODUCT_ID = #{voucherProductId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from VOUCHER_PRODUCT
+    where VOUCHER_PRODUCT_ID = #{voucherProductId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.VoucherProduct" >
+    insert into VOUCHER_PRODUCT (VOUCHER_PRODUCT_ID, ADMIN_ID,
+      VOUCHER_TYPE, AMOUNT, RATE, 
+      CARDINAL_TYPE, START_DATE, END_DATE, 
+      EFFECTIVE_COUNT, USAGE_SCENARIO, IS_OVERLAY, 
+      CONDITION_AMOUNT, STATUS, VOUCHER_REMARK, VOUCHER_NAME,
+      IS_EXPERIENCE)
+    values (#{voucherProductId,jdbcType=DECIMAL}, #{adminId,jdbcType=DECIMAL}, #{voucherId,jdbcType=DECIMAL}, 
+      #{voucherType,jdbcType=CHAR}, #{amount,jdbcType=DECIMAL}, #{rate,jdbcType=DECIMAL}, 
+      #{cardinalType,jdbcType=CHAR}, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{effectiveCount,jdbcType=DECIMAL}, #{usageScenario,jdbcType=CHAR}, #{isOverlay,jdbcType=CHAR}, 
+      #{conditionAmount,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, #{voucherRemark,jdbcType=VARCHAR},  #{voucherName,jdbcType=VARCHAR},
+      #{isExperience,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.VoucherProduct" >
+    <selectKey keyProperty="voucherProductId" order="BEFORE" resultType="long">
+      SELECT SEQ_VOUCHER_PRODUCT.NEXTVAL as voucherProductId FROM dual
+    </selectKey>
+
+    insert into VOUCHER_PRODUCT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="voucherProductId != null" >
+        VOUCHER_PRODUCT_ID,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+      <if test="voucherType != null" >
+        VOUCHER_TYPE,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="rate != null" >
+        RATE,
+      </if>
+      <if test="cardinalType != null" >
+        CARDINAL_TYPE,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="effectiveCount != null" >
+        EFFECTIVE_COUNT,
+      </if>
+      <if test="usageScenario != null" >
+        USAGE_SCENARIO,
+      </if>
+      <if test="isOverlay != null" >
+        IS_OVERLAY,
+      </if>
+      <if test="conditionAmount != null" >
+        CONDITION_AMOUNT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="voucherRemark != null" >
+        VOUCHER_REMARK,
+      </if>
+      <if test="isExperience != null" >
+        IS_EXPERIENCE,
+      </if>
+      <if test="voucherName != null" >
+        VOUCHER_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="voucherProductId != null" >
+        #{voucherProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="voucherType != null" >
+        #{voucherType,jdbcType=CHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="cardinalType != null" >
+        #{cardinalType,jdbcType=CHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveCount != null" >
+        #{effectiveCount,jdbcType=DECIMAL},
+      </if>
+      <if test="usageScenario != null" >
+        #{usageScenario,jdbcType=CHAR},
+      </if>
+      <if test="isOverlay != null" >
+        #{isOverlay,jdbcType=CHAR},
+      </if>
+      <if test="conditionAmount != null" >
+        #{conditionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="voucherRemark != null" >
+        #{voucherRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isExperience != null" >
+        #{isExperience,jdbcType=CHAR},
+      </if>
+      <if test="voucherName != null" >
+         #{voucherName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.VoucherProduct" >
+    update VOUCHER_PRODUCT
+    <set >
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="voucherType != null" >
+        VOUCHER_TYPE = #{voucherType,jdbcType=CHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null" >
+        RATE = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="cardinalType != null" >
+        CARDINAL_TYPE = #{cardinalType,jdbcType=CHAR},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveCount != null" >
+        EFFECTIVE_COUNT = #{effectiveCount,jdbcType=DECIMAL},
+      </if>
+      <if test="usageScenario != null" >
+        USAGE_SCENARIO = #{usageScenario,jdbcType=CHAR},
+      </if>
+      <if test="isOverlay != null" >
+        IS_OVERLAY = #{isOverlay,jdbcType=CHAR},
+      </if>
+      <if test="conditionAmount != null" >
+        CONDITION_AMOUNT = #{conditionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="voucherRemark != null" >
+        VOUCHER_REMARK = #{voucherRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isExperience != null" >
+        IS_EXPERIENCE = #{isExperience,jdbcType=CHAR},
+      </if>
+      <if test="voucherName != null" >
+        VOUCHER_NAME = #{voucherName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where VOUCHER_PRODUCT_ID = #{voucherProductId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.VoucherProduct" >
+    update VOUCHER_PRODUCT
+    set ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      VOUCHER_TYPE = #{voucherType,jdbcType=CHAR},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      RATE = #{rate,jdbcType=DECIMAL},
+      CARDINAL_TYPE = #{cardinalType,jdbcType=CHAR},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      EFFECTIVE_COUNT = #{effectiveCount,jdbcType=DECIMAL},
+      USAGE_SCENARIO = #{usageScenario,jdbcType=CHAR},
+      IS_OVERLAY = #{isOverlay,jdbcType=CHAR},
+      CONDITION_AMOUNT = #{conditionAmount,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=CHAR},
+      VOUCHER_REMARK = #{voucherRemark,jdbcType=VARCHAR},
+      IS_EXPERIENCE = #{isExperience,jdbcType=CHAR},
+      VOUCHER_NAME = #{voucherName,jdbcType=VARCHAR}
+    where VOUCHER_PRODUCT_ID = #{voucherProductId,jdbcType=DECIMAL}
+  </update>
+
+
+  <select id="detail" resultMap="voucherProductVO" parameterType="java.lang.Long" >
+    select
+    VOUCHER_PRODUCT_ID, t.ADMIN_ID, VOUCHER_NAME,VOUCHER_TYPE, AMOUNT, RATE, CARDINAL_TYPE,
+    START_DATE, END_DATE, EFFECTIVE_COUNT, USAGE_SCENARIO, IS_OVERLAY, CONDITION_AMOUNT,
+    STATUS, VOUCHER_REMARK, IS_EXPERIENCE,ai.LOGIN_NAME operateName
+    from VOUCHER_PRODUCT T left join ADMIN_INFO ai on ai.ADMIN_ID = t.ADMIN_ID
+    where VOUCHER_PRODUCT_ID = #{voucherProductId,jdbcType=DECIMAL}
+  </select>
+
+  <update id="changeBondSourceStatus" parameterType="map" >
+    update VOUCHER_PRODUCT
+    set  STATUS = #{status,jdbcType=CHAR}
+    where VOUCHER_PRODUCT_ID = #{voucherProductId,jdbcType=DECIMAL}
+  </update>
+
+  <update id="refreshProductStatus" parameterType="java.util.Date" >
+    update VOUCHER_PRODUCT t
+    set  STATUS = '0'
+    where  T.STATUS='1' <![CDATA[AND t.END_DATE+interval '1' DAY < #{value}]]>
+  </update>
+
+  <select id="getVoucherProductPaging" resultMap="voucherProductVO" parameterType="map" >
+    select
+    VOUCHER_PRODUCT_ID, t.ADMIN_ID, VOUCHER_NAME,VOUCHER_TYPE, AMOUNT, RATE, CARDINAL_TYPE,
+    START_DATE, END_DATE, EFFECTIVE_COUNT, USAGE_SCENARIO, IS_OVERLAY, CONDITION_AMOUNT,
+    STATUS, VOUCHER_REMARK, IS_EXPERIENCE,ai.LOGIN_NAME operateName
+    from VOUCHER_PRODUCT T left join ADMIN_INFO ai on ai.ADMIN_ID = t.ADMIN_ID
+    <where>
+      <if test="voucherProduct != null">
+        <if test="voucherProduct.voucherName != null and voucherProduct.voucherName != ''">
+          AND t.VOUCHER_NAME like  '%${voucherProduct.voucherName}%'
+        </if>
+        <if test="voucherProduct.voucherType != null and voucherProduct.voucherType  != ''">
+          AND t.VOUCHER_TYPE =  #{voucherProduct.voucherType }
+        </if>
+
+        <if test="voucherProduct.usageScenario != null and voucherProduct.usageScenario != ''">
+          AND t.USAGE_SCENARIO = #{voucherProduct.usageScenario}
+        </if>
+        <if test="voucherProduct.status != null and voucherProduct.status != ''">
+          AND t.STATUS = #{voucherProduct.status,jdbcType=VARCHAR}
+        </if>
+
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+        <if test="customParams.timeInterval != null">
+          <if test="customParams.timeInterval.startTime != null">
+            <![CDATA[AND t.START_DATE >= #{customParams.timeInterval.startTime}]]>
+          </if>
+          <if test="customParams.timeInterval.endTime != null">
+            <![CDATA[AND t.END_DATE < #{customParams.timeInterval.endTime}+interval '1' DAY
+            ]]>
+          </if>
+        </if>
+      </if>
+    </where>
+    ORDER BY t.VOUCHER_PRODUCT_ID DESC
+  </select>
+
+  <select id="count_getVoucherProductPaging"  resultType="int" parameterType="map" >
+    select count(1)
+    from VOUCHER_PRODUCT T
+    <where>
+      <if test="voucherProduct != null">
+        <if test="voucherProduct.voucherName != null and voucherProduct.voucherName != ''">
+          AND t.VOUCHER_NAME like  '%${voucherProduct.voucherName}%'
+        </if>
+        <if test="voucherProduct.voucherType != null and voucherProduct.voucherType  != ''">
+          AND t.VOUCHER_TYPE =  #{voucherProduct.voucherType }
+        </if>
+
+        <if test="voucherProduct.usageScenario != null and voucherProduct.usageScenario != ''">
+          AND t.USAGE_SCENARIO = #{voucherProduct.usageScenario}
+        </if>
+        <if test="voucherProduct.status != null and voucherProduct.status != ''">
+          AND t.STATUS = #{voucherProduct.status,jdbcType=VARCHAR}
+        </if>
+
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+        <if test="customParams.timeInterval != null">
+          <if test="customParams.timeInterval.startTime != null">
+            <![CDATA[AND t.START_DATE >= #{customParams.timeInterval.startTime}]]>
+          </if>
+          <if test="customParams.timeInterval.endTime != null">
+            <![CDATA[AND t.END_DATE < #{customParams.timeInterval.endTime}+interval '1' DAY
+            ]]>
+          </if>
+        </if>
+      </if>
+    </where>
+  </select>
+
+
+  <select id="getAvalibleHandOutVoucherProductList" resultMap="BaseResultMap" parameterType="java.util.Date" >
+    select
+    <include refid="Base_Column_List" />
+    from VOUCHER_PRODUCT t
+    where  T.STATUS='1' and t.VOUCHER_TYPE = '0'
+    <![CDATA[AND t.START_DATE <= #{value}]]>
+    <![CDATA[AND t.END_DATE+interval '1' DAY >= #{value}]]>
+  </select>
+
+
+  <select id="getVoucherStatistics" resultMap="voucherProductVO" parameterType="map" >
+    <!-- 财富券状态是未使用 ,去除体验金 -->
+    select p.*,usageCount from (select VP.VOUCHER_PRODUCT_ID id,count(1) usageCount
+    from VOUCHER v left join VOUCHER_PRODUCT vp on V.VOUCHER_PRODUCT_ID = VP.VOUCHER_PRODUCT_ID
+
+    where V.USER_ID = #{userId} and v.STATUS = '0' and vp.IS_EXPERIENCE = '0'
+    group by VP.VOUCHER_PRODUCT_ID) c left join VOUCHER_PRODUCT p on c.id = p.VOUCHER_PRODUCT_ID
+
+    <if test="usageScenario != null">
+      <foreach collection="usageScenario" open="where p.USAGE_SCENARIO IN (" close=")" item="usage" separator=", ">
+        #{usage}
+      </foreach>
+    </if>
+    order by p.AMOUNT desc
+  </select>
+
+
+</mapper>

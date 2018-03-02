@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CRM_CUSTOMER_BUS" >
+
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CrmCustomerBus" >
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="P_ID" property="pId" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    USER_ID, P_ID, CREATE_TIME, UPDATE_TIME
+  </sql>
+
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_CUSTOMER_BUS
+    <where>
+      1=1
+      <if test="userId != null">
+        and USER_ID = #{userId,jdbcType=DECIMAL}
+      </if>
+      <if test="pId != null">
+        and P_ID = #{pId,jdbcType=DECIMAL}
+      </if>
+      <if test="flag != null">
+        and P_ID <![CDATA[<>]]> USER_ID
+      </if>
+    </where>
+  </select>
+
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CrmCustomerBus" >
+    insert into CRM_CUSTOMER_BUS (USER_ID, P_ID, CREATE_TIME, UPDATE_TIME)
+    values (#{userId,jdbcType=DECIMAL}, #{pId,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CrmCustomerBus" >
+    insert into CRM_CUSTOMER_BUS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="pId != null" >
+        P_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="pId != null" >
+        #{pId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CrmCustomerBus" >
+    update CRM_CUSTOMER_BUS
+    <set >
+      <if test="pId != null" >
+        P_ID = #{pId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CrmCustomerBus" >
+    update CRM_CUSTOMER_BUS
+    set P_ID = #{pId,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+
+</mapper>

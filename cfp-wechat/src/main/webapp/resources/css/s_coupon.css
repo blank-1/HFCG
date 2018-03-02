@@ -1,0 +1,51 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.clear_10{clear:both; height:10px;}
+body{background:#f2f2f2;}
+.s_content{height:auto; background:#f2f2f2; overflow:hidden;}
+.headNav{width:100%; color:#999999; display:-webkit-box; background:#fff; position:fixed; top:0; left:0; z-index:999;}
+.headNav li{width:33.33%; padding:1rem 0; text-align:center; color:#ff5e61; font-size:1.4rem;}
+.headNav li a{color:#666;}
+.headNav .cur a{color:#ff5e61; position:relative;}
+.headNav .cur:after{content:""; width:5rem; height:3px; position:absolute; background:#ff5e61; bottom:0; margin-left:-4.6rem;}
+.couponList{width:100%; margin-top:3.5rem;
+	height:calc(100% - 3.5rem ); 
+	-webkit-height:calc(100% - 3.5rem - 50px); 
+	-moz-height:calc(100% - 3.5rem - 50px);
+	-o-height: calc(100% - 3.5rem - 50px); 
+}
+.page{width:100%; height:100%; overflow-y:scroll; overflow:auto;}
+.page::-webkit-scrollbar{display:none;}
+.couponBox{width:96%; height:auto; margin:0 auto;}
+.cfqBj{background:url(../images/userCenter/uc_icon13.png) no-repeat center; background-size:100%;}
+.cfqyxBj{background:url(../images/userCenter/ucYX_icon13.png) no-repeat center; background-size:100%;}
+.txqBj{background:url(../images/userCenter/uc_icon14.png) no-repeat center; background-size:100%;}
+.txqyxBj{background:url(../images/userCenter/ucYX_icon14.png) no-repeat center; background-size:100%;}
+.jxqBj{background:url(../images/userCenter/uc_icon15.png) no-repeat center; background-size:100%;}
+.jxqyxBj{background:url(../images/userCenter/ucYX_icon15.png) no-repeat center; background-size:100%;}
+.ysyBj{background:url(../images/userCenter/uc_icon16.png) no-repeat center; background-size:100%;}
+.ygqBj{background:url(../images/userCenter/uc_icon17.png) no-repeat center; background-size:100%;}
+.couponCon{padding-top:.5rem;}
+.couponBox img{position:absolute; width:100%; z-index:0;}
+.couponBox .coupon_i{position:absolute; top:-.8rem; font-size:1.4rem;}
+.couponBox span{margin-left:1rem;}
+.couponBox .coupon_pre{font-size:1.2rem;}
+.couponBox .couponText1{width:90%; margin:1rem auto 0; font-size:2.4rem; position:relative;}
+.couponBox .couponText1 font{margin-left:50%; font-size:1.6rem;}
+.couponBox .couponText2{margin:.2rem auto 0; height:2rem; line-height:2rem; width:90%; border-bottom:1px #e9dfd9 solid;}
+.couponBox .couponText3{width:90%; margin:0 auto; height:2rem; line-height:2rem; padding-bottom:1.2rem;}
+.color_666{color:#666;}
+.color_333{color:#333;}
+.color_red{color:#ff5e61;}
+.color_yellow{color:#fd9941;}
+.color_hui{color:#d9d9d9;}
+.noQuan{text-align:center;}
+.noQuan img{margin-top:12rem; width:23rem;} 
+.noQuan p{color:#949494; font-size:1.4rem; margin-top:1rem;}
+.nowifi{text-align:center;}
+.nowifi img{margin-top:12rem; width:13rem;} 
+.nowifi p{color:#949494; font-size:1.4rem; margin-top:1rem;}
+.nowifi button{padding:.4rem 1.2rem; border-radius:12px; font-family:"微软雅黑"; color:#cd1b21; font-size:1.2rem; background:#fff; margin:1rem 0 2rem;
+box-shadow: 
+    0 4px 7px #EDC1C2; /*底边阴影*/  
+}

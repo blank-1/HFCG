@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CITY_INFO" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CityInfo" >
+    <id column="CITY_ID" property="cityId" jdbcType="DECIMAL" />
+    <result column="PROVINCE_ID" property="provinceId" jdbcType="DECIMAL" />
+    <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+    <result column="P_CITY_ID" property="pCityId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CITY_ID, PROVINCE_ID, CITY_NAME, P_CITY_ID
+  </sql>
+  <select id="getCityByProvinceIdAndPId" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.CityInfo" >
+    select 
+    <include refid="Base_Column_List" />
+    from CITY_INFO
+    where 1=1
+    <if test="provinceId != null" >
+        and PROVINCE_ID = #{provinceId,jdbcType=DECIMAL}
+    </if>
+    <if test="pCityId != null" >
+        and P_CITY_ID = #{pCityId,jdbcType=DECIMAL}
+    </if>
+  </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from CITY_INFO
+        where CITY_ID=#{cityId}
+    </select>
+    
+    <select id="findCityByProvinceId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select <include refid="Base_Column_List" />
+        from CITY_INFO
+        where PROVINCE_ID = #{provinceId,jdbcType=DECIMAL} and P_CITY_ID=0
+    </select>
+    
+    <select id="findAreaByCityId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select <include refid="Base_Column_List" />
+        from CITY_INFO
+        where P_CITY_ID = #{cityId,jdbcType=DECIMAL}
+    </select>
+</mapper>

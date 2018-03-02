@@ -1,0 +1,100 @@
+html,body{
+	width: 100%;
+	height: 100%;
+}
+li{font-size:0;}
+.w_wrapper{
+	width: 100%;
+}
+.w_list{
+	height: auto;
+}
+.w_list li{
+	width: 100%;
+	height: auto;
+}
+.w_list li img{
+	width: 100%;
+	height: 100%;
+	font-size: 0;
+}
+.w_list li:nth-child(3){
+	background: #cb012d;
+}
+.w_list li:nth-child(3) img{	
+	width: 90%;
+	display: block;
+	margin: 0 auto;
+}
+.w_box{
+	width: 100%;
+	background: url(../images/p0_share_img4.jpg);
+	background-size: 100% 100%;
+	padding: 7rem 0;
+}
+.w_box p{
+	margin:.5rem 0;
+}
+.w_box img{
+	width: 25%;
+	height: auto;
+	display: block;
+	margin: 0 auto 0rem auto;
+}
+.w_box{
+	width: 100%;
+	height: auto;
+	text-align: center;
+	color: #fff;
+}
+.w_share{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.9);
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.w_share img{
+	width: 100%;
+	height: auto;
+}
+.w_box2{
+	width: 100%;
+	background: url(../images/p0_share_img4.jpg);
+	background-size: 100% 100%;
+	padding: 4rem 0;
+}
+.promptlyBtn{
+	width: 50%;
+	height: auto;
+	display: block;
+	margin: 2rem auto;
+}
+.promptlyBtn img{
+	width: 100%;
+	height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+	.w_box {
+	    width: 100%;
+	    background: url(../images/p0_share_img4.jpg);
+	    background-size: 100% 100%;
+	    padding: 5.5rem 0;
+	}
+	.w_box p{
+		font-size:2rem;
+	}
+}
+.w_box3 a{
+  width: 30%;
+  height: auto;
+  float: left;
+  margin: 1.5rem 10% 0 10%;
+}
+.w_box3 a img{
+  width: 100%;
+  height: 100%;
+}

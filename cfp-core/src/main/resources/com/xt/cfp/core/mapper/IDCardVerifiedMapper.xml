@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="IDCARD_VERIFIED" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.IDCardVerified" >
+    <id column="VERIFIED_ID" property="verifiedId" jdbcType="DECIMAL" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="CARD_CODE" property="cardCode" jdbcType="VARCHAR" />
+    <result column="VERIFIED_TIME" property="verifiedTime" jdbcType="TIMESTAMP" />
+    <result column="VERIFIED_RESULT" property="verifiedResult" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    VERIFIED_ID,REAL_NAME,CARD_CODE,VERIFIED_TIME,VERIFIED_RESULT
+  </sql>
+	<insert id="insert" parameterType="com.xt.cfp.core.pojo.IDCardVerified" >
+	    <selectKey resultType="long" keyProperty="verifiedId" order="BEFORE">
+	        select SEQ_IDCARD_VERIFIED.nextval as verifiedId from dual
+	    </selectKey>
+	    insert into IDCARD_VERIFIED
+	    (VERIFIED_ID,REAL_NAME,CARD_CODE,VERIFIED_TIME,VERIFIED_RESULT)
+	    values
+	    (#{verifiedId,jdbcType=DECIMAL},#{realName,jdbcType=VARCHAR},#{cardCode,jdbcType=VARCHAR},#{verifiedTime,jdbcType=TIMESTAMP},#{verifiedResult,jdbcType=CHAR})
+	</insert>
+
+    <select id="findByNameIdCode" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from IDCARD_VERIFIED
+        where REAL_NAME = #{realName,jdbcType=VARCHAR}
+        and CARD_CODE = #{cardCode,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="findByIdCode" parameterType="string" resultMap="BaseResultMap">
+        select * from IDCARD_VERIFIED
+        where CARD_CODE = #{cardCode,jdbcType=VARCHAR}
+    </select>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.IDCardVerified" >
+    update IDCARD_VERIFIED
+    <set >
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardCode != null" >
+        CARD_CODE = #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="verifiedTime != null" >
+        VERIFIED_TIME = #{verifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifiedResult != null" >
+        VERIFIED_RESULT = #{verifiedResult,jdbcType=CHAR},
+      </if>
+    </set>
+    where VERIFIED_ID = #{verifiedId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.IDCardVerified" >
+    update IDCARD_VERIFIED
+    set REAL_NAME = #{realName,jdbcType=VARCHAR},
+      CARD_CODE = #{cardCode,jdbcType=VARCHAR},
+      VERIFIED_TIME = #{verifiedTime,jdbcType=TIMESTAMP},
+      VERIFIED_RESULT = #{verifiedResult,jdbcType=CHAR}
+    where VERIFIED_ID = #{verifiedId,jdbcType=DECIMAL}
+  </update>
+</mapper>

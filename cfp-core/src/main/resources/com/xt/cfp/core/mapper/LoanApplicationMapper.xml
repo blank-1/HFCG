@@ -1,0 +1,2413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LOANAPPLICATION">
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LoanApplication">
+        <id column="LOAN_APPLICATION_ID" jdbcType="DECIMAL" property="loanApplicationId"/>
+        <result column="CUSTOMER_ACCOUNT_ID" jdbcType="DECIMAL" property="customerAccountId"/>
+        <result column="REPAYMENT_ACCOUNT_ID" jdbcType="DECIMAL" property="repaymentAccountId"/>
+        <result column="IN_CARD_ID" jdbcType="DECIMAL" property="inCardId"/>
+        <result column="OUT_CARD_ID" jdbcType="DECIMAL" property="outCardId"/>
+        <result column="USER_ID" jdbcType="DECIMAL" property="userId"/>
+        <result column="LOAN_PRODUCT_ID" jdbcType="DECIMAL" property="loanProductId"/>
+        <result column="LOAN_APPLICATION_CODE" jdbcType="VARCHAR" property="loanApplicationCode"/>
+        <result column="LOAN_APPLICATION_NAME" jdbcType="VARCHAR" property="loanApplicationName"/>
+        <result column="OFFLINE_APPLY_CODE" jdbcType="VARCHAR" property="offlineApplyCode"/>
+        <result column="PUBLISH_TARGET" jdbcType="CHAR" property="publishTarget"/>
+        <result column="LOAN_USEAGE" jdbcType="VARCHAR" property="loanUseage"/>
+        <result column="RENEW_AGREEMENT_CODE" jdbcType="VARCHAR" property="renewAgreementCode"/>
+        <result column="SUBJECT_TYPE" jdbcType="CHAR" property="subjectType"/>
+        <result column="LOAN_TYPE" jdbcType="CHAR" property="loanType"/>
+        <result column="LOAN_BALANCE" jdbcType="DECIMAL" property="loanBalance"/>
+        <result column="CONFIRM_BALANCE" jdbcType="DECIMAL" property="confirmBalance"/>
+        <result column="RESULT_BALANCE" jdbcType="DECIMAL" property="resultBalance"/>
+        <result column="ANNUAL_RATE" jdbcType="DECIMAL" property="annualRate"/>
+        <result column="APPLICATION_DESC" jdbcType="VARCHAR" property="applicationDesc"/>
+        <result column="LOAN_USEAGE_DESC" jdbcType="VARCHAR" property="loanUseageDesc"/>
+        <result column="PUBLISH_STATE" jdbcType="VARCHAR" property="publishState"/>
+        <result column="LEND_STATE" jdbcType="CHAR" property="lendState"/>
+        <result column="VERIFY_STATE" jdbcType="CHAR" property="verifyState"/>
+        <result column="INTEREST_BALANCE" jdbcType="DECIMAL" property="interestBalance"/>
+        <result column="APPLICATION_STATE" jdbcType="CHAR" property="applicationState"/>
+        <result column="RECORDER_PERSONNEL" jdbcType="DECIMAL" property="recorderPersonnel"/>
+        <result column="RECORDER_NAME" jdbcType="VARCHAR" property="recorderName"/>
+        <result column="CHANNEL" jdbcType="CHAR" property="channel"/>
+        <result column="CHANNEL_ID" jdbcType="DECIMAL" property="channelId"/>
+        <result column="ORIGINAL_USER_ID" jdbcType="DECIMAL" property="originalUserId"/>
+        <result column="PREHEAT_TIME" jdbcType="TIMESTAMP" property="preheatTime"/>
+        <result column="OPEN_TIME" jdbcType="TIMESTAMP" property="openTime"/>
+        <result column="FULL_TIME" jdbcType="TIMESTAMP" property="fullTime"/>
+        <result column="PAYMENT_DATE" jdbcType="TIMESTAMP" property="paymentDate"/>
+        <result column="RECORD_TIME" jdbcType="TIMESTAMP" property="recordTime"/>
+        <result column="PUBLISH_TIME" jdbcType="TIMESTAMP" property="publishTime"/>
+        <result column="CANCEL_TIME" jdbcType="TIMESTAMP" property="cancelTime"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="AGREEMENT_START_DATE" jdbcType="TIMESTAMP" property="agreementStartDate"/>
+        <result column="FIRST_REPAYMENT_DATE" jdbcType="TIMESTAMP" property="firstRepaymentDate"/>
+        <result column="LAST_REPAYMENT_DATE" jdbcType="TIMESTAMP" property="lastRepaymentDate"/>
+        <result column="MAX_BUY_BALANCE" jdbcType="DECIMAL" property="maxBuyBalance"/>
+        <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+        <result column="RISK_CONTROL_INFORMATION" property="riskControlInformation" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="BaseResultVO" type="com.xt.cfp.core.pojo.ext.LoanApplicationVO" extends="BaseResultMap">
+        <result column="RIGHTS_BALANCE" jdbcType="DECIMAL" property="rightsBalance"/>
+        <result column="loginName" jdbcType="VARCHAR" property="loginName"/>
+        <result column="realName" jdbcType="VARCHAR" property="realName"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="bondUserLoginName" jdbcType="VARCHAR" property="bondUserLoginName"/>
+        <result column="bondUserRealName" jdbcType="VARCHAR" property="bondUserRealName"/>
+        <result column="loanlimit" jdbcType="DECIMAL" property="loanlimit"/>
+    </resultMap>
+
+    <resultMap id="BaseResultEnterpriseVO" type="com.xt.cfp.core.pojo.ext.LoanApplicationEnterpriseVO" extends="BaseResultVO">
+        <result column="enterpriseId" jdbcType="DECIMAL" property="enterpriseId"/>
+    </resultMap>
+
+    <resultMap id="loanApplicationExtOneResultMap" type="com.xt.cfp.core.pojo.ext.LoanApplicationExtOne"
+               extends="BaseResultMap">
+        <result column="REAL_NAME" jdbcType="VARCHAR" property="userRealName"/>
+        <result column="ID_CARD" jdbcType="VARCHAR" property="idCard"/>
+        <result column="MOBILE_NO" jdbcType="VARCHAR" property="mobileNo"/>
+        <result column="CREDIT_LEVEL" jdbcType="VARCHAR" property="creditLevel"/>
+        <result column="LOAN_TITLE" jdbcType="VARCHAR" property="loanTitle"/>
+        <result column="HAVE_CAST" jdbcType="DECIMAL" property="haveCast"/>
+        <result column="IS_DELAY" jdbcType="DECIMAL" property="isDelay"/>
+        <result column="LOAN_TITLE" jdbcType="VARCHAR" property="loanTitle"/>
+        <result column="CYCLE_COUNTS" jdbcType="DECIMAL" property="cycleCounts"/>
+        <result column="CYCLE_VALUE" jdbcType="DECIMAL" property="cycleValue"/>
+        <result column="AGREEMENT_STATUS" jdbcType="DECIMAL" property="agreementStatus"/>
+         <result column="oType" jdbcType="DECIMAL" property="otype"/>
+        <result column="AWARD_RATE" property="awardRate" jdbcType="DECIMAL" />
+         
+        <result column="MAIN_CODE" property="mainCode" jdbcType="VARCHAR" />
+	    <result column="MAIN_LOAN_BALANCE" property="mainLoanBalance" jdbcType="DECIMAL" />
+	    <result column="MAIN_STATE" property="mainState" jdbcType="CHAR" />
+	    <result column="MAIN_PUBLISH_BALANCE" property="mainPublishBalance" jdbcType="DECIMAL" />
+	    <result column="publishPreheatTime" jdbcType="TIMESTAMP" property="publishPreheatTime"/>
+	    <result column="publishOpenTime" jdbcType="TIMESTAMP" property="publishOpenTime"/>
+	    <result column="MAIN_AUTO_PUBLISH" property="mainAutoPublish" jdbcType="CHAR" />
+	    <result column="DISPLAY_MAIN_STATE" property="displayMainState" jdbcType="CHAR" />
+	    <result column="DURATION_TIME" jdbcType="VARCHAR" property="durationTime"/>
+	    <result column="OPERTION_DATE" jdbcType="VARCHAR" property="opertionDate"/>
+    </resultMap>
+    <resultMap id="loanApplicationLiatVOResultMap" type="com.xt.cfp.core.pojo.ext.LoanApplicationListVO"
+               extends="BaseResultMap">
+        <result column="LOAN_TITLE" jdbcType="VARCHAR" property="loanApplicationTitle"/>
+        <result column="REPAYMENT_TYPE" jdbcType="VARCHAR" property="repayMethod"/>
+        <result column="des" jdbcType="VARCHAR" property="desc"/>
+        <result column="useageDesc" jdbcType="VARCHAR" property="useageDesc"/>
+        <result column="totalAmountLoan" jdbcType="DECIMAL" property="totalAmountOfLoan"/>
+        <result column="cycleCount" jdbcType="DECIMAL" property="cycleCount"/>
+        <result column="DUE_TIME" jdbcType="DECIMAL" property="dueTime"/>
+        <result column="DUE_TIME_TYPE" jdbcType="DECIMAL" property="dueTimeType"/>
+
+        <result column="rewardsPercent" jdbcType="DECIMAL" property="rewardsPercent"/>
+        <result column="creditLevel" jdbcType="DECIMAL" property="creditLevel"/>
+        <result column="repayMentMethod" jdbcType="DECIMAL" property="repayMentMethod"/>
+        <result column="startAmount" jdbcType="DECIMAL" property="startAmount"/>
+        <result column="guaranteeType" jdbcType="DECIMAL" property="guaranteeType"/>
+        <result column="popenTime" jdbcType="TIMESTAMP" property="popenTime"/>
+        <result column="AWARD_POINT" jdbcType="VARCHAR" property="awardPoint"/>
+        <result column="AWARD_RATE" jdbcType="VARCHAR" property="awardRate"/>
+        <result column="creditorsRightId" jdbcType="DECIMAL" property="creditorRightId"/>
+        <result column="oType" jdbcType="DECIMAL" property="oType"/>
+        <result column="APPLY_PRICE" jdbcType="DECIMAL" property="applyPrice"/>
+        <result column="WHEN_WORTH" jdbcType="DECIMAL" property="whenWorth"/>
+        <result column="CREDITOR_RIGHTS_APPLY_ID" jdbcType="DECIMAL" property="creditorRightsApplyId"/>
+        <result column="ptime" jdbcType="TIMESTAMP" property="ptime"/>
+        <result column="otime" jdbcType="TIMESTAMP" property="otime"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+    LOAN_APPLICATION_ID, CUSTOMER_ACCOUNT_ID, REPAYMENT_ACCOUNT_ID, IN_CARD_ID, OUT_CARD_ID, 
+    USER_ID, LOAN_PRODUCT_ID, LOAN_APPLICATION_CODE, LOAN_APPLICATION_NAME, OFFLINE_APPLY_CODE, 
+    PUBLISH_TARGET, LOAN_USEAGE, RENEW_AGREEMENT_CODE, SUBJECT_TYPE, LOAN_TYPE, LOAN_BALANCE, 
+    CONFIRM_BALANCE, RESULT_BALANCE, ANNUAL_RATE, APPLICATION_DESC, PUBLISH_STATE, LEND_STATE, VERIFY_STATE,
+    INTEREST_BALANCE, APPLICATION_STATE, RECORDER_PERSONNEL, RECORDER_NAME, CHANNEL, 
+    CHANNEL_ID, ORIGINAL_USER_ID, PREHEAT_TIME, OPEN_TIME, FULL_TIME, PAYMENT_DATE, RECORD_TIME, 
+    PUBLISH_TIME, CANCEL_TIME, CREATE_TIME, AGREEMENT_START_DATE, FIRST_REPAYMENT_DATE,LOAN_USEAGE_DESC,
+    LAST_REPAYMENT_DATE,MAX_BUY_BALANCE, MAIN_LOAN_APPLICATION_ID, RISK_CONTROL_INFORMATION
+  </sql>
+
+    <select id="bugfix_getLoanApplicationByCrs" parameterType="map" resultMap="BaseResultMap">
+      SELECT * FROM LOAN_APPLICATION la WHERE la.LOAN_APPLICATION_ID
+      <foreach collection="laIds" item="laId" open=" in(" close=")" separator=",">
+        #{laId}
+      </foreach>
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from LOAN_APPLICATION
+        where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LOAN_APPLICATION
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </delete>
+
+    <!-- 添加 -->
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.LoanApplication">
+        <selectKey keyProperty="loanApplicationId" order="BEFORE" resultType="long">
+            SELECT SEQ_LOAN_APPLICATION.NEXTVAL as loanApplicationId FROM dual
+        </selectKey>
+        insert into LOAN_APPLICATION (LOAN_APPLICATION_ID, CUSTOMER_ACCOUNT_ID,
+        REPAYMENT_ACCOUNT_ID, IN_CARD_ID, OUT_CARD_ID,
+        USER_ID, LOAN_PRODUCT_ID, LOAN_APPLICATION_CODE,
+        LOAN_APPLICATION_NAME, OFFLINE_APPLY_CODE,
+        PUBLISH_TARGET, LOAN_USEAGE, RENEW_AGREEMENT_CODE,
+        SUBJECT_TYPE, LOAN_TYPE, LOAN_BALANCE,
+        CONFIRM_BALANCE, RESULT_BALANCE, ANNUAL_RATE, 
+        APPLICATION_DESC, PUBLISH_STATE, LEND_STATE, VERIFY_STATE,
+        INTEREST_BALANCE, APPLICATION_STATE, RECORDER_PERSONNEL,
+        RECORDER_NAME, CHANNEL, CHANNEL_ID,
+        ORIGINAL_USER_ID, PREHEAT_TIME, OPEN_TIME,
+        FULL_TIME, PAYMENT_DATE, RECORD_TIME,
+        PUBLISH_TIME, CANCEL_TIME, CREATE_TIME,
+        AGREEMENT_START_DATE, FIRST_REPAYMENT_DATE,
+        LAST_REPAYMENT_DATE,LOAN_USEAGE_DESC,MAIN_LOAN_APPLICATION_ID,MAX_BUY_BALANCE, RISK_CONTROL_INFORMATION)
+        values (#{loanApplicationId,jdbcType=DECIMAL}, #{customerAccountId,jdbcType=DECIMAL},
+        #{repaymentAccountId,jdbcType=DECIMAL}, #{inCardId,jdbcType=DECIMAL}, #{outCardId,jdbcType=DECIMAL},
+        #{userId,jdbcType=DECIMAL}, #{loanProductId,jdbcType=DECIMAL}, #{loanApplicationCode,jdbcType=VARCHAR},
+        #{loanApplicationName,jdbcType=VARCHAR}, #{offlineApplyCode,jdbcType=VARCHAR},
+        #{publishTarget,jdbcType=CHAR}, #{loanUseage,jdbcType=VARCHAR}, #{renewAgreementCode,jdbcType=VARCHAR},
+        #{subjectType,jdbcType=CHAR}, #{loanType,jdbcType=CHAR}, #{loanBalance,jdbcType=DECIMAL},
+        #{confirmBalance,jdbcType=DECIMAL}, #{resultBalance,jdbcType=DECIMAL}, #{annualRate,jdbcType=DECIMAL},
+        #{applicationDesc,jdbcType=VARCHAR}, #{publishState,jdbcType=CHAR}, #{lendState,jdbcType=CHAR},
+        #{verifyState,jdbcType=CHAR},
+        #{interestBalance,jdbcType=DECIMAL}, #{applicationState,jdbcType=CHAR}, #{recorderPersonnel,jdbcType=DECIMAL},
+        #{recorderName,jdbcType=VARCHAR}, #{channel,jdbcType=CHAR}, #{channelId,jdbcType=DECIMAL},
+        #{originalUserId,jdbcType=DECIMAL}, #{preheatTime,jdbcType=TIMESTAMP}, #{openTime,jdbcType=TIMESTAMP},
+        #{fullTime,jdbcType=TIMESTAMP}, #{paymentDate,jdbcType=TIMESTAMP}, #{recordTime,jdbcType=TIMESTAMP},
+        #{publishTime,jdbcType=TIMESTAMP}, #{cancelTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
+        #{agreementStartDate,jdbcType=TIMESTAMP}, #{firstRepaymentDate,jdbcType=TIMESTAMP},
+        #{lastRepaymentDate,jdbcType=TIMESTAMP},#{loanUseageDesc,jdbcType=VARCHAR},#{mainLoanApplicationId,jdbcType=DECIMAL},
+        #{maxBuyBalance,jdbcType=DECIMAL}, #{riskControlInformation,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LoanApplication">
+        insert into LOAN_APPLICATION
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="loanApplicationId != null">
+                LOAN_APPLICATION_ID,
+            </if>
+            <if test="customerAccountId != null">
+                CUSTOMER_ACCOUNT_ID,
+            </if>
+            <if test="repaymentAccountId != null">
+                REPAYMENT_ACCOUNT_ID,
+            </if>
+            <if test="inCardId != null">
+                IN_CARD_ID,
+            </if>
+            <if test="outCardId != null">
+                OUT_CARD_ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="loanProductId != null">
+                LOAN_PRODUCT_ID,
+            </if>
+            <if test="loanApplicationCode != null">
+                LOAN_APPLICATION_CODE,
+            </if>
+            <if test="loanApplicationName != null">
+                LOAN_APPLICATION_NAME,
+            </if>
+            <if test="offlineApplyCode != null">
+                OFFLINE_APPLY_CODE,
+            </if>
+            <if test="publishTarget != null">
+                PUBLISH_TARGET,
+            </if>
+            <if test="loanUseage != null">
+                LOAN_USEAGE,
+            </if>
+            <if test="renewAgreementCode != null">
+                RENEW_AGREEMENT_CODE,
+            </if>
+            <if test="subjectType != null">
+                SUBJECT_TYPE,
+            </if>
+            <if test="loanType != null">
+                LOAN_TYPE,
+            </if>
+            <if test="loanBalance != null">
+                LOAN_BALANCE,
+            </if>
+            <if test="confirmBalance != null">
+                CONFIRM_BALANCE,
+            </if>
+            <if test="resultBalance != null">
+                RESULT_BALANCE,
+            </if>
+            <if test="annualRate != null">
+                ANNUAL_RATE,
+            </if>
+            <if test="applicationDesc != null">
+                APPLICATION_DESC,
+            </if>
+            <if test="publishState != null">
+                PUBLISH_STATE,
+            </if>
+            <if test="lendState != null">
+                LEND_STATE,
+            </if>
+            <if test="verifyState != null">
+                VERIFY_STATE,
+            </if>
+            <if test="interestBalance != null">
+                INTEREST_BALANCE,
+            </if>
+            <if test="applicationState != null">
+                APPLICATION_STATE,
+            </if>
+            <if test="recorderPersonnel != null">
+                RECORDER_PERSONNEL,
+            </if>
+            <if test="recorderName != null">
+                RECORDER_NAME,
+            </if>
+            <if test="channel != null">
+                CHANNEL,
+            </if>
+            <if test="channelId != null">
+                CHANNEL_ID,
+            </if>
+            <if test="originalUserId != null">
+                ORIGINAL_USER_ID,
+            </if>
+            <if test="preheatTime != null">
+                PREHEAT_TIME,
+            </if>
+            <if test="openTime != null">
+                OPEN_TIME,
+            </if>
+            <if test="fullTime != null">
+                FULL_TIME,
+            </if>
+            <if test="paymentDate != null">
+                PAYMENT_DATE,
+            </if>
+            <if test="recordTime != null">
+                RECORD_TIME,
+            </if>
+            <if test="publishTime != null">
+                PUBLISH_TIME,
+            </if>
+            <if test="cancelTime != null">
+                CANCEL_TIME,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="agreementStartDate != null">
+                AGREEMENT_START_DATE,
+            </if>
+            <if test="firstRepaymentDate != null">
+                FIRST_REPAYMENT_DATE,
+            </if>
+            <if test="lastRepaymentDate != null">
+                LAST_REPAYMENT_DATE,
+            </if>
+            <if test="loanUseageDesc != null">
+                LOAN_USEAGE_DESC,
+            </if>
+            <if test="mainLoanApplicationId != null">
+                MAIN_LOAN_APPLICATION_ID,
+            </if>
+            <if test="riskControlInformation != null">
+                RISK_CONTROL_INFORMATION,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="loanApplicationId != null">
+                #{loanApplicationId,jdbcType=DECIMAL},
+            </if>
+            <if test="customerAccountId != null">
+                #{customerAccountId,jdbcType=DECIMAL},
+            </if>
+            <if test="repaymentAccountId != null">
+                #{repaymentAccountId,jdbcType=DECIMAL},
+            </if>
+            <if test="inCardId != null">
+                #{inCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="outCardId != null">
+                #{outCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=DECIMAL},
+            </if>
+            <if test="loanProductId != null">
+                #{loanProductId,jdbcType=DECIMAL},
+            </if>
+            <if test="loanApplicationCode != null">
+                #{loanApplicationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="loanApplicationName != null">
+                #{loanApplicationName,jdbcType=VARCHAR},
+            </if>
+            <if test="offlineApplyCode != null">
+                #{offlineApplyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="publishTarget != null">
+                #{publishTarget,jdbcType=CHAR},
+            </if>
+            <if test="loanUseage != null">
+                #{loanUseage,jdbcType=VARCHAR},
+            </if>
+            <if test="renewAgreementCode != null">
+                #{renewAgreementCode,jdbcType=VARCHAR},
+            </if>
+            <if test="subjectType != null">
+                #{subjectType,jdbcType=CHAR},
+            </if>
+            <if test="loanType != null">
+                #{loanType,jdbcType=CHAR},
+            </if>
+            <if test="loanBalance != null">
+                #{loanBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="confirmBalance != null">
+                #{confirmBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="resultBalance != null">
+                #{resultBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="annualRate != null">
+                #{annualRate,jdbcType=DECIMAL},
+            </if>
+            <if test="applicationDesc != null">
+                #{applicationDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="publishState != null">
+                #{publishState,jdbcType=CHAR},
+            </if>
+            <if test="lendState != null">
+                #{lendState,jdbcType=CHAR},
+            </if>
+            <if test="verifyState != null">
+                #{verifyState,jdbcType=CHAR},
+            </if>
+            <if test="interestBalance != null">
+                #{interestBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="applicationState != null">
+                #{applicationState,jdbcType=CHAR},
+            </if>
+            <if test="recorderPersonnel != null">
+                #{recorderPersonnel,jdbcType=DECIMAL},
+            </if>
+            <if test="recorderName != null">
+                #{recorderName,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                #{channel,jdbcType=CHAR},
+            </if>
+            <if test="channelId != null">
+                #{channelId,jdbcType=DECIMAL},
+            </if>
+            <if test="originalUserId != null">
+                #{originalUserId,jdbcType=DECIMAL},
+            </if>
+            <if test="preheatTime != null">
+                #{preheatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="openTime != null">
+                #{openTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fullTime != null">
+                #{fullTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="paymentDate != null">
+                #{paymentDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="recordTime != null">
+                #{recordTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="publishTime != null">
+                #{publishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cancelTime != null">
+                #{cancelTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementStartDate != null">
+                #{agreementStartDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="firstRepaymentDate != null">
+                #{firstRepaymentDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastRepaymentDate != null">
+                #{lastRepaymentDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loanUseageDesc != null">
+                #{loanUseageDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="mainLoanApplicationId != null">
+                #{mainLoanApplicationId,jdbcType=DECIMAL},
+            </if>
+            <if test="riskControlInformation != null">
+                #{riskControlInformation,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LoanApplication">
+        update LOAN_APPLICATION
+        <set>
+            <if test="customerAccountId != null">
+                CUSTOMER_ACCOUNT_ID = #{customerAccountId,jdbcType=DECIMAL},
+            </if>
+            <if test="repaymentAccountId != null">
+                REPAYMENT_ACCOUNT_ID = #{repaymentAccountId,jdbcType=DECIMAL},
+            </if>
+            <if test="inCardId != null">
+                IN_CARD_ID = #{inCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="outCardId != null">
+                OUT_CARD_ID = #{outCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=DECIMAL},
+            </if>
+            <if test="loanProductId != null">
+                LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL},
+            </if>
+            <if test="loanApplicationCode != null">
+                LOAN_APPLICATION_CODE = #{loanApplicationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="loanApplicationName != null">
+                LOAN_APPLICATION_NAME = #{loanApplicationName,jdbcType=VARCHAR},
+            </if>
+            <if test="offlineApplyCode != null">
+                OFFLINE_APPLY_CODE = #{offlineApplyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="publishTarget != null">
+                PUBLISH_TARGET = #{publishTarget,jdbcType=CHAR},
+            </if>
+            <if test="loanUseage != null">
+                LOAN_USEAGE = #{loanUseage,jdbcType=VARCHAR},
+            </if>
+            <if test="renewAgreementCode != null">
+                RENEW_AGREEMENT_CODE = #{renewAgreementCode,jdbcType=VARCHAR},
+            </if>
+            <if test="subjectType != null">
+                SUBJECT_TYPE = #{subjectType,jdbcType=CHAR},
+            </if>
+            <if test="loanType != null">
+                LOAN_TYPE = #{loanType,jdbcType=CHAR},
+            </if>
+            <if test="loanBalance != null">
+                LOAN_BALANCE = #{loanBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="confirmBalance != null">
+                CONFIRM_BALANCE = #{confirmBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="resultBalance != null">
+                RESULT_BALANCE = #{resultBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="annualRate != null">
+                ANNUAL_RATE = #{annualRate,jdbcType=DECIMAL},
+            </if>
+            <if test="applicationDesc != null">
+                APPLICATION_DESC = #{applicationDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="publishState != null">
+                PUBLISH_STATE = #{publishState,jdbcType=CHAR},
+            </if>
+            <if test="lendState != null">
+                LEND_STATE = #{lendState,jdbcType=CHAR},
+            </if>
+            <if test="verifyState != null">
+                VERIFY_STATE = #{verifyState,jdbcType=CHAR},
+            </if>
+            <if test="interestBalance != null">
+                INTEREST_BALANCE = #{interestBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="applicationState != null">
+                APPLICATION_STATE = #{applicationState,jdbcType=CHAR},
+            </if>
+            <if test="recorderPersonnel != null">
+                RECORDER_PERSONNEL = #{recorderPersonnel,jdbcType=DECIMAL},
+            </if>
+            <if test="recorderName != null">
+                RECORDER_NAME = #{recorderName,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                CHANNEL = #{channel,jdbcType=CHAR},
+            </if>
+            <if test="channelId != null">
+                CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+            </if>
+            <if test="originalUserId != null">
+                ORIGINAL_USER_ID = #{originalUserId,jdbcType=DECIMAL},
+            </if>
+            <if test="preheatTime != null">
+                PREHEAT_TIME = #{preheatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="openTime != null">
+                OPEN_TIME = #{openTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fullTime != null">
+                FULL_TIME = #{fullTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="paymentDate != null">
+                PAYMENT_DATE = #{paymentDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="recordTime != null">
+                RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="publishTime != null">
+                PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cancelTime != null">
+                CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementStartDate != null">
+                AGREEMENT_START_DATE = #{agreementStartDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="firstRepaymentDate != null">
+                FIRST_REPAYMENT_DATE = #{firstRepaymentDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastRepaymentDate != null">
+                LAST_REPAYMENT_DATE = #{lastRepaymentDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loanUseageDesc != null">
+                LOAN_USEAGE_DESC = #{loanUseageDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="mainLoanApplicationId != null">
+                MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+            </if>
+            <if test="riskControlInformation != null">
+                RISK_CONTROL_INFORMATION = #{riskControlInformation,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LoanApplication">
+    update LOAN_APPLICATION
+    set CUSTOMER_ACCOUNT_ID = #{customerAccountId,jdbcType=DECIMAL},
+      REPAYMENT_ACCOUNT_ID = #{repaymentAccountId,jdbcType=DECIMAL},
+      IN_CARD_ID = #{inCardId,jdbcType=DECIMAL},
+      OUT_CARD_ID = #{outCardId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL},
+      LOAN_APPLICATION_CODE = #{loanApplicationCode,jdbcType=VARCHAR},
+      LOAN_APPLICATION_NAME = #{loanApplicationName,jdbcType=VARCHAR},
+      OFFLINE_APPLY_CODE = #{offlineApplyCode,jdbcType=VARCHAR},
+      PUBLISH_TARGET = #{publishTarget,jdbcType=CHAR},
+      LOAN_USEAGE = #{loanUseage,jdbcType=VARCHAR},
+      RENEW_AGREEMENT_CODE = #{renewAgreementCode,jdbcType=VARCHAR},
+      SUBJECT_TYPE = #{subjectType,jdbcType=CHAR},
+      LOAN_TYPE = #{loanType,jdbcType=CHAR},
+      LOAN_BALANCE = #{loanBalance,jdbcType=DECIMAL},
+      CONFIRM_BALANCE = #{confirmBalance,jdbcType=DECIMAL},
+      RESULT_BALANCE = #{resultBalance,jdbcType=DECIMAL},
+      ANNUAL_RATE = #{annualRate,jdbcType=DECIMAL},
+      APPLICATION_DESC = #{applicationDesc,jdbcType=VARCHAR},
+      PUBLISH_STATE = #{publishState,jdbcType=CHAR},
+      LEND_STATE = #{lendState,jdbcType=CHAR},
+      VERIFY_STATE = #{verifyState,jdbcType=CHAR},
+      INTEREST_BALANCE = #{interestBalance,jdbcType=DECIMAL},
+      APPLICATION_STATE = #{applicationState,jdbcType=CHAR},
+      RECORDER_PERSONNEL = #{recorderPersonnel,jdbcType=DECIMAL},
+      RECORDER_NAME = #{recorderName,jdbcType=VARCHAR},
+      CHANNEL = #{channel,jdbcType=CHAR},
+      CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+      ORIGINAL_USER_ID = #{originalUserId,jdbcType=DECIMAL},
+      PREHEAT_TIME = #{preheatTime,jdbcType=TIMESTAMP},
+      OPEN_TIME = #{openTime,jdbcType=TIMESTAMP},
+      FULL_TIME = #{fullTime,jdbcType=TIMESTAMP},
+      PAYMENT_DATE = #{paymentDate,jdbcType=TIMESTAMP},
+      RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      AGREEMENT_START_DATE = #{agreementStartDate,jdbcType=TIMESTAMP},
+      FIRST_REPAYMENT_DATE = #{firstRepaymentDate,jdbcType=TIMESTAMP},
+      LAST_REPAYMENT_DATE = #{lastRepaymentDate,jdbcType=TIMESTAMP},
+
+      LOAN_USEAGE_DESC = #{loanUseageDesc,jdbcType=VARCHAR},
+      MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+      RISK_CONTROL_INFORMATION = #{riskControlInformation,jdbcType=VARCHAR}
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </update>
+
+    <select id="findByStates" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from LOAN_APPLICATION
+        <where>
+            <if test=" _parameter.containsKey('states')">
+                <if test=" states != null">
+                    APPLICATION_STATE in
+                    <foreach collection="states" item="state" separator="," open="(" close=")">
+                        #{state}
+                    </foreach>
+
+                </if>
+            </if>
+        </where>
+    </select>
+   <select id="getAllLoanApplicationListPaging" resultMap="loanApplicationExtOneResultMap" parameterType="map">
+        SELECT LP.*,
+       CASE
+       WHEN (SELECT COUNT (*)
+       FROM agreement_info ai
+       WHERE ai.creditor_rights_id =
+       (SELECT crs.creditor_rights_id
+       FROM CREDITOR_RIGHTS crs
+       WHERE     crs.loan_application_id =
+       Lp.LOAN_APPLICATION_ID
+       AND ROWNUM = 1)) > 0
+       THEN
+       '已生成'
+       ELSE
+       '未生成'
+       END  as agreement_status ,
+       (select  nvl(lph.o_type,0) from loan_publish lph where lph.loan_application_id=lp.loan_application_id)
+       oType,
+        LPUBLISH.LOAN_TITLE,
+        CBS.TRUE_NAME REAL_NAME,
+        CBS.ID_CARD,
+        CBS.MOBILE_PHONE MOBILE_NO,
+        PRO.CYCLE_COUNTS,
+        PRO.CYCLE_VALUE,
+        (SELECT COUNT(1)
+        FROM CREDITOR_RIGHTS CR
+        WHERE RIGHTS_STATE != '6'
+        AND IS_DELAY = '1'
+        AND CR.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID) IS_DELAY,
+        (SELECT SUM(LOBD.BUY_BALANCE)
+        FROM LEND_ORDER_BID_DETAIL LOBD
+        WHERE LOBD.STATUS = '0'
+        AND LOBD.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID) HAVE_CAST,
+        case when pro.cycle_value=1 then pro.cycle_counts||'个月' else pro.cycle_counts||'天' end as duration_time,
+        od.opertion_date
+        FROM LOAN_APPLICATION LP
+        LEFT JOIN LOAN_PUBLISH LPUBLISH
+        ON LP.LOAN_APPLICATION_ID = LPUBLISH.LOAN_APPLICATION_ID
+        LEFT JOIN CUSTOMER_BASIC_SNAPSHOT CBS
+        ON LP.LOAN_APPLICATION_ID = CBS.LOAN_APPLICATION_ID
+        LEFT JOIN LOAN_PRODUCT PRO
+        ON LP.LOAN_PRODUCT_ID = PRO.LOAN_PRODUCT_ID
+        LEFT JOIN (
+	       select rr1.opertion_date,lp2.loan_application_id from repayment_record rr1
+	       join (
+	              select rr.repayment_plan_id,max(rr.repayment_record_id) mx_repayment_record_id from repayment_record rr,
+	              (
+	                select max(rp.repayment_plan_id) mx_repayment_plan_id from REPAYMENT_PLAN rp, loan_application lp1
+	                where rp.loan_application_id = lp1.loan_application_id and rp.channel_type = '2'
+	                group by lp1.loan_application_id
+	              )mx
+	              where rr.repayment_plan_id = mx.mx_repayment_plan_id
+	              group by rr.repayment_plan_id
+	            ) aaa on rr1.repayment_record_id =  aaa.mx_repayment_record_id
+	       join loan_application lp2 on rr1.loan_application_id = lp2.loan_application_id
+	   ) od ON LP.loan_application_id = od.loan_application_id
+      <!--    LEFT JOIN CREDITOR_RIGHTS CRS ON crs.loan_user_id =lp.user_id 
+		and crs.loan_application_id =LP.LOAN_APPLICATION_ID
+		LEFT JOIN agreement_info  AIS ON  ais.creditor_rights_id = crs.creditor_rights_id  AND ais.agreement_type ='1'  -->
+        <where>
+            LP.LOAN_TYPE in ('0','1','7','8','9')
+            <if test="loanApplicationCode !=null and loanApplicationCode != ''">
+                AND lp.LOAN_APPLICATION_CODE like '%${loanApplicationCode}%'
+            </if>
+            <if test="loanApplicationName !=null and loanApplicationName != ''">
+                AND lp.LOAN_APPLICATION_NAME like '%${loanApplicationName}%'
+            </if>
+            <if test="channel != null and channel !='-1'">
+                AND lp.CHANNEL = #{channel,jdbcType=CHAR}
+            </if>
+            <if test='loanType != null and loanType != "-1"'>
+                AND lp.LOAN_TYPE = #{loanType,jdbcType=CHAR}
+            </if>
+            <if test="realName !=null and realName != ''">
+                AND cbs.TRUE_NAME like '%${realName}%'
+            </if>
+            <if test="idCard !=null and idCard != ''">
+                AND substr(cbs.ID_CARD,length(ui.id_card)-3) = #{idCard}
+            </if>
+            <if test="applicationState != null and applicationState != '-1'">
+                AND lp.APPLICATION_STATE = #{applicationState,jdbcType=CHAR}
+            </if>
+            <if test="mobileNo !=null and mobileNo != ''">
+                AND cbs.MOBILE_PHONE like '%${mobileNo}%'
+            </if>
+            <if test="userId !=null and userId != ''">
+                AND lp.USER_ID = #{userId}
+            </if>
+            <if test="startTime !=null and startTime != ''">
+                <![CDATA[ and lp.CREATE_TIME>= TO_DATE(#{startTime}, 'yyyy-MM-dd') ]]>
+            </if>
+            <if test="endTime !=null and endTime != ''">
+                <![CDATA[ and lp.CREATE_TIME<= TO_DATE(#{endTime}, 'yyyy-MM-dd') ]]>
+            </if>
+        </where>
+        order by lp.MAIN_LOAN_APPLICATION_ID desc nulls last, lp.CREATE_TIME desc nulls last
+    </select>
+    <select id="count_getAllLoanApplicationListPaging" resultType="int" parameterType="map">
+        select count(1)
+        from LOAN_APPLICATION lp
+        left join CUSTOMER_BASIC_SNAPSHOT cbs on lp.loan_application_id = cbs.loan_application_id
+        <where>
+            LP.LOAN_TYPE in ('0','1','7','8','9')
+            <if test="loanApplicationCode !=null and loanApplicationCode != ''">
+                AND lp.LOAN_APPLICATION_CODE like '%${loanApplicationCode}%'
+            </if>
+            <if test="loanApplicationName !=null and loanApplicationName != ''">
+                AND lp.LOAN_APPLICATION_NAME like '%${loanApplicationName}%'
+            </if>
+            <if test="channel != null and channel != '-1'">
+                AND lp.CHANNEL = #{channel,jdbcType=CHAR}
+            </if>
+            <if test='loanType != null and loanType != "-1"'>
+                AND lp.LOAN_TYPE = #{loanType,jdbcType=CHAR}
+            </if>
+            <if test="realName !=null and realName != ''">
+                AND cbs.TRUE_NAME like '%${realName}%'
+            </if>
+            <if test="idCard !=null and idCard != ''">
+                AND substr(cbs.ID_CARD,length(ui.id_card)-3) = #{idCard}
+            </if>
+            <if test="applicationState != null and applicationState != '-1'">
+                AND lp.APPLICATION_STATE = #{applicationState,jdbcType=CHAR}
+            </if>
+            <if test="mobileNo !=null and mobileNo != ''">
+                AND cbs.MOBILE_PHONE like '%${mobileNo}%'
+            </if>
+            <if test="userId !=null and userId != ''">
+                AND lp.USER_ID = #{userId}
+            </if>
+            <if test="startTime !=null and startTime != ''">
+                <![CDATA[ and lp.CREATE_TIME>=  TO_DATE(#{startTime}, 'yyyy-MM-dd') ]]>
+            </if>
+            <if test="endTime !=null and endTime != ''">
+                <![CDATA[ and lp.CREATE_TIME<=  TO_DATE(#{endTime}, 'yyyy-MM-dd') ]]>
+            </if>
+        </where>
+    </select>
+
+    <!-- 编辑发标描述列表 -->
+    <select id="getAllLoanAppPublishDescEditListPaging" resultMap="loanApplicationExtOneResultMap"
+            parameterType="com.xt.cfp.core.pojo.ext.LoanApplicationExtOne">
+        SELECT LP.*,
+        UI.REAL_NAME REAL_NAME,
+        UI.ID_CARD,
+        UI.MOBILE_NO MOBILE_NO,
+        LPUB."DESC",
+        LPUB.CREDIT_LEVEL,
+        LPUB.LOAN_TITLE,
+        (case
+         when CLA.child_open_time is NOT null then
+          '1'
+         else
+          LP.MAIN_STATE
+       end) DISPLAY_MAIN_STATE
+       
+        FROM MAIN_LOAN_APPLICATION LP
+        LEFT JOIN USER_INFO_EXT UI
+        ON LP.USER_ID = UI.USER_ID
+        LEFT JOIN MAIN_LOAN_PUBLISH LPUB
+        ON LPUB.MAIN_LOAN_APPLICATION_ID = LP.MAIN_LOAN_APPLICATION_ID
+        
+        left join (SELECT MAX(CLP.open_time) child_open_time,
+                    CLP.main_loan_application_id
+               FROM LOAN_PUBLISH CLP   , LOAN_APPLICATION CLOA
+               where  CLP.LOAN_APPLICATION_ID = CLOA.LOAN_APPLICATION_ID   
+               		   AND  CLP.open_time > SYSDATE
+               		   AND CLOA.APPLICATION_STATE IN ('3')   
+              GROUP BY CLP.main_loan_application_id) CLA on LP.main_loan_application_id =
+                                                            CLA.main_loan_application_id
+                                                            
+             <where>
+            <if test="loanApplicationCode !=null and loanApplicationCode != ''">
+                 lp.LOAN_APPLICATION_CODE like '%${loanApplicationCode}%'
+            </if>
+            <if test="loanApplicationName !=null and loanApplicationName != ''">
+                AND lp.LOAN_APPLICATION_NAME like '%${loanApplicationName}%'
+            </if>
+            <if test="channel != null and channel !='-1'">
+                AND lp.CHANNEL = #{channel}
+            </if>
+            <if test='loanType != null and loanType != "-1"'>
+                AND lp.LOAN_TYPE = #{loanType}
+            </if>
+            <if test="userRealName !=null and userRealName != ''">
+                AND ui.REAL_NAME like '%${userRealName}%'
+            </if>
+            <if test="idCard !=null and idCard != ''">
+                AND substr(ui.ID_CARD,length(ui.id_card)-3) = #{idCard}
+            </if>
+            <if test="applicationState != null and applicationState != '-1'">
+                AND lp.APPLICATION_STATE = #{applicationState}
+            </if>
+            <if test="mobileNo !=null and mobileNo != ''">
+                AND ui.MOBILE_NO like '%${mobileNo}%'
+            </if>
+        </where>
+        order by lp.RECORD_TIME desc
+    </select>
+
+    <select id="count_getAllLoanAppPublishDescEditListPaging" resultType="int"
+            parameterType="com.xt.cfp.core.pojo.ext.LoanApplicationExtOne">
+        select count(1)
+        from MAIN_LOAN_APPLICATION lp left join USER_INFO_EXT ui on lp.USER_ID = ui.USER_ID
+        <where>
+            <if test="loanApplicationCode !=null and loanApplicationCode != ''">
+                 lp.LOAN_APPLICATION_CODE like '%${loanApplicationCode}%'
+            </if>
+            <if test="loanApplicationName !=null and loanApplicationName != ''">
+                AND lp.LOAN_APPLICATION_NAME like '%${loanApplicationName}%'
+            </if>
+            <if test="channel != null and channel !='-1'">
+                AND lp.CHANNEL = #{channel}
+            </if>
+            <if test="loanType != null and loanType != '-1'">
+                AND lp.LOAN_TYPE = #{loanType}
+            </if>
+            <if test="userRealName !=null and userRealName != ''">
+                AND ui.REAL_NAME like '%${userRealName}%'
+            </if>
+            <if test="idCard !=null and idCard != ''">
+                AND substr(ui.ID_CARD,length(ui.id_card)-3) = #{idCard}
+            </if>
+            <if test="applicationState != null and applicationState != '-1'">
+                AND lp.APPLICATION_STATE = #{applicationState}
+            </if>
+            <if test="mobileNo !=null and mobileNo != ''">
+                AND ui.MOBILE_NO like '%${mobileNo}%'
+            </if>
+        </where>
+    </select>
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- 编辑发标描述,待发标列表 -->
+    <select id="getLoanAppPagingByMainId" resultMap="loanApplicationExtOneResultMap"
+            parameterType="com.xt.cfp.core.pojo.ext.LoanApplicationExtOne">
+        SELECT LP.*,
+        UI.REAL_NAME REAL_NAME,
+        UI.ID_CARD,
+        UI.MOBILE_NO MOBILE_NO,
+        LPUB."DESC",
+        LPUB.CREDIT_LEVEL,
+        LPUB.LOAN_TITLE,
+        LPUB.PREHEAT_TIME publishPreheatTime,
+        LPUB.OPEN_TIME publishOpenTime,
+        LPUB.AWARD_RATE awardRate
+        FROM LOAN_APPLICATION LP
+        LEFT JOIN USER_INFO_EXT UI
+        ON LP.USER_ID = UI.USER_ID
+        LEFT JOIN LOAN_PUBLISH LPUB
+        ON LPUB.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+		where LP.MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+        order by lp.LOAN_APPLICATION_ID asc
+    </select>
+
+    <select id="count_getLoanAppPagingByMainId" resultType="int"
+            parameterType="com.xt.cfp.core.pojo.ext.LoanApplicationExtOne">
+        select count(1)
+        from LOAN_APPLICATION lp left join USER_INFO_EXT ui on lp.USER_ID = ui.USER_ID
+		where LP.MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+    </select>
+    
+	<!-- 满标待放款列表 -->
+    <select id="getWaitLoanListPaging" resultMap="loanApplicationExtOneResultMap" parameterType="map">
+        select lp.*,UIE.REAL_NAME REAL_NAME,UIE.ID_CARD,UIE.MOBILE_NO MOBILE_NO,lPub.loan_title
+        from (select * from LOAN_APPLICATION where APPLICATION_STATE in ('4','5')) lp inner join LOAN_PUBLISH lPub
+        on lp.LOAN_APPLICATION_ID = lPub.LOAN_APPLICATION_ID
+        left join CUSTOMER_BASIC_SNAPSHOT ui on lp.loan_application_id = ui.loan_application_id
+        LEFT JOIN USER_INFO_EXT UIE ON lp.USER_ID = UIE.USER_ID
+        <where>
+            <if test="loanApplicationCode !=null and loanApplicationCode != ''">
+                lp.LOAN_APPLICATION_CODE like '%${loanApplicationCode}%'
+            </if>
+            <if test="loanApplicationName !=null and loanApplicationName != ''">
+                AND lp.LOAN_APPLICATION_NAME like '%${loanApplicationName}%'
+            </if>
+            <if test="channel != null and channel !='-1'">
+                AND lp.CHANNEL = #{channel}
+            </if>
+            <if test='loanType != null and loanType != "-1"'>
+                AND lp.LOAN_TYPE = #{loanType}
+            </if>
+            <if test="realName !=null and realName != ''">
+                AND UIE.REAL_NAME like '%${realName}%'
+            </if>
+            <if test="idCard !=null and idCard != ''">
+                AND substr(UIE.ID_CARD,length(UIE.id_card)-3) = #{idCard}
+            </if>
+            <if test="mobileNo !=null and mobileNo != ''">
+                AND UIE.MOBILE_NO = '%${mobileNo}%'
+            </if>
+        </where>
+        order by lp.CREATE_TIME desc
+    </select>
+
+    <select id="count_getWaitLoanListPaging" resultType="int" parameterType="map">
+        select count(1)
+        from (select * from LOAN_APPLICATION where APPLICATION_STATE in ('4','5')) lp
+        left join CUSTOMER_BASIC_SNAPSHOT ui on lp.loan_application_id = ui.loan_application_id
+        LEFT JOIN USER_INFO_EXT UIE ON lp.USER_ID = UIE.USER_ID
+        <where>
+            <if test="loanApplicationCode !=null and loanApplicationCode != ''">
+                lp.LOAN_APPLICATION_CODE like '%${loanApplicationCode}%'
+            </if>
+            <if test="loanApplicationName !=null and loanApplicationName != ''">
+                AND lp.LOAN_APPLICATION_NAME like '%${loanApplicationName}%'
+            </if>
+            <if test="channel != null and channel !='-1'">
+                AND lp.CHANNEL = #{channel}
+            </if>
+            <if test='loanType != null and loanType != "-1"'>
+                AND lp.LOAN_TYPE = #{loanType}
+            </if>
+            <if test="realName !=null and realName != ''">
+                AND UIE.REAL_NAME like '%${realName}%'
+            </if>
+            <if test="idCard !=null and idCard != ''">
+                AND substr(UIE.ID_CARD,length(UIE.id_card)-3) = #{idCard}
+            </if>
+            <if test="mobileNo !=null and mobileNo != ''">
+                AND UIE.MOBILE_NO = '%${mobileNo}%'
+            </if>
+        </where>
+    </select>
+    <select id="getLoanApplicationByUserId_paging" resultMap="BaseResultVO" parameterType="map">
+        SELECT la.*, LP.LOAN_TITLE title,UI.LOGIN_NAME loginName,UE.REAL_NAME realName,LT.CYCLE_COUNTS|| '个月' loanlimit,t.BOND_NAME bondUserRealName,t.login_name bondUserLoginName
+        FROM LOAN_APPLICATION la
+        LEFT JOIN LOAN_PUBLISH lp
+        ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+        left join USER_INFO ui on LA.USER_ID = UI.USER_ID
+        left join USER_INFO_EXT ue on LA.USER_ID = UE.USER_ID
+        left join LOAN_PRODUCT lt on LA.LOAN_PRODUCT_ID = LT.LOAN_PRODUCT_ID
+        left join (select uu.*,bu.USER_SOURCE_ID,bu.BOND_NAME from USER_INFO uu left join BOND_SOURCE_USER bu on uu.USER_ID = bu.USER_ID) t
+        on la.ORIGINAL_USER_ID = t.USER_SOURCE_ID
+        <where>
+            <if test="loanApplicationVO!=null">
+                <if test="loanApplicationVO.channelId !=null  and loanApplicationVO.channelId != ''">
+                     la.CHANNEL_ID = #{loanApplicationVO.channelId}
+                </if>
+
+                <if test="loanApplicationVO.channel !=null  and loanApplicationVO.channel != ''">
+                    and la.CHANNEL = #{loanApplicationVO.channel}
+                </if>
+
+                <if test="loanApplicationVO.title !=null and loanApplicationVO.title != ''">
+                    AND LP.LOAN_TITLE like '%${loanApplicationVO.title}%'
+                </if>
+
+                <if test="loanApplicationVO.loginName !=null and loanApplicationVO.loginName != ''">
+                    AND UI.LOGIN_NAME like '%${loanApplicationVO.loginName}%'
+                </if>
+
+                <if test="loanApplicationVO.realName !=null and loanApplicationVO.realName != ''">
+                    AND UE.REAL_NAME like '%${loanApplicationVO.realName}%'
+                </if>
+
+                <if test="loanApplicationVO.bondUserLoginName !=null and loanApplicationVO.bondUserLoginName != ''">
+                    AND t.login_name like '%${loanApplicationVO.bondUserLoginName}%'
+                </if>
+
+                <if test="loanApplicationVO.bondUserRealName !=null and loanApplicationVO.bondUserRealName != ''">
+                    AND t.BOND_NAME like '%${loanApplicationVO.bondUserRealName}%'
+                </if>
+
+                <if test="loanApplicationVO.applicationState !=null and loanApplicationVO.applicationState != ''">
+                    AND la.APPLICATION_STATE = #{loanApplicationVO.applicationState}
+                </if>
+
+            </if>
+        </where>
+    </select>
+
+    <select id="count_getLoanApplicationByUserId_paging" resultType="int" parameterType="map">
+        SELECT count(1)
+        FROM LOAN_APPLICATION la
+        LEFT JOIN LOAN_PUBLISH lp
+        ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+        left join USER_INFO ui on LA.USER_ID = UI.USER_ID
+        left join USER_INFO_EXT ue on LA.USER_ID = UE.USER_ID
+        left join LOAN_PRODUCT lt on LA.LOAN_PRODUCT_ID = LT.LOAN_PRODUCT_ID
+        left join (select uu.*,bu.USER_SOURCE_ID,bu.BOND_NAME from USER_INFO uu left join BOND_SOURCE_USER bu on uu.USER_ID = bu.USER_ID) t
+        on la.ORIGINAL_USER_ID = t.USER_SOURCE_ID
+        <where>
+            <if test="loanApplicationVO!=null">
+                <if test="loanApplicationVO.channelId !=null  and loanApplicationVO.channelId != ''">
+                    la.CHANNEL_ID = #{loanApplicationVO.channelId}
+                </if>
+
+                <if test="loanApplicationVO.channel !=null  and loanApplicationVO.channel != ''">
+                    and la.CHANNEL = #{loanApplicationVO.channel}
+                </if>
+
+                <if test="loanApplicationVO.title !=null and loanApplicationVO.title != ''">
+                    AND LP.LOAN_TITLE like '%${loanApplicationVO.title}%'
+                </if>
+
+                <if test="loanApplicationVO.loginName !=null and loanApplicationVO.loginName != ''">
+                    AND UI.LOGIN_NAME like '%${loanApplicationVO.loginName}%'
+                </if>
+
+                <if test="loanApplicationVO.realName !=null and loanApplicationVO.realName != ''">
+                    AND UE.REAL_NAME like '%${loanApplicationVO.realName}%'
+                </if>
+
+                <if test="loanApplicationVO.bondUserLoginName !=null and loanApplicationVO.bondUserLoginName != ''">
+                    AND t.login_name like '%${loanApplicationVO.bondUserLoginName}%'
+                </if>
+
+                <if test="loanApplicationVO.bondUserRealName !=null and loanApplicationVO.bondUserRealName != ''">
+                    AND t.BOND_NAME like '%${loanApplicationVO.bondUserRealName}%'
+                </if>
+
+                <if test="loanApplicationVO.applicationState !=null and loanApplicationVO.applicationState != ''">
+                    AND la.APPLICATION_STATE = #{loanApplicationVO.applicationState}
+                </if>
+
+            </if>
+        </where>
+    </select>
+
+    <select id="getLoanApplicationByEnterpriseId_paging" resultMap="BaseResultEnterpriseVO" parameterType="map">
+        SELECT la.*,
+        LP.LOAN_TITLE title,
+        UI.LOGIN_NAME loginName,
+        UE.REAL_NAME realName,
+        LT.CYCLE_COUNTS || '个月' loanlimit
+        FROM LOAN_APPLICATION la
+        LEFT JOIN LOAN_PUBLISH lp
+        ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+        LEFT JOIN USER_INFO ui ON LA.USER_ID = UI.USER_ID
+        LEFT JOIN USER_INFO_EXT ue ON LA.USER_ID = UE.USER_ID
+        LEFT JOIN LOAN_PRODUCT lt
+        ON LA.LOAN_PRODUCT_ID = LT.LOAN_PRODUCT_ID
+        left join ENTERPRISE_LOAN_APPLICATION e on la.LOAN_APPLICATION_ID = e.LOAN_APPLICATION_ID
+       <where>
+            <if test="loanApplicationVO!=null">
+                <if test="loanApplicationVO.enterpriseId !=null  and loanApplicationVO.enterpriseId != ''">
+                    e.ENTERPRISE_ID = #{loanApplicationVO.enterpriseId}
+                </if>
+
+                <if test="loanApplicationVO.title !=null and loanApplicationVO.title != ''">
+                    AND LP.LOAN_TITLE like '%${loanApplicationVO.title}%'
+                </if>
+
+                <if test="loanApplicationVO.loanApplicationId !=null and loanApplicationVO.loanApplicationId != ''">
+                    AND la.LOAN_APPLICATION_ID = #{loanApplicationVO.loanApplicationId}
+                </if>
+
+                <if test="loanApplicationVO.applicationState !=null and loanApplicationVO.applicationState != ''">
+                    AND la.APPLICATION_STATE = #{loanApplicationVO.applicationState}
+                </if>
+
+            </if>
+        </where>
+    </select>
+
+    <select id="count_getLoanApplicationByEnterpriseId_paging" resultType="int" parameterType="map">
+        SELECT count(1)
+        FROM LOAN_APPLICATION la
+        LEFT JOIN LOAN_PUBLISH lp
+        ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+        LEFT JOIN USER_INFO ui ON LA.USER_ID = UI.USER_ID
+        LEFT JOIN USER_INFO_EXT ue ON LA.USER_ID = UE.USER_ID
+        LEFT JOIN LOAN_PRODUCT lt
+        ON LA.LOAN_PRODUCT_ID = LT.LOAN_PRODUCT_ID
+        left join ENTERPRISE_LOAN_APPLICATION e on la.LOAN_APPLICATION_ID = e.LOAN_APPLICATION_ID
+        <where>
+            <if test="loanApplicationVO!=null">
+                <if test="loanApplicationVO.enterpriseId !=null  and loanApplicationVO.enterpriseId != ''">
+                    e.ENTERPRISE_ID = #{loanApplicationVO.enterpriseId}
+                </if>
+
+                <if test="loanApplicationVO.title !=null and loanApplicationVO.title != ''">
+                    AND LP.LOAN_TITLE like '%${loanApplicationVO.title}%'
+                </if>
+
+                <if test="loanApplicationVO.loanApplicationId !=null and loanApplicationVO.loanApplicationId != ''">
+                    AND la.LOAN_APPLICATION_ID = #{loanApplicationVO.loanApplicationId}
+                </if>
+
+                <if test="loanApplicationVO.applicationState !=null and loanApplicationVO.applicationState != ''">
+                    AND la.APPLICATION_STATE = #{loanApplicationVO.applicationState}
+                </if>
+
+            </if>
+        </where>
+    </select>
+
+
+    <select id="lockByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from LOAN_APPLICATION
+        where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+        for update
+    </select>
+
+    <update id="updateByMap" parameterType="java.util.Map">
+        update LOAN_APPLICATION
+        <set>
+            <if test="_parameter.containsKey('inCardId')">
+                IN_CARDID = #{inCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('outCardId')">
+                OUT_CARDID = #{outCardId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('loanProductId')">
+                LOAN_PRODUCT_ID= #{loanProductId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('loanApplicationName')">
+                LOAN_APPLICATION_NAME= #{loanApplicationName,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('offlineApplyCode')">
+                OFFLINE_APPLY_CODE = #{offlineApplyCode,jdbcType=VARCHAR,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('loanUseage')">
+                LOAN_USEAGE= #{loanUseage},
+            </if>
+            <if test="_parameter.containsKey('renewAgreementCode')">
+                RENEW_AGREEMENT_CODE = #{renewAgreementCode,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('loanBalance')">
+                LOAN_BALANCE = #{loanBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('confirmBalance')">
+                CONFIRM_BALANCE = #{confirmBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('resultBalance')">
+                RESULT_BALANCE = #{resultBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('lastRepaymentDate')">
+                LAST_REPAYMENT_DATE = #{lastRepaymentDate,jdbcType=DATE},
+            </if>
+            <if test="_parameter.containsKey('annualRate')">
+                ANNUAL_RATE = #{annualRate,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('applicationDesc')">
+                APPLICATION_DESC = #{applicationDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('publishState')">
+                PUBLISH_STATE = #{publishState,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('publishTime')">
+                PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('fullTime')">
+                FULL_TIME = #{fullTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('cancelTime')">
+                CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('agreementStartDate')">
+                AGREEMENT_START_DATE = #{agreementStartDate,jdbcType=DATE},
+            </if>
+            <if test="_parameter.containsKey('firstRepaymentDate')">
+                FIRST_REPAYMENT_DATE = #{firstRepaymentDate,jdbcType=DATE},
+            </if>
+            <if test="_parameter.containsKey('lendState')">
+                LEND_STATE = #{lendState,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('verifyState')">
+                VERIFY_STATE = #{verifyState,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('interestBalance')">
+                INTEREST_BALANCE = #{interestBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('applicationState')">
+                APPLICATION_STATE = #{applicationState,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('channel')">
+                CHANNEL = #{channel,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('channelId')">
+                CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('originalUserId')">
+                ORIGINAL_USER_ID = #{originalUserId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('paymentDate')">
+                PAYMENT_DATE = #{paymentDate,jdbcType=DATE},
+            </if>
+            <if test="_parameter.containsKey('maxBuyBalance')">
+                MAX_BUY_BALANCE = #{maxBuyBalance,jdbcType=DATE},
+            </if>
+            <if test="_parameter.containsKey('loanUseageDesc')">
+                LOAN_USEAGE_DESC = #{loanUseageDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('preheatTime')">
+                PREHEAT_TIME = #{preheatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('openTime')">
+                OPEN_TIME = #{openTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('riskControlInformation')">
+                RISK_CONTROL_INFORMATION = #{riskControlInformation,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    </update>
+
+    <select id="findByProductIdOrderBy" parameterType="java.util.Map" resultMap="BaseResultVO">
+        select lApp.*,nvl(
+        (select sum(BUY_BALANCE) from LEND_ORDER_BID_DETAIL lobd where lobd.LOAN_APPLICATION_ID =
+        lApp.LOAN_APPLICATION_ID and STATUS = '0')
+        ,0) as RIGHTS_BALANCE from LOAN_APPLICATION lApp
+        left join LOAN_PUBLISH lp on lApp.LOAN_APPLICATION_ID = lp.LOAN_APPLICATION_ID
+        where 1=1   
+
+        <if test=" _parameter.containsKey('loanProductId')">
+            <if test=" loanProductId != 0">
+                and LOAN_PRODUCT_ID = #{loanProductId}
+            </if>
+        </if>
+        <if test=" _parameter.containsKey('oType')">
+            <if test=" oType != null">
+                and lp.o_type = #{oType} 
+            </if>
+        </if>
+        <if test=" _parameter.containsKey('channel')">
+            <if test=" channel != 0">
+                and CHANNEL = #{channel}
+            </if>
+        </if>
+        <if test=" _parameter.containsKey('openTime')">
+            <if test=" openTime != null">
+                <![CDATA[
+      					and lp.OPEN_TIME <= #{openTime,jdbcType=TIMESTAMP}
+      				]]>
+            </if>
+        </if>
+
+        <if test=" _parameter.containsKey('forLoanBalance')">
+            <if test=" forLoanBalance != null">
+                and lApp.application_state = '3'
+                and lApp.lend_State = '0'
+            </if>
+        </if>
+        
+        <if test=" _parameter.containsKey('publishRule')">
+            <if test=" publishRule != '' ">
+                and lp.PUBLISH_RULE  in 
+            </if>
+              <foreach collection="publishRule" item="rules" open="(" separator="," close=")">
+	          #{rules}
+	        </foreach>
+        </if>
+
+        order by
+        lApp.create_Time asc,
+        lApp.ANNUAL_RATE asc
+    </select>
+
+	<!-- 债权列表 -->
+    <select id="getTurnCreditRightPaging" resultMap="loanApplicationLiatVOResultMap" parameterType="map">
+
+        <if test="loanVo != null">
+            <if test="loanVo.orderBy != null and loanVo.orderBy != ''">
+                SELECT LA.*,
+                	   CTA.CREDITOR_RIGHTS_APPLY_ID,
+				       CTA.WHEN_WORTH,
+				       CTA.APPLY_PRICE,
+				       (SELECT NVL(SUM(BUY_BALANCE), 0)
+				          FROM CREDITORRIGHT_DEAL_DETAIL CDD
+				         WHERE CDD.CREDITOR_RIGHTS_APPLY_ID = CTA.CREDITOR_RIGHTS_APPLY_ID
+				           AND STATUS = 1) TOTALAMOUNTLOAN,
+				       CTA.APPLY_CR_ID CREDITORRIGHTID,
+				       LP.LOAN_TITLE,
+				       NVL(CTA.TIME_LIMIT,0) CYCLECOUNT,
+				       LP.AWARD_RATE REWARDSPERCENT,
+				       LP.CREDIT_LEVEL CREDITLEVEL,
+				       (LA.ANNUAL_RATE) RATE,
+				       LP.OPEN_TIME POPENTIME,
+				       LENDPRO.STARTS_AT STARTAMOUNT,
+				       LP.AWARD_POINT
+				  FROM CREDITORRIGHT_TRANSFER_APPLY CTA
+				  LEFT JOIN CREDITOR_RIGHTS CR
+				    ON CTA.APPLY_CR_ID = CR.CREDITOR_RIGHTS_ID
+				  LEFT JOIN LOAN_APPLICATION LA
+				    ON CR.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+				  LEFT JOIN LOAN_PUBLISH LP
+				    ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+				  LEFT JOIN LOAN_PRODUCT LPP
+				    ON LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+				  LEFT JOIN LEND_PRODUCT LENDPRO
+				    ON LENDPRO.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+
+                <where>
+                	cta.bus_status='0'
+                    <![CDATA[ and   lp.PREHEAT_TIME<= #{preheatTime} ]]>
+                    <if test="loanVo != null">
+                        <if test='loanVo.loanType != null and loanVo.loanType != "-1"'>
+                            AND la.LOAN_TYPE = #{loanVo.loanType}
+                        </if>
+                        <!-- <if test='loanVo.cycleCount != null and loanVo.cycleCount != "-1"'>
+                            AND lpp.CYCLE_COUNTS = #{loanVo.cycleCount}
+                        </if> -->
+                        <if test='loanVo.cycleCounts != null and loanVo.cycleCounts != "-1"'>
+                        	<if test='loanVo.cycleCounts == "0" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS < '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "1" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS <= '12' AND lpp.CYCLE_COUNTS >= '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "2" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS >  '12']]>
+                        	</if>
+                        </if>
+                        <if test='loanVo.annualRate != null and loanVo.annualRate != "-1"'>
+                            AND la.ANNUAL_RATE = #{loanVo.annualRate}
+                        </if>
+                    </if>
+                </where>
+                order by ${loanVo.orderBy}
+            </if>
+        </if>
+        <if test="loanVo==null or loanVo.orderBy == null or loanVo.orderBy == ''">
+            select * from (
+            	SELECT LA.*,
+            			CTA.CREDITOR_RIGHTS_APPLY_ID,
+				       CTA.WHEN_WORTH,
+				       CTA.APPLY_PRICE,
+				       (SELECT NVL(SUM(BUY_BALANCE), 0)
+				          FROM CREDITORRIGHT_DEAL_DETAIL CDD
+				         WHERE CDD.CREDITOR_RIGHTS_APPLY_ID = CTA.CREDITOR_RIGHTS_APPLY_ID
+				           AND STATUS = 1) TOTALAMOUNTLOAN,
+				       CTA.APPLY_CR_ID CREDITORRIGHTID,
+				       LP.LOAN_TITLE,
+				       NVL(CTA.TIME_LIMIT,0) CYCLECOUNT,
+				       LP.AWARD_RATE REWARDSPERCENT,
+				       LP.CREDIT_LEVEL CREDITLEVEL,
+				       (LA.ANNUAL_RATE) RATE,
+				       LP.OPEN_TIME POPENTIME,
+				       LENDPRO.STARTS_AT STARTAMOUNT,
+				       LP.AWARD_POINT
+				  FROM CREDITORRIGHT_TRANSFER_APPLY CTA
+				  LEFT JOIN CREDITOR_RIGHTS CR
+				    ON CTA.APPLY_CR_ID = CR.CREDITOR_RIGHTS_ID
+				  LEFT JOIN LOAN_APPLICATION LA
+				    ON CR.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+				  LEFT JOIN LOAN_PUBLISH LP
+				    ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+				  LEFT JOIN LOAN_PRODUCT LPP
+				    ON LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+				  LEFT JOIN LEND_PRODUCT LENDPRO
+				    ON LENDPRO.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+            <where>
+                cta.bus_status='0'
+                <![CDATA[ and   lp.PREHEAT_TIME<= #{preheatTime} ]]>
+                <if test="loanVo != null">
+                    <if test='loanVo.loanType != null and loanVo.loanType != "-1"'>
+                        AND la.LOAN_TYPE = #{loanVo.loanType}
+                    </if>
+                    <!-- <if test='loanVo.cycleCount != null and loanVo.cycleCount != "-1"'>
+                        AND lpp.CYCLE_COUNTS = #{loanVo.cycleCount}
+                    </if> -->
+                    <if test='loanVo.cycleCounts != null and loanVo.cycleCounts != "-1"'>
+                        	<if test='loanVo.cycleCounts == "0" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS < '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "1" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS <= '12' AND lpp.CYCLE_COUNTS >= '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "2" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS >  '12']]>
+                        	</if>
+                        </if>
+                    <if test='loanVo.annualRate != null and loanVo.annualRate != "-1"'>
+                        AND la.ANNUAL_RATE = #{loanVo.annualRate}
+                    </if>
+                </if>
+            </where>
+            order by lp.AWARD_RATE desc,LA.APPLICATION_STATE asc ,LP.OPEN_TIME asc
+            )
+        </if>
+    </select>
+
+	<select id="count_getTurnCreditRightPaging" resultType="int" parameterType="map">
+        select count(1)
+        from creditorright_transfer_apply cta
+		LEFT JOIN creditor_rights cr ON cta.apply_cr_id = cr.creditor_rights_id
+		left join loan_application la on cr.loan_application_id = la.loan_application_id
+        left join LOAN_PUBLISH lp on LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+        left join LOAN_PRODUCT lpp on LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+        LEFT JOIN LEND_PRODUCT LENDPRO ON LENDPRO.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+
+        <where>
+            cta.bus_status='0'
+            <![CDATA[ and  lp.PREHEAT_TIME<= #{preheatTime}  ]]>
+            <if test="loanVo != null">
+                <if test='loanVo.loanType != null and loanVo.loanType != "-1"'>
+                    AND la.LOAN_TYPE = #{loanVo.loanType}
+                </if>
+                <!-- <if test='loanVo.cycleCount != null and loanVo.cycleCount != "-1"'>
+                    AND lpp.CYCLE_COUNTS = #{loanVo.cycleCount}
+                </if> -->
+                <if test='loanVo.cycleCounts != null and loanVo.cycleCounts != "-1"'>
+                        	<if test='loanVo.cycleCounts == "0" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS < '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "1" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS <= '12' AND lpp.CYCLE_COUNTS >= '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "2" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS >  '12']]>
+                        	</if>
+                        </if>
+                <if test='loanVo.annualRate != null and loanVo.annualRate != "-1"'>
+                    AND (la.ANNUAL_RATE+NVL(LP.AWARD_RATE,0)) = #{loanVo.annualRate}
+                </if>
+            </if>
+        </where>
+
+    </select>
+
+    <!--出借列表-->
+    <select id="getLoanApplicationPaging" resultMap="loanApplicationLiatVOResultMap" parameterType="map">
+        <if test="loanVo != null">
+            <if test="loanVo.orderBy != null and loanVo.orderBy != ''">
+                SELECT LA.*,
+				       LOBD.TOTALAMOUNTLOAN,
+				       (SELECT O_TYPE
+				          FROM LOAN_PUBLISH LPPP
+				         WHERE LPPP.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID) OTYPE,
+				       LP.LOAN_TITLE,
+				       LPP.CYCLE_COUNTS CYCLECOUNT,
+                       LPP.DUE_TIME, LPP.DUE_TIME_TYPE,
+				       LP.AWARD_RATE REWARDSPERCENT,
+				       LP.CREDIT_LEVEL CREDITLEVEL,
+				       (LA.ANNUAL_RATE) RATE,
+				       LP.OPEN_TIME POPENTIME,
+				       LENDPRO.STARTS_AT STARTAMOUNT,
+				       LPP.REPAYMENT_TYPE
+				  FROM LOAN_APPLICATION LA
+				  LEFT JOIN LOAN_PUBLISH LP
+				    ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+				  LEFT JOIN LOAN_PRODUCT LPP
+				    ON LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+				  LEFT JOIN LEND_PRODUCT LENDPRO
+				    ON LENDPRO.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+				  LEFT JOIN LOAN_ORIENTATION LO 
+  					ON LA.LOAN_APPLICATION_ID = LO.LOAN_APPLICATION_ID
+				  LEFT JOIN (SELECT LOAN_APPLICATION_ID, SUM(BUY_BALANCE) TOTALAMOUNTLOAN
+				               FROM LEND_ORDER_BID_DETAIL
+				              WHERE STATUS = '0'
+				              GROUP BY LOAN_APPLICATION_ID) LOBD
+				    ON LA.LOAN_APPLICATION_ID = LOBD.LOAN_APPLICATION_ID  
+                <where>
+                    <!-- 前台投标，投标中状态 -->
+                    LA.APPLICATION_STATE in('3','4','5','6','7','8')
+                    <if test='isNewUserLoan == null'>
+                    	AND (LP.O_TYPE != '3'  or LP.O_TYPE is null) 
+                    </if>
+                	<![CDATA[ and lp.PREHEAT_TIME<= #{preheatTime} ]]> 
+                    <if test="loanVo != null">
+                        <if test='loanVo.loanType != null and loanVo.loanType != "-1"'>
+                            <if test='loanVo.loanType == "1" '>
+                        		AND la.LOAN_TYPE in ('1','7')
+                        	</if>
+                        	<if test='loanVo.loanType != "1" '>
+                        		AND la.LOAN_TYPE = #{loanVo.loanType}
+                        	</if>
+                        </if>
+                        <!-- <if test='loanVo.cycleCount != null and loanVo.cycleCount != "-1"'>
+                            AND lpp.CYCLE_COUNTS = #{loanVo.cycleCount}
+                        </if> -->
+                        <if test='loanVo.cycleCounts != null and loanVo.cycleCounts != "-1"'>
+                        	<if test='loanVo.cycleCounts == "0" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS < '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "1" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS <= '12' AND lpp.CYCLE_COUNTS >= '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "2" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS >  '12']]>
+                        	</if>
+                        </if>
+                        <if test='loanVo.annualRate != null and loanVo.annualRate != "-1"'>
+                            AND la.ANNUAL_RATE = #{loanVo.annualRate}
+                        </if>
+                        <!-- 查询条件，满标时间 -->
+                        <if test="loanVo.fullTime != null and loanVo.fullTime != ''">
+                			<![CDATA[ and la.FULL_TIME >= #{loanVo.fullTime} ]]>
+                			<![CDATA[ and la.FULL_TIME <= #{loanVo.fullTime}+1 ]]>
+            			</if>
+            			<!-- 网贷天眼，查询条件 -->
+		                <if test="loanVo.timeStatus != null and loanVo.timeStatus != ''">
+				           	<if test='loanVo.timeStatus == "0" '>
+		                   		<![CDATA[ AND LA.APPLICATION_STATE in('3','4','5') ]]>
+		                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+		                   			<![CDATA[ and lp.OPEN_TIME >= #{loanVo.timeFrom} ]]>
+		                   		</if>
+		                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+									<![CDATA[ and lp.OPEN_TIME <= #{loanVo.timeTo} ]]>                   		
+		                   		</if>
+		                   	</if>
+		        			<if test='loanVo.timeStatus == "1" '>
+		                   		<![CDATA[ AND LA.APPLICATION_STATE in('6','7','8') ]]>
+		                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+		                   			<![CDATA[ and la.FULL_TIME >= #{loanVo.timeFrom} ]]>
+		                   		</if>
+		                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+									<![CDATA[ and la.FULL_TIME <= #{loanVo.timeTo} ]]>           		
+		                   		</if>
+		                   	</if>
+		    			</if>
+                    </if>
+                </where>
+                order by ${loanVo.orderBy}
+            </if>
+        </if>
+        <if test="loanVo==null or loanVo.orderBy == null or loanVo.orderBy == ''">
+            SELECT *
+			  FROM (SELECT LA.*,
+			               LOBD.TOTALAMOUNTLOAN,
+			               (SELECT O_TYPE
+			                  FROM LOAN_PUBLISH LPPP
+			                 WHERE LPPP.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID) OTYPE,
+			               LP.LOAN_TITLE,
+			               LPP.CYCLE_COUNTS CYCLECOUNT,
+                           LPP.DUE_TIME, LPP.DUE_TIME_TYPE,
+			               LP.AWARD_RATE REWARDSPERCENT,
+			               LP.CREDIT_LEVEL CREDITLEVEL,
+			               (LA.ANNUAL_RATE) RATE,
+			               LP.OPEN_TIME POPENTIME,
+			               LENDPRO.STARTS_AT STARTAMOUNT,
+			               LPP.REPAYMENT_TYPE
+			          FROM LOAN_APPLICATION LA
+			          LEFT JOIN LOAN_PUBLISH LP
+			            ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+			          LEFT JOIN LOAN_PRODUCT LPP
+			            ON LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+			          LEFT JOIN LEND_PRODUCT LENDPRO
+			            ON LENDPRO.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+			           LEFT JOIN LOAN_ORIENTATION LO 
+  						ON LA.LOAN_APPLICATION_ID = LO.LOAN_APPLICATION_ID
+			          LEFT JOIN (SELECT LOAN_APPLICATION_ID, SUM(BUY_BALANCE) TOTALAMOUNTLOAN
+					               FROM LEND_ORDER_BID_DETAIL
+					              WHERE STATUS = '0'
+					              GROUP BY LOAN_APPLICATION_ID) LOBD
+					    ON LA.LOAN_APPLICATION_ID = LOBD.LOAN_APPLICATION_ID  
+            <where>
+            	<!-- 前台投标，投标中状态 -->
+                LA.APPLICATION_STATE ='3' 
+                <if test='isNewUserLoan == null'>
+                	AND (LP.O_TYPE != '3'  or LP.O_TYPE is null) 
+                </if>
+                <![CDATA[ and   lp.PREHEAT_TIME<= #{preheatTime} ]]>
+                <if test="loanVo != null">
+                    <if test='loanVo.loanType != null and loanVo.loanType != "-1"'>
+                       	<if test='loanVo.loanType == "1" '>
+                       		AND la.LOAN_TYPE in ('1','7')
+                       	</if>
+                       	<if test='loanVo.loanType != "1" '>
+                       		AND la.LOAN_TYPE = #{loanVo.loanType}
+                       	</if>
+                    </if>
+                    <!-- <if test='loanVo.cycleCount != null and loanVo.cycleCount != "-1"'>
+                        AND lpp.CYCLE_COUNTS = #{loanVo.cycleCount}
+                    </if> -->
+                    <if test='loanVo.cycleCounts != null and loanVo.cycleCounts != "-1"'>
+                        	<if test='loanVo.cycleCounts == "0" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS < '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "1" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS <= '12' AND lpp.CYCLE_COUNTS >= '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "2" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS >  '12']]>
+                        	</if>
+                        </if>
+                    <if test='loanVo.annualRate != null and loanVo.annualRate != "-1"'>
+                        AND la.ANNUAL_RATE = #{loanVo.annualRate}
+                    </if>
+                    <!-- 查询条件，满标时间 -->
+                    <if test="loanVo.fullTime != null and loanVo.fullTime != ''">
+            			<![CDATA[ and la.FULL_TIME >= #{loanVo.fullTime} ]]>
+            			<![CDATA[ and la.FULL_TIME <= #{loanVo.fullTime}+1 ]]>
+        			</if>
+        			<!-- 网贷天眼，查询条件 -->
+	                <if test="loanVo.timeStatus != null and loanVo.timeStatus != ''">
+		           		<if test='loanVo.timeStatus == "0" '>
+	                   		<![CDATA[ AND LA.APPLICATION_STATE in('3','4','5') ]]>
+	                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+	                   			<![CDATA[ and lp.OPEN_TIME >= #{loanVo.timeFrom} ]]>
+	                   		</if>
+	                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+								<![CDATA[ and lp.OPEN_TIME <= #{loanVo.timeTo} ]]>                   		
+	                   		</if>
+	                   	</if>
+	        			<if test='loanVo.timeStatus == "1" '>
+	                   		<![CDATA[ AND LA.APPLICATION_STATE in('6','7','8') ]]>
+	                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+	                   			<![CDATA[ and la.FULL_TIME >= #{loanVo.timeFrom} ]]>
+	                   		</if>
+	                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+								<![CDATA[ and la.FULL_TIME <= #{loanVo.timeTo} ]]>           		
+	                   		</if>
+	                   	</if>
+	    			</if>
+                </if>
+            </where>
+            ORDER BY LP.AWARD_RATE DESC,LP.OPEN_TIME)
+            union all
+            SELECT *
+			  FROM (SELECT LA.*,
+			               LOBD.TOTALAMOUNTLOAN,
+			               (SELECT O_TYPE
+			                  FROM LOAN_PUBLISH LPPP
+			                 WHERE LPPP.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID) OTYPE,
+			               LP.LOAN_TITLE,
+			               LPP.CYCLE_COUNTS CYCLECOUNT,
+                           LPP.DUE_TIME, LPP.DUE_TIME_TYPE,
+			               LP.AWARD_RATE REWARDSPERCENT,
+			               LP.CREDIT_LEVEL CREDITLEVEL,
+			               (LA.ANNUAL_RATE) RATE,
+			               LP.OPEN_TIME POPENTIME,
+			               LENDPRO.STARTS_AT STARTAMOUNT,
+			               LPP.REPAYMENT_TYPE
+			          FROM LOAN_APPLICATION LA
+			          LEFT JOIN LOAN_PUBLISH LP
+			            ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+			          LEFT JOIN LOAN_PRODUCT LPP
+			            ON LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+			          LEFT JOIN LEND_PRODUCT LENDPRO
+			            ON LENDPRO.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+			           LEFT JOIN LOAN_ORIENTATION LO 
+  							ON LA.LOAN_APPLICATION_ID = LO.LOAN_APPLICATION_ID
+			          LEFT JOIN (SELECT LOAN_APPLICATION_ID, SUM(BUY_BALANCE) TOTALAMOUNTLOAN
+					               FROM LEND_ORDER_BID_DETAIL
+					              WHERE STATUS = '0'
+					              GROUP BY LOAN_APPLICATION_ID) LOBD
+					    ON LA.LOAN_APPLICATION_ID = LOBD.LOAN_APPLICATION_ID  
+            <where>
+                <!-- 前台投标，投标中状态 -->
+                LA.APPLICATION_STATE in('4','5','6','7','8')
+                <if test='isNewUserLoan == null'>
+                	AND (LP.O_TYPE != '3'  or LP.O_TYPE is null) 
+                </if>
+				<![CDATA[ and  lp.PREHEAT_TIME<= #{preheatTime}  ]]> 
+                <if test="loanVo != null">
+                    <if test='loanVo.loanType != null and loanVo.loanType != "-1"'>
+                       	<if test='loanVo.loanType == "1" '>
+                       		AND la.LOAN_TYPE in ('1','7')
+                       	</if>
+                       	<if test='loanVo.loanType != "1" '>
+                       		AND la.LOAN_TYPE = #{loanVo.loanType}
+                       	</if>
+                    </if>
+                    <!-- <if test='loanVo.cycleCount != null and loanVo.cycleCount != "-1"'>
+                        AND lpp.CYCLE_COUNTS = #{loanVo.cycleCount}
+                    </if> -->
+                    <if test='loanVo.cycleCounts != null and loanVo.cycleCounts != "-1"'>
+                        	<if test='loanVo.cycleCounts == "0" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS < '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "1" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS <= '12' AND lpp.CYCLE_COUNTS >= '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "2" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS >  '12']]>
+                        	</if>
+                        </if>
+                    <if test='loanVo.annualRate != null and loanVo.annualRate != "-1"'>
+                        AND la.ANNUAL_RATE = #{loanVo.annualRate}
+                    </if>
+                    <!-- 查询条件，满标时间 -->
+                    <if test="loanVo.fullTime != null and loanVo.fullTime != ''">
+            			<![CDATA[ and la.FULL_TIME >= #{loanVo.fullTime} ]]>
+            			<![CDATA[ and la.FULL_TIME <= #{loanVo.fullTime}+1 ]]>
+        			</if>
+        			<!-- 网贷天眼，查询条件 -->
+                	<if test="loanVo.timeStatus != null and loanVo.timeStatus != ''">
+		           		<if test='loanVo.timeStatus == "0" '>
+	                   		<![CDATA[ AND LA.APPLICATION_STATE in('3','4','5') ]]>
+	                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+	                   			<![CDATA[ and lp.OPEN_TIME >= #{loanVo.timeFrom} ]]>
+	                   		</if>
+	                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+								<![CDATA[ and lp.OPEN_TIME <= #{loanVo.timeTo} ]]>                   		
+	                   		</if>
+	                   	</if>
+	        			<if test='loanVo.timeStatus == "1" '>
+	                   		<![CDATA[ AND LA.APPLICATION_STATE in('6','7','8') ]]>
+	                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+	                   			<![CDATA[ and la.FULL_TIME >= #{loanVo.timeFrom} ]]>
+	                   		</if>
+	                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+								<![CDATA[ and la.FULL_TIME <= #{loanVo.timeTo} ]]>           		
+	                   		</if>
+	                   	</if>
+    				</if>
+                </if>
+            </where>
+            order by LA.APPLICATION_STATE,LP.OPEN_TIME desc)
+        </if>
+    </select>
+
+    <select id="count_getLoanApplicationPaging" resultType="int" parameterType="map">
+        SELECT COUNT(1)
+		  FROM LOAN_APPLICATION LA
+		  LEFT JOIN LOAN_PUBLISH LP
+		    ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+		  LEFT JOIN LOAN_PRODUCT LPP
+		    ON LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+		  LEFT JOIN LOAN_ORIENTATION LO 
+ 		    ON LA.LOAN_APPLICATION_ID = LO.LOAN_APPLICATION_ID
+		  LEFT JOIN LEND_PRODUCT LENDPRO
+		    ON LENDPRO.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+		    
+        <where>
+            <!-- 前台投标，投标中状态 -->
+            LA.APPLICATION_STATE in('3','4','5','6','7','8')
+            <if test='isNewUserLoan == null'>
+            	AND (LP.O_TYPE != '3'  or LP.O_TYPE is null) 
+            </if>  
+            <![CDATA[ and  lp.PREHEAT_TIME<= #{preheatTime}  ]]>
+            <if test="loanVo != null">
+                <if test='loanVo.loanType != null and loanVo.loanType != "-1"'>
+               		<if test='loanVo.loanType == "1" '>
+                   		AND la.LOAN_TYPE in ('1','7')
+                   	</if>
+                   	<if test='loanVo.loanType != "1" '>
+                   		AND la.LOAN_TYPE = #{loanVo.loanType}
+                   	</if>
+                </if>
+                <!-- <if test='loanVo.cycleCount != null and loanVo.cycleCount != "-1"'>
+                    AND lpp.CYCLE_COUNTS = #{loanVo.cycleCount}
+                </if> -->
+                <if test='loanVo.cycleCounts != null and loanVo.cycleCounts != "-1"'>
+                        	<if test='loanVo.cycleCounts == "0" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS < '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "1" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS <= '12' AND lpp.CYCLE_COUNTS >= '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "2" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS >  '12']]>
+                        	</if>
+                        </if>
+                <if test='loanVo.annualRate != null and loanVo.annualRate != "-1"'>
+                    AND la.ANNUAL_RATE = #{loanVo.annualRate}
+                </if>
+                <!-- 查询条件，满标时间 -->
+                <if test="loanVo.fullTime != null and loanVo.fullTime != ''">
+        			<![CDATA[ and la.FULL_TIME >= #{loanVo.fullTime} ]]>
+        			<![CDATA[ and la.FULL_TIME <= #{loanVo.fullTime}+1 ]]>
+    			</if>
+    			<!-- 网贷天眼，查询条件 -->
+                <if test="loanVo.timeStatus != null and loanVo.timeStatus != ''">
+           			<if test='loanVo.timeStatus == "0" '>
+                   		<![CDATA[ AND LA.APPLICATION_STATE in('3','4','5') ]]>
+                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+                   			<![CDATA[ and lp.OPEN_TIME >= #{loanVo.timeFrom} ]]>
+                   		</if>
+                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+							<![CDATA[ and lp.OPEN_TIME <= #{loanVo.timeTo} ]]>                   		
+                   		</if>
+                   	</if>
+        			<if test='loanVo.timeStatus == "1" '>
+                   		<![CDATA[ AND LA.APPLICATION_STATE in('6','7','8') ]]>
+                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+                   			<![CDATA[ and la.FULL_TIME >= #{loanVo.timeFrom} ]]>
+                   		</if>
+                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+							<![CDATA[ and la.FULL_TIME <= #{loanVo.timeTo} ]]>           		
+                   		</if>
+                   	</if>
+    			</if>
+            </if>
+        </where>
+    </select>
+
+    <select id="getAuthInfo" resultType="int" parameterType="java.lang.String">
+    select TYPE from CUSTOMER_UPLOAD_SNAPSHOT t where T.LOAN_APPLICATION_ID=#{value} group by T.TYPE
+  </select>
+
+
+    <select id="getLoanRateTypes" resultType="BigDecimal" parameterType="map">
+        <!--    select ANNUAL_RATE
+            from LOAN_APPLICATION la
+            left join LOAN_PUBLISH  lp on LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+            where
+            lp.PUBLISH_TARGET = 1
+            <if test="statusList != null">
+              <foreach collection="statusList" open="and LA.APPLICATION_STATE IN (" close=")" item="status" separator=", ">
+                #{status}
+              </foreach>
+            </if>
+            group by ANNUAL_RATE-->
+
+      <!--  SELECT * FROM (SELECT ANNUAL_RATE +NVL(LP.AWARD_RATE,0) ANNUAL_RATE
+        FROM LOAN_APPLICATION la
+        LEFT JOIN LOAN_PUBLISH lp
+        ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+        WHERE lp.PUBLISH_TARGET = 1 and LA.APPLICATION_STATE in('3','4','5','6','7','8'))-->
+        <!-- <if test="statusList != null">
+           <foreach collection="statusList" open="and LA.APPLICATION_STATE IN (" close=")" item="status" separator=", ">
+             #{status}
+           </foreach>
+         </if>-->
+        SELECT ANNUAL_RATE 
+        FROM LOAN_APPLICATION la
+        WHERE  LA.APPLICATION_STATE in('3','4','5','6','7','8') 
+        GROUP BY ANNUAL_RATE ORDER BY ANNUAL_RATE
+    </select>
+
+    <select id="getDurationTypes" resultType="BigDecimal" parameterType="map">
+        select CYCLE_COUNTS
+        from LOAN_APPLICATION la left join LOAN_PRODUCT lp on LA.LOAN_PRODUCT_ID = LP.LOAN_PRODUCT_ID
+        left join LOAN_PUBLISH lpp on LA.LOAN_APPLICATION_ID = Lpp.LOAN_APPLICATION_ID
+        where LA.APPLICATION_STATE in('3','4','5','6','7','8')
+        <!--  <if test="statusList != null">
+            <foreach collection="statusList" open="and LA.APPLICATION_STATE IN (" close=")" item="status" separator=", ">
+              #{status}
+            </foreach>
+          </if>-->
+        group by LP.CYCLE_COUNTS order by CYCLE_COUNTS
+    </select>
+
+    <select id="getLoanApplicationVoById" resultMap="loanApplicationLiatVOResultMap" parameterType="java.lang.Long">
+     select la.*,( select sum(LObd.BUY_BALANCE) from LEND_ORDER_BID_DETAIL lobd
+  where lobd.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID and LOBD.STATUS='0') totalAmountLoan
+	  ,lp.preheat_time ptime,lp.open_time otime
+      ,LP.LOAN_TITLE,LP.GUARANTEE_TYPE guaranteeType
+      ,LPP.CYCLE_COUNTS cycleCount, LPP.DUE_TIME, LPP.DUE_TIME_TYPE
+      ,lp.AWARD_RATE rewardsPercent, lp.CREDIT_LEVEL creditLevel
+      ,LPP.REPAYMENT_METHOD repayMentMethod, lpp.REPAYMENT_TYPE
+      ,LDP.STARTS_AT startAmount,lp."DESC" des,lp.AWARD_POINT,to_char(lp.AWARD_RATE,'fm9990.0') AWARD_RATE,lp.OPEN_TIME popenTime,lp.LOAN_USEAGE_DESC useageDesc
+      from LOAN_APPLICATION la
+      left join LOAN_PUBLISH  lp on LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+      left join LOAN_PRODUCT lpp on LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+      left join LEND_PRODUCT LDP on LPP.LEND_PRODUCT_ID = LDP.LEND_PRODUCT_ID
+      where la.LOAN_APPLICATION_ID = #{value}
+  </select>
+  
+  <!-- by mainid  -->
+  <select id="getLoanApplicationVoByMainId" resultMap="loanApplicationLiatVOResultMap" parameterType="java.lang.Long">
+      select la.*
+      ,LP.LOAN_TITLE,LP.GUARANTEE_TYPE guaranteeType ,LPP.CYCLE_COUNTS cycleCount,lp.AWARD_RATE rewardsPercent, lp.CREDIT_LEVEL creditLevel
+      ,LPP.REPAYMENT_METHOD repayMentMethod, lpp.REPAYMENT_TYPE
+      ,LDP.STARTS_AT startAmount,lp."DESC" des,lp.AWARD_POINT,to_char(lp.AWARD_RATE,'fm9990.0') AWARD_RATE,lp.OPEN_TIME popenTime,la.LOAN_USEAGE_DESC useageDesc
+      from MAIN_LOAN_APPLICATION la
+      left join MAIN_LOAN_PUBLISH  lp on LA.MAIN_LOAN_APPLICATION_ID = LP.MAIN_LOAN_APPLICATION_ID
+      left join LOAN_PRODUCT lpp on LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+      left join LEND_PRODUCT LDP on LPP.LEND_PRODUCT_ID = LDP.LEND_PRODUCT_ID
+      where la.MAIN_LOAN_APPLICATION_ID = #{loanApplicationNo,jdbcType=DECIMAL}
+  </select>
+
+    <select id="getTotalLoanAmount" resultType="BigDecimal" parameterType="map">
+        SELECT NVL(SUM(CONFIRM_BALANCE), 0) CONFIRM_BALANCE FROM LOAN_APPLICATION
+        <where>
+            <if test='userId != null and userId != ""'>
+                AND USER_ID = #{userId}
+            </if>
+            AND LEND_STATE = '4'
+        </where>
+    </select>
+
+    <select id="getLoanAppListByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM LOAN_APPLICATION WHERE USER_ID = #{userId}
+    </select>
+
+    <!-- 企业借款申请，分页查询-数据 -->
+ <select id="findAllEnterpriseLoanByPage" resultMap="loanApplicationExtOneResultMap" parameterType="java.util.HashMap">
+        select
+     CASE
+     WHEN (SELECT COUNT (*)
+     FROM agreement_info ai
+     WHERE ai.creditor_rights_id =
+     (SELECT crs.creditor_rights_id
+     FROM CREDITOR_RIGHTS crs
+     WHERE     crs.loan_application_id =
+     La.LOAN_APPLICATION_ID
+     AND ROWNUM = 1)) > 0
+     THEN
+     '已生成'
+     ELSE
+     '未生成'
+     END  as agreement_status ,
+		la.LOAN_APPLICATION_ID,
+		(select o_type from loan_publish lppp where lppp.loan_application_id =la.loan_application_id) oType    ,
+		la.LOAN_TYPE,
+		la.LOAN_APPLICATION_CODE,
+		la.LOAN_APPLICATION_NAME,
+		la.LOAN_BALANCE,
+		la.CONFIRM_BALANCE,
+		la.APPLICATION_STATE,
+		la.CREATE_TIME,
+		la.PUBLISH_TIME,
+		la.FULL_TIME,
+		la.PAYMENT_DATE,
+		uie.REAL_NAME,
+		uie.ID_CARD,
+		uie.MOBILE_NO,
+		(SELECT SUM(LOBD.BUY_BALANCE) FROM LEND_ORDER_BID_DETAIL LOBD WHERE LOBD.STATUS = '0' AND LOBD.LOAN_APPLICATION_ID = la.LOAN_APPLICATION_ID) HAVE_CAST,
+		case when pro.cycle_value=1 then pro.cycle_counts||'个月' else pro.cycle_counts||'天' end as duration_time,
+        od.opertion_date
+		from LOAN_APPLICATION la 
+		left join ENTERPRISE_LOAN_APPLICATION ela on la.LOAN_APPLICATION_ID = ela.LOAN_APPLICATION_ID
+		left join ENTERPRISE_INFO ei on ela.ENTERPRISE_ID = ei.ENTERPRISE_ID
+		left join USER_INFO_EXT uie on ei.USER_ID = uie.USER_ID
+        LEFT JOIN LOAN_PRODUCT PRO ON la.LOAN_PRODUCT_ID = PRO.LOAN_PRODUCT_ID
+        LEFT JOIN (
+	       select rr1.opertion_date,lp2.loan_application_id from repayment_record rr1
+	       join (
+	              select rr.repayment_plan_id,max(rr.repayment_record_id) mx_repayment_record_id from repayment_record rr,
+	              (
+	                select max(rp.repayment_plan_id) mx_repayment_plan_id from REPAYMENT_PLAN rp, loan_application lp1
+	                where rp.loan_application_id = lp1.loan_application_id and rp.channel_type = '2'
+	                group by lp1.loan_application_id
+	              )mx
+	              where rr.repayment_plan_id = mx.mx_repayment_plan_id
+	              group by rr.repayment_plan_id
+	            ) aaa on rr1.repayment_record_id =  aaa.mx_repayment_record_id
+	       join loan_application lp2 on rr1.loan_application_id = lp2.loan_application_id
+	   ) od ON la.loan_application_id = od.loan_application_id
+        <include refid="where_findAllEnterpriseLoanByPage"/>
+        order by la.MAIN_LOAN_APPLICATION_ID desc nulls last, la.LOAN_APPLICATION_ID desc
+    </select>
+
+    <!-- 企业借款申请，分页查询-数量 -->
+    <select id="count_findAllEnterpriseLoanByPage" resultType="int" parameterType="java.util.HashMap">
+        select 
+		count(1)
+		from LOAN_APPLICATION la 
+		left join ENTERPRISE_LOAN_APPLICATION ela on la.LOAN_APPLICATION_ID = ela.LOAN_APPLICATION_ID
+		left join ENTERPRISE_INFO ei on ela.ENTERPRISE_ID = ei.ENTERPRISE_ID
+		left join USER_INFO_EXT uie on ei.USER_ID = uie.USER_ID
+        <include refid="where_findAllEnterpriseLoanByPage"/>
+    </select>
+
+    <!-- 企业借款申请，分页查询-条件 -->
+    <sql id="where_findAllEnterpriseLoanByPage">
+		where la.LOAN_TYPE in ('2','3','4','5','6')
+		
+  		<if test="loanApplicationCode !=null and loanApplicationCode != ''">
+            AND la.LOAN_APPLICATION_CODE like '%${loanApplicationCode}%'
+        </if>
+        <if test="loanApplicationName !=null and loanApplicationName != ''">
+            AND la.LOAN_APPLICATION_NAME like '%${loanApplicationName}%'
+        </if>
+        <if test="loanType != null and loanType != ''">
+            AND la.LOAN_TYPE = #{loanType,jdbcType=CHAR}
+        </if>
+        <if test="realName !=null and realName != ''">
+            AND uie.REAL_NAME like '%${realName}%'
+        </if>
+        <if test="idCard !=null and idCard != ''">
+            AND substr(uie.ID_CARD,length(uie.ID_CARD)-3) = #{idCard}
+        </if>
+        <if test="mobileNo !=null and mobileNo != ''">
+            AND uie.MOBILE_NO like '%${mobileNo}%'
+        </if>
+        <if test="applicationState != null and applicationState != ''">
+            AND la.APPLICATION_STATE = #{applicationState,jdbcType=CHAR}
+        </if>
+		
+    </sql>
+    
+    <!-- 查询满标的借款申请 -->
+    <select id="findAllFullLoanApplication" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from LOAN_APPLICATION LA
+        where LA.APPLICATION_STATE in('6','7','8')
+        <!-- 满标时间 -->
+     	<if test="fullTime != null and fullTime != ''">
+   			<![CDATA[ and LA.FULL_TIME >= #{fullTime} ]]>
+   			<![CDATA[ and LA.FULL_TIME <= #{fullTime}+1 ]]>
+		</if>
+    </select>
+    
+  <!-- 根据主借款申请ID，查询预热中的子借款申请数据(自动发标专用) -->
+  <select id="selectLoanByAuto" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select la.LOAN_APPLICATION_ID,lp.LOAN_TITLE,lp.PREHEAT_TIME,lp.OPEN_TIME from LOAN_APPLICATION la 
+	join LOAN_PUBLISH lp on la.loan_application_id=lp.loan_application_id 
+	where la.MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+	and la.APPLICATION_STATE = '3'
+	<![CDATA[ and lp.OPEN_TIME > sysdate ]]>
+	order by lp.OPEN_TIME,lp.LOAN_APPLICATION_ID asc
+  </select>
+  
+  <!-- 根据主借款申请ID，查询投标中的子借款申请数据(自动发标专用) -->
+  <select id="selectLoanByBid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select la.LOAN_APPLICATION_ID,lp.LOAN_TITLE,lp.PREHEAT_TIME,lp.OPEN_TIME from LOAN_APPLICATION la 
+	join LOAN_PUBLISH lp on la.loan_application_id=lp.loan_application_id 
+	where la.MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+	and la.APPLICATION_STATE = '3'
+	<![CDATA[ and lp.OPEN_TIME < sysdate ]]>
+  </select>
+  
+  
+    <!--出借新手标列表-->
+    <select id="getLoanApplicationSpecialPaging" resultMap="loanApplicationLiatVOResultMap" parameterType="map">
+        <if test="loanVo != null">
+            <if test="loanVo.orderBy != null and loanVo.orderBy != ''">
+                SELECT LA.*,
+				       LOBD.TOTALAMOUNTLOAN,
+				       LP.LOAN_TITLE,
+				       LPP.CYCLE_COUNTS CYCLECOUNT,
+				       LP.AWARD_RATE REWARDSPERCENT,
+				       LP.CREDIT_LEVEL CREDITLEVEL,
+				       (LA.ANNUAL_RATE) RATE,
+				       LP.OPEN_TIME POPENTIME,
+				       LENDPRO.STARTS_AT STARTAMOUNT,
+				       LPP.REPAYMENT_TYPE
+				  FROM LOAN_APPLICATION LA
+				  LEFT JOIN LOAN_PUBLISH LP
+				    ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+				  LEFT JOIN LOAN_PRODUCT LPP
+				    ON LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+				  LEFT JOIN LEND_PRODUCT LENDPRO
+				    ON LENDPRO.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+				  LEFT JOIN LOAN_ORIENTATION LO  ON LA.LOAN_APPLICATION_ID = LO.LOAN_APPLICATION_ID
+				  LEFT JOIN (SELECT LOAN_APPLICATION_ID, SUM(BUY_BALANCE) TOTALAMOUNTLOAN
+				               FROM LEND_ORDER_BID_DETAIL
+				              WHERE STATUS = '0'
+				              GROUP BY LOAN_APPLICATION_ID) LOBD
+				    ON LA.LOAN_APPLICATION_ID = LOBD.LOAN_APPLICATION_ID  
+                <where>
+                    <!-- 前台投标，投标中状态 -->
+                    LA.APPLICATION_STATE in('3','4','5','6','7','8') and lo.o_type =3
+                	<![CDATA[ and lp.PREHEAT_TIME<= #{preheatTime} ]]> 
+                    <if test="loanVo != null">
+                        <if test='loanVo.loanType != null and loanVo.loanType != "-1"'>
+                            <if test='loanVo.loanType == "1" '>
+                        		AND la.LOAN_TYPE in ('1','7')
+                        	</if>
+                        	<if test='loanVo.loanType != "1" '>
+                        		AND la.LOAN_TYPE = #{loanVo.loanType}
+                        	</if>
+                        </if>
+                        <!-- <if test='loanVo.cycleCount != null and loanVo.cycleCount != "-1"'>
+                            AND lpp.CYCLE_COUNTS = #{loanVo.cycleCount}
+                        </if> -->
+                        <if test='loanVo.cycleCounts != null and loanVo.cycleCounts != "-1"'>
+                        	<if test='loanVo.cycleCounts == "0" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS < '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "1" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS <= '12' AND lpp.CYCLE_COUNTS >= '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "2" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS >  '12']]>
+                        	</if>
+                        </if>
+                        <if test='loanVo.annualRate != null and loanVo.annualRate != "-1"'>
+                            AND la.ANNUAL_RATE = #{loanVo.annualRate}
+                        </if>
+                        <!-- 查询条件，满标时间 -->
+                        <if test="loanVo.fullTime != null and loanVo.fullTime != ''">
+                			<![CDATA[ and la.FULL_TIME >= #{loanVo.fullTime} ]]>
+                			<![CDATA[ and la.FULL_TIME <= #{loanVo.fullTime}+1 ]]>
+            			</if>
+            			<!-- 网贷天眼，查询条件 -->
+		                <if test="loanVo.timeStatus != null and loanVo.timeStatus != ''">
+				           	<if test='loanVo.timeStatus == "0" '>
+		                   		<![CDATA[ AND LA.APPLICATION_STATE in('3','4','5') ]]>
+		                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+		                   			<![CDATA[ and lp.OPEN_TIME >= #{loanVo.timeFrom} ]]>
+		                   		</if>
+		                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+									<![CDATA[ and lp.OPEN_TIME <= #{loanVo.timeTo} ]]>                   		
+		                   		</if>
+		                   	</if>
+		        			<if test='loanVo.timeStatus == "1" '>
+		                   		<![CDATA[ AND LA.APPLICATION_STATE in('6','7','8') ]]>
+		                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+		                   			<![CDATA[ and la.FULL_TIME >= #{loanVo.timeFrom} ]]>
+		                   		</if>
+		                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+									<![CDATA[ and la.FULL_TIME <= #{loanVo.timeTo} ]]>           		
+		                   		</if>
+		                   	</if>
+		    			</if>
+                    </if>
+                </where>
+                order by ${loanVo.orderBy}
+            </if>
+        </if>
+        <if test="loanVo==null or loanVo.orderBy == null or loanVo.orderBy == ''">
+            SELECT *
+			  FROM (SELECT LA.*,
+			               LOBD.TOTALAMOUNTLOAN,
+			               (SELECT O_TYPE
+			                  FROM LOAN_PUBLISH LPPP
+			                 WHERE LPPP.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID) OTYPE,
+			               LP.LOAN_TITLE,
+			               LPP.CYCLE_COUNTS CYCLECOUNT,
+			               LP.AWARD_RATE REWARDSPERCENT,
+			               LP.CREDIT_LEVEL CREDITLEVEL,
+			               (LA.ANNUAL_RATE) RATE,
+			               LP.OPEN_TIME POPENTIME,
+			               LENDPRO.STARTS_AT STARTAMOUNT,
+			               LPP.REPAYMENT_TYPE
+			          FROM LOAN_APPLICATION LA
+			          LEFT JOIN LOAN_PUBLISH LP
+			            ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+			          LEFT JOIN LOAN_PRODUCT LPP
+			            ON LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+			          LEFT JOIN LEND_PRODUCT LENDPRO
+			            ON LENDPRO.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+			          LEFT JOIN LOAN_ORIENTATION LO  ON LA.LOAN_APPLICATION_ID = LO.LOAN_APPLICATION_ID
+			          LEFT JOIN (SELECT LOAN_APPLICATION_ID, SUM(BUY_BALANCE) TOTALAMOUNTLOAN
+					               FROM LEND_ORDER_BID_DETAIL
+					              WHERE STATUS = '0'
+					              GROUP BY LOAN_APPLICATION_ID) LOBD
+					    ON LA.LOAN_APPLICATION_ID = LOBD.LOAN_APPLICATION_ID  
+            <where>
+            	<!-- 前台投标，投标中状态 -->
+                LA.APPLICATION_STATE ='3' AND LO.O_TYPE = 3
+                <![CDATA[ and   lp.PREHEAT_TIME<= #{preheatTime} ]]>
+                <if test="loanVo != null">
+                    <if test='loanVo.loanType != null and loanVo.loanType != "-1"'>
+                       	<if test='loanVo.loanType == "1" '>
+                       		AND la.LOAN_TYPE in ('1','7')
+                       	</if>
+                       	<if test='loanVo.loanType != "1" '>
+                       		AND la.LOAN_TYPE = #{loanVo.loanType}
+                       	</if>
+                    </if>
+                    <!-- <if test='loanVo.cycleCount != null and loanVo.cycleCount != "-1"'>
+                        AND lpp.CYCLE_COUNTS = #{loanVo.cycleCount}
+                    </if> -->
+                    <if test='loanVo.cycleCounts != null and loanVo.cycleCounts != "-1"'>
+                        	<if test='loanVo.cycleCounts == "0" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS < '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "1" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS <= '12' AND lpp.CYCLE_COUNTS >= '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "2" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS >  '12']]>
+                        	</if>
+                        </if>
+                    <if test='loanVo.annualRate != null and loanVo.annualRate != "-1"'>
+                        AND la.ANNUAL_RATE = #{loanVo.annualRate}
+                    </if>
+                    <!-- 查询条件，满标时间 -->
+                    <if test="loanVo.fullTime != null and loanVo.fullTime != ''">
+            			<![CDATA[ and la.FULL_TIME >= #{loanVo.fullTime} ]]>
+            			<![CDATA[ and la.FULL_TIME <= #{loanVo.fullTime}+1 ]]>
+        			</if>
+        			<!-- 网贷天眼，查询条件 -->
+	                <if test="loanVo.timeStatus != null and loanVo.timeStatus != ''">
+		           		<if test='loanVo.timeStatus == "0" '>
+	                   		<![CDATA[ AND LA.APPLICATION_STATE in('3','4','5') ]]>
+	                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+	                   			<![CDATA[ and lp.OPEN_TIME >= #{loanVo.timeFrom} ]]>
+	                   		</if>
+	                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+								<![CDATA[ and lp.OPEN_TIME <= #{loanVo.timeTo} ]]>                   		
+	                   		</if>
+	                   	</if>
+	        			<if test='loanVo.timeStatus == "1" '>
+	                   		<![CDATA[ AND LA.APPLICATION_STATE in('6','7','8') ]]>
+	                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+	                   			<![CDATA[ and la.FULL_TIME >= #{loanVo.timeFrom} ]]>
+	                   		</if>
+	                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+								<![CDATA[ and la.FULL_TIME <= #{loanVo.timeTo} ]]>           		
+	                   		</if>
+	                   	</if>
+	    			</if>
+                </if>
+            </where>
+            ORDER BY LP.AWARD_RATE DESC,LP.OPEN_TIME)
+            union all
+            SELECT *
+			  FROM (SELECT LA.*,
+			               LOBD.TOTALAMOUNTLOAN,
+			               (SELECT O_TYPE
+			                  FROM LOAN_PUBLISH LPPP
+			                 WHERE LPPP.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID) OTYPE,
+			               LP.LOAN_TITLE,
+			               LPP.CYCLE_COUNTS CYCLECOUNT,
+			               LP.AWARD_RATE REWARDSPERCENT,
+			               LP.CREDIT_LEVEL CREDITLEVEL,
+			               (LA.ANNUAL_RATE) RATE,
+			               LP.OPEN_TIME POPENTIME,
+			               LENDPRO.STARTS_AT STARTAMOUNT,
+			               LPP.REPAYMENT_TYPE
+			          FROM LOAN_APPLICATION LA
+			          LEFT JOIN LOAN_PUBLISH LP
+			            ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+			          LEFT JOIN LOAN_PRODUCT LPP
+			            ON LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+			          LEFT JOIN LEND_PRODUCT LENDPRO
+			            ON LENDPRO.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+			          LEFT JOIN LOAN_ORIENTATION LO
+                        ON LA.LOAN_APPLICATION_ID = LO.LOAN_APPLICATION_ID   
+			          LEFT JOIN (SELECT LOAN_APPLICATION_ID, SUM(BUY_BALANCE) TOTALAMOUNTLOAN
+					               FROM LEND_ORDER_BID_DETAIL
+					              WHERE STATUS = '0'
+					              GROUP BY LOAN_APPLICATION_ID) LOBD
+					    ON LA.LOAN_APPLICATION_ID = LOBD.LOAN_APPLICATION_ID  
+            <where>
+                <!-- 前台投标，投标中状态 -->
+                LA.APPLICATION_STATE in('4','5','6','7','8')  AND LO.O_TYPE = 3
+				<![CDATA[ and  lp.PREHEAT_TIME<= #{preheatTime}  ]]> 
+                <if test="loanVo != null">
+                    <if test='loanVo.loanType != null and loanVo.loanType != "-1"'>
+                       	<if test='loanVo.loanType == "1" '>
+                       		AND la.LOAN_TYPE in ('1','7')
+                       	</if>
+                       	<if test='loanVo.loanType != "1" '>
+                       		AND la.LOAN_TYPE = #{loanVo.loanType}
+                       	</if>
+                    </if>
+                    <!-- <if test='loanVo.cycleCount != null and loanVo.cycleCount != "-1"'>
+                        AND lpp.CYCLE_COUNTS = #{loanVo.cycleCount}
+                    </if> -->
+                    <if test='loanVo.cycleCounts != null and loanVo.cycleCounts != "-1"'>
+                        	<if test='loanVo.cycleCounts == "0" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS < '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "1" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS <= '12' AND lpp.CYCLE_COUNTS >= '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "2" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS >  '12']]>
+                        	</if>
+                        </if>
+                    <if test='loanVo.annualRate != null and loanVo.annualRate != "-1"'>
+                        AND la.ANNUAL_RATE = #{loanVo.annualRate}
+                    </if>
+                    <!-- 查询条件，满标时间 -->
+                    <if test="loanVo.fullTime != null and loanVo.fullTime != ''">
+            			<![CDATA[ and la.FULL_TIME >= #{loanVo.fullTime} ]]>
+            			<![CDATA[ and la.FULL_TIME <= #{loanVo.fullTime}+1 ]]>
+        			</if>
+        			<!-- 网贷天眼，查询条件 -->
+                	<if test="loanVo.timeStatus != null and loanVo.timeStatus != ''">
+		           		<if test='loanVo.timeStatus == "0" '>
+	                   		<![CDATA[ AND LA.APPLICATION_STATE in('3','4','5') ]]>
+	                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+	                   			<![CDATA[ and lp.OPEN_TIME >= #{loanVo.timeFrom} ]]>
+	                   		</if>
+	                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+								<![CDATA[ and lp.OPEN_TIME <= #{loanVo.timeTo} ]]>                   		
+	                   		</if>
+	                   	</if>
+	        			<if test='loanVo.timeStatus == "1" '>
+	                   		<![CDATA[ AND LA.APPLICATION_STATE in('6','7','8') ]]>
+	                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+	                   			<![CDATA[ and la.FULL_TIME >= #{loanVo.timeFrom} ]]>
+	                   		</if>
+	                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+								<![CDATA[ and la.FULL_TIME <= #{loanVo.timeTo} ]]>           		
+	                   		</if>
+	                   	</if>
+    				</if>
+                </if>
+            </where>
+            order by LA.APPLICATION_STATE,LP.OPEN_TIME desc)
+        </if>
+    
+
+    </select>
+  
+    <select id="count_getLoanApplicationSpecialPaging" resultType="int" parameterType="map">
+        SELECT COUNT(1)
+		  FROM LOAN_APPLICATION LA
+		  LEFT JOIN LOAN_PUBLISH LP
+		    ON LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+		  LEFT JOIN LOAN_PRODUCT LPP
+		    ON LA.LOAN_PRODUCT_ID = LPP.LOAN_PRODUCT_ID
+		  LEFT JOIN LEND_PRODUCT LENDPRO
+		    ON LENDPRO.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+		    LEFT JOIN LOAN_ORIENTATION LO 
+		     ON LA.LOAN_APPLICATION_ID = LO.LOAN_APPLICATION_ID
+        <where>
+            <!-- 前台投标，投标中状态 -->
+            LA.APPLICATION_STATE in('3','4','5','6','7','8')  and lo.o_type =3
+            <![CDATA[ and  lp.PREHEAT_TIME<= #{preheatTime}  ]]>
+            <if test="loanVo != null">
+                <if test='loanVo.loanType != null and loanVo.loanType != "-1"'>
+              		<if test='loanVo.loanType == "1" '>
+                  		AND la.LOAN_TYPE in ('1','7')
+                  	</if>
+                  	<if test='loanVo.loanType != "1" '>
+                  		AND la.LOAN_TYPE = #{loanVo.loanType}
+                  	</if>
+                </if>
+                <!-- <if test='loanVo.cycleCount != null and loanVo.cycleCount != "-1"'>
+                    AND lpp.CYCLE_COUNTS = #{loanVo.cycleCount}
+                </if> -->
+                <if test='loanVo.cycleCounts != null and loanVo.cycleCounts != "-1"'>
+                        	<if test='loanVo.cycleCounts == "0" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS < '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "1" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS <= '12' AND lpp.CYCLE_COUNTS >= '6' ]]>
+                        	</if>
+                        	<if test='loanVo.cycleCounts == "2" '>
+                        		<![CDATA[  AND lpp.CYCLE_COUNTS >  '12']]>
+                        	</if>
+                        </if>
+                <if test='loanVo.annualRate != null and loanVo.annualRate != "-1"'>
+                    AND la.ANNUAL_RATE = #{loanVo.annualRate}
+                </if>
+                <!-- 查询条件，满标时间 -->
+                <if test="loanVo.fullTime != null and loanVo.fullTime != ''">
+        			<![CDATA[ and la.FULL_TIME >= #{loanVo.fullTime} ]]>
+        			<![CDATA[ and la.FULL_TIME <= #{loanVo.fullTime}+1 ]]>
+    			</if>
+    			<!-- 网贷天眼，查询条件 -->
+                <if test="loanVo.timeStatus != null and loanVo.timeStatus != ''">
+           			<if test='loanVo.timeStatus == "0" '>
+                   		<![CDATA[ AND LA.APPLICATION_STATE in('3','4','5') ]]>
+                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+                   			<![CDATA[ and lp.OPEN_TIME >= #{loanVo.timeFrom} ]]>
+                   		</if>
+                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+							<![CDATA[ and lp.OPEN_TIME <= #{loanVo.timeTo} ]]>                   		
+                   		</if>
+                   	</if>
+        			<if test='loanVo.timeStatus == "1" '>
+                   		<![CDATA[ AND LA.APPLICATION_STATE in('6','7','8') ]]>
+                   		<if test="loanVo.timeFrom != null and loanVo.timeFrom != ''">
+                   			<![CDATA[ and la.FULL_TIME >= #{loanVo.timeFrom} ]]>
+                   		</if>
+                   		<if test="loanVo.timeTo != null and loanVo.timeTo != ''">
+							<![CDATA[ and la.FULL_TIME <= #{loanVo.timeTo} ]]>           		
+                   		</if>
+                   	</if>
+    			</if>
+            </if>
+        </where>
+    </select>
+
+
+	<select id="getLoanRateTypesByNewUser" resultType="BigDecimal"
+		parameterType="map">
+		SELECT ANNUAL_RATE
+		FROM LOAN_APPLICATION la
+		left join loan_orientation lo on lo.loan_application_id
+		=la.loan_application_id
+		WHERE LA.APPLICATION_STATE in ('3', '4', '5', '6', '7', '8') and lo.o_type
+		=3
+		GROUP BY ANNUAL_RATE
+		ORDER BY ANNUAL_RATE
+	</select>
+    
+    
+  
+</mapper>

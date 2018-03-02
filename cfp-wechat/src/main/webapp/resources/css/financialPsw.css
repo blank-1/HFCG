@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+section{width: 100%; height: 100%; text-align: center; overflow: hidden;}
+section img{width: 20%; margin: 10% auto; }
+section div{position: relative; }
+section p{font-size: 1.4rem; color: #4b4b4b; margin: 6% auto; }
+section input{width: 200%; height: 4rem; border:0; position: absolute; top:0; left: 50%; margin-left:-100%; opacity: 0; letter-spacing: 3rem; text-indent: -200rem; font-size: 2rem; line-height: 4rem; color: transparent; }
+.l_psw{width: 24rem; height: 4rem; background: #fff; border: solid 1px #ccc; margin: 0 auto; overflow: hidden; z-index: 0; }
+.l_psw>li{width: 4rem; height: 4rem; background: url(../images/p0_icon_line.png) left repeat-y; float: left; }
+.l_psw>li>span{width: 1.4rem; height: 1.4rem; background: #4b4b4b; display: block; border-radius: 100%; margin: 1.3rem auto; display: none; }
+.l_psw>li:first-child{background: none; }
+section p:last-child{font-size: 1.6rem; }
+#PswTip{display: none; }

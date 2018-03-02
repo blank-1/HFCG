@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CO_LTD" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.CoLtd" >
+    <id column="CO_ID" property="coId" jdbcType="DECIMAL" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="DECIMAL" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_CODE" property="organizationCode" jdbcType="VARCHAR" />
+    <result column="LEGAL_PERSON" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="REGISTERED_CAPITAL" property="registeredCapital" jdbcType="DECIMAL" />
+    <result column="INDUSTRY" property="industry" jdbcType="DECIMAL" />
+    <result column="OCCUPATION" property="occupation" jdbcType="DECIMAL" />
+    <result column="CONTACT_PERSON" property="contactPerson" jdbcType="VARCHAR" />
+    <result column="CONTACT_INFORMATION" property="contactInformation" jdbcType="VARCHAR" />
+    <result column="PROVINCE" property="province" jdbcType="DECIMAL" />
+    <result column="CITY" property="city" jdbcType="DECIMAL" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="CO_DESC" property="coDesc" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CO_ID, ENTERPRISE_ID, COMPANY_NAME, ORGANIZATION_CODE, LEGAL_PERSON, REGISTERED_CAPITAL, 
+    INDUSTRY, OCCUPATION, CONTACT_PERSON, CONTACT_INFORMATION, PROVINCE, CITY, ADDRESS, 
+    STATE, CREATE_TIME, LAST_UPDATE_TIME,CO_DESC
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CO_LTD
+    where CO_ID = #{colId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CO_LTD
+    where CO_ID = #{coId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.CoLtd" >
+  	<selectKey keyProperty="coId" order="BEFORE" resultType="long">
+      SELECT SEQ_CO_LTD.NEXTVAL as coId FROM dual
+    </selectKey>
+    insert into CO_LTD (CO_ID, ENTERPRISE_ID, COMPANY_NAME, 
+      ORGANIZATION_CODE, LEGAL_PERSON, REGISTERED_CAPITAL, 
+      INDUSTRY, OCCUPATION, CONTACT_PERSON, 
+      CONTACT_INFORMATION, PROVINCE, CITY, 
+      ADDRESS, STATE, CREATE_TIME, 
+      LAST_UPDATE_TIME,CO_DESC)
+    values (#{coId,jdbcType=DECIMAL}, #{enterpriseId,jdbcType=DECIMAL}, #{companyName,jdbcType=VARCHAR}, 
+      #{organizationCode,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, #{registeredCapital,jdbcType=DECIMAL}, 
+      #{industry,jdbcType=DECIMAL}, #{occupation,jdbcType=DECIMAL}, #{contactPerson,jdbcType=VARCHAR}, 
+      #{contactInformation,jdbcType=VARCHAR}, #{province,jdbcType=DECIMAL}, #{city,jdbcType=DECIMAL}, 
+      #{address,jdbcType=VARCHAR}, #{state,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP},#{coDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.CoLtd" >
+    <selectKey keyProperty="coId" order="BEFORE" resultType="long">
+      SELECT SEQ_CO_LTD.NEXTVAL as coId FROM dual
+    </selectKey>
+    insert into CO_LTD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="coId != null" >
+        CO_ID,
+      </if>
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+      <if test="organizationCode != null" >
+        ORGANIZATION_CODE,
+      </if>
+      <if test="legalPerson != null" >
+        LEGAL_PERSON,
+      </if>
+      <if test="registeredCapital != null" >
+        REGISTERED_CAPITAL,
+      </if>
+      <if test="industry != null" >
+        INDUSTRY,
+      </if>
+      <if test="occupation != null" >
+        OCCUPATION,
+      </if>
+      <if test="contactPerson != null" >
+        CONTACT_PERSON,
+      </if>
+      <if test="contactInformation != null" >
+        CONTACT_INFORMATION,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="coDesc != null" >
+        CO_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="coId != null" >
+        #{coId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterpriseId != null" >
+        #{enterpriseId,jdbcType=DECIMAL},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationCode != null" >
+        #{organizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null" >
+        #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=DECIMAL},
+      </if>
+      <if test="occupation != null" >
+        #{occupation,jdbcType=DECIMAL},
+      </if>
+      <if test="contactPerson != null" >
+        #{contactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInformation != null" >
+        #{contactInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=DECIMAL},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coDesc != null" >
+        #{coDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.CoLtd" >
+    update CO_LTD
+    <set >
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL},
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationCode != null" >
+        ORGANIZATION_CODE = #{organizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        LEGAL_PERSON = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null" >
+        REGISTERED_CAPITAL = #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="industry != null" >
+        INDUSTRY = #{industry,jdbcType=DECIMAL},
+      </if>
+      <if test="occupation != null" >
+        OCCUPATION = #{occupation,jdbcType=DECIMAL},
+      </if>
+      <if test="contactPerson != null" >
+        CONTACT_PERSON = #{contactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInformation != null" >
+        CONTACT_INFORMATION = #{contactInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=DECIMAL},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coDesc != null" >
+        CO_DESC =   #{coDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CO_ID = #{coId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.CoLtd" >
+    update CO_LTD
+    set ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL},
+      COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      ORGANIZATION_CODE = #{organizationCode,jdbcType=VARCHAR},
+      LEGAL_PERSON = #{legalPerson,jdbcType=VARCHAR},
+      REGISTERED_CAPITAL = #{registeredCapital,jdbcType=DECIMAL},
+      INDUSTRY = #{industry,jdbcType=DECIMAL},
+      OCCUPATION = #{occupation,jdbcType=DECIMAL},
+      CONTACT_PERSON = #{contactPerson,jdbcType=VARCHAR},
+      CONTACT_INFORMATION = #{contactInformation,jdbcType=VARCHAR},
+      PROVINCE = #{province,jdbcType=DECIMAL},
+      CITY = #{city,jdbcType=DECIMAL},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+       CO_DESC =   #{coDesc,jdbcType=VARCHAR},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+    where CO_ID = #{coId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getAllCoLtd" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CO_LTD
+    where STATE = 0 
+    and ENTERPRISE_ID = #{enterpriseId,jdbcType=DECIMAL}
+    order by CO_ID desc
+  </select>
+
+
+  <select id="getCoLtdPaging" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from CO_LTD c
+    <where>
+      <if test="coltd != null">
+        <if test="coltd.enterpriseId != null and coltd.enterpriseId != ''">
+          AND   c.ENTERPRISE_ID  = #{coltd.enterpriseId,jdbcType=DECIMAL}
+        </if>
+      </if>
+      <if test="customParams != null">
+
+      </if>
+    </where>
+    ORDER BY CO_ID DESC
+  </select>
+
+  <select id="count_getCoLtdPaging"  resultType="int" parameterType="map" >
+    select count(1)
+    from CO_LTD c
+    <where>
+      <if test="coltd != null">
+        <if test="coltd.enterpriseId != null and coltd.enterpriseId != ''">
+          AND   c.ENTERPRISE_ID  = #{coltd.enterpriseId,jdbcType=DECIMAL}
+        </if>
+      </if>
+      <if test="customParams != null">
+
+      </if>
+    </where>
+    ORDER BY CO_ID DESC
+  </select>
+
+
+</mapper>

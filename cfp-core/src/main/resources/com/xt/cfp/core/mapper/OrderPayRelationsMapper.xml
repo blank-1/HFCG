@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ORDER_PAY_RELATIONS" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.OrderPayRelations" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="PAY_ID" property="payId" jdbcType="DECIMAL" />
+    <result column="LEND_ORDER_ID" property="lendOrderId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PAY_ID, LEND_ORDER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ORDER_PAY_RELATIONS
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ORDER_PAY_RELATIONS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.OrderPayRelations" >
+    <selectKey keyProperty="id" order="BEFORE" resultType="long">
+      SELECT SEQ_ORDER_PAY_RELATIONS.NEXTVAL FROM DUAL
+    </selectKey>
+    insert into ORDER_PAY_RELATIONS (ID, PAY_ID, LEND_ORDER_ID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{payId,jdbcType=DECIMAL}, #{lendOrderId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.OrderPayRelations" >
+    insert into ORDER_PAY_RELATIONS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="payId != null" >
+        PAY_ID,
+      </if>
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="payId != null" >
+        #{payId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null" >
+        #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.OrderPayRelations" >
+    update ORDER_PAY_RELATIONS
+    <set >
+      <if test="payId != null" >
+        PAY_ID = #{payId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendOrderId != null" >
+        LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.OrderPayRelations" >
+    update ORDER_PAY_RELATIONS
+    set PAY_ID = #{payId,jdbcType=DECIMAL},
+      LEND_ORDER_ID = #{lendOrderId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

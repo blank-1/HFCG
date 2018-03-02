@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LEND_LOAN_BINDING" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LendLoanBinding" >
+    <id column="LEND_LOAN_BINDING_ID" property="lendLoanBindingId" jdbcType="DECIMAL" />
+    <result column="LEND_PRODUCT_ID" property="lendProductId" jdbcType="DECIMAL" />
+    <result column="LOAN_PRODUCT_ID" property="loanProductId" jdbcType="DECIMAL" />
+    <result column="FEES_ITEM_ID" property="feesItemId" jdbcType="DECIMAL" />
+    <result column="LOAN_RATIO" property="loanRatio" jdbcType="DECIMAL" />
+    <result column="CHARGE_POINT" property="chargePoint" jdbcType="CHAR" />
+  </resultMap>
+  <!--处理时候用债权修改回显和查看详情-->
+    <resultMap id="fullLoanProductAndFees" type="com.xt.cfp.core.pojo.LendLoanBinding">
+        <result property="lendLoanBindingId" column="LEND_LOAN_BINDING_ID"/>
+        <result property="lendProductId" column="LEND_PRODUCT_ID"/>
+        <result property="loanProductId" column="LOAN_PRODUCT_ID"/>
+        <result property="loanRatio" column="LOAN_RATIO"/>
+        <result column="CHARGE_POINT" property="chargePoint"/>
+        <result property="feesItemId" column="FEES_ITEM_ID"/>
+        <association property="loanProduct" column="LOAN_PRODUCT_ID"
+                     select="LOANPRODUCT.findById"/>
+        <association property="feesItem" column="FEES_ITEM_ID" select="FEESITEM.findById"/>
+    </resultMap>
+  <sql id="Base_Column_List" >
+    LEND_LOAN_BINDING_ID, LEND_PRODUCT_ID, LOAN_PRODUCT_ID, FEES_ITEM_ID, LOAN_RATIO, 
+    CHARGE_POINT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LEND_LOAN_BINDING
+    where LEND_LOAN_BINDING_ID = #{lendLoanBindingId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LEND_LOAN_BINDING
+    where LEND_LOAN_BINDING_ID = #{lendLoanBindingId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LendLoanBinding" >
+  	<selectKey resultType="long" keyProperty="lendLoanBindingId" order="BEFORE">
+        select SEQ_LEND_LOAN_BINDING.nextval as lendLoanBindingId from dual
+    </selectKey>
+    insert into LEND_LOAN_BINDING (LEND_LOAN_BINDING_ID, LEND_PRODUCT_ID, 
+      LOAN_PRODUCT_ID, FEES_ITEM_ID, LOAN_RATIO, 
+      CHARGE_POINT)
+    values (#{lendLoanBindingId,jdbcType=DECIMAL}, #{lendProductId,jdbcType=DECIMAL}, 
+      #{loanProductId,jdbcType=DECIMAL}, #{feesItemId,jdbcType=DECIMAL}, #{loanRatio,jdbcType=DECIMAL}, 
+      #{chargePoint,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LendLoanBinding" >
+    insert into LEND_LOAN_BINDING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lendLoanBindingId != null" >
+        LEND_LOAN_BINDING_ID,
+      </if>
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID,
+      </if>
+      <if test="loanProductId != null" >
+        LOAN_PRODUCT_ID,
+      </if>
+      <if test="feesItemId != null" >
+        FEES_ITEM_ID,
+      </if>
+      <if test="loanRatio != null" >
+        LOAN_RATIO,
+      </if>
+      <if test="chargePoint != null" >
+        CHARGE_POINT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lendLoanBindingId != null" >
+        #{lendLoanBindingId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendProductId != null" >
+        #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanProductId != null" >
+        #{loanProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="feesItemId != null" >
+        #{feesItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanRatio != null" >
+        #{loanRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="chargePoint != null" >
+        #{chargePoint,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LendLoanBinding" >
+    update LEND_LOAN_BINDING
+    <set >
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanProductId != null" >
+        LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="feesItemId != null" >
+        FEES_ITEM_ID = #{feesItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanRatio != null" >
+        LOAN_RATIO = #{loanRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="chargePoint != null" >
+        CHARGE_POINT = #{chargePoint,jdbcType=CHAR},
+      </if>
+    </set>
+    where LEND_LOAN_BINDING_ID = #{lendLoanBindingId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LendLoanBinding" >
+    update LEND_LOAN_BINDING
+    set LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL},
+      FEES_ITEM_ID = #{feesItemId,jdbcType=DECIMAL},
+      LOAN_RATIO = #{loanRatio,jdbcType=DECIMAL},
+      CHARGE_POINT = #{chargePoint,jdbcType=CHAR}
+    where LEND_LOAN_BINDING_ID = #{lendLoanBindingId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="findByLendProductId" parameterType="Long" resultMap="fullLoanProductAndFees">
+  	SELECT
+      <include refid="Base_Column_List" />
+  	 FROM LEND_LOAN_BINDING WHERE LEND_PRODUCT_ID = #{value}
+  </select>
+  
+  <delete id="deleteById" parameterType="Long">
+        DELETE FROM LEND_LOAN_BINDING
+        WHERE LEND_PRODUCT_ID = #{value}
+    </delete>
+
+    <select id="findByLendAndLoan" parameterType="java.util.Map" resultMap="fullLoanProductAndFees">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM LEND_LOAN_BINDING WHERE LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL}
+        and LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL}
+    </select>
+
+    <select id="findRightsProduct" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        from LEND_LOAN_BINDING
+        where
+        LOAN_PRODUCT_ID = #{loanProductId,jdbcType=DECIMAL}
+        and LEND_PRODUCT_ID in
+        (select LP.LEND_PRODUCT_ID from LEND_PRODUCT LP,LEND_PRODUCT_PUBLISH LPP where
+        LP.LEND_PRODUCT_ID = LPP.LEND_PRODUCT_ID
+        and LP.PRODUCT_TYPE='1'
+        )
+    </select>
+    
+    <select id="fullLoanAndFeesByLendProductId" parameterType="Long" resultMap="fullLoanProductAndFees">
+        select * from Lend_Loan_Binding where lend_Product_Id = #{value}
+    </select>
+    
+    <!-- 根据出借产品ID，查询已经匹配的借款产品期限时长范围(如：3-6) -->
+    <select id="getLoanProductDueTimeByLendProductId" parameterType="java.lang.Long" resultType="java.lang.String">
+        select 
+        case
+		    when MIN(lp.DUE_TIME) = MAX(lp.DUE_TIME) 
+		    then CONCAT(MIN(lp.DUE_TIME),'')
+		    else CONCAT(CONCAT(MIN(lp.DUE_TIME),'-'),MAX(lp.DUE_TIME)) 
+        end
+        from LEND_LOAN_BINDING llb left join LOAN_PRODUCT lp 
+        on llb.LOAN_PRODUCT_ID = lp.LOAN_PRODUCT_ID
+		where llb.LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL} 
+		GROUP BY llb.LEND_PRODUCT_ID
+    </select>
+    
+</mapper>

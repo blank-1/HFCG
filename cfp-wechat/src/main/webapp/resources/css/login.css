@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* CSS Document */
+/*公共css*/
+.pjred{color: #fc5f65;}
+.pjBred{background: #fc5f65;color: #fff;border-radius: 4px;}
+.pjTip{color: #b0d3fb;}
+.pjWrong{color: #ff982b;}
+/*登录页css*/
+body{background: url(../images/login_bj.jpg) bottom no-repeat;background-size: contain;}
+header{width: 100%;height: 30%;position: relative;}
+header img:first-child{width: 30%;position:absolute;top: 50%;left: 35%;}
+section{width: 100%;height: auto;padding-top: 1rem;}
+section div{width: 80%;height: 3rem;margin-top: 1.8rem;margin-left: 10%;position: relative;}
+section input{width: 100%;height: 3rem;color:#666666;border: none;border-bottom: solid 1px #ccc;font-size: 1.4rem;/*text-align: center;*/}
+section div button{width: 6rem;height: 2rem;font-size: 1rem;background-color: #fff;position: absolute;right: 0;top: .5rem;}
+.l_load{width: 80%;margin:10% 0 0 10%;height: 3rem;font-size: 1.4rem;}
+.l_load+p{width: 100%;margin: 2rem 0;text-align: center;color:#b6b6b6;}
+.l_regTip{display: block;height: 1rem;font-size: 1rem;line-height: 2rem;width: 100%;text-align: center;}
+.l_pswBox+p{width: 100%;height: 5rem;line-height: 5rem;}
+.l_pswBox+p a{float: right;margin: 0 10% 0 0;}
+.l_del{width: 1.4rem;height: 1.4rem;position: absolute;right: 2%;top: 50%;margin-top: -.7rem;background: url(../images/icon/icon_delete.png);background-size: contain;display: none;}
+.l_checkCode .l_del,.l_pswBox .l_del{right: 28%;}
+.l_pswBtn{width:2rem;height:2rem;position: absolute;right: 2%;top: .5rem;background: url(../images/icon/icon_closeeye.png) center no-repeat;background-size: 1.4rem;}
+.l_pswBtn2{background: url(../images/icon/icon_openeye.png) center no-repeat;background-size: 1.4rem;}

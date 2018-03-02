@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="REAL_PRIZE_PRODUCT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RealPrizeProduct" >
+    <id column="REAL_PRIZE_PRODUCT" property="realPrizeProduct" jdbcType="DECIMAL" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+    <result column="PRIZE_NAME" property="prizeName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    REAL_PRIZE_PRODUCT, ADMIN_ID, PRIZE_NAME, CREATE_TIME, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from REAL_PRIZE_PRODUCT
+    where REAL_PRIZE_PRODUCT = #{realPrizeProduct,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from REAL_PRIZE_PRODUCT
+    where REAL_PRIZE_PRODUCT = #{realPrizeProduct,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.RealPrizeProduct" >
+    insert into REAL_PRIZE_PRODUCT (REAL_PRIZE_PRODUCT, ADMIN_ID, PRIZE_NAME, 
+      CREATE_TIME, REMARK)
+    values (#{realPrizeProduct,jdbcType=DECIMAL}, #{adminId,jdbcType=DECIMAL}, #{prizeName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.RealPrizeProduct" >
+    insert into REAL_PRIZE_PRODUCT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="realPrizeProduct != null" >
+        REAL_PRIZE_PRODUCT,
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+      <if test="prizeName != null" >
+        PRIZE_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="realPrizeProduct != null" >
+        #{realPrizeProduct,jdbcType=DECIMAL},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="prizeName != null" >
+        #{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.RealPrizeProduct" >
+    update REAL_PRIZE_PRODUCT
+    <set >
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="prizeName != null" >
+        PRIZE_NAME = #{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where REAL_PRIZE_PRODUCT = #{realPrizeProduct,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RealPrizeProduct" >
+    update REAL_PRIZE_PRODUCT
+    set ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      PRIZE_NAME = #{prizeName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where REAL_PRIZE_PRODUCT = #{realPrizeProduct,jdbcType=DECIMAL}
+  </update>
+</mapper>

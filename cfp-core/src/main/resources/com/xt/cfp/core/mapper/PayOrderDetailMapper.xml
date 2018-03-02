@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PAY_ORDER_DETAIL" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.PayOrderDetail" >
+    <id column="DETAIL_ID" property="detailId" jdbcType="DECIMAL" />
+    <result column="PAY_ID" property="payId" jdbcType="DECIMAL" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="AMOUNT_TYPE" property="amountType" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="PaymentOrderDetailResultMap" type="com.xt.cfp.core.pojo.ext.PayOrderDetailVO" extends="BaseResultMap">
+  	<result column="status" property="status" jdbcType="CHAR" />
+    <result column="result_time" property="resultTime" jdbcType="TIMESTAMP" />
+    <result column="recharge_code" property="rechargeCode" jdbcType="VARCHAR" />
+    <result column="channel_name" property="channelName" jdbcType="VARCHAR" />
+    <result column="extend_no" property="extendNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DETAIL_ID, PAY_ID, AMOUNT, AMOUNT_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PAY_ORDER_DETAIL
+    where DETAIL_ID = #{detailId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getPaymentOrderDetail" resultMap="PaymentOrderDetailResultMap" parameterType="java.lang.Long">
+  select pod.*,
+          po.status,
+          po.result_time,
+          ro.recharge_code,
+          rc.channel_name,
+          ro.EXTERNAL_NO extend_no
+     from (select * from pay_order where status = 1 and process_status = 1) po
+     left join order_pay_relations pr on po.pay_id = pr.pay_id
+     left join PAY_ORDER_DETAIL pod on po.pay_id = pod.pay_id
+     left join RECHARGE_ORDER ro on pod.detail_id = ro.detail_id
+     left join RECHARGE_CHANNEL rc on ro.channel_code = rc.channel_code
+    where pr.lend_order_id = #{lendOrderId,jdbcType=DECIMAL}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PAY_ORDER_DETAIL
+    where DETAIL_ID = #{detailId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.PayOrderDetail" >
+    <selectKey order="BEFORE" keyProperty="detailId" resultType="long">
+      SELECT SEQ_PAY_ORDER_DETAIL.NEXTVAL as detailId FROM DUAL
+    </selectKey>
+    insert into PAY_ORDER_DETAIL (DETAIL_ID, PAY_ID, AMOUNT, 
+      AMOUNT_TYPE)
+    values (#{detailId,jdbcType=DECIMAL}, #{payId,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{amountType,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.PayOrderDetail" >
+    insert into PAY_ORDER_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        DETAIL_ID,
+      </if>
+      <if test="payId != null" >
+        PAY_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="amountType != null" >
+        AMOUNT_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=DECIMAL},
+      </if>
+      <if test="payId != null" >
+        #{payId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="amountType != null" >
+        #{amountType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.PayOrderDetail" >
+    update PAY_ORDER_DETAIL
+    <set >
+      <if test="payId != null" >
+        PAY_ID = #{payId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="amountType != null" >
+        AMOUNT_TYPE = #{amountType,jdbcType=CHAR},
+      </if>
+    </set>
+    where DETAIL_ID = #{detailId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.PayOrderDetail" >
+    update PAY_ORDER_DETAIL
+    set PAY_ID = #{payId,jdbcType=DECIMAL},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      AMOUNT_TYPE = #{amountType,jdbcType=CHAR}
+    where DETAIL_ID = #{detailId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="findPayOrderDetailByPayId" parameterType="long" resultMap="BaseResultMap">
+    SELECT *
+      FROM PAY_ORDER_DETAIL pod
+     WHERE POD.PAY_ID = #{value}
+  </select>
+</mapper>

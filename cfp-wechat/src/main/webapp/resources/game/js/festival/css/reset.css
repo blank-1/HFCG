@@ -1,0 +1,99 @@
+@charset "utf-8";
+/* CSS Document */
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    /*font-size:62.5%;*/
+    vertical-align:baseline;
+    background:transparent;
+}
+html,ul,li,ol,p,h1,h2,h3,h4,h5,h6,dl,dt,dd{
+	margin:0;
+	padding:0;
+}
+
+li{
+	list-style:none;	
+}
+
+a{
+	text-decoration:none;
+}
+
+img{
+	border:none;
+}
+input,button,select,textarea{outline:none; cursor: pointer; -webkit-appearance: none;border-radius: 0;}/*清除input，textarea输入框的默认样式*/
+textarea{resize:none}/*清除input，textarea输入框的默认样式*/
+/*input中placeholder颜色*/
+::-webkit-input-placeholder { color: rgba(0,0,0,0.2); } /* WebKit browsers */
+:-moz-placeholder { color: rgba(0,0,0,0.2); } /* Mozilla Firefox 4 to 18 */ 
+::-moz-placeholder {  color: rgba(0,0,0,0.2); } /* Mozilla Firefox 19+ */
+:-ms-input-placeholder { color: rgba(0,0,0,0.2); }/* Internet Explorer 10+ */ 
+.noNum::-webkit-textfield-decoration-container {background-color: #fff;}/*清除input在type=num时候的上下按钮*/
+.noNum::-webkit-inner-spin-button {-webkit-appearance: none;}/*清除input在type=num时候的上下按钮*/
+.noNum::-webkit-outer-spin-button {-webkit-appearance: none;/* 有无看不出差别 */}/*清除input在type=num时候的上下按钮*/
+
+
+.clearfix{
+	zoom:1;
+}
+
+.clearfix:after{
+	content:'';
+	clear:both;
+	display:table;
+	height:0;
+}
+
+html{
+	font-family:Tahoma,Arial,Roboto,”Droid Sans”,”Helvetica Neue”,”Droid Sans Fallback”,”Heiti SC”,sans-self;
+	font-size: 62.5%;
+}
+*{    -webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent; /* For some Androids */  }
+
+input::-webkit-textfield-decoration-container {
+    background-color: #fff;	
+}
+input::-webkit-inner-spin-button {
+     -webkit-appearance: none;
+}
+input::-webkit-outer-spin-button {
+     -webkit-appearance: none;	
+}
+.l_errr{
+	width: 100%;
+	height: 2.6rem;
+	text-align: center;
+	font-size: 1.6rem;
+	color: #fff;
+	background: rgba(255,98,91,0.8);
+	line-height: 2.6rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+body{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}

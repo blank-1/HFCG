@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CFH_USER_RELATION" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.ext.cfh.CfhUserRelation" >
+    <id column="RELATION_ID" property="relationId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="CFH_USER_ID" property="cfhUserId" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REQ_STATU" property="reqStatu" jdbcType="CHAR" />
+    <result column="REQ_START_TIME" property="reqStartTime" jdbcType="TIMESTAMP" />
+    <result column="REQ_END_TIME" property="reqEndTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RELATION_ID, USER_ID, CFH_USER_ID, STATUS, CREATE_TIME, UPDATE_TIME, REQ_STATU, REQ_START_TIME, 
+    REQ_END_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CFH_USER_RELATION
+    where RELATION_ID = #{relationId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CFH_USER_RELATION
+    where RELATION_ID = #{relationId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.ext.cfh.CfhUserRelation" >
+  	<selectKey keyProperty="relationId" order="BEFORE" resultType="long">
+      SELECT SEQ_CFH_USER_RELATION.NEXTVAL as relationId FROM dual
+    </selectKey>
+    insert into CFH_USER_RELATION (RELATION_ID, USER_ID, CFH_USER_ID, 
+      STATUS, CREATE_TIME, UPDATE_TIME, 
+      REQ_STATU, REQ_START_TIME, REQ_END_TIME
+      )
+    values (#{relationId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{cfhUserId,jdbcType=DECIMAL}, 
+      #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{reqStatu,jdbcType=CHAR}, #{reqStartTime,jdbcType=TIMESTAMP}, #{reqEndTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.ext.cfh.CfhUserRelation" >
+  	<selectKey order="BEFORE" keyProperty="relationId" resultType="long">
+      SELECT SEQ_CFH_USER_RELATION.NEXTVAL as relationId FROM DUAL
+    </selectKey>
+    insert into CFH_USER_RELATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="relationId != null" >
+        RELATION_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="cfhUserId != null" >
+        CFH_USER_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="reqStatu != null" >
+        REQ_STATU,
+      </if>
+      <if test="reqStartTime != null" >
+        REQ_START_TIME,
+      </if>
+      <if test="reqEndTime != null" >
+        REQ_END_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="relationId != null" >
+        #{relationId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="cfhUserId != null" >
+        #{cfhUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqStatu != null" >
+        #{reqStatu,jdbcType=CHAR},
+      </if>
+      <if test="reqStartTime != null" >
+        #{reqStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqEndTime != null" >
+        #{reqEndTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.ext.cfh.CfhUserRelation" >
+    update CFH_USER_RELATION
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="cfhUserId != null" >
+        CFH_USER_ID = #{cfhUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqStatu != null" >
+        REQ_STATU = #{reqStatu,jdbcType=CHAR},
+      </if>
+      <if test="reqStartTime != null" >
+        REQ_START_TIME = #{reqStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqEndTime != null" >
+        REQ_END_TIME = #{reqEndTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RELATION_ID = #{relationId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.ext.cfh.CfhUserRelation" >
+    update CFH_USER_RELATION
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      CFH_USER_ID = #{cfhUserId,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      REQ_STATU = #{reqStatu,jdbcType=CHAR},
+      REQ_START_TIME = #{reqStartTime,jdbcType=TIMESTAMP},
+      REQ_END_TIME = #{reqEndTime,jdbcType=TIMESTAMP}
+    where RELATION_ID = #{relationId,jdbcType=DECIMAL}
+  </update>
+  <select id="getCfpUserByCfhUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CFH_USER_RELATION
+    where cfh_user_id = #{cfhUserId,jdbcType=DECIMAL} and status = 0
+  </select>
+  
+  <select id="getEffectiveRelationCfpBind" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CFH_USER_RELATION
+    where USER_ID = (SELECT USER_ID FROM CFH_USER_RELATION WHERE RELATION_ID = #{relationId,jdbcType=DECIMAL})
+   AND STATUS = 0
+  </select>
+  
+  <select id="getEffectiveRelationCfhBind" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CFH_USER_RELATION
+    where CFH_USER_ID = (SELECT CFH_USER_ID FROM CFH_USER_RELATION WHERE RELATION_ID = #{relationId,jdbcType=DECIMAL})
+   AND STATUS = 0
+  </select>
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RIGHTS_PREPAY_DETAIL">
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RightsPrepayDetail">
+        <id column="PREPAY_DETAILl_ID" property="prepayDetailId" jdbcType="DECIMAL"/>
+        <result column="RIGHTS_REPAYMENT_DETAIL_ID" property="rightsRepaymentDetailId" jdbcType="DECIMAL"/>
+        <result column="CREDITOR_RIGHTS_ID" property="creditorRightsId" jdbcType="DECIMAL"/>
+        <result column="CR_HISTORY_ID" property="crHistoryId" jdbcType="DECIMAL"/>
+        <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL"/>
+        <result column="PREPAY_BALANCE2" property="prepayBalance2" jdbcType="DECIMAL"/>
+        <result column="PREPAY_BALANCE" property="prepayBalance" jdbcType="DECIMAL"/>
+        <result column="REPAYMENT_BALANCE" property="repaymentBalance" jdbcType="DECIMAL"/>
+        <result column="IS_PAY_OFF" property="isPayOff" jdbcType="CHAR"/>
+        <result column="PREPAY_TIME" property="prepayTime" jdbcType="TIMESTAMP"/>
+        <result column="WILL_BACK_TIME" property="willBackTime" jdbcType="DATE"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+    PREPAY_DETAILl_ID, RIGHTS_REPAYMENT_DETAIL_ID, CREDITOR_RIGHTS_ID, CR_HISTORY_ID,ACCOUNT_ID,PREPAY_BALANCE2,PREPAY_BALANCE,REPAYMENT_BALANCE,IS_PAY_OFF,
+    PREPAY_TIME,WILL_BACK_TIME
+  </sql>
+
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.RightsPrepayDetail">
+        <selectKey keyProperty="rightsRepaymentDetailId" order="BEFORE" resultType="long">
+            SELECT SEQ_RIGHTS_PREPAY_DETAIL.NEXTVAL as rightsRepaymentDetailId FROM dual
+        </selectKey>
+        insert into RIGHTS_PREPAY_DETAIL
+        (PREPAY_DETAILl_ID, RIGHTS_REPAYMENT_DETAIL_ID, CREDITOR_RIGHTS_ID, CR_HISTORY_ID,ACCOUNT_ID,PREPAY_BALANCE2,PREPAY_BALANCE,REPAYMENT_BALANCE,IS_PAY_OFF,
+        PREPAY_TIME,WILL_BACK_TIME)
+        values
+        (prepayDetailId,rightsRepaymentDetailId,creditorRightsId,crHistoryId,accountId,prepayBalance2,prepayBalance,repaymentBalance,isPayOff,prepayTime,willBackTime)
+    </insert>
+
+    <update id="updateByMap" parameterType="java.util.Map" >
+        update RIGHTS_PREPAY_DETAIL
+        <set>
+            <if test="_parameter.containsKey('repaymentBalance')">
+                REPAYMENT_BALANCE = #{repaymentBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('isPayOff')">
+                IS_PAY_OFF = #{isPayOff,jdbcType=CHAr},
+            </if>
+            <if test="_parameter.containsKey('prepayTime')">
+                PREPAY_TIME = #{prepayTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where PREPAY_DETAILl_ID=#{prepayDetailId}
+    </update>
+
+    <select id="findByNewRightsId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from RIGHTS_PREPAY_DETAIL
+        where
+        CR_HISTORY_ID = (
+        select  CR_HISTORY_ID from CREDITOR_RIGHTS_HISTORY where CR_ID_AFTER_CHANGE=#{value,jdbcType=DECIMAL} and CHANGE_TYPE='1')
+    </select>
+</mapper>

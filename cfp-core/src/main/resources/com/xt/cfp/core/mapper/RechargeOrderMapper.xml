@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RECHARGE_ORDER" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RechargeOrder" >
+    <id column="RECHARGE_ID" property="rechargeId" jdbcType="DECIMAL" />
+    <result column="RECHARGE_CODE" property="rechargeCode" jdbcType="VARCHAR" />
+    <result column="CHANNEL_CODE" property="channelCode" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="DETAIL_ID" property="detailId" jdbcType="DECIMAL" />
+    <result column="CUSTOMER_CARD_ID" property="customerCardId" jdbcType="DECIMAL" />
+    <result column="PAY_ID" property="payId" jdbcType="DECIMAL" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+    <result column="CARD_NO" property="cardNo" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EXTERNAL_NO" property="externalNo" jdbcType="VARCHAR" />
+    <result column="RESULT_TIME" property="resultTime" jdbcType="TIMESTAMP" />
+    <result column="DESC" property="desc" jdbcType="VARCHAR" />
+    <result column="ADMIN_ID" property="adminId" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <resultMap id="RechargeOrderVO" type="com.xt.cfp.core.pojo.ext.RechargeOrderExt" extends="BaseResultMap">
+    <result property="loginName" column="LOGIN_NAME" jdbcType="VARCHAR" />
+    <result property="realName" column="REAL_NAME" jdbcType="VARCHAR" />
+    <result property="channelName" column="CHANNEL_NAME" jdbcType="VARCHAR" />
+    <result property="shortBank" column="SHORT_BANK" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="PrepaidVO" type="com.xt.cfp.core.pojo.ext.phonesell.PrepaidVO" >
+    <result column="LOGIN" property="adminCode" jdbcType="VARCHAR" />
+    <result column="DISPLAY_NAME" property="adminName" jdbcType="VARCHAR" />
+    <result column="LOGIN_NAME" property="userCode" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="time" jdbcType="TIMESTAMP" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="CHANNEL_NAME" property="type" jdbcType="VARCHAR" />
+    <result column="CARD" property="card" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    RECHARGE_ID, RECHARGE_CODE, CHANNEL_CODE, USER_ID, DETAIL_ID, PAY_ID, AMOUNT, STATUS, CUSTOMER_CARD_ID,
+    BANK_CODE, CARD_NO, CREATE_TIME, EXTERNAL_NO, RESULT_TIME, 'DESC', ADMIN_ID
+  </sql>
+  <select id="getRechargeOrderByPayId" resultMap="BaseResultMap" parameterType="long">
+    select
+    <include refid="Base_Column_List" />
+    from RECHARGE_ORDER
+    where PAY_ID = #{VALUE,jdbcType=DECIMAL}
+  </select>
+  <select id="findRechargeOrdersByCardId" parameterType="long" resultMap="BaseResultMap">
+    select * from RECHARGE_ORDER ro where RO.CUSTOMER_CARD_ID = #{value}
+  </select>
+  <select id="getRechargeOrderByOrderCode" resultMap="BaseResultMap" parameterType="string">
+    select
+    <include refid="Base_Column_List" />
+    from RECHARGE_ORDER
+    where RECHARGE_CODE = #{VALUE,jdbcType=VARCHAR}
+  </select>
+  <select id="getAndLockRechargeOrderByOrderCode" resultMap="BaseResultMap" parameterType="string">
+    select
+    <include refid="Base_Column_List" />
+    from RECHARGE_ORDER
+    where RECHARGE_CODE = #{VALUE,jdbcType=VARCHAR} for update
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RECHARGE_ORDER
+    where RECHARGE_ID = #{rechargeId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RECHARGE_ORDER
+    where RECHARGE_ID = #{rechargeId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.RechargeOrder" >
+    <selectKey keyProperty="rechargeId" order="BEFORE" resultType="long">
+      SELECT SEQ_RECHARGE_ORDER.NEXTVAL as rechargeId FROM dual
+    </selectKey>
+    insert into RECHARGE_ORDER (RECHARGE_ID, RECHARGE_CODE, CHANNEL_CODE, 
+      USER_ID, DETAIL_ID, PAY_ID, CUSTOMER_CARD_ID,
+      AMOUNT, STATUS, BANK_CODE, 
+      CARD_NO, CREATE_TIME, EXTERNAL_NO, 
+      RESULT_TIME, "DESC", ADMIN_ID
+      )
+    values (#{rechargeId,jdbcType=DECIMAL}, #{rechargeCode,jdbcType=VARCHAR}, #{channelCode,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=DECIMAL}, #{detailId,jdbcType=DECIMAL}, #{payId,jdbcType=DECIMAL}, #{customerCardId,jdbcType=DECIMAL},
+      #{amount,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, #{bankCode,jdbcType=VARCHAR}, 
+      #{cardNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{externalNo,jdbcType=VARCHAR}, 
+      #{resultTime,jdbcType=TIMESTAMP}, #{desc,jdbcType=VARCHAR}, #{adminId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.RechargeOrder" >
+    <selectKey keyProperty="rechargeId" order="BEFORE" resultType="long">
+      SELECT SEQ_RECHARGE_ORDER.NEXTVAL as rechargeId FROM dual
+    </selectKey>
+    insert into RECHARGE_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rechargeId != null" >
+        RECHARGE_ID,
+      </if>
+      <if test="rechargeCode != null" >
+        RECHARGE_CODE,
+      </if>
+      <if test="channelCode != null" >
+        CHANNEL_CODE,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="detailId != null" >
+        DETAIL_ID,
+      </if>
+      <if test="payId != null" >
+        PAY_ID,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE,
+      </if>
+      <if test="cardNo != null" >
+        CARD_NO,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="externalNo != null" >
+        EXTERNAL_NO,
+      </if>
+      <if test="resultTime != null" >
+        RESULT_TIME,
+      </if>
+      <if test="desc != null" >
+        "DESC",
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+      <if test="customerCardId != null" >
+         CUSTOMER_CARD_ID,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rechargeId != null" >
+        #{rechargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeCode != null" >
+        #{rechargeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCode != null" >
+        #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="detailId != null" >
+        #{detailId,jdbcType=DECIMAL},
+      </if>
+      <if test="payId != null" >
+        #{payId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="bankCode != null" >
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="externalNo != null" >
+        #{externalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="resultTime != null" >
+        #{resultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="customerCardId != null" >
+        #{customerCardId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.RechargeOrder" >
+    update RECHARGE_ORDER
+    <set >
+      <if test="rechargeCode != null" >
+        RECHARGE_CODE = #{rechargeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCode != null" >
+        CHANNEL_CODE = #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="detailId != null" >
+        DETAIL_ID = #{detailId,jdbcType=DECIMAL},
+      </if>
+      <if test="payId != null" >
+        PAY_ID = #{payId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        CARD_NO = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="externalNo != null" >
+        EXTERNAL_NO = #{externalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="resultTime != null" >
+        RESULT_TIME = #{resultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc != null" >
+        DESC = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        ADMIN_ID = #{adminId,jdbcType=DECIMAL},
+      </if>
+      <if test="customerCardId != null" >
+        CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where RECHARGE_ID = #{rechargeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RechargeOrder" >
+    update RECHARGE_ORDER
+    set RECHARGE_CODE = #{rechargeCode,jdbcType=VARCHAR},
+      CHANNEL_CODE = #{channelCode,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      DETAIL_ID = #{detailId,jdbcType=DECIMAL},
+      PAY_ID = #{payId,jdbcType=DECIMAL},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=CHAR},
+      BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      CARD_NO = #{cardNo,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      EXTERNAL_NO = #{externalNo,jdbcType=VARCHAR},
+      RESULT_TIME = #{resultTime,jdbcType=TIMESTAMP},
+      DESC = #{desc,jdbcType=VARCHAR},
+      CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL},
+      ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+    where RECHARGE_ID = #{rechargeId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="getIncomePaging" resultMap="RechargeOrderVO" parameterType="map" >
+    select
+    a.*,ai.login_name,cf.constant_name short_bank
+    from RECHARGE_ORDER a left join user_account ua on a.user_id=ua.User_id and UA.ACC_TYPE_CODE=2
+    left join admin_info ai on a.admin_id = ai.admin_id
+    left join CONSTANT_DEFINE cf on cf.CONSTANT_DEFINE_ID = a.bank_code
+    <where>
+      <if test="rechargeOrder != null">
+        <if test="rechargeOrder.userId != null and rechargeOrder.userId != ''">
+          AND   ua.user_id  = #{rechargeOrder.userId,jdbcType=DECIMAL}
+        </if>
+        <if test="rechargeOrder.channelCode != null and rechargeOrder.channelCode != ''">
+          AND   CHANNEL_CODE  = #{rechargeOrder.channelCode,jdbcType=DECIMAL}
+        </if>
+
+        <if test="rechargeOrder.externalNo != null and rechargeOrder.externalNo != ''">
+          AND   EXTERNAL_NO  like  '%${rechargeOrder.externalNo}%'
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+        <if test="customParams.timeInterval != null">
+          <if test="customParams.timeInterval.startTime != null">
+            <![CDATA[AND a.CREATE_TIME >= #{customParams.timeInterval.startTime}]]>
+          </if>
+          <if test="customParams.timeInterval.endTime != null">
+            <![CDATA[AND a.CREATE_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY
+          ]]>
+          </if>
+        </if>
+        <if test="customParams.status != null">
+        	AND a.status=#{customParams.status}
+        </if>
+      </if>
+    </where>
+    ORDER BY RECHARGE_ID DESC
+  </select>
+
+  <select id="count_getIncomePaging"  resultType="int" parameterType="map" >
+    select
+    count(1)
+    from RECHARGE_ORDER a left join user_account ua on a.user_id=ua.User_id and UA.ACC_TYPE_CODE=2
+    <where>
+      <if test="rechargeOrder != null">
+        <if test="rechargeOrder.userId != null and rechargeOrder.userId != ''">
+          AND   ua.user_id  = #{rechargeOrder.userId,jdbcType=DECIMAL}
+        </if>
+        <if test="rechargeOrder.channelCode != null and rechargeOrder.channelCode != ''">
+          AND   CHANNEL_CODE  = #{rechargeOrder.channelCode,jdbcType=DECIMAL}
+        </if>
+
+        <if test="rechargeOrder.externalNo != null and rechargeOrder.externalNo != ''">
+          AND   EXTERNAL_NO  like  '%${rechargeOrder.externalNo}%'
+        </if>
+      </if>
+      <if test="customParams != null">
+        <!--添加时间查询-->
+        <if test="customParams.timeInterval != null">
+          <if test="customParams.timeInterval.startTime != null">
+            <![CDATA[AND a.CREATE_TIME >= #{customParams.timeInterval.startTime}]]>
+          </if>
+          <if test="customParams.timeInterval.endTime != null">
+            <![CDATA[AND a.CREATE_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY
+          ]]>
+          </if>
+        </if>
+      </if>
+    </where>
+    ORDER BY RECHARGE_ID DESC
+  </select>
+  <!-- 分页查询-列表 -->
+  <select id="findAllRechargeOrderByPage" resultMap="RechargeOrderVO" parameterType="java.util.HashMap">
+    select ro.*,ui.LOGIN_NAME,
+    (select rc.CHANNEL_NAME from RECHARGE_CHANNEL rc where rc.CHANNEL_CODE = ro.CHANNEL_CODE) as CHANNEL_NAME,
+    (select uie.REAL_NAME from USER_INFO_EXT uie where uie.USER_ID = ro.USER_ID) as REAL_NAME
+    from RECHARGE_ORDER ro left join USER_INFO ui on ui.USER_ID = ro.USER_ID
+    where 1=1
+	<include refid="where_findAllRechargeOrderByPage"/>
+	
+	order by ro.RECHARGE_ID desc
+  </select>
+  
+  <!-- 分页查询-数量 -->
+  <select id="count_findAllRechargeOrderByPage" resultType="int" parameterType="java.util.HashMap">
+    select count(1)
+    from RECHARGE_ORDER ro left join USER_INFO ui on ui.USER_ID = ro.USER_ID
+    where 1=1
+	<include refid="where_findAllRechargeOrderByPage"/>
+  </select>
+
+  <select id="getAllRechargeValueByUserId" resultType="java.math.BigDecimal" parameterType="java.lang.Long">
+   select NVL(sum(R.AMOUNT),0) from RECHARGE_ORDER r where R.USER_ID=  #{userId} and r.STATUS='1'
+
+    <if test="month != null and month != ''">
+
+      and to_char(R.CREATE_TIME,'YYYYMM') = #{month}
+    </if>
+  </select>
+  
+  <!-- 分页查询-公用where语句 -->
+  <sql id="where_findAllRechargeOrderByPage">
+  	  <if test="searchUserName != null and searchUserName != ''" >
+  	  	and ui.LOGIN_NAME like '%${searchUserName}%'
+      </if>
+       <if test="searchRealName != null and searchRealName != ''" >
+  	  AND   (select uie.REAL_NAME from USER_INFO_EXT uie where uie.USER_ID = ro.USER_ID) like  '%${searchRealName}%'
+      </if>
+      <if test="searchState != null and searchState != ''" >
+      	and ro.STATUS = #{searchState}
+      </if>
+      <if test="searchBeginTime != null and searchBeginTime != ''" >
+      	<![CDATA[
+      	and ro.CREATE_TIME >= to_date(#{searchBeginTime},'yyyy-MM-dd')
+    	]]>
+      </if>
+      <if test="searchEndTime != null and searchEndTime != ''" >
+   		<![CDATA[
+   		and ro.CREATE_TIME <= to_date(#{searchEndTime},'yyyy-MM-dd')
+   		]]>
+      </if>
+     
+  </sql>
+  
+  <select id="exportExcel" resultType="java.util.LinkedHashMap" parameterType="java.util.HashMap">
+	SELECT (SELECT RC.CHANNEL_NAME
+	          FROM RECHARGE_CHANNEL RC
+	         WHERE RC.CHANNEL_CODE = RO.CHANNEL_CODE) AS 充值渠道名称,
+	       RO.EXTERNAL_NO AS 易宝流水号,
+	       RO.AMOUNT AS 充值金额,
+	       TO_CHAR(RO.CREATE_TIME, 'yyyy-MM-dd hh24:mi:ss') AS 充值时间,
+	       RO.CREATE_TIME 充值时间,
+	       UI.LOGIN_NAME AS 用户名,
+	       UI.MOBILE_NO AS 手机号
+	  FROM RECHARGE_ORDER RO
+	  LEFT JOIN USER_INFO UI
+	    ON UI.USER_ID = RO.USER_ID
+	 WHERE 1 = 1
+	<include refid="where_findAllRechargeOrderByPage"/>
+	ORDER BY RO.RECHARGE_ID DESC
+  </select>
+  
+  <select id="exportExcelByLoanAppId" resultType="java.util.LinkedHashMap" parameterType="java.util.HashMap">
+	SELECT (SELECT RC.CHANNEL_NAME
+	          FROM RECHARGE_CHANNEL RC
+	         WHERE RC.CHANNEL_CODE = RO.CHANNEL_CODE) AS 充值渠道名称,
+	       RO.EXTERNAL_NO AS 易宝流水号,
+	       RO.AMOUNT AS 充值金额,
+	       TO_CHAR(RO.CREATE_TIME, 'yyyy-MM-dd hh24:mi:ss') AS 充值时间,
+	       RO.CREATE_TIME 充值时间,
+	       UI.LOGIN_NAME AS 用户名,
+	       UI.MOBILE_NO AS 手机号
+	  FROM LEND_ORDER_BID_DETAIL LOBD,
+	       LEND_ORDER            LO,
+	       ORDER_PAY_RELATIONS   OPR,
+	       PAY_ORDER             PO,
+	       RECHARGE_ORDER        RO,
+	       USER_INFO             UI
+	 WHERE LOBD.LEND_ORDER_ID = LO.LEND_ORDER_ID
+	   AND LO.LEND_ORDER_ID = OPR.LEND_ORDER_ID
+	   AND OPR.PAY_ID = PO.PAY_ID
+	   AND RO.PAY_ID = PO.PAY_ID
+	   AND RO.STATUS = 1
+	   AND PO.STATUS = 1
+	   AND UI.USER_ID = RO.USER_ID
+	   AND LOBD.LOAN_APPLICATION_ID = #{loanApplicationId}
+  </select>
+  
+  <select id="findBy" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.RechargeOrder" >
+    select 
+    <include refid="Base_Column_List" />
+    from RECHARGE_ORDER
+    <where>
+      <if test="rechargeCode != null" >
+        AND RECHARGE_CODE = #{rechargeCode,jdbcType=VARCHAR}
+      </if>
+      <if test="channelCode != null" >
+        AND CHANNEL_CODE = #{channelCode,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null" >
+        AND USER_ID = #{userId,jdbcType=DECIMAL}
+      </if>
+      <if test="detailId != null" >
+        AND DETAIL_ID = #{detailId,jdbcType=DECIMAL}
+      </if>
+      <if test="payId != null" >
+        AND PAY_ID = #{payId,jdbcType=DECIMAL}
+      </if>
+      <if test="amount != null" >
+        AND AMOUNT = #{amount,jdbcType=DECIMAL}
+      </if>
+      <if test="status != null" >
+        AND STATUS = #{status,jdbcType=CHAR}
+      </if>
+      <if test="bankCode != null" >
+        AND BANK_CODE = #{bankCode,jdbcType=VARCHAR}
+      </if>
+      <if test="cardNo != null" >
+        AND CARD_NO = #{cardNo,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="externalNo != null" >
+        AND EXTERNAL_NO = #{externalNo,jdbcType=VARCHAR}
+      </if>
+      <if test="resultTime != null" >
+        AND RESULT_TIME = #{resultTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="desc != null" >
+        AND DESC = #{desc,jdbcType=VARCHAR}
+      </if>
+      <if test="adminId != null" >
+        AND ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+      </if>
+      <if test="customerCardId != null" >
+        AND CUSTOMER_CARD_ID = #{customerCardId,jdbcType=DECIMAL}
+      </if>
+    </where>
+  </select>
+  
+  <update id="refreshUnRechargeOrderTask" parameterType="com.xt.cfp.core.pojo.RechargeOrder" >
+  	<![CDATA[
+    UPDATE RECHARGE_ORDER
+	   SET STATUS = 2
+	 WHERE CREATE_TIME <= SYSDATE - 1
+	   AND STATUS = 0
+	]]>
+  </update>
+	
+	
+	<select id="getPrepaidList" resultMap="PrepaidVO" parameterType="map" >
+	    select sai.login_name login,sai.display_name,ui.login_name,uie.real_name,ro.create_time,ro.amount,rc.channel_name,
+	    cd.constant_name||'-尾号'||substr(ro.card_no,-4) card,
+	    case when ro.status=0 then '未支付' when ro.status=1 then '支付成功' else '支付失败' end status FROM RECHARGE_ORDER ro 
+		left join recharge_channel rc on ro.channel_code=rc.channel_code 
+		left join constant_define cd on cd.constant_define_id=ro.bank_code
+		left join user_info ui on ro.user_id=ui.user_id 
+		left join user_info_ext uie on ro.user_id=uie.user_id
+		left join SL_ADMIN_USER_INFO saui on ro.user_id=saui.user_id
+		left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+	    <where>
+	    	saui.status=0
+	    	<if test="adminCode != null">
+	        	AND   sai.login_name  like '%${adminCode}%'
+	      	</if>
+	      	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   ro.card_no  like '%${card}'
+	      	</if>
+	      	<if test="status != null">
+	        	AND   ro.status  = #{status,jdbcType=DECIMAL}
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+	    ORDER BY ro.create_time DESC
+  </select>
+  <select id="count_getPrepaidList"  resultType="int" parameterType="map" >
+	    select count(1) FROM RECHARGE_ORDER ro 
+	    left join recharge_channel rc on ro.channel_code=rc.channel_code 
+	    left join constant_define cd on cd.constant_define_id=ro.bank_code
+	    left join user_info ui on ro.user_id=ui.user_id 
+	    left join user_info_ext uie on ro.user_id=uie.user_id
+	    left join SL_ADMIN_USER_INFO saui on ro.user_id=saui.user_id
+	    left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+	    <where>
+	    	saui.status=0
+	    	<if test="adminCode != null">
+	        	AND   sai.login_name  like '%${adminCode}%'
+	      	</if>
+	      	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   ro.card_no  like '%${card}'
+	      	</if>
+	      	<if test="status != null">
+	        	AND   ro.status  = #{status,jdbcType=DECIMAL}
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+  </select>
+  <select id="getAccountAllByStatus"  resultType="string" parameterType="map" >
+		select case when sum(c.amount) is null then 0 else sum(c.amount) end from RECHARGE_ORDER c 
+		left join recharge_channel rc on c.channel_code=rc.channel_code 
+	    left join constant_define cd on cd.constant_define_id=c.bank_code
+	    left join user_info ui on c.user_id=ui.user_id 
+	    left join user_info_ext uie on c.user_id=uie.user_id
+	    left join SL_ADMIN_USER_INFO saui on c.user_id=saui.user_id
+	    left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0 and c.status=0
+	    	<if test="adminCode != null">
+	        	AND   sai.login_name  like '%${adminCode}%'
+	      	</if>
+	      	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   c.card_no  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+		union all
+		select case when sum(s.amount) is null then 0 else sum(s.amount) end from RECHARGE_ORDER s 
+		left join recharge_channel rc on s.channel_code=rc.channel_code 
+	    left join constant_define cd on cd.constant_define_id=s.bank_code
+	    left join user_info ui on s.user_id=ui.user_id 
+	    left join user_info_ext uie on s.user_id=uie.user_id
+	    left join SL_ADMIN_USER_INFO saui on s.user_id=saui.user_id
+	    left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0 and s.status=1
+	    	<if test="adminCode != null">
+	        	AND   sai.login_name  like '%${adminCode}%'
+	      	</if>
+	      	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   s.card_no  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+		union all
+		select case when sum(f.amount) is null then 0 else sum(f.amount) end from RECHARGE_ORDER f 
+		left join recharge_channel rc on f.channel_code=rc.channel_code 
+	    left join constant_define cd on cd.constant_define_id=f.bank_code
+	    left join user_info ui on f.user_id=ui.user_id 
+	    left join user_info_ext uie on f.user_id=uie.user_id
+	    left join SL_ADMIN_USER_INFO saui on f.user_id=saui.user_id
+	    left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+ 		<where>
+	    	saui.status=0 and f.status=2
+	    	<if test="adminCode != null">
+	        	AND   sai.login_name  like '%${adminCode}%'
+	      	</if>
+	      	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   f.card_no  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+		union all
+		select case when sum(ro.amount) is null then 0 else sum(ro.amount) end from RECHARGE_ORDER ro
+		left join recharge_channel rc on ro.channel_code=rc.channel_code 
+	    left join constant_define cd on cd.constant_define_id=ro.bank_code
+	    left join user_info ui on ro.user_id=ui.user_id 
+	    left join user_info_ext uie on ro.user_id=uie.user_id
+	    left join SL_ADMIN_USER_INFO saui on ro.user_id=saui.user_id
+	    left join SL_ADMIN_INFO sai on saui.admin_id=sai.admin_id
+		<where>
+	    	saui.status=0
+	    	<if test="adminCode != null">
+	        	AND   sai.login_name  like '%${adminCode}%'
+	      	</if>
+	      	<if test="userCode != null">
+	        	AND   ui.login_name  like '%${userCode}%'
+	      	</if>
+	      	<if test="userName != null">
+	        	AND   uie.real_name  like  '%${userName}%'
+	      	</if>
+	      	<if test="card != null">
+	        	AND   ro.card_no  like '%${card}'
+	      	</if>
+	      	<if test="codes != null">
+	        	AND   sai.admin_code  in (<![CDATA[ ${codes}]]>)
+	      	</if>
+	    </where>
+  </select>   
+  
+   <select id="getRechargeOrderByOrderCodeChannel" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from RECHARGE_ORDER
+    <where>
+		<if test="externalNo!=null and  externalNo!= '' ">
+	    	and EXTERNAL_NO = #{externalNo,jdbcType=VARCHAR}
+		</if>    
+		<if test="channelCode!=null and channelCode != '' ">
+	    	and CHANNEL_CODE = #{channelCode,jdbcType=VARCHAR}
+		</if>    
+    </where>
+  </select>
+    <select id="getAndLockRechargeOrderByOrderCodeChannel" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from RECHARGE_ORDER
+     <where>
+		<if test="rechargeCode!=null and rechargeCode != '' ">
+	    	and RECHARGE_CODE = #{rechargeCode,jdbcType=VARCHAR}
+		</if>    
+		<if test="channelCode!=null and channelCode != '' ">
+	    	and CHANNEL_CODE = #{channelCode,jdbcType=VARCHAR}
+		</if>    
+    </where>
+     for update
+  </select>
+  
+  <!--导出移动端数据报表(充值的)开始-->
+    <select id="exportMobileInfoExcel_rechargeOrder"  resultType="java.util.LinkedHashMap"  parameterType="map">
+		select 
+		ui.CREATE_TIME as 注册时间,
+		(select iv.VERIFIED_TIME from IDCARD_VERIFIED iv where iv.REAL_NAME = uie.REAL_NAME and iv.CARD_CODE = uie.ID_CARD and iv.VERIFIED_RESULT = 1 and ROWNUM = 1) as 认证时间,
+		uie.MOBILE_NO as 手机号,
+		ui.LOGIN_NAME as 用户名,
+		uie.REAL_NAME as 姓名,
+		uie.ID_CARD as 身份证,
+		ro.CREATE_TIME as 充值时间,
+		(select tab.PAY_TIME from ( select lo.PAY_TIME,lo.LEND_USER_ID,rownum r from LEND_ORDER lo where lo.ORDER_STATE in (1,2,6) order by lo.LEND_ORDER_ID  ) tab where tab.r = 1 and tab.LEND_USER_ID = ro.USER_ID) as 首投时间,
+		ro.AMOUNT as 充值金额,
+		(select ic.INVITATION_CODE from INVITATION_CODE ic where ic.TYPE = 0 and ic.USER_ID = ro.USER_ID) as 邀请码,
+		(select ic.INVITATION_CODE from INVITATION_CODE ic where ic.TYPE = 0 and ic.USER_ID = uie.REC_USER_ID) as 邀请人邀请码,
+		DECODE (ro.STATUS,
+        '0', '未支付',
+        '1', '支付成功',
+        '2', '支付失败')
+  		as 充值状态
+		from RECHARGE_ORDER ro
+		inner join ORDER_RESOURCE_MAPPING orm on orm.ORDER_ID = ro.RECHARGE_ID
+		left join USER_INFO ui on ro.USER_ID = ui.USER_ID
+		left join USER_INFO_EXT uie on ro.USER_ID = uie.USER_ID
+		where 1=1 <!-- orm.RESOURCE_TYPE = 1 -->
+		<if test="customParams != null"><!-- RESOURCE_TYPE=0.投资1.充值2.提现 -->
+            <!-- RESOURCE_ID=1.PC2.Wechat3.Android4.IOS -->
+			<if test="customParams.sourceType != null">
+                and orm.RESOURCE_ID = #{customParams.sourceType}
+            </if>
+            <!--时间查询-->
+            <if test="customParams.timeInterval.startTime != null">
+                <![CDATA[AND ro.CREATE_TIME >= #{customParams.timeInterval.startTime}]]>
+            </if>
+            <if test="customParams.timeInterval.endTime != null">
+                <![CDATA[AND ro.CREATE_TIME <=  #{customParams.timeInterval.endTime}+interval '1' DAY]]>
+            </if>
+        </if>
+		order by ro.RECHARGE_ID asc
+    </select>
+    <!--导出移动端数据报表(充值的)结束-->
+
+
+  <update id="postRecharge" parameterType="com.xt.cfp.core.pojo.RechargeOrder" >
+    update RECHARGE_ORDER
+    <set >
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="externalNo != null" >
+        EXTERNAL_NO = #{externalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="resultTime != null" >
+        RESULT_TIME = #{resultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc != null" >
+        "DESC" ="DESC"||'|'|| #{desc,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where RECHARGE_ID = #{rechargeId,jdbcType=DECIMAL} and RECHARGE_CODE=#{rechargeCode} and STATUS='0'
+  </update>
+</mapper>

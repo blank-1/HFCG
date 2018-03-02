@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TRADE" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.Trade" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="user_id" jdbcType="DECIMAL" />
+    <result column="SERIAL_NUMBER" property="serial_number" jdbcType="VARCHAR" />
+    <result column="MESSAGE_ID" property="message_id" jdbcType="VARCHAR" />
+    <result column="TRADE_OPERATE" property="trade_operate" jdbcType="VARCHAR" />
+    <result column="REQUEST_MESSAGE" property="request_message" jdbcType="VARCHAR" />
+    <result column="RESPONSE_MESSAGE" property="response_message" jdbcType="VARCHAR" />
+    <result column="REQUEST_TRADING_ACCOUNT" property="request_trading_account" jdbcType="VARCHAR" />
+    <result column="REQUEST_ORGANIZATION" property="request_organization" jdbcType="VARCHAR" />
+    <result column="REQUEST_TRADING_AMOUNT" property="request_trading_amount" jdbcType="DECIMAL" />
+    <result column="RESPONSE_TRADING_ACCOUNT" property="response_trading_account" jdbcType="VARCHAR" />
+    <result column="RESPONSE_ORGANIZATION" property="response_organization" jdbcType="VARCHAR" />
+    <result column="RESPONSE_TRADING_AMOUNT" property="response_trading_amount" jdbcType="DECIMAL" />
+    <result column="TRADE_STATUS" property="trade_status" jdbcType="VARCHAR" />
+    <result column="TRADE_DATE" property="trade_date" jdbcType="DATE" />
+    <result column="LOANID" property="loanid" jdbcType="DECIMAL" />
+    <result column="SERIAL_NUMBER_TX" property="serial_number_tx" jdbcType="VARCHAR" />
+    <result column="INVEST_ID" property="invest_id" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, SERIAL_NUMBER, MESSAGE_ID,TRADE_OPERATE, REQUEST_MESSAGE, RESPONSE_MESSAGE, REQUEST_TRADING_ACCOUNT, 
+    REQUEST_ORGANIZATION,REQUEST_TRADING_AMOUNT, RESPONSE_TRADING_ACCOUNT,RESPONSE_ORGANIZATION, RESPONSE_TRADING_AMOUNT, 
+    TRADE_STATUS,TRADE_DATE, LOANID, SERIAL_NUMBER_TX,INVEST_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from TRADE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- 查询交易流水 -->
+  <select id="queryTrade" resultMap="BaseResultMap" parameterType="com.xt.cfp.core.pojo.Trade" >
+    select 
+    <include refid="Base_Column_List" />
+    from TRADE 
+    where 1=1
+    <if test="loanid != null" >
+       and LOANID = #{loanid,jdbcType=DECIMAL}
+    </if>
+    <if test="invest_id != null" >
+       and INVEST_ID = #{invest_id,jdbcType=DECIMAL}
+    </if>
+    <if test="trade_status != null" >
+       and TRADE_STATUS = #{trade_status,jdbcType=VARCHAR}
+    </if>
+    <if test="message_id != null" >
+       and MESSAGE_ID = #{message_id,jdbcType=DECIMAL}
+    </if>
+    <if test="trade_date != null" >
+       and TRADE_DATE = #{trade_date,jdbcType=DATE}
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TRADE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.Trade" >
+  	<selectKey keyProperty="id" order="BEFORE" resultType="long">
+      SELECT SEQ_TRADE.NEXTVAL as id FROM dual
+    </selectKey>
+    insert into TRADE (ID,USER_ID, SERIAL_NUMBER, MESSAGE_ID, TRADE_OPERATE,
+      REQUEST_MESSAGE, RESPONSE_MESSAGE, REQUEST_TRADING_ACCOUNT, REQUEST_ORGANIZATION,
+      REQUEST_TRADING_AMOUNT, RESPONSE_TRADING_ACCOUNT,RESPONSE_ORGANIZATION,
+      RESPONSE_TRADING_AMOUNT, TRADE_STATUS, TRADE_DATE, 
+      LOANID, SERIAL_NUMBER_TX,INVEST_ID)
+    values (#{id,jdbcType=DECIMAL},#{user_id,jdbcType=DECIMAL}, #{serial_number,jdbcType=VARCHAR}, #{message_id,jdbcType=VARCHAR},#{trade_operate,jdbcType=VARCHAR}, 
+      #{request_message,jdbcType=VARCHAR}, #{response_message,jdbcType=VARCHAR}, #{request_trading_account,jdbcType=VARCHAR},#{request_organization,jdbcType=VARCHAR}, 
+      #{request_trading_amount,jdbcType=DECIMAL}, #{response_trading_account,jdbcType=VARCHAR},#{response_organization,jdbcType=VARCHAR}, 
+      #{response_trading_amount,jdbcType=DECIMAL}, #{trade_status,jdbcType=VARCHAR}, #{trade_date,jdbcType=DATE}, 
+      #{loanid,jdbcType=DECIMAL}, #{serial_number_tx,jdbcType=VARCHAR}, #{invest_id,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.Trade" >
+    insert into TRADE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="user_id != null" >
+        USER_ID,
+      </if>
+      <if test="serial_number != null" >
+        SERIAL_NUMBER,
+      </if>
+      <if test="message_id != null" >
+        MESSAGE_ID,
+      </if>
+      <if test="trade_operate != null" >
+        TRADE_OPERATE,
+      </if>
+      <if test="request_message != null" >
+        REQUEST_MESSAGE,
+      </if>
+      <if test="response_message != null" >
+        RESPONSE_MESSAGE,
+      </if>
+      <if test="request_trading_account != null" >
+        REQUEST_TRADING_ACCOUNT,
+      </if>
+      <if test="request_organization != null" >
+        REQUEST_ORGANIZATION,
+      </if>
+      <if test="request_trading_amount != null" >
+        REQUEST_TRADING_AMOUNT,
+      </if>
+      <if test="response_trading_account != null" >
+        RESPONSE_TRADING_ACCOUNT,
+      </if>
+      <if test="response_organization != null" >
+        RESPONSE_ORGANIZATION,
+      </if>
+      <if test="response_trading_amount != null" >
+        RESPONSE_TRADING_AMOUNT,
+      </if>
+      <if test="trade_status != null" >
+        TRADE_STATUS,
+      </if>
+      <if test="trade_date != null" >
+        TRADE_DATE,
+      </if>
+      <if test="loanid != null" >
+        LOANID,
+      </if>
+      <if test="serial_number_tx != null" >
+        SERIAL_NUMBER_TX,
+      </if>
+      <if test="invest_id != null" >
+        INVEST_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="user_id != null" >
+        #{user_id,jdbcType=DECIMAL},
+      </if>
+      <if test="serial_number != null" >
+        #{serial_number,jdbcType=VARCHAR},
+      </if>
+      <if test="message_id != null" >
+        #{message_id,jdbcType=VARCHAR},
+      </if>
+      <if test="trade_operate != null" >
+        #{trade_operate,jdbcType=VARCHAR},
+      </if>
+      <if test="request_message != null" >
+        #{request_message,jdbcType=VARCHAR},
+      </if>
+      <if test="response_message != null" >
+        #{response_message,jdbcType=VARCHAR},
+      </if>
+      <if test="request_trading_account != null" >
+        #{request_trading_account,jdbcType=VARCHAR},
+      </if>
+      <if test="request_organization != null" >
+        #{request_organization,jdbcType=VARCHAR},
+      </if>
+      <if test="request_trading_amount != null" >
+        #{request_trading_amount,jdbcType=DECIMAL},
+      </if>
+      <if test="response_trading_account != null" >
+        #{response_trading_account,jdbcType=VARCHAR},
+      </if>
+      <if test="response_organization != null" >
+        #{response_organization,jdbcType=VARCHAR},
+      </if>
+      <if test="response_trading_amount != null" >
+        #{response_trading_amount,jdbcType=DECIMAL},
+      </if>
+      <if test="trade_status != null" >
+        #{trade_status,jdbcType=VARCHAR},
+      </if>
+      <if test="trade_date != null" >
+        #{trade_date,jdbcType=DATE},
+      </if>
+      <if test="loanid != null" >
+        #{loanid,jdbcType=DECIMAL},
+      </if>
+      <if test="serial_number_tx != null" >
+        #{serial_number_tx,jdbcType=VARCHAR},
+      </if>
+      <if test="invest_id != null" >
+        #{invest_id,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.Trade" >
+    update TRADE
+    <set >
+      <if test="user_id != null" >
+        USER_ID = #{user_id,jdbcType=DECIMAL},
+      </if>
+      <if test="serial_number != null" >
+        SERIAL_NUMBER = #{serial_number,jdbcType=VARCHAR},
+      </if>
+      <if test="message_id != null" >
+        MESSAGE_ID = #{message_id,jdbcType=VARCHAR},
+      </if>
+      <if test="trade_operate != null" >
+        TRADE_OPERATE = #{message_id,jdbcType=VARCHAR},
+      </if>
+      <if test="request_message != null" >
+        REQUEST_MESSAGE = #{request_message,jdbcType=VARCHAR},
+      </if>
+      <if test="response_message != null" >
+        RESPONSE_MESSAGE = #{response_message,jdbcType=VARCHAR},
+      </if>
+      <if test="request_trading_account != null" >
+        REQUEST_TRADING_ACCOUNT = #{request_trading_account,jdbcType=VARCHAR},
+      </if>
+      <if test="request_organization != null" >
+        REQUEST_ORGANIZATION = #{request_organization,jdbcType=VARCHAR},
+      </if>
+      <if test="request_trading_amount != null" >
+        REQUEST_TRADING_AMOUNT = #{request_trading_amount,jdbcType=DECIMAL},
+      </if>
+      <if test="response_trading_account != null" >
+        RESPONSE_TRADING_ACCOUNT = #{response_trading_account,jdbcType=VARCHAR},
+      </if>
+      <if test="response_organization != null" >
+        RESPONSE_ORGANIZATION = #{response_organization,jdbcType=VARCHAR},
+      </if>
+      <if test="response_trading_amount != null" >
+        RESPONSE_TRADING_AMOUNT = #{response_trading_amount,jdbcType=DECIMAL},
+      </if>
+      <if test="trade_status != null" >
+        TRADE_STATUS = #{trade_status,jdbcType=VARCHAR},
+      </if>
+      <if test="trade_date != null" >
+        TRADE_DATE = #{trade_date,jdbcType=DATE},
+      </if>
+      <if test="loanid != null" >
+        LOANID = #{loanid,jdbcType=DECIMAL},
+      </if>
+      <if test="serial_number_tx != null" >
+        SERIAL_NUMBER_TX = #{serial_number_tx,jdbcType=VARCHAR},
+      </if>
+      <if test="invest_id != null" >
+        INVEST_ID = #{invest_id,jdbcType=DECIMAL}，
+      </if>
+    </set>
+    where SERIAL_NUMBER = #{serial_number}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.Trade" >
+    update TRADE
+    set USER_ID = #{user_id,jdbcType=DECIMAL},
+      SERIAL_NUMBER = #{serial_number,jdbcType=VARCHAR},
+      MESSAGE_ID = #{message_id,jdbcType=VARCHAR},
+      TRADE_OPERATE = #{trade_operate,jdbcType=VARCHAR},
+      REQUEST_MESSAGE = #{request_message,jdbcType=VARCHAR},
+      RESPONSE_MESSAGE = #{response_message,jdbcType=VARCHAR},
+      REQUEST_TRADING_ACCOUNT = #{request_trading_account,jdbcType=VARCHAR},
+      REQUEST_ORGANIZATION = #{request_organization,jdbcType=VARCHAR},
+      REQUEST_TRADING_AMOUNT = #{request_trading_amount,jdbcType=DECIMAL},
+      RESPONSE_TRADING_ACCOUNT = #{response_trading_account,jdbcType=VARCHAR},
+      RESPONSE_ORGANIZATION = #{response_organization,jdbcType=VARCHAR},
+      RESPONSE_TRADING_AMOUNT = #{response_trading_amount,jdbcType=DECIMAL},
+      TRADE_STATUS = #{trade_status,jdbcType=VARCHAR},
+      TRADE_DATE = #{trade_date,jdbcType=DATE},
+      LOANID = #{loanid,jdbcType=DECIMAL},
+      SERIAL_NUMBER_TX = #{serial_number_tx,jdbcType=VARCHAR},
+      INVEST_ID = #{invest_id,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

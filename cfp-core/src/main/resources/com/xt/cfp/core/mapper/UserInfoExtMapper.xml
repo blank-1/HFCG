@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="USER_INFO_EXT" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.UserInfoExt" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="RESIDENT_ADDRESS" property="residentAddress" jdbcType="DECIMAL" />
+    <result column="AVATAR" property="avatar" jdbcType="DECIMAL" />
+    <result column="SEX" property="sex" jdbcType="CHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+    <result column="MOBILE_NO" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="EDUCATION_LEVEL" property="educationLevel" jdbcType="CHAR" />
+    <result column="REC_USER_ID" property="recUserId" jdbcType="DECIMAL" />
+    <result column="IS_VERIFIED" property="isVerified" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="UserInfoVoResultMap" type="com.xt.cfp.core.pojo.ext.UserInfoVO" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="RESIDENT_ADDRESS" property="residentAddress" jdbcType="DECIMAL" />
+    <result column="AVATAR" property="avatar" jdbcType="DECIMAL" />
+    <result column="SEX" property="sex" jdbcType="CHAR" />
+    <result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+    <result column="MOBILE_NO" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="EDUCATION_LEVEL" property="educationLevel" jdbcType="CHAR" />
+    <result column="REC_USER_ID" property="recUserId" jdbcType="DECIMAL" />
+    <result column="IS_VERIFIED" property="isVerified" jdbcType="CHAR" />
+    <result column="PROVINCE" property="province" jdbcType="DECIMAL" />
+    <result column="CITY" property="city" jdbcType="DECIMAL" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="DETAIL" property="detail" jdbcType="VARCHAR" />
+    <result column="VALUE" jdbcType="DECIMAL" property="value" />
+    <result column="AVAIL_VALUE" jdbcType="DECIMAL" property="availValue" />
+    <result column="FROZE_VALUE" jdbcType="DECIMAL" property="frozeValue" />
+    <result column="BALANCE" jdbcType="DECIMAL" property="balance" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="verifyTime" jdbcType="TIMESTAMP" property="verifyTime" />
+    <result column="firstLenderTime" jdbcType="TIMESTAMP" property="firstLenderTime" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    USER_ID, RESIDENT_ADDRESS, AVATAR, SEX, REAL_NAME, ID_CARD, EMAIL, BIRTHDAY, EDUCATION_LEVEL, MOBILE_NO,
+    REC_USER_ID, IS_VERIFIED
+  </sql>
+    <sql id="getLLUser_where">
+        where t.id_card is not null
+        and t.IS_VERIFIED=1
+        and exists (select 1 from customer_card where t.user_id=user_id and bind_status=1 and status=1)
+    </sql>
+    <select id="getLLUser" resultMap="BaseResultMap">
+        select t.*
+        from user_info_ext t
+        <include refid="getLLUser_where"/>
+    </select>
+    <select id="count_getLLUser" resultType="int" parameterType="java.lang.Long">
+        SELECT count(1)
+        from user_info_ext t
+        <include refid="getLLUser_where"/>
+    </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_INFO_EXT
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByPrimaryKeyByRec" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_INFO_EXT
+    where REC_USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  <select id="getUserInfoExtByIdAndLock" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from USER_INFO_EXT
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      for update
+  </select>
+  
+   <select id="getUserExtForIsNull" resultMap="BaseResultMap" parameterType="map">
+    	select * from user_info_ext   
+	  
+	<!--   select * from user_info_ext uie where uie.user_id in(
+       select  uie.rec_user_id  from user_info_ext uie
+ ) and uie.rec_user_id is  null-->
+  </select>
+  
+  <select id="getUserExtByMobileAanIndentInfo" resultMap="BaseResultMap" parameterType="map">
+  	select * from user_info_ext
+	where  user_id = 
+	(select user_id from user_info where mobile_no = #{mobile,jdbcType=VARCHAR})
+	<if test="before != null and after != null">
+		and id_card like '${before}%${after}'
+	</if> 
+	
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from USER_INFO_EXT
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.UserInfoExt" >
+    insert into USER_INFO_EXT (USER_ID, RESIDENT_ADDRESS, AVATAR,
+      SEX, REAL_NAME, ID_CARD, MOBILE_NO,
+      EMAIL, BIRTHDAY, EDUCATION_LEVEL, 
+      REC_USER_ID, IS_VERIFIED)
+    values (#{userId,jdbcType=DECIMAL}, #{residentAddress,jdbcType=DECIMAL}, #{avatar,jdbcType=DECIMAL}, 
+      #{sex,jdbcType=CHAR}, #{realName,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR},  #{mobileNo,jdbcType=VARCHAR},
+      #{email,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{educationLevel,jdbcType=CHAR}, 
+      #{recUserId,jdbcType=DECIMAL}, #{isVerified,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.UserInfoExt" >
+    insert into USER_INFO_EXT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="residentAddress != null" >
+        RESIDENT_ADDRESS,
+      </if>
+      <if test="avatar != null" >
+        AVATAR,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="realName != null" >
+        REAL_NAME,
+      </if>
+      <if test="idCard != null" >
+        ID_CARD,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="educationLevel != null" >
+        EDUCATION_LEVEL,
+      </if>
+      <if test="recUserId != null" >
+        REC_USER_ID,
+      </if>
+      <if test="isVerified != null" >
+        IS_VERIFIED,
+      </if>
+      <if test="mobileNo != null" >
+        MOBILE_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="residentAddress != null" >
+        #{residentAddress,jdbcType=DECIMAL},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=DECIMAL},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="educationLevel != null" >
+        #{educationLevel,jdbcType=CHAR},
+      </if>
+      <if test="recUserId != null" >
+        #{recUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="isVerified != null" >
+        #{isVerified,jdbcType=CHAR},
+      </if>
+      <if test="mobileNo != null" >
+         #{mobileNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.UserInfoExt" >
+    update USER_INFO_EXT
+    <set>
+      <if test="residentAddress != null" >
+        RESIDENT_ADDRESS = #{residentAddress,jdbcType=DECIMAL},
+      </if>
+      <if test="avatar != null" >
+        AVATAR = #{avatar,jdbcType=DECIMAL},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        ID_CARD = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="educationLevel != null" >
+        EDUCATION_LEVEL = #{educationLevel,jdbcType=CHAR},
+      </if>
+      <if test="recUserId != null" >
+        REC_USER_ID = #{recUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="isVerified != null" >
+        IS_VERIFIED = #{isVerified,jdbcType=CHAR},
+      </if>
+      <if test="mobileNo != null" >
+        MOBILE_NO = #{mobileNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.UserInfoExt" >
+    update USER_INFO_EXT
+    set RESIDENT_ADDRESS = #{residentAddress,jdbcType=DECIMAL},
+      AVATAR = #{avatar,jdbcType=DECIMAL},
+      SEX = #{sex,jdbcType=CHAR},
+      REAL_NAME = #{realName,jdbcType=VARCHAR},
+      ID_CARD = #{idCard,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+      EDUCATION_LEVEL = #{educationLevel,jdbcType=CHAR},
+      REC_USER_ID = #{recUserId,jdbcType=DECIMAL},
+      MOBILE_NO = #{mobileNo,jdbcType=VARCHAR},
+      IS_VERIFIED = #{isVerified,jdbcType=CHAR}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  <select id="getUserExtByUserId" resultMap="UserInfoVoResultMap"
+		parameterType="java.lang.Long">
+		SELECT  U.USER_ID,
+                U.LOGIN_NAME,
+                EXT.ID_CARD,
+                U.STATUS,
+                EXT.REAL_NAME,
+                EXT.SEX,
+                EXT.BIRTHDAY,
+                EXT.MOBILE_NO,
+                EXT.EDUCATION_LEVEL,
+                EXT.IS_VERIFIED,
+                EXT.EMAIL,
+                RESS.PROVINCE,
+                RESS.CITY,
+                RESS.DETAIL
+        FROM     USER_INFO_EXT EXT, USER_INFO U,  ADDRESS RESS
+        WHERE    U.USER_ID = EXT.USER_ID
+                AND EXT.RESIDENT_ADDRESS = RESS.ADDRESS_ID(+)
+				AND U.USER_ID = #{userId,jdbcType=DECIMAL}
+	</select>
+	
+	<!-- 获取客户信息分页列表 -->
+   <select id="getUserExtPaging" resultMap="UserInfoVoResultMap" parameterType="com.xt.cfp.core.pojo.ext.UserInfoVO">
+       SELECT U.USER_ID,
+       U.LOGIN_NAME,
+       EXT.REAL_NAME,
+       EXT.MOBILE_NO,
+       EXT.ID_CARD,
+       1             AS VALUE,
+       UA.AVAIL_VALUE AS AVAIL_VALUE,
+       UA.FROZE_VALUE AS FROZE_VALUE,
+       1             AS BALANCE,
+       U.STATUS,
+       U.CREATE_TIME, 
+       (select min(VERIFIED_TIME) from IDCARD_VERIFIED iv where iv.CARD_CODE = EXT.ID_CARD) verifyTime,
+       (SELECT min(BUY_TIME)
+       FROM LEND_ORDER,LEND_ORDER_BID_DETAIL lobd WHERE LEND_ORDER.Lend_Order_Id=lobd.lend_order_id and lobd.status='1' 
+       and LEND_ORDER.Order_State IN ('1', '2', '5', '6') and  LEND_USER_ID = U.USER_ID
+       ) firstLenderTime,
+       U.TYPE
+       FROM     USER_INFO_EXT EXT, USER_INFO U, USER_ACCOUNT UA
+       WHERE    U.USER_ID = EXT.USER_ID
+       AND U.USER_ID = UA.USER_ID(+)
+       AND UA.ACC_TYPE_CODE=2
+        <if test="status != null">
+        	<if test="status != -1">
+            	and U.STATUS = #{status}
+            </if>
+        </if>
+        <if test="realName != null and realName !=''">
+            and EXT.REAL_NAME like '%'||#{realName}||'%'
+        </if>
+        <if test="loginName	 != null and loginName	 !=''">
+            and U.LOGIN_NAME like '%'||#{loginName}||'%'
+        </if>
+        <if test="mobileNo != null and mobileNo !=''">
+            and EXT.MOBILE_NO like '%'||#{mobileNo}||'%'
+        </if>
+        <if test="idCard != null and idCard !=''">
+            and EXT.ID_CARD like '%'||#{idCard}||'%'
+        </if>
+        order by u.create_Time desc
+    </select>
+    
+    <!-- 获取客户信息总条数 -->
+    <select id="count_getUserExtPaging" resultType="Integer" parameterType="com.xt.cfp.core.pojo.ext.UserInfoVO">
+          SELECT count(1)
+        FROM     USER_INFO_EXT EXT, USER_INFO U, USER_ACCOUNT UA
+        WHERE    U.USER_ID = EXT.USER_ID
+        AND U.USER_ID = UA.USER_ID(+)
+        AND UA.ACC_TYPE_CODE=2
+        <if test="status != null">
+            <if test="status != -1">
+                and U.STATUS = #{status}
+            </if>
+        </if>
+        <if test="realName != null and realName !=''">
+            and EXT.REAL_NAME like '%'||#{realName}||'%'
+        </if>
+        <if test="loginName	 != null and loginName	 !=''">
+            and U.LOGIN_NAME like '%'||#{loginName}||'%'
+        </if>
+        <if test="mobileNo != null and mobileNo !=''">
+            and EXT.MOBILE_NO like '%'||#{mobileNo}||'%'
+        </if>
+        <if test="idCard != null and idCard !=''">
+            and EXT.ID_CARD like '%'||#{idCard}||'%'
+        </if>
+    </select>
+    
+	<select id="getUserInviteFriends" resultMap="UserInfoVoResultMap" parameterType="java.lang.Long">
+		SELECT U.LOGIN_NAME, U.CREATE_TIME, I.TYPE
+		  FROM USER_INFO U, USER_INFO_EXT EXT, INVITATION_CODE I
+		 WHERE U.USER_ID = EXT.USER_ID
+		   AND I.USER_ID = U.USER_ID
+		   AND EXT.REC_USER_ID = #{userId,jdbcType=DECIMAL}
+	</select>
+	
+	<select id="count_getUserInviteFriends" resultType="int" parameterType="java.lang.Long">
+		SELECT count(1)
+		  FROM USER_INFO U, USER_INFO_EXT EXT, INVITATION_CODE I
+		 WHERE U.USER_ID = EXT.USER_ID
+		   AND I.USER_ID = U.USER_ID
+		   AND EXT.REC_USER_ID = #{userId,jdbcType=DECIMAL}
+	</select>
+	
+	<select id="getUserFuZhai" resultType="BigDecimal" parameterType="java.lang.Long">
+		SELECT NVL(SUM(RP.SHOULD_CAPITAL2), 0) - NVL(SUM(RP.FACT_CAPITAL), 0) FUZHAI
+		  FROM REPAYMENT_PLAN RP, LOAN_APPLICATION LA
+		 WHERE RP.LOAN_APPLICATION_ID = LA.LOAN_APPLICATION_ID
+		   AND LA.USER_ID = #{userId,jdbcType=DECIMAL}
+	</select>
+	
+	<select id="getUserZichan" resultType="BigDecimal" parameterType="java.lang.Long">
+		SELECT nvl((SELECT VALUE2 ZHANGHUYUE
+		          FROM USER_ACCOUNT
+		         WHERE USER_ID = #{userId,jdbcType=DECIMAL}
+		           AND ACC_TYPE_CODE = 2) +
+		       (SELECT NVL(SUM(LOR.SHOULD_CAPITAL2), 0) -
+		               NVL(SUM(LOR.FACT_CAPITAL), 0) DAIHUIBENJIN
+		          FROM LEND_ORDER_RECEIVE LOR
+		          LEFT JOIN LEND_ORDER LO
+		            ON LOR.LEND_ORDER_ID = LO.LEND_ORDER_ID
+		          LEFT JOIN USER_INFO U
+		            ON LO.LEND_USER_ID = U.USER_ID
+		         WHERE U.USER_ID = #{userId,jdbcType=DECIMAL}
+		           AND LO.PRODUCT_TYPE = '1'   AND LO.Lend_Order_Pid is null  ) +
+		       (SELECT NVL(SUM(LOR.SHOULD_INTEREST2), 0) -
+		               NVL(SUM(LOR.FACT_INTEREST), 0) DAIHUISHOUYI
+		          FROM LEND_ORDER_RECEIVE LOR
+		          LEFT JOIN LEND_ORDER LO
+		            ON LOR.LEND_ORDER_ID = LO.LEND_ORDER_ID
+		          LEFT JOIN USER_INFO U
+		            ON LO.LEND_USER_ID = U.USER_ID
+		         WHERE U.USER_ID = #{userId,jdbcType=DECIMAL}
+		           AND LO.PRODUCT_TYPE = '1'    AND LO.Lend_Order_Pid is null   ) ,0) ZICHAN,
+		       #{userId,jdbcType=DECIMAL} USER_ID
+		  FROM DUAL
+	</select>
+	
+	<select id="getUserInfoExtByIdCardAndSource" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	  select 
+	  uix.USER_ID, uix.REAL_NAME, uix.ID_CARD, uix.MOBILE_NO,
+      uix.EMAIL, uix.BIRTHDAY, uix.EDUCATION_LEVEL, uix.IS_VERIFIED
+	  from USER_INFO_EXT uix,USER_INFO ui
+	  where uix.USER_ID = ui.USER_ID 
+	  and uix.ID_CARD = #{idCard,jdbcType=VARCHAR}
+	  and ui.SOURCE = 0
+	  order by uix.USER_ID desc
+	</select>
+	<select id="identityBindingExist" resultType="int" parameterType="map">
+		select count(*)
+		  from user_info ui
+		 inner join user_info_ext uie on ui.user_id = uie.user_id
+		 where uie.id_card = #{idCard,jdbcType=VARCHAR}
+		   and ui.type = '0'
+		   and uie.is_verified = '1'
+	</select>
+	
+	<select id="getUserExtByIdCard" resultMap="BaseResultMap" parameterType="java.lang.String">
+
+    SELECT 
+    UIE.USER_ID,
+    UIE.ID_CARD
+    FROM USER_INFO UI , USER_INFO_EXT UIE 
+    
+        <where>
+     	   UI.USER_ID = UIE.USER_ID AND
+     	   UI.TYPE='0' 
+	       and UIE.ID_CARD = #{idCard}
+        </where>
+
+  </select>
+  
+  <select id="getRecUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select  * from user_info_ext uie where uie.rec_user_id=#{id}
+  </select>
+   <select id="getRecUserIdByMoreOne" resultMap="BaseResultMap" parameterType="list">
+     select  * from user_info_ext uie where uie.rec_user_id in 
+     <foreach collection="list" item="userIdFirst" index="index" open="(" separator="," close=")">
+     #{userIdFirst.userId}
+</foreach>
+   </select> 
+      <select id="getRecUserIdByMoreTwo" resultMap="BaseResultMap" parameterType="String">
+     select  * from user_info_ext uie where uie.rec_user_id in 
+       <foreach collection="list" item="userIdSecond" index="index" open="(" separator="," close=")">
+     #{userIdSecond.userId}
+</foreach>
+   </select> 
+   
+   
+     <select id="getRecUserIdCurrentMonth" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select  * from user_info_ext uie where uie.rec_user_id=#{id}
+  </select>
+   <select id="getRecUserIdByMoreOneCurrentMonth" resultMap="BaseResultMap" parameterType="list">
+     select  * from user_info_ext uie where uie.rec_user_id in 
+     <foreach collection="list" item="userIdFirst" index="index" open="(" separator="," close=")">
+     #{userIdFirst.userId}
+</foreach>
+   </select> 
+      <select id="getRecUserIdByMoreTwoCurrentMonth" resultMap="BaseResultMap" parameterType="String">
+     select  * from user_info_ext uie where uie.rec_user_id in 
+       <foreach collection="list" item="userIdSecond" index="index" open="(" separator="," close=")">
+     #{userIdSecond.userId}
+</foreach>
+   </select> 
+ 
+      <select id="selectByPrimaryKeyByOrderCount"  resultType="int" parameterType="list">
+ SELECT count(1) FROM creditor_rights l where l.lend_user_id in 
+     <foreach collection="list" item="userinfo" index="index" open="(" separator="," close=")">
+     #{userinfo.userId}
+</foreach>
+   </select> 
+   
+     <select id="selectByPrimaryKeyByOrderCountTrue"  resultType="int" parameterType="list">
+ select  count(distinct cr.lend_user_id)   from creditor_rights cr where cr.lend_user_id in
+     <foreach collection="list" item="userinfo" index="index" open="(" separator="," close=")">
+     #{userinfo.userId}
+</foreach>
+   </select> 
+  
+  <select id="getUserInfoExtByRecUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_INFO_EXT
+    where REC_USER_ID = #{recUserId,jdbcType=DECIMAL}
+  </select>
+  
+   
+   
+</mapper>

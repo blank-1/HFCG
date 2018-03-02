@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DIS_ACTIVITY_RULES" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.DisActivityRules" >
+    <id column="RULES_ID" property="rulesId" jdbcType="DECIMAL" />
+    <result column="LEND_PRODUCT_ID" property="lendProductId" jdbcType="DECIMAL" />
+    <result column="DIS_ID" property="disId" jdbcType="DECIMAL" />
+    <result column="SALES_POINT_START" property="salesPointStart" jdbcType="DECIMAL" />
+    <result column="SALES_POINT_END" property="salesPointEnd" jdbcType="DECIMAL" />
+    <result column="COMMI_PAID_NODE" property="commiPaidNode" jdbcType="CHAR" />
+    <result column="FIRST_RATE" property="firstRate" jdbcType="DECIMAL" />
+    <result column="SECOND_RATE" property="secondRate" jdbcType="DECIMAL" />
+    <result column="THIRD_RATE" property="thirdRate" jdbcType="DECIMAL" />
+    <result column="COMMI_RATIO_TYPE" property="commiRatioType" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="DisActivityRulesExt" type="com.xt.cfp.core.pojo.ext.DisActivityRulesExt" extends="BaseResultMap">
+  	<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+  	<result column="TARGET_USER" property="targetUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    RULES_ID, LEND_PRODUCT_ID, DIS_ID, SALES_POINT_START, SALES_POINT_END, COMMI_PAID_NODE, 
+    FIRST_RATE, SECOND_RATE, THIRD_RATE, COMMI_RATIO_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from DIS_ACTIVITY_RULES
+    where RULES_ID = #{rulesId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from DIS_ACTIVITY_RULES
+    where RULES_ID = #{rulesId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.DisActivityRules" >
+  	<selectKey keyProperty="rulesId" order="BEFORE" resultType="long">
+      SELECT SEQ_DIS_ACTIVITY_RULES.NEXTVAL as rulesId FROM dual
+    </selectKey>
+    insert into DIS_ACTIVITY_RULES (RULES_ID, LEND_PRODUCT_ID, DIS_ID, 
+      SALES_POINT_START, SALES_POINT_END, COMMI_PAID_NODE, 
+      FIRST_RATE, SECOND_RATE, THIRD_RATE, 
+      COMMI_RATIO_TYPE)
+    values (#{rulesId,jdbcType=DECIMAL}, #{lendProductId,jdbcType=DECIMAL}, #{disId,jdbcType=DECIMAL}, 
+      #{salesPointStart,jdbcType=DECIMAL}, #{salesPointEnd,jdbcType=DECIMAL}, #{commiPaidNode,jdbcType=CHAR}, 
+      #{firstRate,jdbcType=DECIMAL}, #{secondRate,jdbcType=DECIMAL}, #{thirdRate,jdbcType=DECIMAL}, 
+      #{commiRatioType,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.DisActivityRules" >
+  	<selectKey keyProperty="rulesId" order="BEFORE" resultType="long">
+      SELECT SEQ_DIS_ACTIVITY_RULES.NEXTVAL as rulesId FROM dual
+    </selectKey>
+    insert into DIS_ACTIVITY_RULES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rulesId != null" >
+        RULES_ID,
+      </if>
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID,
+      </if>
+      <if test="disId != null" >
+        DIS_ID,
+      </if>
+      <if test="salesPointStart != null" >
+        SALES_POINT_START,
+      </if>
+      <if test="salesPointEnd != null" >
+        SALES_POINT_END,
+      </if>
+      <if test="commiPaidNode != null" >
+        COMMI_PAID_NODE,
+      </if>
+      <if test="firstRate != null" >
+        FIRST_RATE,
+      </if>
+      <if test="secondRate != null" >
+        SECOND_RATE,
+      </if>
+      <if test="thirdRate != null" >
+        THIRD_RATE,
+      </if>
+      <if test="commiRatioType != null" >
+        COMMI_RATIO_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rulesId != null" >
+        #{rulesId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendProductId != null" >
+        #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="disId != null" >
+        #{disId,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPointStart != null" >
+        #{salesPointStart,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPointEnd != null" >
+        #{salesPointEnd,jdbcType=DECIMAL},
+      </if>
+      <if test="commiPaidNode != null" >
+        #{commiPaidNode,jdbcType=CHAR},
+      </if>
+      <if test="firstRate != null" >
+        #{firstRate,jdbcType=DECIMAL},
+      </if>
+      <if test="secondRate != null" >
+        #{secondRate,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdRate != null" >
+        #{thirdRate,jdbcType=DECIMAL},
+      </if>
+      <if test="commiRatioType != null" >
+        #{commiRatioType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.DisActivityRules" >
+    update DIS_ACTIVITY_RULES
+    <set >
+      <if test="lendProductId != null" >
+        LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      </if>
+      <if test="disId != null" >
+        DIS_ID = #{disId,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPointStart != null" >
+        SALES_POINT_START = #{salesPointStart,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPointEnd != null" >
+        SALES_POINT_END = #{salesPointEnd,jdbcType=DECIMAL},
+      </if>
+      <if test="commiPaidNode != null" >
+        COMMI_PAID_NODE = #{commiPaidNode,jdbcType=CHAR},
+      </if>
+      <if test="firstRate != null" >
+        FIRST_RATE = #{firstRate,jdbcType=DECIMAL},
+      </if>
+      <if test="secondRate != null" >
+        SECOND_RATE = #{secondRate,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdRate != null" >
+        THIRD_RATE = #{thirdRate,jdbcType=DECIMAL},
+      </if>
+      <if test="commiRatioType != null" >
+        COMMI_RATIO_TYPE = #{commiRatioType,jdbcType=CHAR},
+      </if>
+    </set>
+    where RULES_ID = #{rulesId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.DisActivityRules" >
+    update DIS_ACTIVITY_RULES
+    set LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL},
+      DIS_ID = #{disId,jdbcType=DECIMAL},
+      SALES_POINT_START = #{salesPointStart,jdbcType=DECIMAL},
+      SALES_POINT_END = #{salesPointEnd,jdbcType=DECIMAL},
+      COMMI_PAID_NODE = #{commiPaidNode,jdbcType=CHAR},
+      FIRST_RATE = #{firstRate,jdbcType=DECIMAL},
+      SECOND_RATE = #{secondRate,jdbcType=DECIMAL},
+      THIRD_RATE = #{thirdRate,jdbcType=DECIMAL},
+      COMMI_RATIO_TYPE = #{commiRatioType,jdbcType=CHAR}
+    where RULES_ID = #{rulesId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 根据出借产品ID，查询规则列表 -->
+  <select id="getDisActivityRulesByLendProductId" resultMap="DisActivityRulesExt" parameterType="java.lang.Long" >
+    select dar.* ,da.target_user from DIS_ACTIVITY_RULES dar
+	join DIS_ACTIVITY da on dar.DIS_ID = da.DIS_ID
+	where da.STATE = 2
+	<![CDATA[ and to_char(da.RULE_START_DATE, 'YYYY-MM-DD') <= to_char(sysdate, 'YYYY-MM-DD') ]]>
+	<![CDATA[ and to_char(da.RULE_END_DATE, 'YYYY-MM-DD') >=  to_char(sysdate, 'YYYY-MM-DD') ]]>
+	and dar.LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- 根据分销活动ID，查询规则列表 -->
+  <select id="getDisActivityRulesByDisId" resultMap="DisActivityRulesExt" parameterType="java.lang.Long" >
+    select dar.*, lp.PRODUCT_NAME
+	from DIS_ACTIVITY_RULES dar
+	left join LEND_PRODUCT lp on dar.LEND_PRODUCT_ID = lp.LEND_PRODUCT_ID
+    where dar.DIS_ID = #{disId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="checkLendProIdCountByDisId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT LEND_PRODUCT_ID
+	  FROM DIS_ACTIVITY_RULES
+	 WHERE DIS_ID = #{disId,jdbcType=DECIMAL}
+	 GROUP BY LEND_PRODUCT_ID
+	HAVING COUNT(0) > 1
+  </select>
+  
+  <!-- 根据出借产品ID，时间，查询规则列表 -->
+  <select id="getDisActivityRulesByLendProductIdAndTime" resultMap="BaseResultMap" parameterType="map" >
+    select dar.* from DIS_ACTIVITY_RULES dar
+	join DIS_ACTIVITY da on dar.DIS_ID = da.DIS_ID
+	where da.STATE = 2
+	<![CDATA[ and da.RULE_START_DATE  <= #{startTime} ]]>
+	<![CDATA[ and  da.RULE_END_DATE  >=  #{endTime} ]]>
+	and dar.LEND_PRODUCT_ID = #{lendProductId,jdbcType=DECIMAL}
+  </select>
+  
+</mapper>

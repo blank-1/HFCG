@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LOANPUBLISH">
+    <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LoanPublish">
+        <id column="LOAN_APPLICATION_ID" property="loanApplicationId" jdbcType="DECIMAL"/>
+        <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL"/>
+        <result column="LOAN_TITLE" property="loanTitle" jdbcType="VARCHAR"/>
+        <result column="GUARANTEE_CHANNEL" property="guaranteeChannel" jdbcType="CHAR"/>
+        <result column="CREDIT_LEVEL" property="creditLevel" jdbcType="CHAR"/>
+        <result column="AWARD_RATE" property="awardRate" jdbcType="DECIMAL"/>
+        <result column="AWARD_POINT" property="awardPoint" jdbcType="VARCHAR"/>
+        <result column="GUARANTEE_TYPE" property="guaranteeType" jdbcType="CHAR"/>
+        <result column="DESC" property="desc" jdbcType="VARCHAR"/>
+        <result column="LOAN_USEAGE_DESC" jdbcType="VARCHAR" property="loanUseageDesc" />
+        <result column="PUBLISH_TARGET" property="publishTarget" jdbcType="CHAR"/>
+        <result column="PREHEAT_TIME" property="preheatTime" jdbcType="TIMESTAMP"/>
+        <result column="OPEN_TIME" property="openTime" jdbcType="TIMESTAMP"/>
+        <result column="PUBLISH_TIME" property="publishTime" jdbcType="TIMESTAMP"/>
+        <result column="OVERDUE_PAY_POINT" property="overduePayPoint" jdbcType="CHAR"/>
+        <result column="AUTH_INFOS" property="authInfos" jdbcType="VARCHAR"/>
+        <result column="HOURSE_ADDRESS" property="hourseAddress" jdbcType="DECIMAL"/>
+        <result column="HOURSE_SIZE" property="hourseSize" jdbcType="DECIMAL"/>
+        <result column="ASSESS_VALUE" property="assessValue" jdbcType="DECIMAL"/>
+        <result column="MARKET_VALUE" property="marketValue" jdbcType="DECIMAL"/>
+        <result column="HOURSE_DESC" property="hourseDesc" jdbcType="VARCHAR"/>
+        <result column="MAX_BUY_BALANCE" property="maxBuyBalance" jdbcType="DECIMAL"/>
+        <result column="O_TYPE" property="oType" jdbcType="VARCHAR"/>
+        <result column="MAIN_LOAN_APPLICATION_ID" property="mainLoanApplicationId" jdbcType="DECIMAL" />
+        <result column="PUBLISH_RULE" property="publishRule" jdbcType="CHAR"/>
+    </resultMap>
+
+    <resultMap id="LoanAppPubResultMap" type="com.xt.cfp.core.pojo.ext.LoanPublishVO" extends="BaseResultMap">
+        <result column="LOAN_USEAG_NAME" property="loanUseageName" jdbcType="VARCHAR"/>
+        <result column="APPLICATION_DESC" property="applicationDesc" jdbcType="VARCHAR"/>
+        <result column="LOAN_TYPE" property="loanType" jdbcType="VARCHAR"/>
+        <result column="LOAN_USEAGE" property="loanUseage" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+        <result column="DUE_TIME" property="dueTime" jdbcType="DECIMAL"/>
+        <result column="DUE_TIME_TYPE" property="dueTimeType" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    LOAN_APPLICATION_ID, COMPANY_ID, LOAN_TITLE, GUARANTEE_CHANNEL, CREDIT_LEVEL, AWARD_RATE, AWARD_POINT,
+    GUARANTEE_TYPE, "DESC", PUBLISH_TARGET, PREHEAT_TIME, OPEN_TIME, PUBLISH_TIME, OVERDUE_PAY_POINT,
+    LOAN_USEAGE_DESC,AUTH_INFOS,HOURSE_ADDRESS,HOURSE_SIZE,ASSESS_VALUE,MARKET_VALUE,
+    HOURSE_DESC,MAX_BUY_BALANCE, MAIN_LOAN_APPLICATION_ID, PUBLISH_RULE
+  </sql>
+
+    <select id="bugfix_getLoanPublishByCrs" parameterType="map" resultMap="BaseResultMap">
+      SELECT * FROM LOAN_PUBLISH lp WHERE lp.LOAN_APPLICATION_ID
+      <foreach collection="laIds" item="laId" open=" in(" close=")" separator=",">
+          #{laId}
+      </foreach>
+    </select>
+
+    <select id="getLoanPublishByAppId" parameterType="long" resultMap="BaseResultMap">
+    select * from LOAN_PUBLISH lp where LP.LOAN_APPLICATION_ID = #{value}
+  </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from LOAN_PUBLISH
+        where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LOAN_PUBLISH
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.xt.cfp.core.pojo.LoanPublish">
+    insert into LOAN_PUBLISH (LOAN_APPLICATION_ID, COMPANY_ID, LOAN_TITLE, 
+      GUARANTEE_CHANNEL, CREDIT_LEVEL, AWARD_RATE, AWARD_POINT,
+      GUARANTEE_TYPE, "DESC", PUBLISH_TARGET, 
+      PREHEAT_TIME, OPEN_TIME, PUBLISH_TIME, 
+      OVERDUE_PAY_POINT,AUTH_INFOS,HOURSE_ADDRESS,HOURSE_SIZE,ASSESS_VALUE,MARKET_VALUE,HOURSE_DESC,LOAN_USEAGE_DESC,MAIN_LOAN_APPLICATION_ID,MAX_BUY_BALANCE,BIDING_DAYS,PUBLISH_RULE)
+    values (#{loanApplicationId,jdbcType=DECIMAL}, #{companyId,jdbcType=DECIMAL}, #{loanTitle,jdbcType=VARCHAR}, 
+      #{guaranteeChannel,jdbcType=CHAR}, #{creditLevel,jdbcType=CHAR}, #{awardRate,jdbcType=DECIMAL}, #{awardPoint,jdbcType=VARCHAR},
+      #{guaranteeType,jdbcType=CHAR}, #{desc,jdbcType=VARCHAR}, #{publishTarget,jdbcType=CHAR}, 
+      #{preheatTime,jdbcType=TIMESTAMP}, #{openTime,jdbcType=TIMESTAMP}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{overduePayPoint,jdbcType=CHAR},#{authInfos,jdbcType=VARCHAR},#{hourseAddress,jdbcType=DECIMAL},
+      #{hourseSize,jdbcType=DECIMAL},#{assessValue,jdbcType=DECIMAL},
+      #{marketValue,jdbcType=DECIMAL},#{hourseDesc,jdbcType=VARCHAR},#{loanUseageDesc,jdbcType=VARCHAR},#{mainLoanApplicationId,jdbcType=DECIMAL},#{maxBuyBalance,jdbcType=DECIMAL},#{bidingDays,jdbcType=DECIMAL}
+      ,#{publishRule,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LoanPublish">
+        insert into LOAN_PUBLISH
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="loanApplicationId != null">
+                LOAN_APPLICATION_ID,
+            </if>
+            <if test="companyId != null">
+                COMPANY_ID,
+            </if>
+            <if test="loanTitle != null">
+                LOAN_TITLE,
+            </if>
+            <if test="guaranteeChannel != null">
+                GUARANTEE_CHANNEL,
+            </if>
+            <if test="creditLevel != null">
+                CREDIT_LEVEL,
+            </if>
+            <if test="awardRate != null">
+                AWARD_RATE,
+            </if>
+            <if test="awardPoint != null">
+                AWARD_POINT,
+            </if>
+            <if test="guaranteeType != null">
+                GUARANTEE_TYPE,
+            </if>
+            <if test="desc != null">
+                "DESC",
+            </if>
+            <if test="publishTarget != null">
+                PUBLISH_TARGET,
+            </if>
+            <if test="preheatTime != null">
+                PREHEAT_TIME,
+            </if>
+            <if test="openTime != null">
+                OPEN_TIME,
+            </if>
+            <if test="publishTime != null">
+                PUBLISH_TIME,
+            </if>
+            <if test="overduePayPoint != null">
+                OVERDUE_PAY_POINT,
+            </if>
+            <if test="authInfos != null">
+                AUTH_INFOS,
+            </if>
+            <if test="hourseAddress != null">
+                HOURSE_ADDRESS,
+            </if>
+            <if test="hourseSize != null">
+                HOURSE_SIZE,
+            </if>
+            <if test="assessValue != null">
+                ASSESS_VALUE,
+            </if>
+            <if test="marketValue != null">
+                MARKET_VALUE,
+            </if>
+            <if test="hourseDesc != null">
+                HOURSE_DESC,
+            </if>
+            <if test="loanUseageDesc != null">
+                LOAN_USEAGE_DESC,
+            </if>
+            <if test="mainLoanApplicationId != null">
+                MAIN_LOAN_APPLICATION_ID,
+            </if>
+            <if test="publishRule != null">
+                PUBLISH_RULE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="loanApplicationId != null">
+                #{loanApplicationId,jdbcType=DECIMAL},
+            </if>
+            <if test="companyId != null">
+                #{companyId,jdbcType=DECIMAL},
+            </if>
+            <if test="loanTitle != null">
+                #{loanTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="guaranteeChannel != null">
+                #{guaranteeChannel,jdbcType=CHAR},
+            </if>
+            <if test="creditLevel != null">
+                #{creditLevel,jdbcType=CHAR},
+            </if>
+            <if test="awardRate != null">
+                #{awardRate,jdbcType=DECIMAL},
+            </if>
+            <if test="awardPoint != null">
+                #{awardPoint,jdbcType=VARCHAR},
+            </if>
+            <if test="guaranteeType != null">
+                #{guaranteeType,jdbcType=CHAR},
+            </if>
+            <if test="desc != null">
+                #{desc,jdbcType=VARCHAR},
+            </if>
+            <if test="publishTarget != null">
+                #{publishTarget,jdbcType=CHAR},
+            </if>
+            <if test="preheatTime != null">
+                #{preheatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="openTime != null">
+                #{openTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="publishTime != null">
+                #{publishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="overduePayPoint != null">
+                #{overduePayPoint,jdbcType=CHAR},
+            </if>
+            <if test="authInfos != null">
+                #{authInfos,jdbcType=VARCHAR},
+            </if>
+            <if test="hourseAddress != null">
+                #{hourseAddress,jdbcType=DECIMAL},
+            </if>
+            <if test="hourseSize != null">
+                #{hourseSize,jdbcType=DECIMAL},
+            </if>
+            <if test="assessValue != null">
+                #{assessValue,jdbcType=DECIMAL},
+            </if>
+            <if test="marketValue != null">
+                #{marketValue,jdbcType=DECIMAL},
+            </if>
+            <if test="hourseDesc != null">
+                #{hourseDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="loanUseageDesc != null">
+                #{loanUseageDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="mainLoanApplicationId != null">
+                #{mainLoanApplicationId,jdbcType=DECIMAL},
+            </if>
+            <if test="publishRule != null">
+                #{publishRule,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelectiveByType" parameterType="com.xt.cfp.core.pojo.LoanOrientation">
+       update LOAN_PUBLISH
+       <set>
+            <if test="oType != null">
+                O_TYPE = #{oType,jdbcType=DECIMAL}
+            </if>
+        </set>
+        where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LoanPublish">
+        update LOAN_PUBLISH
+        <set>
+            <if test="companyId != null">
+                COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+            </if>
+            <if test="loanTitle != null">
+                LOAN_TITLE = #{loanTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="guaranteeChannel != null">
+                GUARANTEE_CHANNEL = #{guaranteeChannel,jdbcType=CHAR},
+            </if>
+            <if test="creditLevel != null">
+                CREDIT_LEVEL = #{creditLevel,jdbcType=CHAR},
+            </if>
+            <if test="awardRate != null">
+                AWARD_RATE = #{awardRate,jdbcType=DECIMAL},
+            </if>
+            <if test="awardPoint != null">
+                AWARD_POINT = #{awardPoint,jdbcType=VARCHAR},
+            </if>
+            <if test="guaranteeType != null">
+                GUARANTEE_TYPE = #{guaranteeType,jdbcType=CHAR},
+            </if>
+            <if test="desc != null">
+                "DESC" = #{desc,jdbcType=VARCHAR},
+            </if>
+            <if test="publishTarget != null">
+                PUBLISH_TARGET = #{publishTarget,jdbcType=CHAR},
+            </if>
+            <if test="preheatTime != null">
+                PREHEAT_TIME = #{preheatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="openTime != null">
+                OPEN_TIME = #{openTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="publishTime != null">
+                PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="overduePayPoint != null">
+                OVERDUE_PAY_POINT = #{overduePayPoint,jdbcType=CHAR},
+            </if>
+            <if test="maxBuyBalance != null">
+                MAX_BUY_BALANCE = #{maxBuyBalance,jdbcType=CHAR},
+            </if>
+            <if test="bidingDays != null">
+                BIDING_DAYS = #{bidingDays,jdbcType=DECIMAL},
+            </if>
+            <if test="authInfos != null">
+                AUTH_INFOS = #{authInfos,jdbcType=VARCHAR},
+            </if>
+            <if test="hourseAddress != null">
+                HOURSE_ADDRESS = #{hourseAddress,jdbcType=DECIMAL},
+            </if>
+            <if test="hourseSize != null">
+                HOURSE_SIZE = #{hourseSize,jdbcType=DECIMAL},
+            </if>
+            <if test="assessValue != null">
+                ASSESS_VALUE = #{assessValue,jdbcType=DECIMAL},
+            </if>
+            <if test="marketValue != null">
+                MARKET_VALUE = #{marketValue,jdbcType=DECIMAL},
+            </if>
+            <if test="hourseDesc != null">
+                HOURSE_DESC = #{hourseDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="loanUseageDesc != null">
+                LOAN_USEAGE_DESC = #{loanUseageDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="mainLoanApplicationId != null">
+                MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+            </if>
+            <if test="publishRule != null">
+                PUBLISH_RULE = #{publishRule,jdbcType=CHAR},
+            </if>
+        </set>
+        where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    </update>
+
+    <update id="updateByMap" >
+        update LOAN_PUBLISH
+        <set>
+            <if test="_parameter.containsKey('companyId')">
+                COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('loanTitle')">
+                LOAN_TITLE = #{loanTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('guaranteeChannel')">
+                GUARANTEE_CHANNEL = #{guaranteeChannel,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('creditLevel')">
+                CREDIT_LEVEL = #{creditLevel,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('awardRate')">
+                AWARD_RATE = #{awardRate,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('awardPoint')">
+                AWARD_POINT = #{awardPoint,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('guaranteeType')">
+                GUARANTEE_TYPE = #{guaranteeType,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('desc')">
+                "DESC" = #{desc,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('publishTarget')">
+                PUBLISH_TARGET = #{publishTarget,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('preheatTime')">
+                PREHEAT_TIME = #{preheatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('openTime')">
+                OPEN_TIME = #{openTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('publishTime')">
+                PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="_parameter.containsKey('overduePayPoint')">
+                OVERDUE_PAY_POINT = #{overduePayPoint,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('maxBuyBalance')">
+                MAX_BUY_BALANCE = #{maxBuyBalance,jdbcType=CHAR},
+            </if>
+            <if test="_parameter.containsKey('bidingDays')">
+                BIDING_DAYS = #{bidingDays,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('authInfos')">
+                AUTH_INFOS = #{authInfos,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('hourseAddress')">
+                HOURSE_ADDRESS = #{hourseAddress,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('hourseSize')">
+                HOURSE_SIZE = #{hourseSize,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('assessValue')">
+                ASSESS_VALUE = #{assessValue,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('marketValue')">
+                MARKET_VALUE = #{marketValue,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('hourseDesc')">
+                HOURSE_DESC = #{hourseDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('loanUseageDesc')">
+                LOAN_USEAGE_DESC = #{loanUseageDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="_parameter.containsKey('mainLoanApplicationId')">
+                MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('publishRule')">
+                PUBLISH_RULE = #{publishRule,jdbcType=CHAR},
+            </if>
+        </set>
+        where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    </update>
+
+    <update id="updateByPrimaryKeySelective2" parameterType="com.xt.cfp.core.pojo.LoanPublish">
+        update LOAN_PUBLISH
+        <set>
+            COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+            <if test="loanTitle != null">
+                LOAN_TITLE = #{loanTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="guaranteeChannel != null">
+                GUARANTEE_CHANNEL = #{guaranteeChannel,jdbcType=CHAR},
+            </if>
+            <if test="creditLevel != null">
+                CREDIT_LEVEL = #{creditLevel,jdbcType=CHAR},
+            </if>
+            <if test="awardRate != null">
+                AWARD_RATE = #{awardRate,jdbcType=DECIMAL},
+            </if>
+            <if test="awardPoint != null">
+                AWARD_POINT = #{awardPoint,jdbcType=VARCHAR},
+            </if>
+            <if test="guaranteeType != null">
+                GUARANTEE_TYPE = #{guaranteeType,jdbcType=CHAR},
+            </if>
+            <if test="desc != null">
+                "DESC" = #{desc,jdbcType=VARCHAR},
+            </if>
+            <if test="publishTarget != null">
+                PUBLISH_TARGET = #{publishTarget,jdbcType=CHAR},
+            </if>
+            <if test="preheatTime != null">
+                PREHEAT_TIME = #{preheatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="openTime != null">
+                OPEN_TIME = #{openTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="publishTime != null">
+                PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="overduePayPoint != null">
+                OVERDUE_PAY_POINT = #{overduePayPoint,jdbcType=CHAR},
+            </if>
+            <if test="maxBuyBalance != null">
+                MAX_BUY_BALANCE = #{maxBuyBalance,jdbcType=CHAR},
+            </if>
+            <if test="bidingDays != null">
+                BIDING_DAYS = #{bidingDays,jdbcType=DECIMAL},
+            </if>
+            <if test="authInfos != null">
+                AUTH_INFOS = #{authInfos,jdbcType=VARCHAR},
+            </if>
+            <if test="hourseAddress != null">
+                HOURSE_ADDRESS = #{hourseAddress,jdbcType=DECIMAL},
+            </if>
+            <if test="hourseSize != null">
+                HOURSE_SIZE = #{hourseSize,jdbcType=DECIMAL},
+            </if>
+            <if test="assessValue != null">
+                ASSESS_VALUE = #{assessValue,jdbcType=DECIMAL},
+            </if>
+            <if test="marketValue != null">
+                MARKET_VALUE = #{marketValue,jdbcType=DECIMAL},
+            </if>
+            <if test="hourseDesc != null">
+                HOURSE_DESC = #{hourseDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="loanUseageDesc != null">
+                LOAN_USEAGE_DESC = #{loanUseageDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="mainLoanApplicationId != null">
+                MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+            </if>
+            <if test="_parameter.containsKey('publishRule')">
+                PUBLISH_RULE = #{publishRule,jdbcType=CHAR},
+            </if>
+        </set>
+        where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LoanPublish">
+    update LOAN_PUBLISH
+    set COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      LOAN_TITLE = #{loanTitle,jdbcType=VARCHAR},
+      GUARANTEE_CHANNEL = #{guaranteeChannel,jdbcType=CHAR},
+      CREDIT_LEVEL = #{creditLevel,jdbcType=CHAR},
+      AWARD_RATE = #{awardRate,jdbcType=DECIMAL},
+      AWARD_POINT = #{awardPoint,jdbcType=DECIVARCHARMAL},
+      GUARANTEE_TYPE = #{guaranteeType,jdbcType=CHAR},
+      "DESC" = #{desc,jdbcType=VARCHAR},
+      PUBLISH_TARGET = #{publishTarget,jdbcType=CHAR},
+      PREHEAT_TIME = #{preheatTime,jdbcType=TIMESTAMP},
+      OPEN_TIME = #{openTime,jdbcType=TIMESTAMP},
+      PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      OVERDUE_PAY_POINT = #{overduePayPoint,jdbcType=CHAR},
+      AUTH_INFOS = #{authInfos,jdbcType=VARCHAR},
+      HOURSE_ADDRESS = #{hourseAddress,jdbcType=DECIMAL},
+      HOURSE_SIZE = #{hourseSize,jdbcType=DECIMAL},
+      ASSESS_VALUE = #{assessValue,jdbcType=DECIMAL},
+      MARKET_VALUE = #{marketValue,jdbcType=DECIMAL},
+      HOURSE_DESC = #{hourseDesc,jdbcType=VARCHAR},
+
+       LOAN_USEAGE_DESC = #{loanUseageDesc,jdbcType=VARCHAR},
+       MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL},
+       PUBLISH_RULE = #{publishRule,jdbcType=CHAR}
+
+    where LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </update>
+
+    <select id="findLoanPublishVO" resultMap="LoanAppPubResultMap" parameterType="java.lang.Long">
+	SELECT LP.*, LA.*, PRO.PRODUCT_NAME, PRO.DUE_TIME, PRO.DUE_TIME_TYPE
+	  FROM LOAN_PUBLISH     LP,
+	       LOAN_APPLICATION LA,
+	       LOAN_PRODUCT     PRO
+	 WHERE LA.LOAN_APPLICATION_ID = LP.LOAN_APPLICATION_ID
+	   AND PRO.LOAN_PRODUCT_ID = LA.LOAN_PRODUCT_ID
+       AND LA.LOAN_APPLICATION_ID = #{loanApplicationId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- by mainid -->
+  <select id="findLoanPublishVOByMainId" resultMap="LoanAppPubResultMap" parameterType="java.lang.Long">
+	SELECT LP.*, LA.*, PRO.PRODUCT_NAME, PRO.DUE_TIME, PRO.DUE_TIME_TYPE
+	  FROM MAIN_LOAN_PUBLISH     LP,
+	       MAIN_LOAN_APPLICATION LA,
+	       LOAN_PRODUCT     PRO
+	 WHERE LA.MAIN_LOAN_APPLICATION_ID = LP.MAIN_LOAN_APPLICATION_ID
+	   AND PRO.LOAN_PRODUCT_ID = LA.LOAN_PRODUCT_ID
+       AND LA.MAIN_LOAN_APPLICATION_ID = #{mainLoanApplicationId,jdbcType=DECIMAL}
+  </select>
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ROLE_INFO" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.RoleInfo" >
+    <id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR" />
+    <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_ID, ROLE_NAME, ROLE_CODE, ROLE_DESC
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ROLE_INFO
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ROLE_INFO
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.RoleInfo" >
+    <selectKey keyProperty="roleId" order="BEFORE" resultType="long">
+      SELECT SEQ_ROLE_INFO.NEXTVAL as roleId FROM dual
+    </selectKey>
+    insert into ROLE_INFO (ROLE_ID, ROLE_NAME, ROLE_CODE, 
+      ROLE_DESC)
+    values (#{roleId,jdbcType=DECIMAL}, #{roleName,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, 
+      #{roleDesc,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.RoleInfo" >
+    insert into ROLE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="roleCode != null" >
+        ROLE_CODE,
+      </if>
+      <if test="roleDesc != null" >
+        ROLE_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null" >
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null" >
+        #{roleDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.RoleInfo" >
+    update ROLE_INFO
+    <set >
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null" >
+        ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null" >
+        ROLE_DESC = #{roleDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.RoleInfo" >
+    update ROLE_INFO
+    set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      ROLE_DESC = #{roleDesc,jdbcType=VARCHAR}
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </update>
+  
+   <!-- 分页查询-列表 -->
+  <select id="findAllRoleInfoByPage" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    SELECT * from ROLE_INFO ORDER BY ROLE_ID DESC
+  </select>
+  
+  <!-- 分页查询-数量 -->
+  <select id="count_findAllRoleInfoByPage" resultType="int" parameterType="java.util.HashMap">
+    SELECT count(1) from ROLE_INFO ORDER BY ROLE_ID DESC
+  </select>
+  
+  <!-- 根据员工ID获取角色列表 -->
+  <select id="findRoleByAdminId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select ri.* from ADMIN_ROLE ar, ROLE_INFO ri where ri.ROLE_ID = ar.ROLE_ID and ar.ADMIN_ID = #{adminId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- 获取所有角色-->
+  <select id="findAllRole" resultMap="BaseResultMap">
+    SELECT * from ROLE_INFO ORDER BY ROLE_ID DESC
+  </select>
+</mapper>

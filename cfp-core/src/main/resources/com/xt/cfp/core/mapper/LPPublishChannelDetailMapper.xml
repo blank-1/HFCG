@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LP_PUBLISH_CHANNEL_DETAIL" >
+  <resultMap id="BaseResultMap" type="com.xt.cfp.core.pojo.LPPublishChannelDetail" >
+    <id column="LP_PUBLISH_CHANNEL_DETAIL_ID" property="lpPublishChannelDetailId" jdbcType="DECIMAL" />
+    <result column="LEND_PRODUCT_PUBLISH_ID" property="lendProductPublishId" jdbcType="DECIMAL" />
+    <result column="CHANNEL" property="channel" jdbcType="CHAR" />
+    <result column="PUBLISH_BALANCE_TYPE" property="publishBalanceType" jdbcType="CHAR" />
+    <result column="PUBLISH_BALANCE" property="publishBalance" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LP_PUBLISH_CHANNEL_DETAIL_ID, LEND_PRODUCT_PUBLISH_ID, CHANNEL, PUBLISH_BALANCE_TYPE, 
+    PUBLISH_BALANCE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LP_PUBLISH_CHANNEL_DETAIL
+    where LP_PUBLISH_CHANNEL_DETAIL_ID = #{lpPublishChannelDetailId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LP_PUBLISH_CHANNEL_DETAIL
+    where LP_PUBLISH_CHANNEL_DETAIL_ID = #{lpPublishChannelDetailId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.xt.cfp.core.pojo.LPPublishChannelDetail" >
+    insert into LP_PUBLISH_CHANNEL_DETAIL (LP_PUBLISH_CHANNEL_DETAIL_ID, LEND_PRODUCT_PUBLISH_ID, 
+      CHANNEL, PUBLISH_BALANCE_TYPE, PUBLISH_BALANCE
+      )
+    values (#{lpPublishChannelDetailId,jdbcType=DECIMAL}, #{lendProductPublishId,jdbcType=DECIMAL}, 
+      #{channel,jdbcType=CHAR}, #{publishBalanceType,jdbcType=CHAR}, #{publishBalance,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xt.cfp.core.pojo.LPPublishChannelDetail" >
+    insert into LP_PUBLISH_CHANNEL_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lpPublishChannelDetailId != null" >
+        LP_PUBLISH_CHANNEL_DETAIL_ID,
+      </if>
+      <if test="lendProductPublishId != null" >
+        LEND_PRODUCT_PUBLISH_ID,
+      </if>
+      <if test="channel != null" >
+        CHANNEL,
+      </if>
+      <if test="publishBalanceType != null" >
+        PUBLISH_BALANCE_TYPE,
+      </if>
+      <if test="publishBalance != null" >
+        PUBLISH_BALANCE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lpPublishChannelDetailId != null" >
+        #{lpPublishChannelDetailId,jdbcType=DECIMAL},
+      </if>
+      <if test="lendProductPublishId != null" >
+        #{lendProductPublishId,jdbcType=DECIMAL},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=CHAR},
+      </if>
+      <if test="publishBalanceType != null" >
+        #{publishBalanceType,jdbcType=CHAR},
+      </if>
+      <if test="publishBalance != null" >
+        #{publishBalance,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xt.cfp.core.pojo.LPPublishChannelDetail" >
+    update LP_PUBLISH_CHANNEL_DETAIL
+    <set >
+      <if test="lendProductPublishId != null" >
+        LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId,jdbcType=DECIMAL},
+      </if>
+      <if test="channel != null" >
+        CHANNEL = #{channel,jdbcType=CHAR},
+      </if>
+      <if test="publishBalanceType != null" >
+        PUBLISH_BALANCE_TYPE = #{publishBalanceType,jdbcType=CHAR},
+      </if>
+      <if test="publishBalance != null" >
+        PUBLISH_BALANCE = #{publishBalance,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where LP_PUBLISH_CHANNEL_DETAIL_ID = #{lpPublishChannelDetailId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xt.cfp.core.pojo.LPPublishChannelDetail" >
+    update LP_PUBLISH_CHANNEL_DETAIL
+    set LEND_PRODUCT_PUBLISH_ID = #{lendProductPublishId,jdbcType=DECIMAL},
+      CHANNEL = #{channel,jdbcType=CHAR},
+      PUBLISH_BALANCE_TYPE = #{publishBalanceType,jdbcType=CHAR},
+      PUBLISH_BALANCE = #{publishBalance,jdbcType=DECIMAL}
+    where LP_PUBLISH_CHANNEL_DETAIL_ID = #{lpPublishChannelDetailId,jdbcType=DECIMAL}
+  </update>
+</mapper>
